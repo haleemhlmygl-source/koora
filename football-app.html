@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ترتيب الدوري 2026</title>
+    <title>ترتيب الدوري المطور</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #080c10; --bg2: #161b22; --green: #00e676; --text: #e8edf5; }
@@ -18,42 +18,46 @@
 </head>
 <body>
 
-    <h2>🏆 GoalZone 2026</h2>
+    <h2>🏆 GoalZone Smart</h2>
 
-    <div class="section-title">🇪🇬 ترتيب الدوري المصري (مباشر)</div>
-    <div id="egypt-table">جارِ تحديث الجدول...</div>
+    <div class="section-title">🇪🇬 الدوري المصري</div>
+    <div id="egypt-table">جارِ سحب البيانات...</div>
 
-    <div class="section-title">🇸🇦 ترتيب الدوري السعودي (مباشر)</div>
-    <div id="saudi-table">جارِ تحديث الجدول...</div>
+    <div class="section-title">🇸🇦 الدوري السعودي</div>
+    <div id="saudi-table">جارِ سحب البيانات...</div>
 
     <script>
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
 
         async function getStandings(leagueId, elementId) {
-            try {
-                // طلبنا موسم 2025 للحصول على أحدث ترتيب حالي
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
-                    "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
-                });
-                const data = await res.json();
-                
-                if (data.response && data.response[0]) {
-                    const standings = data.response[0].league.standings[0];
-                    let html = '<table><tr><th>#</th><th>الفريق</th><th>لعب</th><th>نقاط</th></tr>';
-                    standings.forEach(team => {
-                        html += `<tr>
-                            <td style="color:#00e676; font-weight:bold;">${team.rank}</td>
-                            <td class="team-cell">${team.team.name}</td>
-                            <td>${team.all.played}</td>
-                            <td style="color:white; font-weight:bold;">${team.points}</td>
-                        </tr>`;
+            // هنحاول نجيب 2025 الأول، ولو منفعش يروح لـ 2024 أوتوماتيك
+            let seasons = [2025, 2024];
+            
+            for (let season of seasons) {
+                try {
+                    const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`, {
+                        "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
                     });
-                    html += '</table>';
-                    document.getElementById(elementId).innerHTML = html;
-                } else {
-                    document.getElementById(elementId).innerHTML = "الترتيب الجديد قيد التحديث من المصدر.";
-                }
-            } catch (e) { document.getElementById(elementId).innerHTML = "خطأ في الاتصال."; }
+                    const data = await res.json();
+                    
+                    if (data.response && data.response[0]) {
+                        const standings = data.response[0].league.standings[0];
+                        let html = '<table><tr><th>#</th><th>الفريق</th><th>لعب</th><th>نقاط</th></tr>';
+                        standings.slice(0, 15).forEach(team => {
+                            html += `<tr>
+                                <td style="color:#00e676; font-weight:bold;">${team.rank}</td>
+                                <td class="team-cell">${team.team.name}</td>
+                                <td>${team.all.played}</td>
+                                <td style="color:white; font-weight:bold;">${team.points}</td>
+                            </tr>`;
+                        });
+                        html += '</table>';
+                        document.getElementById(elementId).innerHTML = html;
+                        return; // لو لقى بيانات بيوقف مبيكملش السنة اللي بعدها
+                    }
+                } catch (e) { console.log("خطأ في السنة " + season); }
+            }
+            document.getElementById(elementId).innerHTML = "لا توجد بيانات متاحة حالياً.";
         }
 
         getStandings(233, 'egypt-table');
