@@ -3,65 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ترتيب الدوري المطور</title>
+    <title>GoalZone 2026 — الترتيب والمباشر</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #080c10; --bg2: #161b22; --green: #00e676; --text: #e8edf5; }
+        :root { --bg: #0b0f14; --card: #1c2128; --green: #00e676; --text: #ffffff; }
         body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        h2 { text-align: center; color: var(--green); margin: 20px 0; }
-        .section-title { background: #21262d; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; border-right: 4px solid var(--green); }
-        table { width: 100%; border-collapse: collapse; background: var(--bg2); border-radius: 10px; overflow: hidden; font-size: 0.85rem; }
-        th { background: #30363d; color: var(--green); padding: 10px; }
-        td { padding: 10px; border-bottom: 1px solid #30363d; text-align: center; }
-        .team-cell { text-align: right; font-weight: bold; }
+        .header { text-align: center; padding: 20px; color: var(--green); font-weight: 900; font-size: 1.5rem; }
+        .section-title { background: var(--card); padding: 12px; border-radius: 10px; margin: 15px 0; border-right: 5px solid var(--green); font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; margin-bottom: 20px; font-size: 0.85rem; }
+        th { background: #2d333b; color: var(--green); padding: 12px 5px; }
+        td { padding: 12px 5px; border-bottom: 1px solid #2d333b; text-align: center; }
+        .team-info { display: flex; align-items: center; text-align: right; gap: 8px; font-weight: bold; }
+        .team-logo { width: 22px; height: 22px; object-fit: contain; }
+        .rank { color: var(--green); font-weight: 900; }
     </style>
 </head>
 <body>
 
-    <h2>🏆 GoalZone Smart</h2>
+    <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">🇪🇬 الدوري المصري</div>
-    <div id="egypt-table">جارِ سحب البيانات...</div>
+    <div class="section-title">🇪🇬 ترتيب الدوري المصري (حالي)</div>
+    <div id="egypt-table">جارِ جلب أيقونات الفرق...</div>
 
-    <div class="section-title">🇸🇦 الدوري السعودي</div>
-    <div id="saudi-table">جارِ سحب البيانات...</div>
+    <div class="section-title">🇸🇦 ترتيب الدوري السعودي (حالي)</div>
+    <div id="saudi-table">جارِ جلب أيقونات الفرق...</div>
 
     <script>
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
 
-        async function getStandings(leagueId, elementId) {
-            // هنحاول نجيب 2025 الأول، ولو منفعش يروح لـ 2024 أوتوماتيك
-            let seasons = [2025, 2024];
-            
-            for (let season of seasons) {
-                try {
-                    const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=${season}`, {
-                        "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
-                    });
-                    const data = await res.json();
+        async function fetchData(leagueId, elementId) {
+            try {
+                // بنطلب موسم 2025 اللي شغال في 2026
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
+                    "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
+                });
+                const data = await res.json();
+                
+                if (data.response && data.response[0]) {
+                    const standings = data.response[0].league.standings[0];
+                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>لعب</th><th>نقاط</th></tr>';
                     
-                    if (data.response && data.response[0]) {
-                        const standings = data.response[0].league.standings[0];
-                        let html = '<table><tr><th>#</th><th>الفريق</th><th>لعب</th><th>نقاط</th></tr>';
-                        standings.slice(0, 15).forEach(team => {
-                            html += `<tr>
-                                <td style="color:#00e676; font-weight:bold;">${team.rank}</td>
-                                <td class="team-cell">${team.team.name}</td>
+                    standings.slice(0, 10).forEach(team => {
+                        html += `
+                            <tr>
+                                <td class="rank">${team.rank}</td>
+                                <td>
+                                    <div class="team-info">
+                                        <img class="team-logo" src="${team.team.logo}" alt="logo">
+                                        <span>${team.team.name}</span>
+                                    </div>
+                                </td>
                                 <td>${team.all.played}</td>
-                                <td style="color:white; font-weight:bold;">${team.points}</td>
+                                <td style="font-weight:bold;">${team.points}</td>
                             </tr>`;
-                        });
-                        html += '</table>';
-                        document.getElementById(elementId).innerHTML = html;
-                        return; // لو لقى بيانات بيوقف مبيكملش السنة اللي بعدها
-                    }
-                } catch (e) { console.log("خطأ في السنة " + season); }
-            }
-            document.getElementById(elementId).innerHTML = "لا توجد بيانات متاحة حالياً.";
+                    });
+                    html += '</table>';
+                    document.getElementById(elementId).innerHTML = html;
+                } else {
+                    document.getElementById(elementId).innerHTML = "البيانات قيد التحديث للسنة الجديدة.";
+                }
+            } catch (e) { document.getElementById(elementId).innerHTML = "خطأ في الشبكة."; }
         }
 
-        getStandings(233, 'egypt-table');
-        getStandings(307, 'saudi-table');
+        fetchData(233, 'egypt-table');
+        fetchData(307, 'saudi-table');
     </script>
 </body>
 </html>
