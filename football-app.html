@@ -3,69 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone — متابعة المباريات</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <title>GoalZone — المصري والسعودي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #080c10; --bg2: #0d1117; --green: #00e676; --text: #e8edf5; }
-        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; text-align: center; }
-        .live-banner { background: var(--bg2); border: 1px solid #30363d; border-radius: 15px; padding: 20px; margin-bottom: 20px; }
-        .live-tag { color: #ff1744; font-weight: bold; margin-bottom: 10px; display: block; }
-        .match-info { display: flex; justify-content: space-around; align-items: center; }
-        .team-name { font-weight: 700; font-size: 1.1rem; }
-        .score { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--green); }
-        .match-time { color: #8b949e; font-size: 0.9rem; margin-top: 10px; }
-        #no-matches { padding: 20px; color: #8b949e; }
+        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; text-align: center; }
+        h2 { color: var(--green); margin-bottom: 25px; }
+        .match-card { background: var(--bg2); border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .league-name { font-size: 0.8rem; color: #8b949e; margin-bottom: 8px; display: block; }
+        .match-info { display: flex; justify-content: space-around; align-items: center; font-weight: bold; }
+        .score { font-size: 1.8rem; color: var(--green); }
+        .live-dot { height: 8px; width: 8px; background-color: #ff1744; border-radius: 50%; display: inline-block; margin-left: 5px; }
     </style>
 </head>
 <body>
 
-    <h2>⚽ Goal<span>Zone</span></h2>
-
-    <div id="matches-container">
-        <div id="no-matches">جارِ سحب نتائج الدوري المصري الآن...</div>
-    </div>
+    <h2>⚽ GoalZone — مباشر</h2>
+    <div id="matches-container">جاري البحث عن مباريات الأهلي والهلال...</div>
 
     <script>
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
-        const leagueId = 233; // الدوري المصري
+        // الدوري المصري (233) والدوري السعودي (307)
+        const leagues = [233, 307]; 
 
-        async function getLiveMatches() {
-            try {
-                const response = await fetch(`https://v3.football.api-sports.io/fixtures?live=all&league=${leagueId}`, {
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                        "x-rapidapi-key": apiKey
-                    }
-                });
-                const data = await response.json();
-                const container = document.getElementById('matches-container');
-                container.innerHTML = '';
+        async function updateMatches() {
+            const container = document.getElementById('matches-container');
+            let hasMatches = false;
+            let htmlContent = '';
 
-                if (data.response && data.response.length > 0) {
-                    data.response.forEach(match => {
-                        container.innerHTML += `
-                            <div class="live-banner">
-                                <span class="live-tag">● مباشر الآن</span>
-                                <div class="match-info">
-                                    <div class="team-name">${match.teams.home.name}</div>
-                                    <div class="score">${match.goals.home} - ${match.goals.away}</div>
-                                    <div class="team-name">${match.teams.away.name}</div>
-                                </div>
-                                <div class="match-time">⏱ دقيقة: ${match.fixture.status.elapsed}'</div>
-                            </div>
-                        `;
+            for (const id of leagues) {
+                try {
+                    const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all&league=${id}`, {
+                        "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
                     });
-                } else {
-                    container.innerHTML = '<div id="no-matches">لا توجد مباريات جارية حالياً في الدوري المصري.</div>';
-                }
-            } catch (error) {
-                document.getElementById('no-matches').innerText = "حدث خطأ في الاتصال، تأكد من المفتاح.";
+                    const data = await res.json();
+                    
+                    if (data.response && data.response.length > 0) {
+                        hasMatches = true;
+                        data.response.forEach(match => {
+                            htmlContent += `
+                                <div class="match-card">
+                                    <span class="league-name">${match.league.name}</span>
+                                    <div class="match-info">
+                                        <div>${match.teams.home.name}</div>
+                                        <div class="score">${match.goals.home} - ${match.goals.away}</div>
+                                        <div>${match.teams.away.name}</div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; margin-top:10px;">
+                                        <span class="live-dot"></span> دقيقة: ${match.fixture.status.elapsed}'
+                                    </div>
+                                </div>`;
+                        });
+                    }
+                } catch (e) { console.log("خطأ في جلب البيانات"); }
+            }
+
+            if (!hasMatches) {
+                container.innerHTML = 'لا توجد مباريات جارية حالياً في الدوري المصري أو السعودي.';
+            } else {
+                container.innerHTML = htmlContent;
             }
         }
 
-        getLiveMatches();
-        setInterval(getLiveMatches, 60000); // تحديث كل دقيقة
+        updateMatches();
+        setInterval(updateMatches, 60000);
     </script>
 </body>
 </html>
