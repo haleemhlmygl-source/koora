@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone Pro — ترتيب الدوريات</title>
+    <title>ترتيب الدوري 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #080c10; --bg2: #161b22; --green: #00e676; --text: #e8edf5; }
         body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        h2 { text-align: center; color: var(--green); margin: 20px 0; font-family: 'Cairo', sans-serif; }
-        .section-title { background: #21262d; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 1rem; border-right: 4px solid var(--green); }
-        table { width: 100%; border-collapse: collapse; background: var(--bg2); border-radius: 10px; overflow: hidden; font-size: 0.85rem; margin-bottom: 20px; }
+        h2 { text-align: center; color: var(--green); margin: 20px 0; }
+        .section-title { background: #21262d; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; border-right: 4px solid var(--green); }
+        table { width: 100%; border-collapse: collapse; background: var(--bg2); border-radius: 10px; overflow: hidden; font-size: 0.85rem; }
         th { background: #30363d; color: var(--green); padding: 10px; }
         td { padding: 10px; border-bottom: 1px solid #30363d; text-align: center; }
-        .team-cell { text-align: right; font-weight: bold; padding-right: 5px; }
+        .team-cell { text-align: right; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <h2>⚽ GoalZone Pro</h2>
+    <h2>🏆 GoalZone 2026</h2>
 
-    <div class="section-title">🏆 ترتيب الدوري المصري</div>
-    <div id="egypt-table">جارِ سحب الترتيب...</div>
+    <div class="section-title">🇪🇬 ترتيب الدوري المصري (مباشر)</div>
+    <div id="egypt-table">جارِ تحديث الجدول...</div>
 
-    <div class="section-title">🇸🇦 ترتيب الدوري السعودي</div>
-    <div id="saudi-table">جارِ سحب الترتيب...</div>
+    <div class="section-title">🇸🇦 ترتيب الدوري السعودي (مباشر)</div>
+    <div id="saudi-table">جارِ تحديث الجدول...</div>
 
     <script>
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
 
         async function getStandings(leagueId, elementId) {
             try {
-                // هنجرب نجيب أحدث سنة متاحة أوتوماتيك
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2024`, {
+                // طلبنا موسم 2025 للحصول على أحدث ترتيب حالي
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
                     "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
                 });
                 const data = await res.json();
@@ -40,7 +40,7 @@
                 if (data.response && data.response[0]) {
                     const standings = data.response[0].league.standings[0];
                     let html = '<table><tr><th>#</th><th>الفريق</th><th>لعب</th><th>نقاط</th></tr>';
-                    standings.slice(0, 10).forEach(team => {
+                    standings.forEach(team => {
                         html += `<tr>
                             <td style="color:#00e676; font-weight:bold;">${team.rank}</td>
                             <td class="team-cell">${team.team.name}</td>
@@ -51,11 +51,9 @@
                     html += '</table>';
                     document.getElementById(elementId).innerHTML = html;
                 } else {
-                    document.getElementById(elementId).innerHTML = "لا توجد بيانات حالياً.";
+                    document.getElementById(elementId).innerHTML = "الترتيب الجديد قيد التحديث من المصدر.";
                 }
-            } catch (e) {
-                document.getElementById(elementId).innerHTML = "حدث خطأ أثناء التحميل.";
-            }
+            } catch (e) { document.getElementById(elementId).innerHTML = "خطأ في الاتصال."; }
         }
 
         getStandings(233, 'egypt-table');
