@@ -604,13 +604,26 @@ body {
     });
   });
 
-  // Simulate live time update
-  let minutes = 67;
-  setInterval(() => {
-    minutes++;
-    const timeEls = document.querySelectorAll('.score-time');
-    timeEls.forEach(el => el.textContent = `⏱ ${minutes}'`);
-  }, 60000);
+  
+  const apiKey = "3233c035c06b5a688ee984abb39f4b67";
+const leagueId = 233;
+
+fetch(`https://v3.football.api-sports.io/fixtures?live=all&league=${leagueId}`, {
+    "method": "GET",
+    "headers": {
+        "x-rapidapi-host": "v3.football.api-sports.io",
+        "x-rapidapi-key": apiKey
+    }
+})
+.then(response => response.json())
+.then(data => {
+    console.log("النتائج الحقيقية وصلت يا بلال!", data);
+});
+
+  
+    
+  
+
 </script>
 </body>
 </html>
