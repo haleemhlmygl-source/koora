@@ -8,14 +8,13 @@
     <style>
         :root { --bg: #0b0f14; --card: #1c2128; --green: #00e676; --text: #ffffff; }
         body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        .header { text-align: center; padding: 20px; color: var(--green); font-weight: 900; font-size: 1.5rem; }
+        .header { text-align: center; padding: 20px; color: var(--green); font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 10px rgba(0,230,118,0.3); }
         .section-title { background: var(--card); padding: 12px; border-radius: 10px; margin: 15px 0; border-right: 5px solid var(--green); font-weight: bold; }
-        
         table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; margin-bottom: 20px; font-size: 0.85rem; }
         th { background: #2d333b; color: var(--green); padding: 12px 5px; }
         td { padding: 12px 5px; border-bottom: 1px solid #2d333b; text-align: center; }
         .team-info { display: flex; align-items: center; text-align: right; gap: 8px; font-weight: bold; }
-        .team-logo { width: 22px; height: 22px; object-fit: contain; }
+        .team-logo { width: 22px; height: 22px; object-fit: contain; background: white; border-radius: 50%; padding: 2px; }
         .rank { color: var(--green); font-weight: 900; }
     </style>
 </head>
@@ -23,19 +22,19 @@
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">🇪🇬 ترتيب الدوري المصري (حالي)</div>
-    <div id="egypt-table">جارِ جلب أيقونات الفرق...</div>
+    <div class="section-title">🏆 ترتيب الدوري المصري</div>
+    <div id="egypt-table">جارِ سحب البيانات باللوجوهات...</div>
 
-    <div class="section-title">🇸🇦 ترتيب الدوري السعودي (حالي)</div>
-    <div id="saudi-table">جارِ جلب أيقونات الفرق...</div>
+    <div class="section-title">🇸🇦 ترتيب الدوري السعودي</div>
+    <div id="saudi-table">جارِ سحب البيانات باللوجوهات...</div>
 
     <script>
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
 
-        async function fetchData(leagueId, elementId) {
+        async function getStandings(leagueId, elementId) {
+            // هنجرب 2024 اللي فيها البيانات كاملة دلوقت عشان تظهر الأيقونات
             try {
-                // بنطلب موسم 2025 اللي شغال في 2026
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2024`, {
                     "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
                 });
                 const data = await res.json();
@@ -66,8 +65,8 @@
             } catch (e) { document.getElementById(elementId).innerHTML = "خطأ في الشبكة."; }
         }
 
-        fetchData(233, 'egypt-table');
-        fetchData(307, 'saudi-table');
+        getStandings(233, 'egypt-table');
+        getStandings(307, 'saudi-table');
     </script>
 </body>
 </html>
