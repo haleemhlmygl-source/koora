@@ -3,70 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone — المصري والسعودي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>GoalZone — ترتيب الدوري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #080c10; --bg2: #0d1117; --green: #00e676; --text: #e8edf5; }
-        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; text-align: center; }
-        h2 { color: var(--green); margin-bottom: 25px; }
-        .match-card { background: var(--bg2); border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
-        .league-name { font-size: 0.8rem; color: #8b949e; margin-bottom: 8px; display: block; }
-        .match-info { display: flex; justify-content: space-around; align-items: center; font-weight: bold; }
-        .score { font-size: 1.8rem; color: var(--green); }
-        .live-dot { height: 8px; width: 8px; background-color: #ff1744; border-radius: 50%; display: inline-block; margin-left: 5px; }
+        :root { --bg: #080c10; --bg2: #161b22; --green: #00e676; --text: #e8edf5; }
+        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
+        h2 { text-align: center; color: var(--green); margin: 20px 0; }
+        .section-title { background: #21262d; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 1rem; border-right: 4px solid var(--green); }
+        
+        /* تصميم الجدول */
+        table { width: 100%; border-collapse: collapse; background: var(--bg2); border-radius: 10px; overflow: hidden; font-size: 0.85rem; margin-bottom: 20px; }
+        th { background: #30363d; color: var(--green); padding: 10px; text-align: center; }
+        td { padding: 10px; border-bottom: 1px solid #30363d; text-align: center; }
+        .team-cell { text-align: right; font-weight: bold; }
+        .rank { color: var(--green); font-weight: 900; width: 30px; }
+
+        /* كروت المباشر */
+        .match-card { background: var(--bg2); border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 10px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <h2>⚽ GoalZone — مباشر</h2>
-    <div id="matches-container">جاري البحث عن مباريات الأهلي والهلال...</div>
+    <h2>⚽ GoalZone Pro</h2>
+
+    <div class="section-title">🏆 ترتيب الدوري المصري</div>
+    <div id="egypt-table">جارِ سحب الترتيب...</div>
+
+    <div class="section-title">🇸🇦 ترتيب الدوري السعودي</div>
+    <div id="saudi-table">جارِ سحب الترتيب...</div>
+
+    <div class="section-title">🔴 مباريات مباشرة الآن</div>
+    <div id="live-matches">لا توجد مباريات جارية حالياً.</div>
 
     <script>
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
-        // الدوري المصري (233) والدوري السعودي (307)
-        const leagues = [233, 307]; 
 
-        async function updateMatches() {
-            const container = document.getElementById('matches-container');
-            let hasMatches = false;
-            let htmlContent = '';
-
-            for (const id of leagues) {
-                try {
-                    const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all&league=${id}`, {
-                        "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
-                    });
-                    const data = await res.json();
-                    
-                    if (data.response && data.response.length > 0) {
-                        hasMatches = true;
-                        data.response.forEach(match => {
-                            htmlContent += `
-                                <div class="match-card">
-                                    <span class="league-name">${match.league.name}</span>
-                                    <div class="match-info">
-                                        <div>${match.teams.home.name}</div>
-                                        <div class="score">${match.goals.home} - ${match.goals.away}</div>
-                                        <div>${match.teams.away.name}</div>
-                                    </div>
-                                    <div style="font-size: 0.8rem; margin-top:10px;">
-                                        <span class="live-dot"></span> دقيقة: ${match.fixture.status.elapsed}'
-                                    </div>
-                                </div>`;
-                        });
-                    }
-                } catch (e) { console.log("خطأ في جلب البيانات"); }
-            }
-
-            if (!hasMatches) {
-                container.innerHTML = 'لا توجد مباريات جارية حالياً في الدوري المصري أو السعودي.';
-            } else {
-                container.innerHTML = htmlContent;
-            }
+        async function getStandings(leagueId, elementId) {
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
+                    "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
+                });
+                const data = await res.json();
+                const standings = data.response[0].league.standings[0];
+                
+                let html = '<table><tr><th>#</th><th>الفريق</th><th>لعب</th><th>نقاط</th></tr>';
+                standings.slice(0, 10).forEach(team => { // عرض أول 10 فرق للسرعة
+                    html += `
+                        <tr>
+                            <td class="rank">${team.rank}</td>
+                            <td class="team-cell">${team.team.name}</td>
+                            <td>${team.all.played}</td>
+                            <td style="color:white; font-weight:bold;">${team.points}</td>
+                        </tr>`;
+                });
+                html += '</table>';
+                document.getElementById(elementId).innerHTML = html;
+            } catch (e) { document.getElementById(elementId).innerHTML = "خطأ في تحميل الجدول."; }
         }
 
-        updateMatches();
-        setInterval(updateMatches, 60000);
+        // تشغيل الوظائف
+        getStandings(233, 'egypt-table'); // مصر
+        getStandings(307, 'saudi-table'); // السعودية
     </script>
 </body>
 </html>
