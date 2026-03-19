@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -32,12 +33,12 @@
         .tab-btn { background: var(--card); border: 1px solid #444; color: #bbb; padding: 10px 16px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 0.82rem; font-family: 'Cairo', sans-serif; transition: all 0.2s; }
         .tab-btn.active { background: var(--green); color: #000; border-color: var(--green); }
         .box { background: var(--card); border-radius: 15px; padding: 12px; border: 1px solid #222; margin-bottom: 15px; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 320px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 300px; }
         th { color: var(--green); padding: 10px 4px; border-bottom: 2px solid #2a2a2a; font-size: 0.75rem; }
         td { padding: 9px 4px; border-bottom: 1px solid #1a1a1a; text-align: center; }
         tr:last-child td { border-bottom: none; }
         .team-cell { text-align: right; display: flex; align-items: center; gap: 7px; }
-        .team-cell img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
+        .team-cell img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
         .r1 { color: var(--gold); font-weight: 900; }
         .r2 { color: var(--green); font-weight: 700; }
         .rrel { color: var(--red); }
@@ -98,6 +99,7 @@ function mkLogo(url) {
     return '<img src="' + url + '" onerror="this.style.display=\'none\'" alt="">';
 }
 
+// ── مباريات اليوم ──
 function loadToday() {
     var box = document.getElementById("live-box");
     box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل مباريات اليوم...</div>';
@@ -107,12 +109,14 @@ function loadToday() {
     .then(function(r){ return r.json(); })
     .then(function(data) {
         var matches = data.result || [];
-        if (!matches.length) { box.innerHTML = '<div class="msg">📅 لا توجد مباريات اليوم</div>'; return; }
+        if (!matches.length) {
+            box.innerHTML = '<div class="msg">📅 لا توجد مباريات اليوم</div>';
+            return;
+        }
+        // ترتيب: مباشر أولاً ثم منتهية ثم قادمة
         matches.sort(function(a,b){
-            var o = {"inprogress":0,"1H":0,"2H":0,"HT":0,"Finished":1,"Finished_AET":1};
-            var oa = o[a.event_status]!==undefined ? o[a.event_status] : 2;
-            var ob = o[b.event_status]!==undefined ? o[b.event_status] : 2;
-            return oa - ob;
+            function ord(s){ return ["inprogress","1H","2H","HT"].indexOf(s)>-1?0:s&&s.indexOf("Finished")>-1?1:2; }
+            return ord(a.event_status) - ord(b.event_status);
         });
         var html = "", tickers = [];
         for (var i=0; i<matches.length; i++) {
@@ -120,64 +124,112 @@ function loadToday() {
             var st = m.event_status || "";
             var isL = ["inprogress","1H","2H","HT"].indexOf(st) > -1;
             var isF = st.indexOf("Finished") > -1;
-            var sH = m.event_home_final_score, sA = m.event_away_final_score;
+            var sH = m.event_home_final_score;
+            var sA = m.event_away_final_score;
             var hasS = sH !== null && sH !== "" && sH !== undefined;
-            var home = m.event_home_team || "", away = m.event_away_team || "";
-            var badge = isL ? '<span class="badge badge-live">🔴 مباشر</span>'
+            var home = m.event_home_team || "";
+            var away = m.event_away_team || "";
+            var hLogo = m.home_team_logo || "";
+            var aLogo = m.away_team_logo || "";
+            var elapsed = m.event_status_str || (isL ? "مباشر" : "");
+
+            var badge = isL
+                ? '<span class="badge badge-live">🔴 ' + elapsed + '</span>'
                 : isF ? '<span class="badge badge-fin">انتهت ✓</span>'
                 : '<span class="badge badge-ns">⏰ ' + (m.event_time||"") + '</span>';
-            var score = hasS ? '<div class="live-score">'+sH+' - '+sA+'</div>'
+
+            var score = hasS
+                ? '<div class="live-score">' + sH + ' - ' + sA + '</div>'
                 : '<div class="live-score" style="color:#444;font-size:1rem;">vs</div>';
-            html += '<div class="live-card'+(isL?" is-live":"")+'">'
-                +badge
-                +'<div class="team-sm" style="margin-top:8px;">'+mkLogo(m.home_team_logo)+home+'</div>'
-                +score
-                +'<div class="team-sm">'+mkLogo(m.away_team_logo)+away+'</div>'
-                +'<div class="league-sm">'+(m.league_name||"")+'</div>'
-                +'</div>';
-            if (hasS) tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
+
+            html += '<div class="live-card' + (isL?" is-live":"") + '">'
+                + badge
+                + '<div class="team-sm" style="margin-top:8px;">' + mkLogo(hLogo) + home + '</div>'
+                + score
+                + '<div class="team-sm">' + mkLogo(aLogo) + away + '</div>'
+                + '<div class="league-sm">' + (m.league_name||"") + '</div>'
+                + '</div>';
+
+            if (hasS) tickers.push("⚽ " + home + " " + sH + " - " + sA + " " + away);
         }
         box.innerHTML = html;
-        document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
-        if (tickers.length) document.getElementById("ticker-text").textContent = tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
+        document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>" + nowTime() + "</b>";
+        if (tickers.length) {
+            document.getElementById("ticker-text").textContent = tickers.join("   •   ") + "   •   GoalZone 2026 🌟";
+        }
     })
-    .catch(function(){ box.innerHTML = '<div class="msg">⚠️ تعذّر التحميل<br><button class="retry-btn" onclick="loadToday()">🔄 إعادة المحاولة</button></div>'; });
+    .catch(function(e) {
+        box.innerHTML = '<div class="msg">⚠️ تعذّر التحميل<br><button class="retry-btn" onclick="loadToday()">🔄 إعادة المحاولة</button></div>';
+    });
 }
 
+// ── ترتيب الدوري ──
 function loadStandings(id, name, btn) {
-    if (btn) { document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");}); btn.classList.add("active"); }
+    if (btn) {
+        document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+    }
     var box = document.getElementById("stand-box");
-    box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل ترتيب '+name+'...</div>';
-    fetch(BASE+"?met=Standings&leagueId="+id+"&APIkey="+KEY)
+    box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل ترتيب ' + name + '...</div>';
+
+    fetch(BASE + "?met=Standings&leagueId=" + id + "&APIkey=" + KEY)
     .then(function(r){ return r.json(); })
     .then(function(data) {
+        // الـ API بيرجع الترتيب في result[0].total أو result[0].home أو result مباشرة
         var table = null;
         if (data.result && data.result.length > 0) {
-            table = data.result[0].league_table || data.result;
+            var first = data.result[0];
+            // جرب كل الأماكن الممكنة
+            if (first.standings && first.standings.length) {
+                table = first.standings;
+            } else if (first.league_table && first.league_table.length) {
+                table = first.league_table;
+            } else if (first.total && first.total.length) {
+                table = first.total;
+            } else if (first.standing_place) {
+                // result نفسه هو الجدول
+                table = data.result;
+            }
         }
-        if (!table || !table.length) throw new Error("لا توجد بيانات");
+        if (!table || !table.length) throw new Error("لا توجد بيانات للترتيب");
+
         var total = table.length;
-        var html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th></tr>';
+        var html = '<table><tr>'
+            + '<th>#</th>'
+            + '<th style="text-align:right;">الفريق</th>'
+            + '<th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th>'
+            + '</tr>';
+
         for (var i=0; i<table.length; i++) {
             var row = table[i];
-            var rank = parseInt(row.standing_place || row.league_rank || (i+1));
-            var rc = rank===1?"r1":rank<=3?"r2":rank>=total-2?"rrel":"";
-            var tname = row.standing_team || row.league_team || "";
-            var logo  = row.standing_teamLogo || row.home_team_logo || "";
+            // الحقول الصحيحة حسب الـ documentation
+            var rank   = parseInt(row.standing_place || (i+1));
+            var tname  = row.standing_team  || "";
+            var logo   = row.team_logo      || row.standing_teamLogo || "";
+            var played = row.standing_P     || row.standing_PG || 0;
+            var won    = row.standing_W     || 0;
+            var draw   = row.standing_D     || 0;
+            var lost   = row.standing_L     || 0;
+            var pts    = row.standing_PTS   || 0;
+            var rc     = rank===1?"r1":rank<=3?"r2":rank>=total-2?"rrel":"";
+
             html += '<tr>'
-                +'<td class="'+rc+'"><b>'+rank+'</b></td>'
-                +'<td><div class="team-cell">'+mkLogo(logo)+tname+'</div></td>'
-                +'<td>'+(row.standing_PG||0)+'</td>'
-                +'<td>'+(row.standing_W||0)+'</td>'
-                +'<td>'+(row.standing_D||0)+'</td>'
-                +'<td>'+(row.standing_L||0)+'</td>'
-                +'<td class="pts">'+(row.standing_PTS||0)+'</td>'
-                +'</tr>';
+                + '<td class="' + rc + '"><b>' + rank + '</b></td>'
+                + '<td><div class="team-cell">' + mkLogo(logo) + tname + '</div></td>'
+                + '<td>' + played + '</td>'
+                + '<td>' + won    + '</td>'
+                + '<td>' + draw   + '</td>'
+                + '<td>' + lost   + '</td>'
+                + '<td class="pts">' + pts + '</td>'
+                + '</tr>';
         }
-        box.innerHTML = html+'</table>';
-        document.getElementById("stand-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
+        box.innerHTML = html + '</table>';
+        document.getElementById("stand-upd").innerHTML = "آخر تحديث: <b>" + nowTime() + "</b>";
     })
-    .catch(function(){ box.innerHTML = '<div class="msg">⚠️ تعذّر تحميل ترتيب '+name+'<br><button class="retry-btn" onclick="loadStandings('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>'; });
+    .catch(function(e) {
+        box.innerHTML = '<div class="msg">⚠️ تعذّر تحميل ترتيب ' + name + '<br>'
+            + '<button class="retry-btn" onclick="loadStandings(' + id + ',\'' + name + '\',null)">🔄 إعادة المحاولة</button></div>';
+    });
 }
 
 window.onload = function() {
