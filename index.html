@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone - HALEEM HLMY</title>
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GoalZone">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/5323/5323977.png">
+    <meta name="theme-color" content="#05070a">
+
+    <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; --blue: #1877f2; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
         .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; }
+        
+        /* شريط الأخبار العاجلة */
         .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
         .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
+
+        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; font-size: 0.9rem; }
         
+        /* قسم التصويت التفاعلي */
+        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; margin: 15px 0; }
+        .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
+        .v-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: #fff; transition: 0.3s; }
+        .v-ahly { background: #cc0000; box-shadow: 0 4px 10px rgba(204, 0, 0, 0.2); }
+        .v-zamalek { background: #fff; color: #000; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); }
+
+        /* قسم الترتيب المباشر */
+        .table-container { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #2d333b; min-height: 80px; }
+        
+        /* أزرار المشاركة */
+        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; }
+        .wa { background: #25d366; }
+        .fb { background: var(--blue); }
+
         /* تنسيق الإعلان الصغير في الأسفل */
         .ads-bottom { 
             background: var(--card); 
@@ -20,29 +48,20 @@
             border-radius: 12px; 
             margin: 20px auto 10px; 
             padding: 5px; 
-            max-width: 320px; 
-            max-height: 100px; /* تصغير الارتفاع */
+            max-width: 330px; 
+            max-height: 110px; 
             overflow: hidden; 
             text-align: center;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
         }
 
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; }
-        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; margin: 15px 0; }
-        .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
-        .v-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: #fff; }
-        .v-ahly { background: #cc0000; } .v-zamalek { background: #fff; color: #000; }
-
-        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; margin-top: 10px; }
-        .wa { background: #25d366; } .fb { background: var(--blue); }
-
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 20px; border-top: 1px solid #222; padding: 15px 0; }
+        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 25px; border-top: 1px solid #222; padding: 15px 0; }
+        #live-clock { color: var(--gold); font-weight: bold; display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
 
     <div class="news-ticker">
-        <span>📢 حصرياً: المبرمج HALEEM HLMY يقدم لكم أسرع بث لنتائج الدوري المصري.. انتظروا المفاجآت! ⚽🔥</span>
+        <span>📢 حصرياً: المبرمج HALEEM HLMY يقدم لكم أسرع بث لنتائج الدوري المصري.. الموقع الآن يدعم التشغيل كتطبيق! ⚽🔥</span>
     </div>
 
     <div class="header">⚽ GOALZONE 2026</div>
@@ -56,40 +75,9 @@
         </div>
     </div>
 
-    <div class="section-title">📊 الترتيب المباشر</div>
-    <div style="background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #333;">
-        <p style="color:var(--gold); font-size:0.85rem; margin:0;">الترتيب الحقيقي يظهر تلقائياً بكرة الصبح! 🔄</p>
+    <div class="section-title">📊 الترتيب المباشر للدوري</div>
+    <div class="table-container" id="egy-table">
+        <p style="text-align:center; padding:15px; color:var(--gold); font-size:0.8rem;">تحديث البيانات الحية سيعود للعمل تلقائياً بكرة الصبح! 🔄</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-        <a href="https://api.whatsapp.com/send?text=شوف ترتيب الدوري وصوت لفريقك: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" class="btn-share fb">فيسبوك 🔵</a>
-    </div>
-
-    <div class="ads-bottom">
-        <p style="font-size: 0.6rem; color: #555; margin-bottom: 2px;">إعلان ممول</p>
-        <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
-        <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
-    </div>
-
-    <div class="footer">
-        جميع الحقوق محفوظة للمبرمج: <b>HALEEM HLMY</b> <br>
-        توقيت مصر: <span id="live-clock" style="color:var(--gold)">00:00:00</span> | 
-        الزيارات: <span id="count" style="color:var(--green)">1,855</span>
-    </div>
-
-    <script>
-        function updateClock() {
-            document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('ar-EG');
-        }
-        setInterval(updateClock, 1000); updateClock();
-
-        function vote(team) {
-            document.getElementById('vote-msg').innerHTML = `<span style="color:var(--green)">شكراً لتصويتك لـ ${team}! حليم حلمي يتمنى لك مشاهدة ممتعة. ⚽</span>`;
-            document.querySelector('.vote-btns').style.display = 'none';
-        }
-
-        let c = 1855; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
-    </script>
-</body>
-</html>
+    <p style="text-align:center; font-size:0.8rem; color:#8b94
