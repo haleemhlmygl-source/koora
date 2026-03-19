@@ -86,8 +86,8 @@
 </div>
 
 <script>
-// TheSportsDB — مجاني بدون تسجيل، يدعم CORS
 var BASE = "https://www.thesportsdb.com/api/v1/json/3";
+var SEASON = "2025-2026"; // ← الموسم الحالي
 
 function nowTime() {
     return new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});
@@ -96,186 +96,104 @@ function logo(url) {
     return url ? '<img src="'+url+'" onerror="this.style.display=\'none\'" alt="">' : "";
 }
 
-// ── مباريات اليوم ──
 function loadToday() {
     var box = document.getElementById("live-box");
     box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل مباريات اليوم...</div>';
-
-    // TheSportsDB: livescore للكرة
     fetch(BASE + "/livescore.php?s=Soccer")
     .then(function(r){ return r.json(); })
     .then(function(data) {
         var events = data.events || data.livescore || [];
-        if (!events || !events.length) {
-            // لو مفيش مباريات مباشرة، جيب مباريات اليوم
-            loadTodaySchedule();
-            return;
-        }
-        renderMatches(events, true);
-    })
-    .catch(function() { loadTodaySchedule(); });
-}
-
-function loadTodaySchedule() {
-    var box = document.getElementById("live-box");
-    // جيب مباريات الدوريات الكبيرة لليوم
-    var leagues = [4328,4335,4332,4331,4334];
-    var allMatches = [];
-    var done = 0;
-    leagues.forEach(function(id) {
-        fetch(BASE + "/eventsnextleague.php?id="+id)
-        .then(function(r){ return r.json(); })
-        .then(function(data) {
-            var evs = data.events || [];
-            // فلتر مباريات اليوم
-            var today = new Date().toISOString().split("T")[0];
-            evs.forEach(function(e) {
-                if (e.dateEvent === today) allMatches.push(e);
-            });
-            done++;
-            if (done === leagues.length) renderSchedule(allMatches);
-        })
-        .catch(function() { done++; if (done===leagues.length) renderSchedule(allMatches); });
-    });
-}
-
-function renderSchedule(matches) {
-    var box = document.getElementById("live-box");
-    if (!matches.length) {
-        // عرض آخر نتائج بدلاً من ذلك
+        if (events && events.length) { renderMatches(events, true); return; }
         loadLastResults();
-        return;
-    }
-    var html = "";
-    matches.forEach(function(m) {
-        var home = m.strHomeTeam || "";
-        var away = m.strAwayTeam || "";
-        var hLogo = m.strHomeTeamBadge || "";
-        var aLogo = m.strAwayTeamBadge || "";
-        var mTime = m.strTime ? m.strTime.substring(0,5) : "";
-        html += '<div class="live-card">'
-            +'<span class="badge badge-ns">⏰ '+mTime+'</span>'
-            +'<div class="team-sm" style="margin-top:8px">'+logo(hLogo)+home+'</div>'
-            +'<div class="live-score" style="color:#555;font-size:1rem">vs</div>'
-            +'<div class="team-sm">'+logo(aLogo)+away+'</div>'
-            +'<div class="league-sm">'+(m.strLeague||"")+'</div>'
-            +'</div>';
-    });
-    box.innerHTML = html;
-    document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
+    })
+    .catch(function() { loadLastResults(); });
 }
 
 function loadLastResults() {
-    var box = document.getElementById("live-box");
-    var leagues = [4328, 4335, 4332];
-    var allMatches = [];
-    var done = 0;
+    var leagues = [4328, 4335, 4332, 4331, 4334];
+    var all = [], done = 0;
     leagues.forEach(function(id) {
         fetch(BASE + "/eventspastleague.php?id="+id)
         .then(function(r){ return r.json(); })
         .then(function(data) {
-            var evs = (data.events||[]).slice(-3);
-            evs.forEach(function(e){ allMatches.push(e); });
+            (data.events||[]).slice(-2).forEach(function(e){ all.push(e); });
             done++;
-            if (done===leagues.length) renderMatches(allMatches, false);
+            if (done===leagues.length) renderMatches(all, false);
         })
-        .catch(function(){ done++; if(done===leagues.length) renderMatches(allMatches,false); });
+        .catch(function(){ done++; if(done===leagues.length) renderMatches(all,false); });
     });
 }
 
 function renderMatches(events, isLive) {
     var box = document.getElementById("live-box");
-    if (!events || !events.length) {
-        box.innerHTML = '<div class="msg">📅 لا توجد مباريات اليوم</div>';
-        return;
-    }
-    var html = "";
-    var tickers = [];
+    if (!events||!events.length) { box.innerHTML='<div class="msg">📅 لا توجد مباريات</div>'; return; }
+    var html="", tickers=[];
     events.forEach(function(m) {
-        var home  = m.strHomeTeam || "";
-        var away  = m.strAwayTeam || "";
-        var hLogo = m.strHomeTeamBadge || m.strSquadHomeTeamBadge || "";
-        var aLogo = m.strAwayTeamBadge || m.strSquadAwayTeamBadge || "";
-        var sH    = m.intHomeScore;
-        var sA    = m.intAwayScore;
-        var hasS  = sH !== null && sH !== "" && sH !== undefined;
-        var mTime = m.strTime ? m.strTime.substring(0,5) : "";
-        var prog  = m.strProgress || m.intProgress || "";
-        var status = m.strStatus || "";
-        var liveFlag = isLive || status === "Match In Progress";
-
-        var badge = liveFlag && hasS
-            ? '<span class="badge badge-live">🔴 '+(prog||"مباشر")+'</span>'
-            : hasS ? '<span class="badge badge-fin">انتهت ✓</span>'
-            : '<span class="badge badge-ns">⏰ '+mTime+'</span>';
-
-        var score = hasS
-            ? '<div class="live-score">'+sH+' - '+sA+'</div>'
-            : '<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
-
-        html += '<div class="live-card'+(liveFlag&&hasS?" is-live":"")+'">'+badge
-            +'<div class="team-sm" style="margin-top:8px">'+logo(hLogo)+home+'</div>'
-            +score
-            +'<div class="team-sm">'+logo(aLogo)+away+'</div>'
-            +'<div class="league-sm">'+(m.strLeague||"")+'</div>'
-            +'</div>';
-
-        if (hasS) tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
+        var home=m.strHomeTeam||"", away=m.strAwayTeam||"";
+        var hL=m.strHomeTeamBadge||"", aL=m.strAwayTeamBadge||"";
+        var sH=m.intHomeScore, sA=m.intAwayScore;
+        var hasS=sH!==null&&sH!==undefined&&sH!=="";
+        var mTime=m.strTime?m.strTime.substring(0,5):"";
+        var prog=m.strProgress||"";
+        var liveF=isLive||(m.strStatus==="Match In Progress");
+        var badge=liveF&&hasS?'<span class="badge badge-live">🔴 '+(prog||"مباشر")+'</span>'
+            :hasS?'<span class="badge badge-fin">انتهت ✓</span>'
+            :'<span class="badge badge-ns">⏰ '+mTime+'</span>';
+        var score=hasS?'<div class="live-score">'+sH+' - '+sA+'</div>'
+            :'<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
+        html+='<div class="live-card'+(liveF&&hasS?" is-live":"")+'">'+badge
+            +'<div class="team-sm" style="margin-top:8px">'+logo(hL)+home+'</div>'
+            +score+'<div class="team-sm">'+logo(aL)+away+'</div>'
+            +'<div class="league-sm">'+(m.strLeague||"")+'</div></div>';
+        if(hasS) tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
     });
-    box.innerHTML = html;
-    document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
-    if (tickers.length)
-        document.getElementById("ticker-text").textContent = tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
+    box.innerHTML=html;
+    document.getElementById("live-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b>";
+    if(tickers.length)
+        document.getElementById("ticker-text").textContent=tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
 }
 
-// ── ترتيب الدوري ──
 function loadStand(id, name, btn) {
-    if (btn) {
+    if(btn){
         document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});
         btn.classList.add("active");
     }
-    var box = document.getElementById("stand-box");
-    box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل ترتيب '+name+'...</div>';
+    var box=document.getElementById("stand-box");
+    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل ترتيب '+name+'...</div>';
 
-    fetch(BASE + "/lookuptable.php?l="+id+"&s=2024-2025")
+    fetch(BASE+"/lookuptable.php?l="+id+"&s="+SEASON)
     .then(function(r){ return r.json(); })
     .then(function(data) {
-        var table = data.table || [];
-        if (!table.length) throw new Error("لا توجد بيانات");
-
-        var total = table.length;
-        var html = '<table><tr><th>#</th><th style="text-align:right">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th></tr>';
-
-        table.forEach(function(t) {
-            var r   = parseInt(t.intRank);
-            var rc  = r===1?"r1":r<=3?"r2":r>=total-2?"rrel":"";
-            var nm  = t.strTeam || "";
-            var lg  = t.strBadge || t.strTeamBadge || "";
-            var pl  = t.intPlayed || 0;
-            var w   = t.intWin || 0;
-            var d   = t.intDraw || 0;
-            var l   = t.intLoss || 0;
-            var pts = t.intPoints || 0;
-            html += '<tr>'
+        var table=data.table||[];
+        if(!table.length) throw new Error("لا توجد بيانات");
+        var total=table.length;
+        var html='<table><tr><th>#</th><th style="text-align:right">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th></tr>';
+        table.forEach(function(t){
+            var r=parseInt(t.intRank);
+            var rc=r===1?"r1":r<=3?"r2":r>=total-2?"rrel":"";
+            html+='<tr>'
                 +'<td class="'+rc+'"><b>'+r+'</b></td>'
-                +'<td><div class="team-cell">'+logo(lg)+nm+'</div></td>'
-                +'<td>'+pl+'</td><td>'+w+'</td><td>'+d+'</td><td>'+l+'</td>'
-                +'<td class="pts">'+pts+'</td>'
+                +'<td><div class="team-cell">'+logo(t.strBadge||t.strTeamBadge||"")+(t.strTeam||"")+'</div></td>'
+                +'<td>'+(t.intPlayed||0)+'</td>'
+                +'<td>'+(t.intWin||0)+'</td>'
+                +'<td>'+(t.intDraw||0)+'</td>'
+                +'<td>'+(t.intLoss||0)+'</td>'
+                +'<td class="pts">'+(t.intPoints||0)+'</td>'
                 +'</tr>';
         });
-        box.innerHTML = html+'</table>';
-        document.getElementById("stand-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b> ✅";
+        box.innerHTML=html+'</table>';
+        document.getElementById("stand-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b> ✅";
     })
-    .catch(function(e) {
-        box.innerHTML = '<div class="msg">⚠️ تعذّر تحميل ترتيب '+name+'<br>'
+    .catch(function(){
+        box.innerHTML='<div class="msg">⚠️ تعذّر تحميل ترتيب '+name+'<br>'
             +'<button class="retry-btn" onclick="loadStand('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
     });
 }
 
-window.onload = function() {
+window.onload=function(){
     loadToday();
     loadStand(4328,"الإنجليزي",null);
-    setInterval(loadToday, 60000);
+    setInterval(loadToday,60000);
 };
 </script>
 </body>
