@@ -6,38 +6,33 @@
     <title>GoalZone - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --blue: #1877f2; --red: #ff4d4d; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
-        
-        /* تأثير ظهور الصفحة */
-        .fade-in { animation: fadeIn 1.2s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; text-shadow: 0 0 10px rgba(0, 230, 118, 0.3); }
-        
-        .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(255, 77, 77, 0.3); }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; --blue: #1877f2; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
+        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; }
+        .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
         .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-
-        .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; max-height: 140px; overflow: hidden; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         
-        .match-card { background: linear-gradient(145deg, #1a1f26, #12151a); border: 1px solid #333; border-radius: 15px; padding: 15px; margin: 15px 0; text-align: center; border-bottom: 3px solid var(--green); }
-        .vs-box { background: #222; padding: 5px 15px; border-radius: 20px; color: var(--green); font-weight: 900; font-size: 1rem; border: 1px solid #444; }
-
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; display: flex; align-items: center; justify-content: space-between; }
+        .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; text-align: center; }
+        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; }
         
-        /* تأثير اللمعان للأزرار */
-        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; transition: 0.3s; position: relative; overflow: hidden; }
-        .wa { background: #25d366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
-        .fb { background: var(--blue); box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); }
-        .btn-share:active { transform: scale(0.95); }
+        /* قسم التصويت الجديد */
+        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; margin: 15px 0; }
+        .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
+        .v-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: #fff; transition: 0.3s; }
+        .v-ahly { background: #cc0000; box-shadow: 0 4px 10px rgba(204, 0, 0, 0.3); }
+        .v-zamalek { background: #fff; color: #000; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); }
+        .v-btn:hover { transform: scale(1.05); }
 
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding-top: 15px; padding-bottom: 20px; }
-        .live-indicator { width: 8px; height: 8px; background: var(--red); border-radius: 50%; display: inline-block; margin-left: 5px; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; }
+        .wa { background: #25d366; }
+        .fb { background: var(--blue); }
+
+        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding: 15px 0; }
+        #live-clock { color: var(--gold); font-weight: bold; font-size: 1rem; margin-top: 5px; display: block; }
     </style>
 </head>
-<body class="fade-in">
+<body>
 
     <div class="news-ticker">
         <span>📢 حصرياً: المبرمج HALEEM HLMY يقدم لكم أسرع بث لنتائج الدوري المصري.. انتظروا المفاجآت! ⚽🔥</span>
@@ -50,39 +45,47 @@
         <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
     </div>
 
-    <div class="section-title">🏆 مباراة القمة المنتظرة</div>
-    <div class="match-card">
-        <div style="display:flex; justify-content:space-around; align-items:center;">
-            <div style="text-align:center;">🔴<br><small>الأهلي</small></div>
-            <div class="vs-box">VS</div>
-            <div style="text-align:center;">⚪<br><small>الزمالك</small></div>
+    <div class="section-title">🗳️ توقع من سيفوز بالقمة؟</div>
+    <div class="vote-container">
+        <p id="vote-msg" style="margin:0; font-size:0.85rem;">صوت لفريقك المفضل الآن!</p>
+        <div class="vote-btns">
+            <button class="v-btn v-ahly" onclick="vote('الأهلي')">الأهلي ❤️</button>
+            <button class="v-btn v-zamalek" onclick="vote('الزمالك')">الزمالك 🏹</button>
         </div>
-        <p style="color:var(--gold); font-size:0.75rem; margin-top:12px; font-weight:bold;">بث مباشر وحصري 📺</p>
     </div>
 
-    <div class="section-title">
-        <span>📊 الترتيب المباشر</span>
-        <span style="font-size: 0.7rem; color: var(--red);"><span class="live-indicator"></span> مباشر الآن</span>
-    </div>
-    
-    <div style="background: var(--card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #333;">
-        <p style="color:var(--gold); font-size:0.85rem; margin:0;">السيرفر يجدد البيانات.. الترتيب الحقيقي يظهر تلقائياً بكرة الصبح! 🔄</p>
+    <div class="section-title">📊 الترتيب المباشر</div>
+    <div style="background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #333;">
+        <p style="color:var(--gold); font-size:0.85rem; margin:0;">السيرفر يجدد البيانات.. الترتيب يظهر تلقائياً بكرة الصبح! 🔄</p>
     </div>
 
-    <p style="text-align:center; font-size:0.8rem; color:#8b949e; margin: 20px 0 10px;">انشر الموقع لدعم المبرمج حليم حلمي 👇</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-        <a href="https://api.whatsapp.com/send?text=ادخل شوف ترتيب الدوري المصري المباشر على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" target="_blank" class="btn-share fb">فيسبوك 🔵</a>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+        <a href="https://api.whatsapp.com/send?text=ادخل شوف ترتيب الدوري المصري المباشر وصوت لفريقك على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" class="btn-share fb">فيسبوك 🔵</a>
     </div>
 
     <div class="footer">
-        جميع الحقوق محفوظة © 2026 <br>
-        بتطوير المبرمج الذكي: <b>HALEEM HLMY</b> <br>
-        <span style="color:var(--green); font-size: 0.9rem; display:block; margin-top:5px;">زياراتك ساعدتنا نصل لـ: <span id="count">1,825</span></span>
+        جميع الحقوق محفوظة للمبرمج: <b>HALEEM HLMY</b> <br>
+        توقيت مصر الآن: <span id="live-clock">00:00:00</span>
+        الزيارات: <span id="count" style="color:var(--green)">1,840</span>
     </div>
 
     <script>
-        let c = 1825; setInterval(() => { c += Math.floor(Math.random()*2); document.getElementById('count').innerText = c.toLocaleString(); }, 5000);
+        // ساعة حية
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString('ar-EG');
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // نظام التصويت البسيط
+        function vote(team) {
+            document.getElementById('vote-msg').innerHTML = `<span style="color:var(--green)">شكراً لتصويتك لـ ${team}! حليم حلمي يتمنى لك مشاهدة ممتعة. ⚽</span>`;
+            document.querySelector('.vote-btns').style.display = 'none';
+        }
+
+        let c = 1840; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
     </script>
 </body>
 </html>
