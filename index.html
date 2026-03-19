@@ -6,7 +6,6 @@
     
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="GoalZone">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/5323/5323977.png">
     <meta name="theme-color" content="#05070a">
@@ -18,72 +17,82 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; --blue: #1877f2; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
         
-        /* شريط الأخبار */
-        .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
+        .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.8rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
         .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
 
         .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 10px 0; font-weight: 900; }
         .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; font-size: 0.9rem; }
         
-        /* كارت المباراة */
+        /* كارت المباراة القادمة */
         .match-card { background: linear-gradient(145deg, #1a1f26, #12151a); border: 1px solid #333; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 15px; }
         .vs-box { background: #222; padding: 5px 15px; border-radius: 20px; color: var(--green); font-weight: 900; }
 
+        /* أزرار التبديل بين الدوريات */
+        .tabs-container { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; padding-bottom: 5px; }
+        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 8px 15px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
+        .tab-btn.active { background: var(--green); color: #000; border-color: var(--green); }
+
         /* التصويت */
-        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; }
+        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; margin-bottom: 15px; }
         .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
-        .v-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: bold; color: #fff; cursor: pointer; }
+        .v-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: bold; color: #fff; cursor: pointer; }
         .v-ahly { background: #cc0000; } .v-zamalek { background: #444; }
 
-        /* الترتيب */
-        .table-container { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #333; }
-        
-        /* أزرار المشاركة */
+        /* الجدول */
+        .table-box { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #333; min-height: 100px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        th { color: var(--green); padding: 10px 5px; border-bottom: 1px solid #333; }
+        td { padding: 10px 5px; border-bottom: 1px solid #222; }
+
         .share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn-share { display: block; text-align: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; }
+        .btn-share { display: block; text-align: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; }
         .wa { background: #25d366; } .fb { background: var(--blue); }
 
-        /* الإعلان */
-        .ads-bottom { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 20px auto; padding: 5px; max-width: 330px; max-height: 110px; overflow: hidden; text-align: center; }
-        
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; border-top: 1px solid #222; padding-top: 15px; }
+        .ads-bottom { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 20px auto; padding: 5px; max-width: 330px; text-align: center; }
+        .footer { text-align: center; color: #8b949e; font-size: 0.7rem; border-top: 1px solid #222; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="news-ticker">
-        <span>📢 عاجل: تطبيق GoalZone متاح الآن للتحميل على موبايلك.. تابع ترتيب الدوري المصري لحظة بلحظة! 🔥⚽</span>
+        <span>📢 حصرياً: تطبيق GoalZone يغطي الآن الدوري المصري، السعودي، الإنجليزي، والإسباني.. تابع نتائج فريقك المفضل الآن! 🔥⚽</span>
     </div>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">🏆 مباراة القمة القادمة</div>
+    <div class="section-title">🏆 القمة القادمة</div>
     <div class="match-card">
         <div style="display:flex; justify-content:space-around; align-items:center;">
-            <div>🔴<br><small>الأهلي</small></div>
+            <div>🔴 الأهلي</div>
             <div class="vs-box">VS</div>
-            <div>⚪<br><small>الزمالك</small></div>
+            <div>⚪ الزمالك</div>
         </div>
-        <p style="color:var(--gold); font-size:0.75rem; margin-top:10px;">بث مباشر قريباً 📺</p>
     </div>
 
     <div class="section-title">🗳️ توقع الفائز؟</div>
     <div class="vote-container">
-        <p id="vote-msg" style="margin:0; font-size:0.85rem;">صوت لفريقك المفضل!</p>
+        <p id="vote-msg" style="margin:0; font-size:0.8rem;">صوت لفريقك المفضل!</p>
         <div class="vote-btns">
             <button class="v-btn v-ahly" onclick="vote('الأهلي')">الأهلي</button>
             <button class="v-btn v-zamalek" onclick="vote('الزمالك')">الزمالك</button>
         </div>
     </div>
 
-    <div class="section-title">📊 الترتيب المباشر للدوري</div>
-    <div class="table-container" id="egy-table">
-        <p style="color:var(--gold); font-size:0.8rem; margin:0;">تحديث البيانات الحية سيعود للعمل تلقائياً بكرة الصبح! 🔄</p>
+    <div class="section-title">📊 جداول الترتيب المباشرة</div>
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="loadLeague(233, 'egypt', this)">🇪🇬 المصري</button>
+        <button class="tab-btn" onclick="loadLeague(307, 'saudi', this)">🇸🇦 السعودي</button>
+        <button class="tab-btn" onclick="loadLeague(39, 'england', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+        <button class="tab-btn" onclick="loadLeague(140, 'spain', this)">🇪🇸 الإسباني</button>
+    </div>
+
+    <div class="table-box" id="league-content">
+        <p style="color:var(--gold); font-size:0.8rem;">جاري جلب البيانات... التحديث سيعود للعمل تلقائياً بكرة الصبح! 🔄</p>
     </div>
 
     <div class="share-grid">
-        <a href="https://api.whatsapp.com/send?text=شوف ترتيب الدوري المباشر وصوت لفريقك على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
+        <a href="https://api.whatsapp.com/send?text=شوف ترتيب كل الدوريات وصوت لفريقك على تطبيق HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" target="_blank" class="btn-share fb">فيسبوك 🔵</a>
     </div>
 
@@ -95,20 +104,45 @@
 
     <div class="footer">
         جميع الحقوق محفوظة للمبرمج: <b>HALEEM HLMY</b> <br>
-        توقيت مصر: <span id="live-clock" style="color:var(--gold)">00:00:00</span> | 
-        الزيارات: <span id="count" style="color:var(--green)">1,880</span>
+        الزيارات: <span id="count" style="color:var(--green)">1,910</span>
     </div>
 
     <script>
-        function updateClock() { document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('ar-EG'); }
-        setInterval(updateClock, 1000); updateClock();
+        // وظيفة جلب البيانات الحقيقية لكل دوري
+        async function loadLeague(id, name, btn) {
+            // تحديث الأزرار
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            const content = document.getElementById('league-content');
+            content.innerHTML = `<p style="color:var(--gold);">جاري الاتصال بسيرفر ${name}... التحديث القادم بكرة الصبح! 🔄</p>`;
+
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, {
+                    "headers": { "x-rapidapi-key": "3233c035c06b5a688ee984abb39f4b67", "x-rapidapi-host": "v3.football.api-sports.io" }
+                });
+                const data = await res.json();
+                if (data.response && data.response[0]) {
+                    const st = data.response[0].league.standings[0];
+                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
+                    st.slice(0, 10).forEach(t => {
+                        html += `<tr><td>${t.rank}</td><td style="text-align:right;"><img src="${t.team.logo}" width="15" style="vertical-align:middle; margin-left:5px;"> ${t.team.name}</td><td>${t.points}</td></tr>`;
+                    });
+                    html += '</table>';
+                    content.innerHTML = html;
+                }
+            } catch (e) { console.log("Limit reached"); }
+        }
+
+        // تشغيل الدوري المصري أول ما الصفحة تفتح
+        loadLeague(233, 'egypt', null);
 
         function vote(team) {
-            document.getElementById('vote-msg').innerHTML = `<span style="color:var(--green)">شكراً لتصويتك لـ ${team}! المبرمج حليم حلمي يحييك. ⚽</span>`;
+            document.getElementById('vote-msg').innerHTML = `<span style="color:var(--green)">شكراً لتصويتك لـ ${team}! حليم حلمي يحييك.</span>`;
             document.querySelector('.vote-btns').style.display = 'none';
         }
 
-        let c = 1880; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
+        let c = 1910; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
     </script>
 </body>
 </html>
