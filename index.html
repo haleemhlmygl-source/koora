@@ -61,7 +61,6 @@
     </style>
 </head>
 <body>
-
 <div class="news-ticker"><span id="ticker-text">📢 GoalZone 2026 — نتائج ومباريات حقيقية مباشرة .. برعاية المبرمج حليم حلمي 🌟</span></div>
 <div class="header">⚽ GOALZONE 2026</div>
 
@@ -98,16 +97,16 @@
 <button class="notif-btn" id="notif-btn" onclick="toggleNotif()">🔔</button>
 
 <script>
-var BASE    = "https://v3.football.api-sports.io";
-var KEY     = "9e21494c49c75f64c6b7149ca8671fd4";
+// ← الرابط الجديد عبر Vercel — بيحل مشكلة CORS نهائياً
+var PROXY   = "https://koora-tan.vercel.app/api/football?path=";
 var SEASON  = 2025;
 var notifOn = false;
 
 function nowTime(){return new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});}
 function logo(url){return url?'<img src="'+url+'" onerror="this.style.display=\'none\'" alt="">':'';}
 
-function apiFetch(path,cb){
-    fetch(BASE+path,{headers:{"x-apisports-key":KEY}})
+function apiFetch(path, cb){
+    fetch(PROXY + encodeURIComponent(path.replace(/^\//,"")))
     .then(function(r){return r.json();})
     .then(function(d){cb(d);})
     .catch(function(){cb(null);});
@@ -124,12 +123,11 @@ function toggleNotif(){
     });
 }
 
-// ── مباريات اليوم ──
 function loadToday(){
     var box=document.getElementById("live-box");
     box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل مباريات اليوم...</div>';
     var today=new Date().toISOString().split("T")[0];
-    apiFetch("/fixtures?date="+today,function(data){
+    apiFetch("fixtures?date="+today, function(data){
         if(!data||!data.response||!data.response.length){
             box.innerHTML='<div class="msg">📅 لا توجد مباريات اليوم</div>';
             return;
@@ -137,9 +135,7 @@ function loadToday(){
         var matches=data.response;
         matches.sort(function(a,b){
             var o={"1H":0,"2H":0,"HT":0,"ET":0,"LIVE":0,"FT":1,"AET":1,"PEN":1,"NS":2,"TBD":2};
-            var sa=o[a.fixture.status.short]!==undefined?o[a.fixture.status.short]:2;
-            var sb=o[b.fixture.status.short]!==undefined?o[b.fixture.status.short]:2;
-            return sa-sb;
+            return (o[a.fixture.status.short]??2)-(o[b.fixture.status.short]??2);
         });
         var html="",tickers=[];
         matches.forEach(function(m){
@@ -159,8 +155,7 @@ function loadToday(){
                 :'<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
             html+='<div class="live-card'+(isL?" is-live":"")+'">'+badge
                 +'<div class="team-sm" style="margin-top:8px">'+logo(hL)+home+'</div>'
-                +score
-                +'<div class="team-sm">'+logo(aL)+away+'</div>'
+                +score+'<div class="team-sm">'+logo(aL)+away+'</div>'
                 +'<div class="league-sm">'+(m.league&&m.league.name||"")+'</div></div>';
             if(hasS)tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
         });
@@ -170,12 +165,11 @@ function loadToday(){
     });
 }
 
-// ── ترتيب الدوري ──
 function loadStand(id,name,btn){
     if(btn){document.querySelectorAll("#stand-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
     var box=document.getElementById("stand-box");
     box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل '+name+'...</div>';
-    apiFetch("/standings?league="+id+"&season="+SEASON,function(data){
+    apiFetch("standings?league="+id+"&season="+SEASON, function(data){
         if(!data||!data.response||!data.response.length){
             box.innerHTML='<div class="msg">⚠️ تعذّر تحميل '+name+'<br><button class="retry-btn" onclick="loadStand('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
             return;
@@ -199,12 +193,11 @@ function loadStand(id,name,btn){
     });
 }
 
-// ── الهدافين ──
 function loadScorers(id,name,btn){
     if(btn){document.querySelectorAll("#scorer-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
     var box=document.getElementById("scorers-box");
     box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل هدافين '+name+'...</div>';
-    apiFetch("/players/topscorers?league="+id+"&season="+SEASON,function(data){
+    apiFetch("players/topscorers?league="+id+"&season="+SEASON, function(data){
         if(!data||!data.response||!data.response.length){
             box.innerHTML='<div class="msg">⚠️ تعذّر تحميل هدافين '+name+'<br><button class="retry-btn" onclick="loadScorers('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
             return;
