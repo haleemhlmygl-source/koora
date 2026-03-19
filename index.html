@@ -11,20 +11,20 @@
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
         .news-ticker { background: var(--red); color: #fff; padding: 8px 0; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 10px; margin-bottom: 15px; }
         .news-ticker span { display: inline-block; animation: ticker 30s linear infinite; font-weight: bold; padding-right: 100vw; }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        @keyframes ticker { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
         .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; padding: 10px 0; text-shadow: 0 0 10px rgba(0,230,118,0.3); }
         .section-title { background: var(--card); padding: 12px; border-radius: 10px; margin: 20px 0 10px; border-right: 6px solid var(--green); font-weight: 800; font-size: 1rem; color: var(--green); }
         .live-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; }
         .live-scroll::-webkit-scrollbar { display: none; }
-        .live-card { background: #1c1f26; min-width: 155px; padding: 12px 10px; border-radius: 12px; border: 1px solid #2a2a2a; text-align: center; flex-shrink: 0; }
+        .live-card { background: #1c1f26; min-width: 160px; padding: 12px 10px; border-radius: 12px; border: 1px solid #2a2a2a; text-align: center; flex-shrink: 0; }
         .live-card.is-live { border-color: rgba(255,77,77,0.6); }
         .badge { font-size: 0.68rem; padding: 2px 8px; border-radius: 4px; display: inline-block; font-weight: bold; }
         .badge-live { background: var(--red); animation: blink 1s infinite; }
         .badge-fin  { background: #2a2a2a; color: #aaa; }
         .badge-ns   { background: #0d2b1a; color: var(--green); }
-        .live-score { font-size: 1.3rem; font-weight: 900; color: var(--gold); margin: 6px 0; }
+        .live-score { font-size: 1.4rem; font-weight: 900; color: var(--gold); margin: 6px 0; }
         .team-sm { font-size: 0.72rem; margin: 4px 0; display: flex; align-items: center; justify-content: center; gap: 4px; }
-        .team-sm img { width: 16px; height: 16px; object-fit: contain; }
+        .team-sm img { width: 20px; height: 20px; object-fit: contain; border-radius: 50%; }
         .league-sm { font-size: 0.6rem; color: #555; margin-top: 5px; }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
         .tabs { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; scrollbar-width: none; }
@@ -37,17 +37,17 @@
         td { padding: 9px 4px; border-bottom: 1px solid #1a1a1a; text-align: center; }
         tr:last-child td { border-bottom: none; }
         .team-cell { text-align: right; display: flex; align-items: center; gap: 6px; }
-        .team-cell img { width: 20px; height: 20px; object-fit: contain; }
+        .team-cell img { width: 22px; height: 22px; object-fit: contain; }
         .r1 { color: var(--gold); font-weight: 900; }
         .r2 { color: var(--green); font-weight: 700; }
         .rrel { color: var(--red); }
         .pts { font-weight: 900; color: var(--green); }
         .msg { text-align: center; padding: 28px; color: #888; font-size: 0.88rem; line-height: 2; }
         .spin { display: inline-block; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .retry-btn { margin-top: 12px; padding: 9px 22px; background: var(--green); border: none; border-radius: 20px; color: #000; font-family: 'Cairo', sans-serif; font-size: 0.88rem; font-weight: 700; cursor: pointer; display: inline-block; }
+        @keyframes spin { to{transform:rotate(360deg)} }
+        .retry-btn { margin-top: 12px; padding: 9px 22px; background: var(--green); border: none; border-radius: 20px; color: #000; font-family: 'Cairo', sans-serif; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
         .upd { font-size: 0.7rem; color: #444; text-align: center; margin-top: 6px; }
-        .upd b { color: #00e676; }
+        .upd b { color: var(--green); }
         .footer { text-align: center; color: #555; font-size: 0.78rem; padding: 20px 0; border-top: 1px solid #1a1a1a; line-height: 1.8; margin-top: 10px; }
     </style>
 </head>
@@ -56,7 +56,6 @@
 <div class="news-ticker">
     <span id="ticker-text">📢 GoalZone 2026 — نتائج ومباريات حقيقية مباشرة .. برعاية المبرمج حليم حلمي 🌟</span>
 </div>
-
 <div class="header">⚽ GOALZONE 2026</div>
 
 <div class="section-title">⏱️ مباريات اليوم</div>
@@ -67,11 +66,13 @@
 
 <div class="section-title" style="margin-top:25px;">📊 ترتيب الدوريات</div>
 <div class="tabs">
-    <button class="tab-btn active" onclick="loadStand('PL','الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-    <button class="tab-btn" onclick="loadStand('PD','الإسباني',this)">🇪🇸 الإسباني</button>
-    <button class="tab-btn" onclick="loadStand('SA','الإيطالي',this)">🇮🇹 الإيطالي</button>
-    <button class="tab-btn" onclick="loadStand('BL1','الألماني',this)">🇩🇪 الألماني</button>
-    <button class="tab-btn" onclick="loadStand('FL1','الفرنسي',this)">🇫🇷 الفرنسي</button>
+    <button class="tab-btn active" onclick="loadStand(4328,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+    <button class="tab-btn" onclick="loadStand(4335,'الإسباني',this)">🇪🇸 الإسباني</button>
+    <button class="tab-btn" onclick="loadStand(4332,'الإيطالي',this)">🇮🇹 الإيطالي</button>
+    <button class="tab-btn" onclick="loadStand(4331,'الألماني',this)">🇩🇪 الألماني</button>
+    <button class="tab-btn" onclick="loadStand(4334,'الفرنسي',this)">🇫🇷 الفرنسي</button>
+    <button class="tab-btn" onclick="loadStand(4687,'السعودي',this)">🇸🇦 السعودي</button>
+    <button class="tab-btn" onclick="loadStand(4969,'المصري',this)">🇪🇬 المصري</button>
 </div>
 <div class="box" id="stand-box">
     <div class="msg"><span class="spin">⚽</span> جاري التحميل...</div>
@@ -85,10 +86,8 @@
 </div>
 
 <script>
-// football-data.org عبر corsproxy.io — يشتغل على github.io مجاناً
-var FD_KEY  = "4f14c23ee3f342da822a75823ef0c7be";
-var FD_BASE = "https://api.football-data.org/v4";
-var PROXY   = "https://corsproxy.io/?url=";
+// TheSportsDB — مجاني بدون تسجيل، يدعم CORS
+var BASE = "https://www.thesportsdb.com/api/v1/json/3";
 
 function nowTime() {
     return new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});
@@ -96,119 +95,186 @@ function nowTime() {
 function logo(url) {
     return url ? '<img src="'+url+'" onerror="this.style.display=\'none\'" alt="">' : "";
 }
-function apiFetch(path, callback) {
-    var url = PROXY + encodeURIComponent(FD_BASE + path);
-    fetch(url, {
-        headers: {
-            "X-Auth-Token": FD_KEY,
-            "x-requested-with": "XMLHttpRequest"
-        }
-    })
-    .then(function(r){ return r.json(); })
-    .then(callback)
-    .catch(function(e){ callback(null, e); });
-}
 
 // ── مباريات اليوم ──
 function loadToday() {
     var box = document.getElementById("live-box");
     box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل مباريات اليوم...</div>';
-    var today = new Date().toISOString().split("T")[0];
-    apiFetch("/matches?date=" + today, function(data, err) {
-        if (!data || err) {
-            box.innerHTML = '<div class="msg">⚠️ تعذّر التحميل<br><button class="retry-btn" onclick="loadToday()">🔄 إعادة المحاولة</button></div>';
+
+    // TheSportsDB: livescore للكرة
+    fetch(BASE + "/livescore.php?s=Soccer")
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+        var events = data.events || data.livescore || [];
+        if (!events || !events.length) {
+            // لو مفيش مباريات مباشرة، جيب مباريات اليوم
+            loadTodaySchedule();
             return;
         }
-        var matches = data.matches || [];
-        if (!matches.length) {
-            box.innerHTML = '<div class="msg">📅 لا توجد مباريات اليوم</div>';
-            return;
-        }
-        // ترتيب: مباشر أولاً
-        matches.sort(function(a,b){
-            var o = {IN_PLAY:0,PAUSED:0,FINISHED:1,TIMED:2,SCHEDULED:2};
-            return (o[a.status]??3)-(o[b.status]??3);
-        });
-        var html = "", tickers = [];
-        matches.forEach(function(m) {
-            var isL = m.status==="IN_PLAY"||m.status==="PAUSED";
-            var isF = m.status==="FINISHED";
-            var sH  = m.score&&m.score.fullTime ? m.score.fullTime.home : null;
-            var sA  = m.score&&m.score.fullTime ? m.score.fullTime.away : null;
-            var hasS = sH !== null && sH !== undefined;
-            var home = m.homeTeam.shortName || m.homeTeam.name;
-            var away = m.awayTeam.shortName || m.awayTeam.name;
-            var hc   = m.homeTeam.crest || "";
-            var ac   = m.awayTeam.crest || "";
-            var mTime = new Date(m.utcDate).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});
+        renderMatches(events, true);
+    })
+    .catch(function() { loadTodaySchedule(); });
+}
 
-            var badge = isL
-                ? '<span class="badge badge-live">🔴 مباشر</span>'
-                : isF ? '<span class="badge badge-fin">انتهت ✓</span>'
-                : '<span class="badge badge-ns">⏰ '+mTime+'</span>';
-
-            var score = hasS
-                ? '<div class="live-score">'+sH+' - '+sA+'</div>'
-                : '<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
-
-            html += '<div class="live-card'+(isL?" is-live":"")+'">'+badge
-                +'<div class="team-sm" style="margin-top:8px">'+logo(hc)+home+'</div>'
-                +score
-                +'<div class="team-sm">'+logo(ac)+away+'</div>'
-                +'<div class="league-sm">'+(m.competition&&m.competition.name||"")+'</div>'
-                +'</div>';
-
-            if (hasS) tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
-        });
-        box.innerHTML = html;
-        document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
-        if (tickers.length)
-            document.getElementById("ticker-text").textContent = tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
+function loadTodaySchedule() {
+    var box = document.getElementById("live-box");
+    // جيب مباريات الدوريات الكبيرة لليوم
+    var leagues = [4328,4335,4332,4331,4334];
+    var allMatches = [];
+    var done = 0;
+    leagues.forEach(function(id) {
+        fetch(BASE + "/eventsnextleague.php?id="+id)
+        .then(function(r){ return r.json(); })
+        .then(function(data) {
+            var evs = data.events || [];
+            // فلتر مباريات اليوم
+            var today = new Date().toISOString().split("T")[0];
+            evs.forEach(function(e) {
+                if (e.dateEvent === today) allMatches.push(e);
+            });
+            done++;
+            if (done === leagues.length) renderSchedule(allMatches);
+        })
+        .catch(function() { done++; if (done===leagues.length) renderSchedule(allMatches); });
     });
 }
 
+function renderSchedule(matches) {
+    var box = document.getElementById("live-box");
+    if (!matches.length) {
+        // عرض آخر نتائج بدلاً من ذلك
+        loadLastResults();
+        return;
+    }
+    var html = "";
+    matches.forEach(function(m) {
+        var home = m.strHomeTeam || "";
+        var away = m.strAwayTeam || "";
+        var hLogo = m.strHomeTeamBadge || "";
+        var aLogo = m.strAwayTeamBadge || "";
+        var mTime = m.strTime ? m.strTime.substring(0,5) : "";
+        html += '<div class="live-card">'
+            +'<span class="badge badge-ns">⏰ '+mTime+'</span>'
+            +'<div class="team-sm" style="margin-top:8px">'+logo(hLogo)+home+'</div>'
+            +'<div class="live-score" style="color:#555;font-size:1rem">vs</div>'
+            +'<div class="team-sm">'+logo(aLogo)+away+'</div>'
+            +'<div class="league-sm">'+(m.strLeague||"")+'</div>'
+            +'</div>';
+    });
+    box.innerHTML = html;
+    document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
+}
+
+function loadLastResults() {
+    var box = document.getElementById("live-box");
+    var leagues = [4328, 4335, 4332];
+    var allMatches = [];
+    var done = 0;
+    leagues.forEach(function(id) {
+        fetch(BASE + "/eventspastleague.php?id="+id)
+        .then(function(r){ return r.json(); })
+        .then(function(data) {
+            var evs = (data.events||[]).slice(-3);
+            evs.forEach(function(e){ allMatches.push(e); });
+            done++;
+            if (done===leagues.length) renderMatches(allMatches, false);
+        })
+        .catch(function(){ done++; if(done===leagues.length) renderMatches(allMatches,false); });
+    });
+}
+
+function renderMatches(events, isLive) {
+    var box = document.getElementById("live-box");
+    if (!events || !events.length) {
+        box.innerHTML = '<div class="msg">📅 لا توجد مباريات اليوم</div>';
+        return;
+    }
+    var html = "";
+    var tickers = [];
+    events.forEach(function(m) {
+        var home  = m.strHomeTeam || "";
+        var away  = m.strAwayTeam || "";
+        var hLogo = m.strHomeTeamBadge || m.strSquadHomeTeamBadge || "";
+        var aLogo = m.strAwayTeamBadge || m.strSquadAwayTeamBadge || "";
+        var sH    = m.intHomeScore;
+        var sA    = m.intAwayScore;
+        var hasS  = sH !== null && sH !== "" && sH !== undefined;
+        var mTime = m.strTime ? m.strTime.substring(0,5) : "";
+        var prog  = m.strProgress || m.intProgress || "";
+        var status = m.strStatus || "";
+        var liveFlag = isLive || status === "Match In Progress";
+
+        var badge = liveFlag && hasS
+            ? '<span class="badge badge-live">🔴 '+(prog||"مباشر")+'</span>'
+            : hasS ? '<span class="badge badge-fin">انتهت ✓</span>'
+            : '<span class="badge badge-ns">⏰ '+mTime+'</span>';
+
+        var score = hasS
+            ? '<div class="live-score">'+sH+' - '+sA+'</div>'
+            : '<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
+
+        html += '<div class="live-card'+(liveFlag&&hasS?" is-live":"")+'">'+badge
+            +'<div class="team-sm" style="margin-top:8px">'+logo(hLogo)+home+'</div>'
+            +score
+            +'<div class="team-sm">'+logo(aLogo)+away+'</div>'
+            +'<div class="league-sm">'+(m.strLeague||"")+'</div>'
+            +'</div>';
+
+        if (hasS) tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
+    });
+    box.innerHTML = html;
+    document.getElementById("live-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b>";
+    if (tickers.length)
+        document.getElementById("ticker-text").textContent = tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
+}
+
 // ── ترتيب الدوري ──
-function loadStand(code, name, btn) {
+function loadStand(id, name, btn) {
     if (btn) {
         document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});
         btn.classList.add("active");
     }
     var box = document.getElementById("stand-box");
     box.innerHTML = '<div class="msg"><span class="spin">⚽</span> جاري تحميل ترتيب '+name+'...</div>';
-    apiFetch("/competitions/"+code+"/standings", function(data, err) {
-        if (!data || err) {
-            box.innerHTML = '<div class="msg">⚠️ تعذّر تحميل '+name+'<br>'
-                +'<button class="retry-btn" onclick="loadStand(\''+code+'\',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
-            return;
-        }
-        var table = data.standings && data.standings[0] && data.standings[0].table;
-        if (!table||!table.length) {
-            box.innerHTML = '<div class="msg">لا توجد بيانات</div>';
-            return;
-        }
+
+    fetch(BASE + "/lookuptable.php?l="+id+"&s=2024-2025")
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+        var table = data.table || [];
+        if (!table.length) throw new Error("لا توجد بيانات");
+
         var total = table.length;
         var html = '<table><tr><th>#</th><th style="text-align:right">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th></tr>';
+
         table.forEach(function(t) {
-            var r  = t.position;
-            var rc = r===1?"r1":r<=3?"r2":r>=total-2?"rrel":"";
+            var r   = parseInt(t.intRank);
+            var rc  = r===1?"r1":r<=3?"r2":r>=total-2?"rrel":"";
+            var nm  = t.strTeam || "";
+            var lg  = t.strBadge || t.strTeamBadge || "";
+            var pl  = t.intPlayed || 0;
+            var w   = t.intWin || 0;
+            var d   = t.intDraw || 0;
+            var l   = t.intLoss || 0;
+            var pts = t.intPoints || 0;
             html += '<tr>'
                 +'<td class="'+rc+'"><b>'+r+'</b></td>'
-                +'<td><div class="team-cell">'+logo(t.team.crest)+(t.team.shortName||t.team.name)+'</div></td>'
-                +'<td>'+t.playedGames+'</td>'
-                +'<td>'+t.won+'</td>'
-                +'<td>'+t.draw+'</td>'
-                +'<td>'+t.lost+'</td>'
-                +'<td class="pts">'+t.points+'</td>'
+                +'<td><div class="team-cell">'+logo(lg)+nm+'</div></td>'
+                +'<td>'+pl+'</td><td>'+w+'</td><td>'+d+'</td><td>'+l+'</td>'
+                +'<td class="pts">'+pts+'</td>'
                 +'</tr>';
         });
-        box.innerHTML = html + '</table>';
+        box.innerHTML = html+'</table>';
         document.getElementById("stand-upd").innerHTML = "آخر تحديث: <b>"+nowTime()+"</b> ✅";
+    })
+    .catch(function(e) {
+        box.innerHTML = '<div class="msg">⚠️ تعذّر تحميل ترتيب '+name+'<br>'
+            +'<button class="retry-btn" onclick="loadStand('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
     });
 }
 
 window.onload = function() {
     loadToday();
-    loadStand("PL","الإنجليزي",null);
+    loadStand(4328,"الإنجليزي",null);
     setInterval(loadToday, 60000);
 };
 </script>
