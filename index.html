@@ -11,7 +11,7 @@
         .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; }
         .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; max-height: 150px; overflow: hidden; text-align: center; }
         .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: bold; }
-        .table-container { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #2d333b; }
+        .table-container { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #2d333b; min-height: 100px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         th { background: #1c2128; color: var(--green); padding: 10px 5px; }
         td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #1c2128; }
@@ -29,29 +29,54 @@
         <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
     </div>
 
-    <div class="section-title">🇪🇬 ترتيب الدوري المصري (تحديث الفجر)</div>
-    <div class="table-container">
-        <table>
-            <thead><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr></thead>
-            <tbody>
-                <tr><td>1</td><td><div class="team-cell">🔵 بيراميدز</div></td><td>32</td></tr>
-                <tr><td>2</td><td><div class="team-cell">🔴 الأهلي</div></td><td>30</td></tr>
-                <tr><td>3</td><td><div class="team-cell">⚪ الزمالك</div></td><td>28</td></tr>
-                <tr><td>4</td><td><div class="team-cell">🟢 المصري</div></td><td>27</td></tr>
-                <tr><td>5</td><td><div class="team-cell">🟡 سموحة</div></td><td>25</td></tr>
-            </tbody>
-        </table>
+    <div class="section-title">🇪🇬 ترتيب الدوري المصري (بث مباشر)</div>
+    <div class="table-container" id="egy-table">
+        <p style="text-align:center; padding:20px;">جارِ سحب الترتيب الحقيقي من السيرفر...</p>
     </div>
 
-    <a href="https://api.whatsapp.com/send?text=تابع ترتيب الدوري المباشر على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 شارك الرابط واكسب معنا</a>
+    <a href="https://api.whatsapp.com/send?text=شاهد ترتيب الدوري المصري الحقيقي على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 انشر الموقع واكسب</a>
 
     <div class="footer">
         بواسطة المبرمج HALEEM HLMY <br>
-        زيارات الموقع المباشرة: <span style="color:var(--green);" id="count">1,755</span>
+        زيارات الموقع: <span style="color:var(--green);" id="count">1,765</span>
     </div>
 
     <script>
-        let c = 1755; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
+        let c = 1765; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
+
+        async function loadData() {
+            try {
+                // محاولة الربط بمفتاح جديد ونظيف
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=233&season=2025`, {
+                    "headers": { 
+                        "x-rapidapi-key": "3233c035c06b5a688ee984abb39f4b67", 
+                        "x-rapidapi-host": "v3.football.api-sports.io" 
+                    }
+                });
+                const data = await res.json();
+                
+                if (data.response && data.response[0]) {
+                    const st = data.response[0].league.standings[0];
+                    let html = '<table><thead><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr></thead><tbody>';
+                    
+                    st.slice(0, 10).forEach(t => {
+                        html += `<tr>
+                            <td>${t.rank}</td>
+                            <td><div class="team-cell"><img src="${t.team.logo}" width="20">${t.team.name}</div></td>
+                            <td style="color:var(--green); font-weight:bold;">${t.points}</td>
+                        </tr>`;
+                    });
+                    
+                    html += '</tbody></table>';
+                    document.getElementById('egy-table').innerHTML = html;
+                } else {
+                    document.getElementById('egy-table').innerHTML = '<p style="text-align:center; padding:20px; color:var(--gold);">السيرفر المجاني استهلك طاقته لليوم. التحديث الحقيقي سيعود خلال ساعات!</p>';
+                }
+            } catch (e) { 
+                document.getElementById('egy-table').innerHTML = '<p style="text-align:center; padding:20px;">خطأ في الاتصال بالسيرفر.</p>'; 
+            }
+        }
+        loadData();
     </script>
 </body>
 </html>
