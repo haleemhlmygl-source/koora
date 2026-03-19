@@ -16,68 +16,99 @@
     
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; --blue: #1877f2; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
         
-        /* شريط الأخبار العاجلة */
+        /* شريط الأخبار */
         .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
         .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
 
+        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 10px 0; font-weight: 900; }
         .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; font-size: 0.9rem; }
         
-        /* قسم التصويت التفاعلي */
-        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; margin: 15px 0; }
-        .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
-        .v-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: #fff; transition: 0.3s; }
-        .v-ahly { background: #cc0000; box-shadow: 0 4px 10px rgba(204, 0, 0, 0.2); }
-        .v-zamalek { background: #fff; color: #000; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); }
+        /* كارت المباراة */
+        .match-card { background: linear-gradient(145deg, #1a1f26, #12151a); border: 1px solid #333; border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 15px; }
+        .vs-box { background: #222; padding: 5px 15px; border-radius: 20px; color: var(--green); font-weight: 900; }
 
-        /* قسم الترتيب المباشر */
-        .table-container { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #2d333b; min-height: 80px; }
+        /* التصويت */
+        .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; }
+        .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
+        .v-btn { flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: bold; color: #fff; cursor: pointer; }
+        .v-ahly { background: #cc0000; } .v-zamalek { background: #444; }
+
+        /* الترتيب */
+        .table-container { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #333; }
         
         /* أزرار المشاركة */
-        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; }
-        .wa { background: #25d366; }
-        .fb { background: var(--blue); }
+        .share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .btn-share { display: block; text-align: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; }
+        .wa { background: #25d366; } .fb { background: var(--blue); }
 
-        /* تنسيق الإعلان الصغير في الأسفل */
-        .ads-bottom { 
-            background: var(--card); 
-            border: 1px solid #2d333b; 
-            border-radius: 12px; 
-            margin: 20px auto 10px; 
-            padding: 5px; 
-            max-width: 330px; 
-            max-height: 110px; 
-            overflow: hidden; 
-            text-align: center;
-        }
-
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 25px; border-top: 1px solid #222; padding: 15px 0; }
-        #live-clock { color: var(--gold); font-weight: bold; display: block; margin-top: 5px; }
+        /* الإعلان */
+        .ads-bottom { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 20px auto; padding: 5px; max-width: 330px; max-height: 110px; overflow: hidden; text-align: center; }
+        
+        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; border-top: 1px solid #222; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="news-ticker">
-        <span>📢 حصرياً: المبرمج HALEEM HLMY يقدم لكم أسرع بث لنتائج الدوري المصري.. الموقع الآن يدعم التشغيل كتطبيق! ⚽🔥</span>
+        <span>📢 عاجل: تطبيق GoalZone متاح الآن للتحميل على موبايلك.. تابع ترتيب الدوري المصري لحظة بلحظة! 🔥⚽</span>
     </div>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">🗳️ توقع الفائز بالقمة؟</div>
+    <div class="section-title">🏆 مباراة القمة القادمة</div>
+    <div class="match-card">
+        <div style="display:flex; justify-content:space-around; align-items:center;">
+            <div>🔴<br><small>الأهلي</small></div>
+            <div class="vs-box">VS</div>
+            <div>⚪<br><small>الزمالك</small></div>
+        </div>
+        <p style="color:var(--gold); font-size:0.75rem; margin-top:10px;">بث مباشر قريباً 📺</p>
+    </div>
+
+    <div class="section-title">🗳️ توقع الفائز؟</div>
     <div class="vote-container">
-        <p id="vote-msg" style="margin:0; font-size:0.85rem;">صوت لفريقك المفضل الآن!</p>
+        <p id="vote-msg" style="margin:0; font-size:0.85rem;">صوت لفريقك المفضل!</p>
         <div class="vote-btns">
-            <button class="v-btn v-ahly" onclick="vote('الأهلي')">الأهلي ❤️</button>
-            <button class="v-btn v-zamalek" onclick="vote('الزمالك')">الزمالك 🏹</button>
+            <button class="v-btn v-ahly" onclick="vote('الأهلي')">الأهلي</button>
+            <button class="v-btn v-zamalek" onclick="vote('الزمالك')">الزمالك</button>
         </div>
     </div>
 
     <div class="section-title">📊 الترتيب المباشر للدوري</div>
     <div class="table-container" id="egy-table">
-        <p style="text-align:center; padding:15px; color:var(--gold); font-size:0.8rem;">تحديث البيانات الحية سيعود للعمل تلقائياً بكرة الصبح! 🔄</p>
+        <p style="color:var(--gold); font-size:0.8rem; margin:0;">تحديث البيانات الحية سيعود للعمل تلقائياً بكرة الصبح! 🔄</p>
     </div>
 
-    <p style="text-align:center; font-size:0.8rem; color:#8b94
+    <div class="share-grid">
+        <a href="https://api.whatsapp.com/send?text=شوف ترتيب الدوري المباشر وصوت لفريقك على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" target="_blank" class="btn-share fb">فيسبوك 🔵</a>
+    </div>
+
+    <div class="ads-bottom">
+        <p style="font-size: 0.6rem; color: #555; margin: 0;">إعلان ممول</p>
+        <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
+        <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
+    </div>
+
+    <div class="footer">
+        جميع الحقوق محفوظة للمبرمج: <b>HALEEM HLMY</b> <br>
+        توقيت مصر: <span id="live-clock" style="color:var(--gold)">00:00:00</span> | 
+        الزيارات: <span id="count" style="color:var(--green)">1,880</span>
+    </div>
+
+    <script>
+        function updateClock() { document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('ar-EG'); }
+        setInterval(updateClock, 1000); updateClock();
+
+        function vote(team) {
+            document.getElementById('vote-msg').innerHTML = `<span style="color:var(--green)">شكراً لتصويتك لـ ${team}! المبرمج حليم حلمي يحييك. ⚽</span>`;
+            document.querySelector('.vote-btns').style.display = 'none';
+        }
+
+        let c = 1880; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
+    </script>
+</body>
+</html>
