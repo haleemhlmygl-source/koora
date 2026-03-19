@@ -6,117 +6,81 @@
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; --blue: #1877f2; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
-        .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.8rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
-        .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 10px 0; font-weight: 900; }
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; font-size: 0.9rem; }
-        .tabs-container { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; padding-bottom: 5px; }
-        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 8px 15px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 0.75rem; }
-        .tab-btn.active { background: var(--green); color: #000; border-color: var(--green); }
-        .box { background: var(--card); border-radius: 12px; padding: 12px; border: 1px solid #333; margin-bottom: 15px; min-height: 100px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { color: var(--green); padding: 10px 5px; border-bottom: 1px solid #333; }
-        td { padding: 12px 5px; border-bottom: 1px solid #222; text-align: center; }
-        .scorer-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; align-items: center; }
-        .goals { color: var(--gold); font-weight: bold; font-size: 1.1rem; }
-        .share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn-share { display: block; text-align: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.85rem; }
-        .wa { background: #25d366; } .fb { background: var(--blue); }
-        .ads-bottom { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 20px auto; padding: 5px; max-width: 330px; text-align: center; }
-        .footer { text-align: center; color: #8b949e; font-size: 0.7rem; border-top: 1px solid #222; padding-top: 15px; }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
+        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 10px; font-weight: 900; }
+        .tabs-container { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; }
+        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 8px 15px; border-radius: 20px; white-space: nowrap; cursor: pointer; }
+        .tab-btn.active { background: var(--green); color: #000; font-weight: bold; }
+        .box { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid #333; min-height: 100px; margin-bottom: 15px; }
+        table { width: 100%; text-align: center; border-collapse: collapse; }
+        th { color: var(--green); padding-bottom: 10px; border-bottom: 1px solid #333; }
+        td { padding: 10px 5px; border-bottom: 1px solid #222; }
+        .footer { text-align: center; color: #555; font-size: 0.7rem; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="news-ticker">
-        <span>📢 مباشر 2026: تطبيق GoalZone يغطي هدافي وترتيب الدوريات العالمية بأحدث البيانات! 🏆⚽</span>
-    </div>
-
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">📊 اختر الدوري للمتابعة</div>
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="loadData(39, 'الدوري الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-        <button class="tab-btn" onclick="loadData(307, 'الدوري السعودي', this)">🇸🇦 السعودي</button>
-        <button class="tab-btn" onclick="loadData(140, 'الدوري الإسباني', this)">🇪🇸 الإسباني</button>
-        <button class="tab-btn" onclick="loadData(233, 'الدوري المصري', this)">🇪🇬 المصري</button>
+        <button class="tab-btn active" onclick="loadData(39, 'الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+        <button class="tab-btn" onclick="loadData(307, 'السعودي', this)">🇸🇦 السعودي</button>
+        <button class="tab-btn" onclick="loadData(140, 'الإسباني', this)">🇪🇸 الإسباني</button>
+        <button class="tab-btn" onclick="loadData(233, 'المصري', this)">🇪🇬 المصري</button>
     </div>
 
-    <div class="section-title">🏆 جدول الترتيب</div>
-    <div class="box" id="standings-box">
-        <p style="color:var(--gold); text-align:center; padding: 20px;">جاري جلب بيانات 2026... 🔄</p>
+    <div class="box" id="content">
+        <p style="text-align:center; color:var(--gold);">جاري جلب البيانات الحقيقية... 🔄</p>
     </div>
 
-    <div class="section-title">👟 قائمة الهدافين</div>
-    <div class="box" id="scorers-box">
-        <p style="color:var(--gold); text-align:center; padding: 20px;">جاري جلب هدافي الموسم... 👟</p>
-    </div>
-
-    <div class="share-grid">
-        <a href="https://api.whatsapp.com/send?text=شوف ترتيب الهدافين 2026 على تطبيق HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" target="_blank" class="btn-share fb">فيسبوك 🔵</a>
-    </div>
-
-    <div class="ads-bottom">
-        <p style="font-size: 0.6rem; color: #555; margin: 0;">إعلان ممول</p>
-        <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
-        <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
-    </div>
-
-    <div class="footer">بواسطة المبرمج: <b>HALEEM HLMY</b></div>
+    <div class="footer">المبرمج: HALEEM HLMY</div>
 
     <script>
-        const MY_KEY = "3233c035c06b5a688ee984abb39f4b67";
+        // تأكد أن هذا المفتاح صحيح تماماً من لوحة تحكم API-Football
+        const MY_KEY = "3233c035c06b5a688ee984abb39f4b67"; 
 
-        async function fetchSmart(url) {
-            const head = { "headers": { "x-rapidapi-key": MY_KEY, "x-rapidapi-host": "v3.football.api-sports.io" } };
-            
-            // محاولة أولى: موسم 2026
-            let res = await fetch(url + "&season=2026", head);
-            let data = await res.json();
-            
-            // لو مافيش بيانات 2026، جرب 2025
-            if (!data.response || data.response.length === 0) {
-                res = await fetch(url + "&season=2025", head);
-                data = await res.json();
+        async function loadData(leagueId, name, btn) {
+            if(btn) {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
             }
-            return data;
-        }
-
-        async function loadData(id, name, btn) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-
-            const sBox = document.getElementById('standings-box');
-            const scBox = document.getElementById('scorers-box');
-            sBox.innerHTML = `<p style="color:var(--gold); text-align:center; padding: 20px;">جاري جلب بيانات ${name}... 🔄</p>`;
+            const box = document.getElementById('content');
+            box.innerHTML = `<p style="text-align:center;">جاري تحميل ${name}... 🔄</p>`;
 
             try {
-                const dataS = await fetchSmart(`https://v3.football.api-sports.io/standings?league=${id}`);
-                if(dataS.response && dataS.response[0]) {
-                    const st = dataS.response[0].league.standings[0];
-                    let h = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
-                    st.slice(0, 15).forEach(t => {
-                        h += `<tr><td>${t.rank}</td><td style="text-align:right;"><img src="${t.team.logo}" width="18"> ${t.team.name}</td><td>${t.points}</td></tr>`;
-                    });
-                    sBox.innerHTML = h + '</table>';
-                }
+                // جربنا 2025 لأنها الأكثر استقراراً حالياً في السيرفر للدوريات الجارية
+                const response = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-key": MY_KEY,
+                        "x-rapidapi-host": "v3.football.api-sports.io"
+                    }
+                });
 
-                const dataH = await fetchSmart(`https://v3.football.api-sports.io/players/topscorers?league=${id}`);
-                if(dataH.response) {
-                    let h = '';
-                    dataH.response.slice(0, 5).forEach(p => {
-                        h += `<div class="scorer-item"><span>${p.player.name}</span><span class="goals">${p.statistics[0].goals.total} ⚽</span></div>`;
+                const data = await response.json();
+
+                if (data.response && data.response.length > 0) {
+                    const standings = data.response[0].league.standings[0];
+                    let html = '<table><tr><th>#</th><th>الفريق</th><th>ن</th></tr>';
+                    standings.slice(0, 10).forEach(team => {
+                        html += `<tr>
+                            <td>${team.rank}</td>
+                            <td style="text-align:right;"><img src="${team.team.logo}" width="20"> ${team.team.name}</td>
+                            <td><b>${team.points}</b></td>
+                        </tr>`;
                     });
-                    scBox.innerHTML = h || "لا توجد بيانات متاحة حالياً";
+                    box.innerHTML = html + '</table>';
+                } else {
+                    box.innerHTML = `<p style="text-align:center;">السيرفر مفيش فيه بيانات حالياً للدوري ${name}. جرب دوري تاني.</p>`;
                 }
-            } catch(e) { sBox.innerHTML = "خطأ في الاتصال بالسيرفر"; }
+            } catch (error) {
+                box.innerHTML = `<p style="text-align:center; color:red;">خطأ في الاتصال. تأكد من مفتاح API.</p>`;
+            }
         }
 
-        loadData(39, 'الدوري الإنجليزي', document.querySelectorAll('.tab-btn')[0]);
+        // تشغيل الدوري الإنجليزي فوراً عند الفتح
+        window.onload = () => loadData(39, 'الإنجليزي', null);
     </script>
 </body>
 </html>
