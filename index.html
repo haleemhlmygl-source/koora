@@ -24,7 +24,7 @@
         .badge-ns{background:#0d2b1a;color:var(--green);}
         .live-score{font-size:1.4rem;font-weight:900;color:var(--gold);margin:6px 0;}
         .team-sm{font-size:.72rem;margin:4px 0;display:flex;align-items:center;justify-content:center;gap:4px;}
-        .team-sm img{width:20px;height:20px;object-fit:contain;border-radius:50%;}
+        .team-sm img{width:20px;height:20px;object-fit:contain;}
         .league-sm{font-size:.6rem;color:#555;margin-top:5px;}
         @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
         .tabs{display:flex;overflow-x:auto;gap:8px;margin-bottom:15px;scrollbar-width:none;}
@@ -55,7 +55,7 @@
         .scorer-name{font-size:.88rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
         .scorer-team{font-size:.7rem;color:#666;margin-top:2px;display:flex;align-items:center;gap:4px;}
         .scorer-team img{width:14px;height:14px;object-fit:contain;}
-        .scorer-goals{font-size:1.2rem;font-weight:900;color:var(--gold);white-space:nowrap;}
+        .scorer-goals{font-size:1.2rem;font-weight:900;color:var(--gold);}
         .notif-btn{position:fixed;bottom:20px;left:20px;background:var(--green);color:#000;border:none;border-radius:50%;width:52px;height:52px;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,230,118,.4);z-index:999;}
         .footer{text-align:center;color:#555;font-size:.78rem;padding:20px 0;border-top:1px solid #1a1a1a;line-height:1.8;margin-top:10px;}
     </style>
@@ -71,18 +71,18 @@
 
 <div class="section-title">📊 ترتيب الدوريات</div>
 <div class="tabs" id="stand-tabs">
-    <button class="tab-btn active" onclick="loadStand(4328,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-    <button class="tab-btn" onclick="loadStand(4335,'الإسباني',this)">🇪🇸 الإسباني</button>
-    <button class="tab-btn" onclick="loadStand(4332,'الإيطالي',this)">🇮🇹 الإيطالي</button>
-    <button class="tab-btn" onclick="loadStand(4331,'الألماني',this)">🇩🇪 الألماني</button>
-    <button class="tab-btn" onclick="loadStand(4334,'الفرنسي',this)">🇫🇷 الفرنسي</button>
-    <button class="tab-btn" onclick="loadStand(4687,'السعودي',this)">🇸🇦 السعودي</button>
-    <button class="tab-btn" onclick="loadStand(4969,'المصري',this)">🇪🇬 المصري</button>
+    <button class="tab-btn active" onclick="loadStand(39,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+    <button class="tab-btn" onclick="loadStand(140,'الإسباني',this)">🇪🇸 الإسباني</button>
+    <button class="tab-btn" onclick="loadStand(135,'الإيطالي',this)">🇮🇹 الإيطالي</button>
+    <button class="tab-btn" onclick="loadStand(78,'الألماني',this)">🇩🇪 الألماني</button>
+    <button class="tab-btn" onclick="loadStand(61,'الفرنسي',this)">🇫🇷 الفرنسي</button>
+    <button class="tab-btn" onclick="loadStand(307,'السعودي',this)">🇸🇦 السعودي</button>
+    <button class="tab-btn" onclick="loadStand(233,'المصري',this)">🇪🇬 المصري</button>
 </div>
 <div class="box" id="stand-box"><div class="msg"><span class="spin">⚽</span> جاري التحميل...</div></div>
 <div class="upd" id="stand-upd"></div>
 
-<div class="section-title">🏅 الهدافين — بيانات حقيقية</div>
+<div class="section-title">🏅 الهدافين</div>
 <div class="tabs" id="scorer-tabs">
     <button class="tab-btn active" onclick="loadScorers(39,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
     <button class="tab-btn" onclick="loadScorers(140,'الإسباني',this)">🇪🇸 الإسباني</button>
@@ -98,19 +98,19 @@
 <button class="notif-btn" id="notif-btn" onclick="toggleNotif()">🔔</button>
 
 <script>
-var SDB    = "https://www.thesportsdb.com/api/v1/json/3";
-var AFBASE = "https://v3.football.api-sports.io";
-var AFKEY  = "9e21494c49c75f64c6b7149ca8671fd4";
-var SEASON = "2025-2026";
-var AFSEASON = 2025;
+var BASE    = "https://v3.football.api-sports.io";
+var KEY     = "9e21494c49c75f64c6b7149ca8671fd4";
+var SEASON  = 2025;
 var notifOn = false;
 
 function nowTime(){return new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});}
 function logo(url){return url?'<img src="'+url+'" onerror="this.style.display=\'none\'" alt="">':'';}
 
-function afFetch(path, cb){
-    fetch(AFBASE+path,{headers:{"x-rapidapi-key":AFKEY,"x-rapidapi-host":"v3.football.api-sports.io"}})
-    .then(function(r){return r.json();}).then(cb).catch(function(){cb(null);});
+function apiFetch(path,cb){
+    fetch(BASE+path,{headers:{"x-apisports-key":KEY}})
+    .then(function(r){return r.json();})
+    .then(function(d){cb(d);})
+    .catch(function(){cb(null);});
 }
 
 function toggleNotif(){
@@ -124,120 +124,109 @@ function toggleNotif(){
     });
 }
 
-// ── مباريات اليوم (TheSportsDB) ──
+// ── مباريات اليوم ──
 function loadToday(){
     var box=document.getElementById("live-box");
-    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري التحميل...</div>';
-    fetch(SDB+"/livescore.php?s=Soccer")
-    .then(function(r){return r.json();})
-    .then(function(data){
-        var ev=data.events||data.livescore||[];
-        if(ev&&ev.length){renderMatches(ev,true);return;}
-        loadPast();
-    }).catch(loadPast);
-}
-
-function loadPast(){
-    var leagues=[4328,4335,4332,4331,4334],all=[],done=0;
-    leagues.forEach(function(id){
-        fetch(SDB+"/eventspastleague.php?id="+id)
-        .then(function(r){return r.json();})
-        .then(function(data){
-            (data.events||[]).slice(-2).forEach(function(e){all.push(e);});
-            done++;if(done===leagues.length)renderMatches(all,false);
-        }).catch(function(){done++;if(done===leagues.length)renderMatches(all,false);});
+    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل مباريات اليوم...</div>';
+    var today=new Date().toISOString().split("T")[0];
+    apiFetch("/fixtures?date="+today,function(data){
+        if(!data||!data.response||!data.response.length){
+            box.innerHTML='<div class="msg">📅 لا توجد مباريات اليوم</div>';
+            return;
+        }
+        var matches=data.response;
+        matches.sort(function(a,b){
+            var o={"1H":0,"2H":0,"HT":0,"ET":0,"LIVE":0,"FT":1,"AET":1,"PEN":1,"NS":2,"TBD":2};
+            var sa=o[a.fixture.status.short]!==undefined?o[a.fixture.status.short]:2;
+            var sb=o[b.fixture.status.short]!==undefined?o[b.fixture.status.short]:2;
+            return sa-sb;
+        });
+        var html="",tickers=[];
+        matches.forEach(function(m){
+            var st=m.fixture.status.short;
+            var isL=["1H","2H","HT","ET","LIVE"].indexOf(st)>-1;
+            var isF=["FT","AET","PEN"].indexOf(st)>-1;
+            var home=m.teams.home.name,away=m.teams.away.name;
+            var hL=m.teams.home.logo,aL=m.teams.away.logo;
+            var sH=m.goals.home,sA=m.goals.away;
+            var hasS=sH!==null&&sH!==undefined;
+            var elapsed=m.fixture.status.elapsed;
+            var mTime=new Date(m.fixture.date).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});
+            var badge=isL?'<span class="badge badge-live">🔴 '+(elapsed?elapsed+"'":"مباشر")+'</span>'
+                :isF?'<span class="badge badge-fin">انتهت ✓</span>'
+                :'<span class="badge badge-ns">⏰ '+mTime+'</span>';
+            var score=hasS?'<div class="live-score">'+sH+' - '+sA+'</div>'
+                :'<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
+            html+='<div class="live-card'+(isL?" is-live":"")+'">'+badge
+                +'<div class="team-sm" style="margin-top:8px">'+logo(hL)+home+'</div>'
+                +score
+                +'<div class="team-sm">'+logo(aL)+away+'</div>'
+                +'<div class="league-sm">'+(m.league&&m.league.name||"")+'</div></div>';
+            if(hasS)tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
+        });
+        box.innerHTML=html;
+        document.getElementById("live-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b>";
+        if(tickers.length)document.getElementById("ticker-text").textContent=tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
     });
 }
 
-function renderMatches(events,isLive){
-    var box=document.getElementById("live-box");
-    if(!events||!events.length){box.innerHTML='<div class="msg">📅 لا توجد مباريات</div>';return;}
-    var html="",tickers=[];
-    events.forEach(function(m){
-        var home=m.strHomeTeam||"",away=m.strAwayTeam||"";
-        var hL=m.strHomeTeamBadge||"",aL=m.strAwayTeamBadge||"";
-        var sH=m.intHomeScore,sA=m.intAwayScore;
-        var hasS=sH!==null&&sH!==undefined&&sH!=="";
-        var mTime=m.strTime?m.strTime.substring(0,5):"";
-        var prog=m.strProgress||"";
-        var liveF=isLive||(m.strStatus==="Match In Progress");
-        var badge=liveF&&hasS?'<span class="badge badge-live">🔴 '+(prog||"مباشر")+'</span>'
-            :hasS?'<span class="badge badge-fin">انتهت ✓</span>'
-            :'<span class="badge badge-ns">⏰ '+mTime+'</span>';
-        var score=hasS?'<div class="live-score">'+sH+' - '+sA+'</div>'
-            :'<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
-        html+='<div class="live-card'+(liveF&&hasS?" is-live":"")+'">'+badge
-            +'<div class="team-sm" style="margin-top:8px">'+logo(hL)+home+'</div>'
-            +score+'<div class="team-sm">'+logo(aL)+away+'</div>'
-            +'<div class="league-sm">'+(m.strLeague||"")+'</div></div>';
-        if(hasS)tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
-    });
-    box.innerHTML=html;
-    document.getElementById("live-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b>";
-    if(tickers.length)document.getElementById("ticker-text").textContent=tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
-}
-
-// ── ترتيب الدوري (TheSportsDB) ──
+// ── ترتيب الدوري ──
 function loadStand(id,name,btn){
     if(btn){document.querySelectorAll("#stand-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
     var box=document.getElementById("stand-box");
     box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل '+name+'...</div>';
-    fetch(SDB+"/lookuptable.php?l="+id+"&s="+SEASON)
-    .then(function(r){return r.json();})
-    .then(function(data){
-        var table=data.table||[];
-        if(!table.length)throw new Error();
+    apiFetch("/standings?league="+id+"&season="+SEASON,function(data){
+        if(!data||!data.response||!data.response.length){
+            box.innerHTML='<div class="msg">⚠️ تعذّر تحميل '+name+'<br><button class="retry-btn" onclick="loadStand('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
+            return;
+        }
+        var table=data.response[0].league.standings[0];
         var total=table.length;
         var html='<table><tr><th>#</th><th style="text-align:right">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th></tr>';
         table.forEach(function(t){
-            var r=parseInt(t.intRank);
+            var r=t.rank;
             var rc=r===1?"r1":r<=3?"r2":r>=total-2?"rrel":"";
             html+='<tr><td class="'+rc+'"><b>'+r+'</b></td>'
-                +'<td><div class="team-cell">'+logo(t.strBadge||"")+(t.strTeam||"")+'</div></td>'
-                +'<td>'+(t.intPlayed||0)+'</td><td>'+(t.intWin||0)+'</td>'
-                +'<td>'+(t.intDraw||0)+'</td><td>'+(t.intLoss||0)+'</td>'
-                +'<td class="pts">'+(t.intPoints||0)+'</td></tr>';
+                +'<td><div class="team-cell">'+logo(t.team.logo)+(t.team.name||"")+'</div></td>'
+                +'<td>'+(t.all.played||0)+'</td>'
+                +'<td>'+(t.all.win||0)+'</td>'
+                +'<td>'+(t.all.draw||0)+'</td>'
+                +'<td>'+(t.all.lose||0)+'</td>'
+                +'<td class="pts">'+t.points+'</td></tr>';
         });
         box.innerHTML=html+'</table>';
         document.getElementById("stand-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b> ✅";
-    }).catch(function(){
-        box.innerHTML='<div class="msg">⚠️ تعذّر تحميل '+name+'<br><button class="retry-btn" onclick="loadStand('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
     });
 }
 
-// ── الهدافين الحقيقيين (api-football.com) ──
-function loadScorers(leagueId,name,btn){
+// ── الهدافين ──
+function loadScorers(id,name,btn){
     if(btn){document.querySelectorAll("#scorer-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
     var box=document.getElementById("scorers-box");
     box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل هدافين '+name+'...</div>';
-    afFetch("/players/topscorers?league="+leagueId+"&season="+AFSEASON, function(data){
+    apiFetch("/players/topscorers?league="+id+"&season="+SEASON,function(data){
         if(!data||!data.response||!data.response.length){
-            box.innerHTML='<div class="msg">⚠️ تعذّر تحميل هدافين '+name+'<br>'
-                +'<button class="retry-btn" onclick="loadScorers('+leagueId+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
+            box.innerHTML='<div class="msg">⚠️ تعذّر تحميل هدافين '+name+'<br><button class="retry-btn" onclick="loadScorers('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
             return;
         }
         var html="";
         data.response.slice(0,15).forEach(function(item,i){
             var r=i+1;
             var p=item.player||{};
-            var s=item.statistics&&item.statistics[0]||{};
-            var pName=p.name||"";
-            var pPhoto=p.photo||"";
-            var team=(s.team&&s.team.name)||"";
-            var tLogo=(s.team&&s.team.logo)||"";
+            var s=item.statistics[0]||{};
             var goals=(s.goals&&s.goals.total)||0;
             var assists=(s.goals&&s.goals.assists)||0;
             html+='<div class="scorer-row">'
                 +'<div class="scorer-rank'+(r<=3?" top":"")+'">'+r+'</div>'
-                +(pPhoto?'<img class="scorer-img" src="'+pPhoto+'" onerror="this.style.display=\'none\'">':'')
+                +(p.photo?'<img class="scorer-img" src="'+p.photo+'" onerror="this.style.display=\'none\'">':'')
                 +'<div class="scorer-info">'
-                +'<div class="scorer-name">'+pName+'</div>'
-                +'<div class="scorer-team">'+logo(tLogo)+team+'</div></div>'
+                +'<div class="scorer-name">'+(p.name||"")+'</div>'
+                +'<div class="scorer-team">'+logo(s.team&&s.team.logo||"")+(s.team&&s.team.name||"")+'</div>'
+                +'</div>'
                 +'<div style="text-align:center">'
                 +'<div class="scorer-goals">'+goals+' ⚽</div>'
                 +(assists?'<div style="font-size:.65rem;color:#42a5f5">'+assists+' 🅰️</div>':'')
-                +'</div>'
-                +'</div>';
+                +'</div></div>';
         });
         box.innerHTML=html;
     });
@@ -245,7 +234,7 @@ function loadScorers(leagueId,name,btn){
 
 window.onload=function(){
     loadToday();
-    loadStand(4328,"الإنجليزي",null);
+    loadStand(39,"الإنجليزي",null);
     loadScorers(39,"الإنجليزي",null);
     setInterval(loadToday,60000);
 };
