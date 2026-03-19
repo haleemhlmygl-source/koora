@@ -48,12 +48,14 @@
         .upd b{color:var(--green);}
         .scorer-row{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid #1a1a1a;}
         .scorer-row:last-child{border-bottom:none;}
-        .scorer-rank{width:26px;height:26px;border-radius:50%;background:#1c1f26;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#888;flex-shrink:0;}
+        .scorer-rank{width:28px;height:28px;border-radius:50%;background:#1c1f26;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#888;flex-shrink:0;}
         .scorer-rank.top{background:rgba(255,215,0,.15);color:var(--gold);}
+        .scorer-img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#222;flex-shrink:0;}
         .scorer-info{flex:1;min-width:0;}
         .scorer-name{font-size:.88rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .scorer-team{font-size:.7rem;color:#666;margin-top:2px;}
-        .scorer-goals{font-size:1.1rem;font-weight:900;color:var(--gold);white-space:nowrap;}
+        .scorer-team{font-size:.7rem;color:#666;margin-top:2px;display:flex;align-items:center;gap:4px;}
+        .scorer-team img{width:14px;height:14px;object-fit:contain;}
+        .scorer-goals{font-size:1.2rem;font-weight:900;color:var(--gold);white-space:nowrap;}
         .notif-btn{position:fixed;bottom:20px;left:20px;background:var(--green);color:#000;border:none;border-radius:50%;width:52px;height:52px;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,230,118,.4);z-index:999;}
         .footer{text-align:center;color:#555;font-size:.78rem;padding:20px 0;border-top:1px solid #1a1a1a;line-height:1.8;margin-top:10px;}
     </style>
@@ -80,28 +82,36 @@
 <div class="box" id="stand-box"><div class="msg"><span class="spin">⚽</span> جاري التحميل...</div></div>
 <div class="upd" id="stand-upd"></div>
 
-<div class="section-title">🏅 الهدافين</div>
+<div class="section-title">🏅 الهدافين — بيانات حقيقية</div>
 <div class="tabs" id="scorer-tabs">
-    <button class="tab-btn active" onclick="loadScorers(4328,this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-    <button class="tab-btn" onclick="loadScorers(4335,this)">🇪🇸 الإسباني</button>
-    <button class="tab-btn" onclick="loadScorers(4332,this)">🇮🇹 الإيطالي</button>
-    <button class="tab-btn" onclick="loadScorers(4331,this)">🇩🇪 الألماني</button>
-    <button class="tab-btn" onclick="loadScorers(4334,this)">🇫🇷 الفرنسي</button>
-    <button class="tab-btn" onclick="loadScorers(4687,this)">🇸🇦 السعودي</button>
-    <button class="tab-btn" onclick="loadScorers(4969,this)">🇪🇬 المصري</button>
+    <button class="tab-btn active" onclick="loadScorers(39,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+    <button class="tab-btn" onclick="loadScorers(140,'الإسباني',this)">🇪🇸 الإسباني</button>
+    <button class="tab-btn" onclick="loadScorers(135,'الإيطالي',this)">🇮🇹 الإيطالي</button>
+    <button class="tab-btn" onclick="loadScorers(78,'الألماني',this)">🇩🇪 الألماني</button>
+    <button class="tab-btn" onclick="loadScorers(61,'الفرنسي',this)">🇫🇷 الفرنسي</button>
+    <button class="tab-btn" onclick="loadScorers(307,'السعودي',this)">🇸🇦 السعودي</button>
+    <button class="tab-btn" onclick="loadScorers(233,'المصري',this)">🇪🇬 المصري</button>
 </div>
-<div class="box" id="scorers-box"></div>
+<div class="box" id="scorers-box"><div class="msg"><span class="spin">⚽</span> جاري التحميل...</div></div>
 
 <div class="footer">بواسطة المبرمج: <b>HALEEM HLMY</b><br>مكان الإصدار: الحرافشة - سوهاج | مارس 2026<br>جميع الحقوق محفوظة ©</div>
 <button class="notif-btn" id="notif-btn" onclick="toggleNotif()">🔔</button>
 
 <script>
-var SDB="https://www.thesportsdb.com/api/v1/json/3";
-var SEASON="2025-2026";
-var notifOn=false;
+var SDB    = "https://www.thesportsdb.com/api/v1/json/3";
+var AFBASE = "https://v3.football.api-sports.io";
+var AFKEY  = "9e21494c49c75f64c6b7149ca8671fd4";
+var SEASON = "2025-2026";
+var AFSEASON = 2025;
+var notifOn = false;
 
 function nowTime(){return new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});}
 function logo(url){return url?'<img src="'+url+'" onerror="this.style.display=\'none\'" alt="">':'';}
+
+function afFetch(path, cb){
+    fetch(AFBASE+path,{headers:{"x-rapidapi-key":AFKEY,"x-rapidapi-host":"v3.football.api-sports.io"}})
+    .then(function(r){return r.json();}).then(cb).catch(function(){cb(null);});
+}
 
 function toggleNotif(){
     if(!("Notification" in window)){alert("المتصفح لا يدعم الإشعارات");return;}
@@ -114,7 +124,7 @@ function toggleNotif(){
     });
 }
 
-// ── مباريات اليوم ──
+// ── مباريات اليوم (TheSportsDB) ──
 function loadToday(){
     var box=document.getElementById("live-box");
     box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري التحميل...</div>';
@@ -167,7 +177,7 @@ function renderMatches(events,isLive){
     if(tickers.length)document.getElementById("ticker-text").textContent=tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
 }
 
-// ── ترتيب الدوري ──
+// ── ترتيب الدوري (TheSportsDB) ──
 function loadStand(id,name,btn){
     if(btn){document.querySelectorAll("#stand-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
     var box=document.getElementById("stand-box");
@@ -195,100 +205,48 @@ function loadStand(id,name,btn){
     });
 }
 
-// ── الهدافين (بيانات حقيقية محدّثة 20 مارس 2026) ──
-var SCORERS_DATA={
-    4328:[
-        {n:"Mohamed Salah",t:"Liverpool",g:28},
-        {n:"Chris Wood",t:"Nottm Forest",g:20},
-        {n:"Alexander Isak",t:"Newcastle",g:19},
-        {n:"Bryan Mbeumo",t:"Brentford",g:18},
-        {n:"Erling Haaland",t:"Man City",g:17},
-        {n:"Cole Palmer",t:"Chelsea",g:16},
-        {n:"Dominic Solanke",t:"Tottenham",g:13},
-        {n:"Bukayo Saka",t:"Arsenal",g:13},
-        {n:"Ollie Watkins",t:"Aston Villa",g:12},
-        {n:"Marcus Rashford",t:"Man United",g:7}
-    ],
-    4335:[
-        {n:"Kylian Mbappé",t:"Real Madrid",g:25},
-        {n:"Robert Lewandowski",t:"Barcelona",g:22},
-        {n:"Antoine Griezmann",t:"Atletico Madrid",g:14},
-        {n:"Vinicius Jr",t:"Real Madrid",g:13},
-        {n:"Raphinha",t:"Barcelona",g:13},
-        {n:"Dani Olmo",t:"Barcelona",g:11},
-        {n:"Ayoze Perez",t:"Villarreal",g:10},
-        {n:"Ante Budimir",t:"Osasuna",g:10}
-    ],
-    4332:[
-        {n:"Mateo Retegui",t:"Atalanta",g:19},
-        {n:"Marcus Thuram",t:"Inter Milan",g:16},
-        {n:"Lautaro Martinez",t:"Inter Milan",g:14},
-        {n:"Dusan Vlahovic",t:"Juventus",g:13},
-        {n:"Ademola Lookman",t:"Atalanta",g:12},
-        {n:"Lorenzo Lucca",t:"Udinese",g:12},
-        {n:"Romelu Lukaku",t:"Napoli",g:11},
-        {n:"Rafael Leao",t:"AC Milan",g:9}
-    ],
-    4331:[
-        {n:"Harry Kane",t:"Bayern Munich",g:24},
-        {n:"Serhou Guirassy",t:"B. Dortmund",g:18},
-        {n:"Patrik Schick",t:"B. Leverkusen",g:15},
-        {n:"Ermedin Demirovic",t:"Stuttgart",g:12},
-        {n:"Tim Kleindienst",t:"M.Gladbach",g:11},
-        {n:"Wout Weghorst",t:"Hoffenheim",g:10},
-        {n:"Michael Gregoritsch",t:"Freiburg",g:9}
-    ],
-    4334:[
-        {n:"Jonathan David",t:"Lille",g:20},
-        {n:"Bradley Barcola",t:"PSG",g:16},
-        {n:"Ousmane Dembele",t:"PSG",g:13},
-        {n:"Amine Gouiri",t:"Rennes",g:12},
-        {n:"Elye Wahi",t:"Marseille",g:11},
-        {n:"Arnaud Kalimuendo",t:"Rennes",g:10},
-        {n:"Georginio Rutter",t:"Brighton",g:9}
-    ],
-    4687:[
-        {n:"Aleksandar Mitrovic",t:"Al-Hilal",g:20},
-        {n:"Cristiano Ronaldo",t:"Al-Nassr",g:18},
-        {n:"Ivan Toney",t:"Al-Ahli",g:14},
-        {n:"Jhon Duran",t:"Al-Qadsiah",g:13},
-        {n:"Moussa Dembele",t:"Al-Qadsiah",g:11},
-        {n:"Roberto Firmino",t:"Al-Ahli",g:8},
-        {n:"Neymar",t:"Al-Hilal",g:5}
-    ],
-    4969:[
-        {n:"أحمد رمضان بيكهام",t:"الزمالك",g:15},
-        {n:"ماركوس",t:"الأهلي",g:12},
-        {n:"إبراهيم عادل",t:"إنبي",g:11},
-        {n:"كريم نيدفيد",t:"بيراميدز",g:10},
-        {n:"شريف إكرامي",t:"الأهلي",g:8},
-        {n:"محمد شيكابالا",t:"الزمالك",g:7},
-        {n:"أحمد سيد زيزو",t:"الزمالك",g:7}
-    ]
-};
-
-function loadScorers(id,btn){
+// ── الهدافين الحقيقيين (api-football.com) ──
+function loadScorers(leagueId,name,btn){
     if(btn){document.querySelectorAll("#scorer-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
     var box=document.getElementById("scorers-box");
-    var scorers=SCORERS_DATA[id]||SCORERS_DATA[4328];
-    var html="";
-    scorers.forEach(function(s,i){
-        var r=i+1;
-        html+='<div class="scorer-row">'
-            +'<div class="scorer-rank'+(r<=3?" top":"")+'">'+r+'</div>'
-            +'<div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#1c2a1c,#2a3a2a);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--green)">⚽</div>'
-            +'<div class="scorer-info"><div class="scorer-name">'+s.n+'</div>'
-            +'<div class="scorer-team">'+s.t+'</div></div>'
-            +'<div class="scorer-goals">'+s.g+' ⚽</div>'
-            +'</div>';
+    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل هدافين '+name+'...</div>';
+    afFetch("/players/topscorers?league="+leagueId+"&season="+AFSEASON, function(data){
+        if(!data||!data.response||!data.response.length){
+            box.innerHTML='<div class="msg">⚠️ تعذّر تحميل هدافين '+name+'<br>'
+                +'<button class="retry-btn" onclick="loadScorers('+leagueId+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
+            return;
+        }
+        var html="";
+        data.response.slice(0,15).forEach(function(item,i){
+            var r=i+1;
+            var p=item.player||{};
+            var s=item.statistics&&item.statistics[0]||{};
+            var pName=p.name||"";
+            var pPhoto=p.photo||"";
+            var team=(s.team&&s.team.name)||"";
+            var tLogo=(s.team&&s.team.logo)||"";
+            var goals=(s.goals&&s.goals.total)||0;
+            var assists=(s.goals&&s.goals.assists)||0;
+            html+='<div class="scorer-row">'
+                +'<div class="scorer-rank'+(r<=3?" top":"")+'">'+r+'</div>'
+                +(pPhoto?'<img class="scorer-img" src="'+pPhoto+'" onerror="this.style.display=\'none\'">':'')
+                +'<div class="scorer-info">'
+                +'<div class="scorer-name">'+pName+'</div>'
+                +'<div class="scorer-team">'+logo(tLogo)+team+'</div></div>'
+                +'<div style="text-align:center">'
+                +'<div class="scorer-goals">'+goals+' ⚽</div>'
+                +(assists?'<div style="font-size:.65rem;color:#42a5f5">'+assists+' 🅰️</div>':'')
+                +'</div>'
+                +'</div>';
+        });
+        box.innerHTML=html;
     });
-    box.innerHTML=html;
 }
 
 window.onload=function(){
     loadToday();
     loadStand(4328,"الإنجليزي",null);
-    loadScorers(4328,null);
+    loadScorers(39,"الإنجليزي",null);
     setInterval(loadToday,60000);
 };
 </script>
