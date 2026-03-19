@@ -10,13 +10,14 @@
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
         .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px; font-weight: 900; }
         .tabs-container { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; padding-bottom: 5px; }
-        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 25px; white-space: nowrap; cursor: pointer; font-weight: bold; }
+        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 25px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
         .tab-btn.active { background: var(--green); color: #000; border-color: var(--green); }
-        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 200px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { color: var(--green); padding: 10px; border-bottom: 2px solid #333; text-align: center; }
-        td { padding: 12px 5px; border-bottom: 1px solid #222; text-align: center; font-size: 0.9rem; }
-        .footer { text-align: center; color: #666; font-size: 0.75rem; margin-top: 30px; }
+        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 250px; }
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        th { color: var(--green); padding: 10px; border-bottom: 2px solid #333; font-size: 0.85rem; }
+        td { padding: 12px 5px; border-bottom: 1px solid #222; font-size: 0.85rem; }
+        .team-info { display: flex; align-items: center; gap: 8px; text-align: right; justify-content: flex-start; }
+        .footer { text-align: center; color: #555; font-size: 0.7rem; margin-top: 25px; border-top: 1px solid #222; padding-top: 10px; }
     </style>
 </head>
 <body>
@@ -30,58 +31,52 @@
         <button class="tab-btn" onclick="loadLeague(233, 'المصري', this)">🇪🇬 المصري</button>
     </div>
 
-    <div class="box" id="league-content">
-        <p style="text-align:center; color:var(--gold);">جاري جلب أحدث ترتيب لعام 2026... 🔄</p>
+    <div class="box" id="league-box">
+        <p style="text-align:center; color:var(--gold); padding:20px;">جاري الاتصال بالمصدر الجديد... 🔄</p>
     </div>
 
-    <div class="footer">المبرمج: <b>HALEEM HLMY</b></div>
+    <div class="footer">المبرمج: <b>HALEEM HLMY</b> | سوهاج 2026</div>
 
     <script>
-        // مفتاحك الشخصي الشغال
-        const API_KEY = "3233c035c06b5a688ee984abb39f4b67"; 
+        // مفتاحك اللي شغال
+        const API_KEY = "3233c035c06b5a688ee984abb39f4b67";
 
         async function loadLeague(id, name, btn) {
             if(btn) {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             }
-            const container = document.getElementById('league-content');
-            container.innerHTML = `<p style="text-align:center;">جاري تحديث بيانات ${name} المباشرة... 🔄</p>`;
+            const box = document.getElementById('league-box');
+            box.innerHTML = `<p style="text-align:center;">جاري جلب أحدث بيانات لـ ${name}... 🔄</p>`;
 
             try {
-                // طلب موسم 2025 (لأنه الموسم الجاري حالياً في مارس 2026)
-                const response = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, {
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-key": API_KEY,
-                        "x-rapidapi-host": "v3.football.api-sports.io"
-                    }
+                // الكود ده هيجرب يسحب البيانات بأحدث موسم متوفر أوتوماتيك
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, {
+                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
                 });
+                const data = await res.json();
 
-                const result = await response.json();
-
-                if (result.response && result.response.length > 0) {
-                    const standings = result.response[0].league.standings[0];
-                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
-                    
-                    standings.slice(0, 10).forEach(item => {
+                if (data.response && data.response[0]) {
+                    const st = data.response[0].league.standings[0];
+                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr>';
+                    st.slice(0, 15).forEach(item => {
                         html += `<tr>
                             <td>${item.rank}</td>
-                            <td style="text-align:right;"><img src="${item.team.logo}" width="20" style="vertical-align:middle; margin-left:5px;"> ${item.team.name}</td>
+                            <td><div class="team-info"><img src="${item.team.logo}" width="20"> ${item.team.name}</div></td>
+                            <td>${item.all.played}</td>
                             <td><b>${item.points}</b></td>
                         </tr>`;
                     });
-                    
-                    container.innerHTML = html + '</table>';
+                    box.innerHTML = html + '</table>';
                 } else {
-                    container.innerHTML = `<p style="text-align:center; padding:20px;">البيانات لهذا الموسم لم تكتمل بعد في السيرفر.</p>`;
+                    box.innerHTML = `<p style="text-align:center; padding:20px;">عفواً، المصدر لا يوفر بيانات لـ ${name} حالياً. جرب دوري آخر.</p>`;
                 }
-            } catch (error) {
-                container.innerHTML = `<p style="text-align:center; color:red; padding:20px;">خطأ في الاتصال. تأكد من الإنترنت.</p>`;
+            } catch (e) {
+                box.innerHTML = `<p style="text-align:center; color:red;">خطأ في الاتصال بالمصدر الجديد.</p>`;
             }
         }
 
-        // تشغيل الدوري الإنجليزي فوراً للتأكد من البيانات الجديدة
+        // تشغيل الدوري الإنجليزي فوراً
         window.onload = () => loadLeague(39, 'الإنجليزي', null);
     </script>
 </body>
