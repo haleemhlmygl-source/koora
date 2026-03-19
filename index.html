@@ -13,9 +13,9 @@
         .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 25px; white-space: nowrap; cursor: pointer; }
         .tab-btn.active { background: var(--green); color: #000; font-weight: bold; }
         .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 200px; }
-        table { width: 100%; border-collapse: collapse; text-align: center; }
-        th { color: var(--green); padding: 10px; border-bottom: 2px solid #333; }
-        td { padding: 12px 5px; border-bottom: 1px solid #222; }
+        table { width: 100%; border-collapse: collapse; }
+        th { color: var(--green); padding: 10px; border-bottom: 2px solid #333; text-align: center; }
+        td { padding: 12px 5px; border-bottom: 1px solid #222; text-align: center; font-size: 0.9rem; }
         .footer { text-align: center; color: #666; font-size: 0.75rem; margin-top: 30px; }
     </style>
 </head>
@@ -24,14 +24,14 @@
     <div class="header">⚽ GOALZONE 2026</div>
 
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="loadLeague(39, 'الإنجليزي', this)">🏴󠁧󠁢󠁥لنزي</button>
-        <button class="tab-btn" onclick="loadLeague(140, 'الإسباني', this)">🇪🇸 الإسباني</button>
-        <button class="tab-btn" onclick="loadLeague(307, 'السعودي', this)">🇸🇦 السعودي</button>
-        <button class="tab-btn" onclick="loadLeague(233, 'المصري', this)">🇪🇬 المصري</button>
+        <button class="tab-btn active" onclick="loadLeague(39, 2025, 'الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+        <button class="tab-btn" onclick="loadLeague(307, 2025, 'السعودي', this)">🇸🇦 السعودي</button>
+        <button class="tab-btn" onclick="loadLeague(140, 2025, 'الإسباني', this)">🇪🇸 الإسباني</button>
+        <button class="tab-btn" onclick="loadLeague(233, 2025, 'المصري', this)">🇪🇬 المصري</button>
     </div>
 
     <div class="box" id="league-content">
-        <p style="text-align:center; color:var(--gold);">جاري جلب ترتيب الدوريات... 🔄</p>
+        <p style="text-align:center; color:var(--gold);">جاري جلب أحدث النتائج المباشرة... 🔄</p>
     </div>
 
     <div class="footer">المبرمج: HALEEM HLMY</div>
@@ -39,49 +39,42 @@
     <script>
         const API_KEY = "3233c035c06b5a688ee984abb39f4b67";
 
-        async function loadLeague(id, name, btn) {
+        async function loadLeague(id, season, name, btn) {
             if(btn) {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             }
             const container = document.getElementById('league-content');
-            container.innerHTML = `<p style="text-align:center;">جاري البحث في بيانات ${name}... 🔄</p>`;
+            container.innerHTML = `<p style="text-align:center;">جاري تحديث بيانات ${name}... 🔄</p>`;
 
-            // دالة لجلب البيانات وتجربة كذا موسم لو واحد فشل
-            async function fetchData() {
-                const seasons = [2025, 2024]; // هيجرب 2025 الأول، لو مفيش يجرب 2024
-                for (let season of seasons) {
-                    try {
-                        const response = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${season}`, {
-                            "method": "GET",
-                            "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
-                        });
-                        const result = await response.json();
-                        if (result.response && result.response.length > 0) return result;
-                    } catch (e) { console.error(e); }
-                }
-                return null;
-            }
-
-            const data = await fetchData();
-
-            if (data) {
-                const standings = data.response[0].league.standings[0];
-                let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
-                standings.slice(0, 10).forEach(item => {
-                    html += `<tr>
-                        <td>${item.rank}</td>
-                        <td style="text-align:right;"><img src="${item.team.logo}" width="18"> ${item.team.name}</td>
-                        <td><b>${item.points}</b></td>
-                    </tr>`;
+            try {
+                const response = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${season}`, {
+                    "method": "GET",
+                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
                 });
-                container.innerHTML = html + '</table>';
-            } else {
-                container.innerHTML = `<p style="text-align:center;">عفواً، السيرفر لا يستجيب حالياً. تأكد من إعدادات الـ API.</p>`;
+                const result = await response.json();
+                
+                if (result.response && result.response.length > 0) {
+                    const standings = result.response[0].league.standings[0];
+                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
+                    standings.slice(0, 10).forEach(item => {
+                        html += `<tr>
+                            <td>${item.rank}</td>
+                            <td style="text-align:right;"><img src="${item.team.logo}" width="20" style="vertical-align:middle; margin-left:5px;"> ${item.team.name}</td>
+                            <td><b>${item.points}</b></td>
+                        </tr>`;
+                    });
+                    container.innerHTML = html + '</table>';
+                } else {
+                    container.innerHTML = `<p style="text-align:center; padding:20px;">البيانات لهذا الموسم لم تكتمل بعد في السيرفر.</p>`;
+                }
+            } catch (e) {
+                container.innerHTML = `<p style="text-align:center; color:red;">خطأ في الاتصال بالسيرفر.</p>`;
             }
         }
 
-        window.onload = () => loadLeague(39, 'الإنجليزي', null);
+        // تشغيل الدوري الإنجليزي (الأكثر تحديثاً) فور الفتح
+        window.onload = () => loadLeague(39, 2025, 'الإنجليزي', null);
     </script>
 </body>
 </html>
