@@ -3,42 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone 2026 - HALEEM HLMY</title>
+    <title>GoalZone - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        .header { text-align: center; color: var(--green); font-weight: 900; font-size: 2rem; padding: 20px 0; }
-        .ads-container { background: var(--card); border: 2px solid var(--gold); border-radius: 12px; margin: 15px 0; padding: 10px; text-align: center; min-height: 100px; }
-        .section-title { background: var(--card); padding: 12px; border-radius: 8px; margin: 20px 0 10px; border-right: 5px solid var(--green); font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
-        td, th { padding: 12px 8px; text-align: center; border-bottom: 1px solid #1c2128; }
-        .btn-whatsapp { display: block; background: #25d366; color: #fff; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; margin: 20px 0; }
-        .footer { text-align: center; color: #8b949e; font-size: 0.8rem; margin-top: 20px; border-top: 1px solid #1c2128; padding-top: 15px; }
+        .header { text-align: center; color: var(--green); font-size: 1.5rem; padding: 10px 0; font-weight: 900; }
+        
+        /* هنا السر: تصغير مساحة الإعلانات */
+        .ads-mini { 
+            background: var(--card); 
+            border: 1px solid #333; 
+            border-radius: 8px; 
+            margin: 10px auto; 
+            padding: 5px; 
+            width: 95%;
+            max-height: 120px; /* طول صغير جداً للإعلان */
+            overflow: hidden; 
+            text-align: center;
+        }
+
+        .section-title { background: var(--card); padding: 8px; border-radius: 8px; margin: 10px 0; border-right: 4px solid var(--green); font-size: 0.9rem; }
+        table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 10px; overflow: hidden; font-size: 0.85rem; }
+        td, th { padding: 8px 5px; text-align: center; border-bottom: 1px solid #1c2128; }
+        .btn-whatsapp { display: block; background: #25d366; color: #fff; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; margin: 15px 0; font-size: 0.9rem; }
+        .footer { text-align: center; color: #8b949e; font-size: 0.7rem; margin-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="ads-container">
+    <div class="ads-mini">
         <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
         <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
-        <p style="font-size: 0.7rem; color: var(--gold); margin-top: 5px;">إعلانات مدعومة - المبرمج HALEEM HLMY</p>
     </div>
 
-    <div class="section-title">🇪🇬 ترتيب الدوري المصري المباشر</div>
-    <div id="egy-table">جارِ سحب البيانات...</div>
+    <div class="section-title">🇪🇬 ترتيب الدوري المصري (تحديث حي)</div>
+    <div id="egy-table">جارِ التحديث...</div>
 
-    <a href="https://api.whatsapp.com/send?text=شوف ترتيب الدوري المباشر على موقع المبرمج HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 شارك الموقع على واتساب</a>
+    <a href="https://api.whatsapp.com/send?text=تابع ترتيب الدوري المباشر على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 انشر الموقع واكسب</a>
 
     <div class="footer">
-        جميع الحقوق محفوظة © 2026 HALEEM HLMY <br>
-        عدد الزيارات: <span style="color:var(--green);" id="count">1,720</span>
+        بواسطة المبرمج HALEEM HLMY <br>
+        زيارات الموقع: <span style="color:var(--green);" id="count">1,735</span>
     </div>
 
     <script>
-        let c = 1720; setInterval(() => { c += Math.floor(Math.random()*2); document.getElementById('count').innerText = c; }, 5000);
+        let c = 1735; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 7000);
         async function loadData() {
             try {
                 const res = await fetch(`https://v3.football.api-sports.io/standings?league=233&season=2025`, {
@@ -49,12 +61,12 @@
                     const st = data.response[0].league.standings[0];
                     let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
                     st.slice(0, 10).forEach(t => {
-                        html += `<tr><td>${t.rank}</td><td style="text-align:right;"><img src="${t.team.logo}" width="20" style="vertical-align:middle; margin-left:5px;">${t.team.name}</td><td>${t.points}</td></tr>`;
+                        html += `<tr><td>${t.rank}</td><td style="text-align:right;"><img src="${t.team.logo}" width="18" style="vertical-align:middle; margin-left:5px;">${t.team.name}</td><td>${t.points}</td></tr>`;
                     });
                     html += '</table>';
                     document.getElementById('egy-table').innerHTML = html;
                 }
-            } catch (e) { document.getElementById('egy-table').innerHTML = "تحديث الفجر قادم..."; }
+            } catch (e) { document.getElementById('egy-table').innerHTML = "تحميل البيانات..."; }
         }
         loadData();
     </script>
