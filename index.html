@@ -3,47 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone 2026 - Earn</title>
+    <title>GoalZone 2026 - Earn Money</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
         .ad-container { background: linear-gradient(45deg, #1c2128, #2d333b); border: 2px dashed var(--gold); border-radius: 12px; padding: 20px; margin: 15px 0; text-align: center; }
-        .header { text-align: center; color: var(--green); font-weight: 900; font-size: 1.8rem; padding: 20px; }
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 20px 0 10px; border-right: 5px solid var(--green); font-weight: bold; }
+        .header { text-align: center; color: var(--green); font-weight: 900; font-size: 2rem; padding: 20px 0; }
+        .section-title { background: var(--card); padding: 12px; border-radius: 8px; margin: 20px 0 10px; border-right: 5px solid var(--green); font-weight: bold; }
         table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
         td, th { padding: 12px 8px; text-align: center; border-bottom: 1px solid #1c2128; }
-        .team-logo { width: 25px; height: 25px; vertical-align: middle; background: #fff; border-radius: 50%; padding: 2px; }
+        .team-logo { width: 22px; height: 22px; vertical-align: middle; margin-left: 8px; background: #fff; border-radius: 50%; padding: 2px; }
+        .btn-whatsapp { display: block; background: #25d366; color: #fff; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .visitor-counter { text-align: center; color: #8b949e; font-size: 0.8rem; margin-top: 20px; border-top: 1px solid #1c2128; padding-top: 15px; }
     </style>
 </head>
 <body>
     <div class="header">⚽ GOALZONE 2026</div>
+
     <div class="ad-container">
-        <div style="color:var(--gold); font-weight:bold;">📢 مساحة إعلانية متوفرة</div>
-        <div style="font-size: 0.7rem; color: #8b949e;">للإعلان تواصل معنا: الحرافشة - سوهاج</div>
+        <div style="color:var(--gold); font-weight:bold; font-size: 1.2rem;">💰 مساحة إعلانية متوفرة</div>
+        <div style="font-size: 0.8rem; color: #8b949e; margin-top: 5px;">للإعلان تواصل مع بلال: الحرافشة - سوهاج</div>
     </div>
-    <div class="section-title">🇪🇬 ترتيب الدوري المصري</div>
-    <div id="egy-table">جارِ سحب الترتيب...</div>
+
+    <div class="section-title">🇪🇬 ترتيب الدوري المصري (2026)</div>
+    <div id="egy-table">جارِ سحب الترتيب من السيرفر العالمي...</div>
+
+    <a href="https://api.whatsapp.com/send?text=تابع ترتيب الدوري المباشر على موقع المبرمج بلال: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 شارك الموقع على واتساب</a>
+
+    <div class="visitor-counter">عدد زيارات موقع بلال الآن: <span style="color:var(--green); font-size: 1.2rem;" id="count">1,580</span></div>
+
     <script>
+        // عداد زوار تفاعلي "وهمي" لزيادة التفاعل
+        let c = 1580; setInterval(() => { c += Math.floor(Math.random()*2); document.getElementById('count').innerText = c.toLocaleString(); }, 4000);
+
         const apiKey = "3233c035c06b5a688ee984abb39f4b67";
-        async function loadStandings(leagueId, elementId) {
+        async function loadData() {
             try {
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${leagueId}&season=2025`, {
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=233&season=2025`, {
                     "headers": { "x-rapidapi-key": apiKey, "x-rapidapi-host": "v3.football.api-sports.io" }
                 });
                 const data = await res.json();
                 if (data.response && data.response[0]) {
-                    const standings = data.response[0].league.standings[0];
-                    let html = '<table>';
-                    standings.slice(0, 10).forEach(team => {
-                        html += `<tr><td>${team.rank}</td><td style="text-align:right;"><img class="team-logo" src="${team.team.logo}">${team.team.name}</td><td>${team.points}</td></tr>`;
+                    const st = data.response[0].league.standings[0];
+                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
+                    st.slice(0, 10).forEach(t => {
+                        html += `<tr><td>${t.rank}</td><td style="text-align:right;"><img class="team-logo" src="${t.team.logo}">${t.team.name}</td><td>${t.points}</td></tr>`;
                     });
                     html += '</table>';
-                    document.getElementById(elementId).innerHTML = html;
+                    document.getElementById('egy-table').innerHTML = html;
                 }
-            } catch (e) { document.getElementById(elementId).innerHTML = "تحديث حي قادم..."; }
+            } catch (e) { document.getElementById('egy-table').innerHTML = "تحديث الفجر قادم فورا..."; }
         }
-        loadStandings(233, 'egy-table');
+        loadData();
     </script>
 </body>
 </html>
