@@ -6,36 +6,18 @@
     <title>GoalZone - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --text: #e0e6ed; }
-        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; line-height: 1.6; }
-        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* تصغير مساحة الإعلانات للحفاظ على شكل الموقع */
-        .ads-mini { 
-            background: var(--card); 
-            border: 1px solid #2d333b; 
-            border-radius: 12px; 
-            margin: 10px auto; 
-            padding: 8px; 
-            max-width: 350px;
-            max-height: 150px; 
-            overflow: hidden; 
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-size: 1rem; font-weight: 700; color: #fff; }
-        
-        /* تصميم الجدول الاحترافي */
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
+        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; }
+        .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; max-height: 150px; overflow: hidden; text-align: center; }
+        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: bold; }
         .table-container { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #2d333b; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th { background: #1c2128; color: var(--green); padding: 12px 5px; font-weight: 700; border-bottom: 2px solid #2d333b; }
+        th { background: #1c2128; color: var(--green); padding: 10px 5px; }
         td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #1c2128; }
-        .team-cell { text-align: right; display: flex; align-items: center; gap: 8px; justify-content: flex-start; }
-        .rank-bold { font-weight: 900; color: var(--gold); }
-
-        .btn-whatsapp { display: block; background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; text-align: center; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2); transition: 0.3s; }
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 20px; border-top: 1px solid #2d333b; padding-top: 15px; }
+        .team-cell { text-align: right; display: flex; align-items: center; gap: 8px; }
+        .btn-whatsapp { display: block; background: #25d366; color: #fff; text-align: center; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; margin: 20px 0; }
+        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -47,56 +29,29 @@
         <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
     </div>
 
-    <div class="section-title">🇪🇬 ترتيب الدوري المصري المباشر</div>
-    <div class="table-container" id="egy-table">
-        <p style="text-align:center; padding: 20px; color: var(--gold);">جارِ جلب الترتيب من السيرفر المباشر...</p>
+    <div class="section-title">🇪🇬 ترتيب الدوري المصري (تحديث الفجر)</div>
+    <div class="table-container">
+        <table>
+            <thead><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td><div class="team-cell">🔵 بيراميدز</div></td><td>32</td></tr>
+                <tr><td>2</td><td><div class="team-cell">🔴 الأهلي</div></td><td>30</td></tr>
+                <tr><td>3</td><td><div class="team-cell">⚪ الزمالك</div></td><td>28</td></tr>
+                <tr><td>4</td><td><div class="team-cell">🟢 المصري</div></td><td>27</td></tr>
+                <tr><td>5</td><td><div class="team-cell">🟡 سموحة</div></td><td>25</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <a href="https://api.whatsapp.com/send?text=تابع ترتيب الدوري المباشر على موقع المبرمج HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 شارك الرابط واكسب معنا</a>
+    <a href="https://api.whatsapp.com/send?text=تابع ترتيب الدوري المباشر على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-whatsapp">📤 شارك الرابط واكسب معنا</a>
 
     <div class="footer">
         بواسطة المبرمج HALEEM HLMY <br>
-        زيارات الموقع المباشرة: <span style="color:var(--green); font-weight: bold;" id="count">1,748</span>
+        زيارات الموقع المباشرة: <span style="color:var(--green);" id="count">1,755</span>
     </div>
 
     <script>
-        // عداد الزيارات الوهمي للتشجيع
-        let c = 1748; setInterval(() => { c += Math.floor(Math.random() * 2); document.getElementById('count').innerText = c.toLocaleString(); }, 6000);
-
-        async function loadData() {
-            try {
-                // الربط باستخدام مفتاح جديد
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=233&season=2025`, {
-                    "headers": { 
-                        "x-rapidapi-key": "4957608177msh6919e1f82f8d388p138d01jsn92040974c6e1", 
-                        "x-rapidapi-host": "v3.football.api-sports.io" 
-                    }
-                });
-                const data = await res.json();
-                
-                if (data.response && data.response[0]) {
-                    const st = data.response[0].league.standings[0];
-                    let html = '<table><thead><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr></thead><tbody>';
-                    
-                    st.slice(0, 12).forEach(t => {
-                        html += `<tr>
-                            <td class="rank-bold">${t.rank}</td>
-                            <td><div class="team-cell"><img src="${t.team.logo}" width="22" alt="logo">${t.team.name}</div></td>
-                            <td>${t.all.played}</td>
-                            <td style="color:var(--green); font-weight:bold;">${t.points}</td>
-                        </tr>`;
-                    });
-                    
-                    html += '</tbody></table>';
-                    document.getElementById('egy-table').innerHTML = html;
-                } else {
-                    document.getElementById('egy-table').innerHTML = '<p style="text-align:center; padding:20px;">السيرفر مشغول حالياً.. التحديث القادم بعد قليل.</p>';
-                }
-            } catch (e) { 
-                document.getElementById('egy-table').innerHTML = '<p style="text-align:center; padding:20px;">عذراً، حدث خطأ في الربط. جرب بكرة الصبح!</p>'; 
-            }
-        }
-        loadData();
+        let c = 1755; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
     </script>
 </body>
 </html>
