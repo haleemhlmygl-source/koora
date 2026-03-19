@@ -3,100 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone 2026 - HALEEM HLMY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>GoalZone 2026 - مباشر الآن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
-        
-        /* شريط الأخبار اللي اختفى */
-        .ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.8rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
-        .ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-
-        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 10px 0; font-weight: 900; }
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; font-size: 0.9rem; }
-        
-        .tabs { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; padding-bottom: 5px; }
-        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 8px 15px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.8rem; }
-        .tab-btn.active { background: var(--green); color: #000; font-weight: bold; }
-
-        .box { background: var(--card); border-radius: 12px; padding: 12px; border: 1px solid #333; margin-bottom: 15px; min-height: 100px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { color: var(--green); padding: 10px 5px; border-bottom: 1px solid #333; }
-        td { padding: 12px 5px; border-bottom: 1px solid #222; text-align: center; }
-
-        .footer { text-align: center; color: #666; font-size: 0.7rem; margin-top: 20px; border-top: 1px solid #222; padding-top: 10px; }
+        body { background: #05070a; color: #fff; font-family: 'Cairo', sans-serif; padding: 15px; }
+        .header { text-align: center; color: #00e676; font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; }
+        .match-card { background: #12151a; border-radius: 12px; padding: 15px; border: 1px solid #333; margin-bottom: 10px; display: flex; justify-content: space-around; align-items: center; }
+        .team { text-align: center; width: 35%; font-size: 0.9rem; }
+        .score { font-size: 1.5rem; font-weight: 900; color: #ffd700; background: #1c1f26; padding: 5px 15px; border-radius: 8px; }
+        .live-tag { background: red; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; animation: blink 1s infinite; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.5;} 100% {opacity: 1;} }
+        img { width: 30px; display: block; margin: 0 auto 5px; }
     </style>
 </head>
 <body>
 
-    <div class="ticker">
-        <span>📢 حصرياً: تطبيق GoalZone 2026 يغطي كافة الدوريات بأحدث البيانات المباشرة.. أهلاً بك يا مبرمج حليم!</span>
-    </div>
-
-    <div class="header">⚽ GOALZONE 2026</div>
-
-    <div class="section-title">📊 اختر الدوري</div>
-    <div class="tabs">
-        <button class="tab-btn active" onclick="load(39, 'الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-        <button class="tab-btn" onclick="load(140, 'الإسباني', this)">🇪🇸 الإسباني</button>
-        <button class="tab-btn" onclick="load(307, 'السعودي', this)">🇸🇦 السعودي</button>
-        <button class="tab-btn" onclick="load(233, 'المصري', this)">🇪🇬 المصري</button>
-    </div>
-
-    <div class="section-title">🏆 جدول الترتيب المباشر</div>
-    <div class="box" id="standings-box">
-        <p style="text-align:center; color:var(--gold);">جاري الاتصال بالسيرفر العالمي... 🔄</p>
-    </div>
-
-    <div class="footer">
-        بواسطة المبرمج: <b>HALEEM HLMY</b> <br>
-        مكان الإصدار: سوهاج، مصر | 2026
+    <div class="header">⚽ نتائج مباشرة (الآن 2026)</div>
+    <div id="live-matches">
+        <p style="text-align:center;">جاري البحث عن مباريات جارية حالياً... 🔄</p>
     </div>
 
     <script>
         const API_KEY = "3233c035c06b5a688ee984abb39f4b67";
 
-        async function load(id, name, btn) {
-            if(btn) {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            const box = document.getElementById('standings-box');
-            box.innerHTML = `<p style="text-align:center;">جاري جلب أحدث بيانات لـ ${name}... 🔄</p>`;
-
-            // هيجرب السنين اللي فيها داتا (2025 هي الأساس في مارس 2026)
-            const seasons = [2025, 2024, 2026];
-            let success = false;
-
-            for (let s of seasons) {
-                try {
-                    const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${s}`, {
-                        "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
+        async function getLive() {
+            try {
+                // طلب المباريات اللي شغالة "Live" دلوقتي حالاً
+                const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all`, {
+                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
+                });
+                const data = await res.json();
+                const container = document.getElementById('live-matches');
+                
+                if (data.response && data.response.length > 0) {
+                    let html = '';
+                    data.response.slice(0, 10).forEach(m => {
+                        html += `
+                        <div class="match-card">
+                            <div class="team"><img src="${m.teams.home.logo}"> ${m.teams.home.name}</div>
+                            <div style="text-align:center">
+                                <span class="live-tag">${m.fixture.status.elapsed}'</span>
+                                <div class="score">${m.goals.home} - ${m.goals.away}</div>
+                            </div>
+                            <div class="team"><img src="${m.teams.away.logo}"> ${m.teams.away.name}</div>
+                        </div>`;
                     });
-                    const data = await res.json();
-                    
-                    if (data.response && data.response[0]) {
-                        const st = data.response[0].league.standings[0];
-                        let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
-                        st.slice(0, 12).forEach(t => {
-                            html += `<tr><td>${t.rank}</td><td style="text-align:right;"><img src="${t.team.logo}" width="18"> ${t.team.name}</td><td><b>${t.points}</b></td></tr>`;
-                        });
-                        box.innerHTML = html + '</table>';
-                        success = true;
-                        break;
-                    }
-                } catch (e) {}
-            }
-
-            if (!success) {
-                box.innerHTML = `<p style="text-align:center; padding:20px;">عفواً، السيرفر لا يستجيب لبيانات ${name} حالياً. جرب دوري آخر.</p>`;
-            }
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<p style="text-align:center;">لا توجد مباريات جارية في هذه اللحظة. جرب وقت المباريات المسائية.</p>`;
+                }
+            } catch (e) { container.innerHTML = "خطأ في الاتصال"; }
         }
-
-        // تشغيل الدوري الإنجليزي أوتوماتيك
-        window.onload = () => load(39, 'الإنجليزي', null);
+        getLive();
+        setInterval(getLive, 60000); // تحديث كل دقيقة أوتوماتيك
     </script>
 </body>
 </html>
