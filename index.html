@@ -6,31 +6,41 @@
     <title>GoalZone - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --blue: #1877f2; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; }
-        .news-ticker { background: #ff4d4d; color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; }
-        .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 18s linear infinite; font-weight: bold; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-        .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; max-height: 140px; overflow: hidden; text-align: center; }
-        .match-card { background: linear-gradient(145deg, #1a1f26, #12151a); border: 1px solid #333; border-radius: 15px; padding: 15px; margin: 15px 0; text-align: center; }
-        .vs { font-weight: 900; color: var(--green); font-size: 1.2rem; }
-        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; }
-        .table-container { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #2d333b; min-height: 80px; }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --blue: #1877f2; --red: #ff4d4d; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
         
-        /* أزرار المشاركة */
-        .share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .btn-share { display: block; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.85rem; }
-        .wa { background: #25d366; }
-        .fb { background: var(--blue); }
+        /* تأثير ظهور الصفحة */
+        .fade-in { animation: fadeIn 1.2s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 25px; border-top: 1px solid #222; padding-top: 15px; }
+        .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px 0; font-weight: 900; text-shadow: 0 0 10px rgba(0, 230, 118, 0.3); }
+        
+        .news-ticker { background: var(--red); color: #fff; padding: 6px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(255, 77, 77, 0.3); }
+        .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
+        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
+
+        .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; max-height: 140px; overflow: hidden; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        .match-card { background: linear-gradient(145deg, #1a1f26, #12151a); border: 1px solid #333; border-radius: 15px; padding: 15px; margin: 15px 0; text-align: center; border-bottom: 3px solid var(--green); }
+        .vs-box { background: #222; padding: 5px 15px; border-radius: 20px; color: var(--green); font-weight: 900; font-size: 1rem; border: 1px solid #444; }
+
+        .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; display: flex; align-items: center; justify-content: space-between; }
+        
+        /* تأثير اللمعان للأزرار */
+        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; transition: 0.3s; position: relative; overflow: hidden; }
+        .wa { background: #25d366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+        .fb { background: var(--blue); box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); }
+        .btn-share:active { transform: scale(0.95); }
+
+        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding-top: 15px; padding-bottom: 20px; }
+        .live-indicator { width: 8px; height: 8px; background: var(--red); border-radius: 50%; display: inline-block; margin-left: 5px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
     </style>
 </head>
-<body>
+<body class="fade-in">
 
     <div class="news-ticker">
-        <span>📢 عاجل: ترقبوا انطلاق أقوى مباريات الأسبوع على موقع HALEEM HLMY المباشر! ⚽🔝</span>
+        <span>📢 حصرياً: المبرمج HALEEM HLMY يقدم لكم أسرع بث لنتائج الدوري المصري.. انتظروا المفاجآت! ⚽🔥</span>
     </div>
 
     <div class="header">⚽ GOALZONE 2026</div>
@@ -40,33 +50,39 @@
         <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
     </div>
 
-    <div class="section-title">🏆 قمة الأسبوع القادمة</div>
+    <div class="section-title">🏆 مباراة القمة المنتظرة</div>
     <div class="match-card">
-        <div class="teams-flex" style="display:flex; justify-content:space-around; align-items:center;">
-            <div>🔴<br>الأهلي</div>
-            <div class="vs">VS</div>
-            <div>⚪<br>الزمالك</div>
+        <div style="display:flex; justify-content:space-around; align-items:center;">
+            <div style="text-align:center;">🔴<br><small>الأهلي</small></div>
+            <div class="vs-box">VS</div>
+            <div style="text-align:center;">⚪<br><small>الزمالك</small></div>
         </div>
-        <p style="color:var(--gold); font-size:0.7rem; margin-top:8px;">قريباً على شاشة GoalZone</p>
+        <p style="color:var(--gold); font-size:0.75rem; margin-top:12px; font-weight:bold;">بث مباشر وحصري 📺</p>
     </div>
 
-    <div class="section-title">📊 الترتيب العام المباشر</div>
-    <div class="table-container" id="egy-table">
-        <p style="text-align:center; padding:15px; color:var(--gold); font-size:0.8rem;">بث البيانات سيعود للعمل تلقائياً بكرة الصبح! 🔄</p>
+    <div class="section-title">
+        <span>📊 الترتيب المباشر</span>
+        <span style="font-size: 0.7rem; color: var(--red);"><span class="live-indicator"></span> مباشر الآن</span>
+    </div>
+    
+    <div style="background: var(--card); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #333;">
+        <p style="color:var(--gold); font-size:0.85rem; margin:0;">السيرفر يجدد البيانات.. الترتيب الحقيقي يظهر تلقائياً بكرة الصبح! 🔄</p>
     </div>
 
-    <div class="share-grid">
-        <a href="https://api.whatsapp.com/send?text=ادخل شوف ترتيب الدوري المصري المباشر على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب 🟢</a>
+    <p style="text-align:center; font-size:0.8rem; color:#8b949e; margin: 20px 0 10px;">انشر الموقع لدعم المبرمج حليم حلمي 👇</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <a href="https://api.whatsapp.com/send?text=ادخل شوف ترتيب الدوري المصري المباشر على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" target="_blank" class="btn-share fb">فيسبوك 🔵</a>
     </div>
 
     <div class="footer">
-        جميع الحقوق محفوظة للمبرمج HALEEM HLMY <br>
-        الزيارات المباشرة: <span style="color:var(--green); font-weight:bold;" id="count">1,812</span>
+        جميع الحقوق محفوظة © 2026 <br>
+        بتطوير المبرمج الذكي: <b>HALEEM HLMY</b> <br>
+        <span style="color:var(--green); font-size: 0.9rem; display:block; margin-top:5px;">زياراتك ساعدتنا نصل لـ: <span id="count">1,825</span></span>
     </div>
 
     <script>
-        let c = 1812; setInterval(() => { c += Math.floor(Math.random()*2); document.getElementById('count').innerText = c; }, 5000);
+        let c = 1825; setInterval(() => { c += Math.floor(Math.random()*2); document.getElementById('count').innerText = c.toLocaleString(); }, 5000);
     </script>
 </body>
 </html>
