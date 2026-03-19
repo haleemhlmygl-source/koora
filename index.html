@@ -9,15 +9,14 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
         .header { text-align: center; color: var(--green); font-size: 1.6rem; padding: 15px; font-weight: 900; }
-        .tabs-container { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; padding-bottom: 5px; }
-        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 25px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
-        .tab-btn.active { background: var(--green); color: #000; border-color: var(--green); }
+        .tabs-container { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; }
+        .tab-btn { background: var(--card); border: 1px solid #333; color: #aaa; padding: 10px 20px; border-radius: 25px; white-space: nowrap; cursor: pointer; }
+        .tab-btn.active { background: var(--green); color: #000; font-weight: bold; }
         .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 250px; }
         table { width: 100%; border-collapse: collapse; text-align: center; }
-        th { color: var(--green); padding: 10px; border-bottom: 2px solid #333; font-size: 0.85rem; }
-        td { padding: 12px 5px; border-bottom: 1px solid #222; font-size: 0.85rem; }
-        .team-info { display: flex; align-items: center; gap: 8px; text-align: right; justify-content: flex-start; }
-        .footer { text-align: center; color: #555; font-size: 0.7rem; margin-top: 25px; border-top: 1px solid #222; padding-top: 10px; }
+        th { color: var(--green); padding: 10px; border-bottom: 2px solid #333; }
+        td { padding: 12px 5px; border-bottom: 1px solid #222; }
+        .footer { text-align: center; color: #555; font-size: 0.7rem; margin-top: 25px; }
     </style>
 </head>
 <body>
@@ -32,13 +31,12 @@
     </div>
 
     <div class="box" id="league-box">
-        <p style="text-align:center; color:var(--gold); padding:20px;">جاري الاتصال بالمصدر الجديد... 🔄</p>
+        <p style="text-align:center; color:var(--gold); padding:20px;">جاري صيد أحدث البيانات... 🔄</p>
     </div>
 
-    <div class="footer">المبرمج: <b>HALEEM HLMY</b> | سوهاج 2026</div>
+    <div class="footer">المبرمج: HALEEM HLMY | سوهاج 2026</div>
 
     <script>
-        // مفتاحك اللي شغال
         const API_KEY = "3233c035c06b5a688ee984abb39f4b67";
 
         async function loadLeague(id, name, btn) {
@@ -47,37 +45,31 @@
                 btn.classList.add('active');
             }
             const box = document.getElementById('league-box');
-            box.innerHTML = `<p style="text-align:center;">جاري جلب أحدث بيانات لـ ${name}... 🔄</p>`;
+            box.innerHTML = `<p style="text-align:center;">جاري جلب بيانات ${name}... 🔄</p>`;
 
-            try {
-                // الكود ده هيجرب يسحب البيانات بأحدث موسم متوفر أوتوماتيك
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, {
-                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
-                });
-                const data = await res.json();
+            // هيجرب المواسم المحتملة لحد ما يلاقي واحد شغال
+            const seasons = [2025, 2024, 2026];
+            let success = false;
 
-                if (data.response && data.response[0]) {
-                    const st = data.response[0].league.standings[0];
-                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr>';
-                    st.slice(0, 15).forEach(item => {
-                        html += `<tr>
-                            <td>${item.rank}</td>
-                            <td><div class="team-info"><img src="${item.team.logo}" width="20"> ${item.team.name}</div></td>
-                            <td>${item.all.played}</td>
-                            <td><b>${item.points}</b></td>
-                        </tr>`;
+            for (let s of seasons) {
+                try {
+                    const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${s}`, {
+                        "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
                     });
-                    box.innerHTML = html + '</table>';
-                } else {
-                    box.innerHTML = `<p style="text-align:center; padding:20px;">عفواً، المصدر لا يوفر بيانات لـ ${name} حالياً. جرب دوري آخر.</p>`;
-                }
-            } catch (e) {
-                box.innerHTML = `<p style="text-align:center; color:red;">خطأ في الاتصال بالمصدر الجديد.</p>`;
-            }
-        }
+                    const data = await res.json();
 
-        // تشغيل الدوري الإنجليزي فوراً
-        window.onload = () => loadLeague(39, 'الإنجليزي', null);
-    </script>
-</body>
-</html>
+                    if (data.response && data.response[0]) {
+                        const st = data.response[0].league.standings[0];
+                        let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ن</th></tr>';
+                        st.slice(0, 15).forEach(item => {
+                            html += `<tr><td>${item.rank}</td><td style="text-align:right;"><img src="${item.team.logo}" width="18"> ${item.team.name}</td><td><b>${item.points}</b></td></tr>`;
+                        });
+                        box.innerHTML = html + '</table>';
+                        success = true;
+                        break; // لو لقينا بيانات نوقف البحث
+                    }
+                } catch (e) {}
+            }
+
+            if (!success) {
+                box.innerHTML = `<p style="text
