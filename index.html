@@ -13,23 +13,30 @@
         .news-ticker span { display: inline-block; padding-left: 100%; animation: ticker 20s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
         
-        .ads-mini { background: var(--card); border: 1px solid #2d333b; border-radius: 12px; margin: 10px auto; padding: 8px; max-width: 350px; text-align: center; }
+        /* تنسيق الإعلان الصغير في الأسفل */
+        .ads-bottom { 
+            background: var(--card); 
+            border: 1px solid #2d333b; 
+            border-radius: 12px; 
+            margin: 20px auto 10px; 
+            padding: 5px; 
+            max-width: 320px; 
+            max-height: 100px; /* تصغير الارتفاع */
+            overflow: hidden; 
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+        }
+
         .section-title { background: var(--card); padding: 10px; border-radius: 8px; margin: 15px 0 10px; border-right: 5px solid var(--green); font-weight: 800; }
-        
-        /* قسم التصويت الجديد */
         .vote-container { background: var(--card); border-radius: 15px; padding: 15px; border: 1px dashed #444; text-align: center; margin: 15px 0; }
         .vote-btns { display: flex; justify-content: space-around; gap: 10px; margin-top: 10px; }
-        .v-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: #fff; transition: 0.3s; }
-        .v-ahly { background: #cc0000; box-shadow: 0 4px 10px rgba(204, 0, 0, 0.3); }
-        .v-zamalek { background: #fff; color: #000; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); }
-        .v-btn:hover { transform: scale(1.05); }
+        .v-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; color: #fff; }
+        .v-ahly { background: #cc0000; } .v-zamalek { background: #fff; color: #000; }
 
-        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; font-size: 0.9rem; }
-        .wa { background: #25d366; }
-        .fb { background: var(--blue); }
+        .btn-share { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; color: #fff; margin-top: 10px; }
+        .wa { background: #25d366; } .fb { background: var(--blue); }
 
-        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding: 15px 0; }
-        #live-clock { color: var(--gold); font-weight: bold; font-size: 1rem; margin-top: 5px; display: block; }
+        .footer { text-align: center; color: #8b949e; font-size: 0.75rem; margin-top: 20px; border-top: 1px solid #222; padding: 15px 0; }
     </style>
 </head>
 <body>
@@ -40,12 +47,7 @@
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="ads-mini">
-        <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
-        <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
-    </div>
-
-    <div class="section-title">🗳️ توقع من سيفوز بالقمة؟</div>
+    <div class="section-title">🗳️ توقع الفائز بالقمة؟</div>
     <div class="vote-container">
         <p id="vote-msg" style="margin:0; font-size:0.85rem;">صوت لفريقك المفضل الآن!</p>
         <div class="vote-btns">
@@ -56,36 +58,38 @@
 
     <div class="section-title">📊 الترتيب المباشر</div>
     <div style="background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #333;">
-        <p style="color:var(--gold); font-size:0.85rem; margin:0;">السيرفر يجدد البيانات.. الترتيب يظهر تلقائياً بكرة الصبح! 🔄</p>
+        <p style="color:var(--gold); font-size:0.85rem; margin:0;">الترتيب الحقيقي يظهر تلقائياً بكرة الصبح! 🔄</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-        <a href="https://api.whatsapp.com/send?text=ادخل شوف ترتيب الدوري المصري المباشر وصوت لفريقك على موقع HALEEM HLMY: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+        <a href="https://api.whatsapp.com/send?text=شوف ترتيب الدوري وصوت لفريقك: https://haleemhlmygl-source.github.io/koora/" class="btn-share wa">واتساب ✅</a>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora/" class="btn-share fb">فيسبوك 🔵</a>
+    </div>
+
+    <div class="ads-bottom">
+        <p style="font-size: 0.6rem; color: #555; margin-bottom: 2px;">إعلان ممول</p>
+        <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
+        <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
     </div>
 
     <div class="footer">
         جميع الحقوق محفوظة للمبرمج: <b>HALEEM HLMY</b> <br>
-        توقيت مصر الآن: <span id="live-clock">00:00:00</span>
-        الزيارات: <span id="count" style="color:var(--green)">1,840</span>
+        توقيت مصر: <span id="live-clock" style="color:var(--gold)">00:00:00</span> | 
+        الزيارات: <span id="count" style="color:var(--green)">1,855</span>
     </div>
 
     <script>
-        // ساعة حية
         function updateClock() {
-            const now = new Date();
-            document.getElementById('live-clock').innerText = now.toLocaleTimeString('ar-EG');
+            document.getElementById('live-clock').innerText = new Date().toLocaleTimeString('ar-EG');
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(updateClock, 1000); updateClock();
 
-        // نظام التصويت البسيط
         function vote(team) {
             document.getElementById('vote-msg').innerHTML = `<span style="color:var(--green)">شكراً لتصويتك لـ ${team}! حليم حلمي يتمنى لك مشاهدة ممتعة. ⚽</span>`;
             document.querySelector('.vote-btns').style.display = 'none';
         }
 
-        let c = 1840; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
+        let c = 1855; setInterval(() => { c += 1; document.getElementById('count').innerText = c; }, 6000);
     </script>
 </body>
 </html>
