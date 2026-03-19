@@ -35,12 +35,11 @@
         td { padding: 10px 5px; border-bottom: 1px solid #1a1a1a; text-align: center; }
         tr:last-child td { border-bottom: none; }
         .team-cell { text-align: right; display: flex; align-items: center; gap: 8px; }
-        .team-logo { width: 22px; height: 22px; object-fit: contain; border-radius: 50%; }
+        .team-logo { width: 22px; height: 22px; object-fit: contain; }
 
         .rank-1 { color: var(--gold); font-weight: 900; }
-        .rank-2, .rank-3 { color: var(--green); font-weight: 700; }
+        .rank-2 { color: var(--green); font-weight: 700; }
         .rank-rel { color: var(--red); }
-
         .pts-cell { font-weight: 900; color: var(--green); font-size: 1rem; }
 
         .loading-msg { text-align: center; padding: 25px; color: #888; font-size: 0.9rem; }
@@ -48,207 +47,179 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
         .footer { text-align: center; color: #666; font-size: 0.8rem; padding: 20px 0; border-top: 1px solid #222; line-height: 1.8; margin-top: 10px; }
-
         .last-update { font-size: 0.72rem; color: #555; text-align: center; margin-top: 8px; }
         .last-update span { color: var(--green); }
     </style>
 </head>
 <body>
 
-    <div class="news-ticker">
-        <span id="ticker-text">📢 GoalZone 2026 — نتائج ومباريات مباشرة لحظة بلحظة .. برعاية المبرمج حليم حلمي 🌟</span>
-    </div>
+<div class="news-ticker">
+    <span id="ticker-text">📢 GoalZone 2026 — نتائج ومباريات مباشرة لحظة بلحظة .. برعاية المبرمج حليم حلمي 🌟</span>
+</div>
 
-    <div class="header">⚽ GOALZONE 2026</div>
+<div class="header">⚽ GOALZONE 2026</div>
 
-    <!-- نتائج مباشرة -->
-    <div class="section-title">⏱️ مباريات اليوم (مباشر والنتائج)</div>
-    <div class="live-scroll" id="live-matches">
-        <div class="loading-msg"><span class="spin">⚽</span> جاري جلب مباريات اليوم...</div>
-    </div>
-    <div class="last-update" id="live-upd"></div>
+<div class="section-title">⏱️ مباريات اليوم</div>
+<div class="live-scroll" id="live-matches">
+    <div class="loading-msg"><span class="spin">⚽</span> جاري جلب مباريات اليوم...</div>
+</div>
+<div class="last-update" id="live-upd"></div>
 
-    <!-- ترتيب الدوريات -->
-    <div class="section-title">📊 ترتيب الدوريات</div>
-    <div class="tabs">
-        <button class="tab-btn active" onclick="loadLeague('PL','الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-        <button class="tab-btn" onclick="loadLeague('PD','الإسباني',this)">🇪🇸 الإسباني</button>
-        <button class="tab-btn" onclick="loadLeague('SA','الإيطالي',this)">🇮🇹 الإيطالي</button>
-        <button class="tab-btn" onclick="loadLeague('BL1','الألماني',this)">🇩🇪 الألماني</button>
-        <button class="tab-btn" onclick="loadLeague('FL1','الفرنسي',this)">🇫🇷 الفرنسي</button>
-    </div>
+<div class="section-title">📊 ترتيب الدوريات</div>
+<div class="tabs">
+    <button class="tab-btn active" onclick="loadLeague('PL','الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+    <button class="tab-btn" onclick="loadLeague('PD','الإسباني',this)">🇪🇸 الإسباني</button>
+    <button class="tab-btn" onclick="loadLeague('SA','الإيطالي',this)">🇮🇹 الإيطالي</button>
+    <button class="tab-btn" onclick="loadLeague('BL1','الألماني',this)">🇩🇪 الألماني</button>
+    <button class="tab-btn" onclick="loadLeague('FL1','الفرنسي',this)">🇫🇷 الفرنسي</button>
+</div>
 
-    <div class="box" id="main-content">
-        <div class="loading-msg"><span class="spin">⚽</span> جاري تحميل الترتيب...</div>
-    </div>
-    <div class="last-update" id="stand-upd"></div>
+<div class="box" id="main-content">
+    <div class="loading-msg"><span class="spin">⚽</span> جاري تحميل الترتيب...</div>
+</div>
+<div class="last-update" id="stand-upd"></div>
 
-    <div class="footer">
-        بواسطة المبرمج: <b>HALEEM HLMY</b><br>
-        مكان الإصدار: الحرافشة - سوهاج | مارس 2026<br>
-        جميع الحقوق محفوظة ©
-    </div>
+<div class="footer">
+    بواسطة المبرمج: <b>HALEEM HLMY</b><br>
+    مكان الإصدار: الحرافشة - سوهاج | مارس 2026<br>
+    جميع الحقوق محفوظة ©
+</div>
 
 <script>
-// =========================================================
-// football-data.org — مجاني 100% بدون مشاكل
-// =========================================================
 const FD_KEY = "4f14c23ee3f342da822a75823ef0c7be";
 const FD = "https://api.football-data.org/v4";
+const H = { "X-Auth-Token": FD_KEY };
 
-function headers() {
-    return { "X-Auth-Token": FD_KEY };
-}
-
-function now() {
+function nowTime() {
     return new Date().toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" });
 }
 
-// ── مباريات اليوم ──────────────────────────────────────────
 async function getTodayMatches() {
     const container = document.getElementById("live-matches");
     try {
         const today = new Date().toISOString().split("T")[0];
-        const res = await fetch(`${FD}/matches?date=${today}`, { headers: headers() });
+        const res = await fetch(FD + "/matches?date=" + today, { headers: H });
         if (!res.ok) throw new Error(res.status);
         const data = await res.json();
         const matches = data.matches || [];
 
         if (!matches.length) {
-            container.innerHTML = `<div style="padding:15px; font-size:0.85rem; color:#888;">لا توجد مباريات مجدولة اليوم.</div>`;
+            container.innerHTML = '<div style="padding:15px;font-size:0.85rem;color:#888;">لا توجد مباريات مجدولة اليوم.</div>';
             return;
         }
 
-        let html = "";
-        // ترتيب: جارية أولاً ثم منتهية ثم قادمة
         const sorted = [...matches].sort((a, b) => {
-            const order = { IN_PLAY: 0, PAUSED: 0, FINISHED: 1, TIMED: 2, SCHEDULED: 2 };
-            return (order[a.status] ?? 3) - (order[b.status] ?? 3);
+            const o = { IN_PLAY: 0, PAUSED: 0, FINISHED: 1, TIMED: 2, SCHEDULED: 2 };
+            return (o[a.status] ?? 3) - (o[b.status] ?? 3);
         });
+
+        let html = "";
+        let tickerParts = [];
 
         sorted.forEach(m => {
             const isLive = m.status === "IN_PLAY" || m.status === "PAUSED";
             const isFin  = m.status === "FINISHED";
-            const hScore = m.score?.fullTime?.home ?? m.score?.halfTime?.home ?? "-";
-            const aScore = m.score?.fullTime?.away ?? m.score?.halfTime?.away ?? "-";
-            const hasScore = hScore !== null && hScore !== "-";
+            const hScore = m.score?.fullTime?.home;
+            const aScore = m.score?.fullTime?.away;
+            const hasScore = hScore !== null && hScore !== undefined;
             const matchTime = new Date(m.utcDate).toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" });
             const homeName = m.homeTeam.shortName || m.homeTeam.name;
             const awayName = m.awayTeam.shortName || m.awayTeam.name;
             const homeCrest = m.homeTeam.crest || "";
             const awayCrest = m.awayTeam.crest || "";
 
-            const badgeHtml = isLive
-                ? `<span class="live-badge">🔴 مباشر</span>`
+            const badge = isLive
+                ? '<span class="live-badge">🔴 مباشر</span>'
                 : isFin
-                    ? `<span class="fin-badge">انتهت ✓</span>`
-                    : `<span class="ns-badge">⏰ ${matchTime}</span>`;
+                    ? '<span class="fin-badge">انتهت ✓</span>'
+                    : '<span class="ns-badge">⏰ ' + matchTime + '</span>';
 
-            const scoreHtml = hasScore
-                ? `<div class="live-score">${hScore} - ${aScore}</div>`
-                : `<div class="live-score" style="color:#555; font-size:1rem;">vs</div>`;
+            const score = hasScore
+                ? '<div class="live-score">' + hScore + ' - ' + aScore + '</div>'
+                : '<div class="live-score" style="color:#555;font-size:1rem;">vs</div>';
 
-            const logoH = homeCrest ? `<img src="${homeCrest}" class="team-logo" onerror="this.style.display='none'">` : "";
-            const logoA = awayCrest ? `<img src="${awayCrest}" class="team-logo" onerror="this.style.display='none'">` : "";
+            const logoH = homeCrest ? '<img src="' + homeCrest + '" class="team-logo" onerror="this.style.display=\'none\'">' : "";
+            const logoA = awayCrest ? '<img src="' + awayCrest + '" class="team-logo" onerror="this.style.display=\'none\'">' : "";
 
-            html += `
-            <div class="live-card" ${isLive ? 'style="border-color:rgba(255,77,77,0.5);"' : ''}>
-                ${badgeHtml}
-                <div class="team-name-sm" style="margin-top:8px;">${logoH} ${homeName}</div>
-                ${scoreHtml}
-                <div class="team-name-sm">${logoA} ${awayName}</div>
-                <div style="font-size:0.65rem; color:#555; margin-top:5px;">${m.competition?.name || ""}</div>
-            </div>`;
+            html += '<div class="live-card" ' + (isLive ? 'style="border-color:rgba(255,77,77,0.5);"' : '') + '>'
+                + badge
+                + '<div class="team-name-sm" style="margin-top:8px;">' + logoH + ' ' + homeName + '</div>'
+                + score
+                + '<div class="team-name-sm">' + logoA + ' ' + awayName + '</div>'
+                + '<div style="font-size:0.65rem;color:#555;margin-top:5px;">' + (m.competition?.name || "") + '</div>'
+                + '</div>';
+
+            if (hasScore) {
+                tickerParts.push('⚽ ' + homeName + ' ' + hScore + ' - ' + aScore + ' ' + awayName);
+            }
         });
 
         container.innerHTML = html;
-        document.getElementById("live-upd").innerHTML = `آخر تحديث: <span>${now()}</span>`;
+        document.getElementById("live-upd").innerHTML = 'آخر تحديث: <span>' + nowTime() + '</span>';
 
-        // تحديث شريط الأخبار بالنتائج
-        const results = sorted.filter(m => m.status === "FINISHED" || m.status === "IN_PLAY");
-        if (results.length) {
-            const tickerText = results.map(m => {
-                const h = m.score?.fullTime?.home ?? m.score?.halfTime?.home ?? 0;
-                const a = m.score?.fullTime?.away ?? m.score?.halfTime?.away ?? 0;
-                return `⚽ ${m.homeTeam.shortName || m.homeTeam.name} ${h} - ${a} ${m.awayTeam.shortName || m.awayTeam.name}`;
-            }).join("   •   ");
-            document.getElementById("ticker-text").textContent = tickerText + "   •   GoalZone 2026 — برعاية حليم حلمي 🌟";
+        if (tickerParts.length) {
+            document.getElementById("ticker-text").textContent = tickerParts.join("   •   ") + "   •   GoalZone 2026 🌟";
         }
 
-    } catch (e) {
-        container.innerHTML = `<div style="padding:15px; font-size:0.85rem; color:#888;">تعذّر تحميل مباريات اليوم. (${e.message})</div>`;
+    } catch(e) {
+        container.innerHTML = '<div style="padding:15px;font-size:0.85rem;color:#888;">تعذّر تحميل مباريات اليوم.</div>';
     }
 }
 
-// ── ترتيب الدوري ───────────────────────────────────────────
 async function loadLeague(code, name, btn) {
     if (btn) {
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
     }
     const box = document.getElementById("main-content");
-    box.innerHTML = `<div class="loading-msg"><span class="spin">⚽</span> جاري تحميل ترتيب ${name}...</div>`;
+    box.innerHTML = '<div class="loading-msg"><span class="spin">⚽</span> جاري تحميل ترتيب ' + name + '...</div>';
 
     try {
-        const res = await fetch(`${FD}/competitions/${code}/standings`, { headers: headers() });
+        const res = await fetch(FD + "/competitions/" + code + "/standings", { headers: H });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
         const table = data.standings?.[0]?.table;
         if (!table || !table.length) throw new Error("لا توجد بيانات");
 
         const total = table.length;
-        let html = `
-        <table>
-            <tr>
-                <th>#</th>
-                <th style="text-align:right;">الفريق</th>
-                <th>ل</th>
-                <th>ف</th>
-                <th>ت</th>
-                <th>خ</th>
-                <th>ف.م</th>
-                <th>ن</th>
-            </tr>`;
+        let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ف.م</th><th>ن</th></tr>';
 
-        table.forEach((t, i) => {
+        table.forEach(t => {
             const r = t.position;
-            const rankClass = r === 1 ? "rank-1" : r <= 3 ? "rank-2" : r >= total - 2 ? "rank-rel" : "";
-            const logo = t.team.crest ? `<img src="${t.team.crest}" class="team-logo" onerror="this.style.display='none'">` : "";
-            const gd = t.goalDifference > 0 ? `+${t.goalDifference}` : t.goalDifference;
+            const rc = r === 1 ? "rank-1" : r <= 3 ? "rank-2" : r >= total - 2 ? "rank-rel" : "";
+            const logo = t.team.crest ? '<img src="' + t.team.crest + '" class="team-logo" onerror="this.style.display=\'none\'">' : "";
+            const gd = t.goalDifference > 0 ? "+" + t.goalDifference : t.goalDifference;
 
-            html += `
-            <tr>
-                <td class="${rankClass}"><b>${r}</b></td>
-                <td><div class="team-cell">${logo} ${t.team.shortName || t.team.name}</div></td>
-                <td>${t.playedGames}</td>
-                <td>${t.won}</td>
-                <td>${t.draw}</td>
-                <td>${t.lost}</td>
-                <td style="color:#888; font-size:0.8rem;">${gd}</td>
-                <td class="pts-cell">${t.points}</td>
-            </tr>`;
+            html += '<tr>'
+                + '<td class="' + rc + '"><b>' + r + '</b></td>'
+                + '<td><div class="team-cell">' + logo + ' ' + (t.team.shortName || t.team.name) + '</div></td>'
+                + '<td>' + t.playedGames + '</td>'
+                + '<td>' + t.won + '</td>'
+                + '<td>' + t.draw + '</td>'
+                + '<td>' + t.lost + '</td>'
+                + '<td style="color:#888;font-size:0.8rem;">' + gd + '</td>'
+                + '<td class="pts-cell">' + t.points + '</td>'
+                + '</tr>';
         });
 
-        html += `</table>`;
+        html += '</table>';
         box.innerHTML = html;
-        document.getElementById("stand-upd").innerHTML = `آخر تحديث: <span>${now()}</span> — بيانات حقيقية من football-data.org`;
+        document.getElementById("stand-upd").innerHTML = 'آخر تحديث: <span>' + nowTime() + '</span>';
 
-    } catch (e) {
-        box.innerHTML = `
-        <div style="text-align:center; padding:25px; color:#888;">
-            <div style="font-size:2rem;">⚠️</div>
-            تعذّر تحميل ترتيب ${name}<br>
-            <small style="font-size:0.75rem; color:#555;">${e.message}</small><br>
-            <button onclick="loadLeague('${code}','${name}',null)" style="margin-top:12px; padding:8px 20px; background:var(--green); border:none; border-radius:18px; color:#000; font-family:'Cairo',sans-serif; font-weight:700; cursor:pointer;">🔄 إعادة المحاولة</button>
-        </div>`;
+    } catch(e) {
+        box.innerHTML = '<div style="text-align:center;padding:25px;color:#888;">'
+            + '<div style="font-size:2rem;">⚠️</div>'
+            + 'تعذّر تحميل ترتيب ' + name + '<br>'
+            + '<button onclick="loadLeague(\'' + code + '\',\'' + name + '\',null)" '
+            + 'style="margin-top:12px;padding:8px 20px;background:var(--green);border:none;border-radius:18px;color:#000;font-family:Cairo,sans-serif;font-weight:700;cursor:pointer;">🔄 إعادة المحاولة</button>'
+            + '</div>';
     }
 }
 
-// ── تشغيل ─────────────────────────────────────────────────
-window.onload = () => {
+window.onload = function() {
     getTodayMatches();
     loadLeague("PL", "الإنجليزي", null);
-    setInterval(getTodayMatches, 60000); // تحديث كل دقيقة
+    setInterval(getTodayMatches, 60000);
 };
 </script>
 </body>
