@@ -19,8 +19,13 @@
         .content { padding: 15px; max-width: 600px; margin: auto; }
         .section-title { color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px; border-right: 5px solid var(--green); padding-right: 10px; font-weight: 900; text-align: right; }
         
-        /* مكان النتائج الحية الجديد */
-        .live-frame { width: 100%; height: 500px; border: 1px solid #222; border-radius: 15px; background: #000; overflow: hidden; }
+        /* تصميم كروت الماتشات */
+        .match-card { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #222; }
+        .match-card:hover { border-bottom-color: var(--green); }
+        .match-time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem; }
+        
+        /* زر النتائج الحية الاحترافي */
+        .live-btn-main { width: 100%; padding: 20px; background: linear-gradient(45deg, #ff3d00, #ff8e53); color: white; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; font-size: 1.1rem; margin: 10px 0 25px; box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3); }
 
         .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; margin-top: 10px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
         .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; }
@@ -30,21 +35,24 @@
     </style>
 </head>
 <body>
-    <div class="alert-bar">📢 مباشر الآن: نتائج مباريات اليوم والتحليلات الحية</div>
+    <div class="alert-bar">📢 مباشر الآن: تابع نتائج مباريات اليوم لحظة بلحظة</div>
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
+    
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">تابع النتائج الحية لمباريات اليوم بتوقيت القاهرة .. تطوير المبرمج حليم حلمي ..</div>
+        <div class="ticker-text">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا النتائج لحظة بلحظة ..</div>
     </div>
+
     <a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
-        <div class="section-title">🏆 نتائج المباريات المباشرة</div>
-        
-        <div class="live-frame">
-            <iframe src="https://www.livescore.in/ar/free/widgets/m/?type=match-list&amp;category=1&amp;m=1&amp;containerId=ls-widget&amp;theme=dark" 
-                    width="100%" height="500" frameborder="0" scrolling="yes"></iframe>
-        </div>
+        <div class="section-title">🏆 متابعة النتائج الحية</div>
+        <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الآن</button>
+
+        <div class="section-title">📅 مواجهات الليلة (توقيت القاهرة)</div>
+        <div class="match-card"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="match-time">21:30</span></div>
+        <div class="match-card"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="match-time">22:00</span></div>
+        <div class="match-card"><span>🇫🇷 Auxerre vs Nice</span> <span class="match-time">22:00</span></div>
 
         <div class="section-title">🌍 أخبار حية (BBC)</div>
         <div id="news-section"></div>
@@ -69,7 +77,7 @@
             } catch (e) { document.getElementById('news-section').innerHTML = "المصدر غير متاح حالياً."; }
         }
         function shareSite() {
-            const text = "تابع نتائج المباريات الحية الآن على GoalZone: ";
+            const text = "تابع نتائج المباريات والأخبار العالمية على GoalZone: ";
             window.open(`https://wa.me/?text=${encodeURIComponent(text + window.location.href)}`);
         }
         window.onload = fetchLiveNews;
