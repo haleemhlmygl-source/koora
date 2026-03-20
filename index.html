@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         
         .top-bar { background: #000; height: 32px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.7rem; color: #888; border-bottom: 1px solid #1a1a1a; }
         .status { color: var(--green); font-weight: bold; display: flex; align-items: center; gap: 6px; }
@@ -18,52 +19,50 @@
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; text-shadow: 0 0 20px rgba(0,230,118,0.2); }
 
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; border-left: 2px solid #000; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.88rem; color: #fff; }
+        .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.88rem; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
 
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        /* كروت المواعيد بتصميم Gradient */
-        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 18px; border: 1px solid #222; position: relative; }
+        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 18px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
-        .time-box { display: flex; align-items: center; gap: 8px; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; border: 1px solid rgba(0,230,118,0.2); }
         .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
 
-        .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 15px; box-shadow: inset 0 0 5px #000; }
+        .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 15px; }
         .win-h { background: var(--green); width: 55%; }
         .draw { background: #444; width: 25%; }
         .win-a { background: var(--live); width: 20%; }
-        .predict-labels { display: flex; justify-content: space-between; font-size: 0.62rem; color: #777; margin-top: 8px; }
 
-        /* الأخبار المطورة */
-        .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 5px solid var(--gold); position: relative; }
+        .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 5px solid var(--gold); }
         .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 12px; }
-        .news-meta { display: flex; justify-content: space-between; align-items: center; }
-        .read-time { font-size: 0.65rem; color: #555; display: flex; align-items: center; gap: 4px; }
-        .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
-        .share-news-btn:hover { background: rgba(0,230,118,0.1); transform: scale(1.05); }
+        .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 6px 14px; border-radius: 20px; cursor: pointer; }
+
+        /* منطقة الباركود QR Code */
+        .qr-area { background: #000; border: 1px solid #222; border-radius: 20px; padding: 25px; margin-top: 40px; text-align: center; border-top: 3px solid var(--gold); }
+        .qr-label { font-size: 0.8rem; color: var(--gold); margin-bottom: 15px; font-weight: bold; }
+        #qrcode { display: inline-block; padding: 10px; background: white; border-radius: 10px; margin-bottom: 10px; }
 
         .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(37,211,102,0.4); z-index: 100; text-decoration: none; font-size: 26px; animation: pulse-wa 2s infinite; }
         @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        .footer { text-align: center; color: #333; padding: 50px 20px; font-size: 0.85rem; border-top: 1px solid #111; }
+        .footer { text-align: center; color: #555; padding: 40px 20px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="status"><span class="dot"></span> Smart AI System Active</div>
-        <div>20 مارس 2026 | سوهاج - الحرافشة</div>
+        <div class="status"><span class="dot"></span> Smart System & QR Active</div>
+        <div>20 مارس 2026 | سوهاج</div>
     </div>
 
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">موقع GoalZone يحصل على تحديث "مؤشر القراءة الذكي" .. المبرمج حليم حلمي يحييكم من سوهاج .. تابع الأخبار والمباريات لحظة بلحظة ..</div>
+        <div class="ticker-text">خاصية الباركود الذكي مفعلة الآن .. المبرمج حليم حلمي يحييكم من قلب سوهاج .. تابع الأخبار والمباريات لحظة بلحظة ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
@@ -76,19 +75,34 @@
                 <div class="time-box"><span class="pulse-red"></span> <span class="time">21:30</span></div>
             </div>
             <div class="predict-bar"><div class="win-h"></div><div class="draw"></div><div class="win-a"></div></div>
-            <div class="predict-labels"><span>توقع الفوز 55%</span><span>تعادل</span><span>20%</span></div>
         </div>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
         <div id="news-section"><p style="text-align:center;">جاري سحب وترجمة الأخبار... 🔄</p></div>
+
+        <div class="qr-area">
+            <div class="qr-label">📱 صوّر الباركود لمشاركة الموقع مع أصدقائك</div>
+            <div id="qrcode"></div>
+            <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">بواسطة المبرمج: HALEEM HLMY</div>
+        </div>
     </div>
 
     <div class="footer">
-        بواسطة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> <br>
+        تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> <br>
         2026 © جميع الحقوق محفوظة | سوهاج - الحرافشة
     </div>
 
     <script>
+        // توليد الباركود أوتوماتيكياً لرابط الموقع الحالي
+        new QRCode(document.getElementById("qrcode"), {
+            text: window.location.href,
+            width: 120,
+            height: 120,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
         async function loadNews() {
             try {
                 const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
@@ -101,10 +115,7 @@
                     html += `
                         <div class="news-card">
                             <a href="${item.link}" target="_blank" class="news-title">📍 ${title}</a>
-                            <div class="news-meta">
-                                <span class="read-time">🕒 قراءة في 10 ثوانٍ</span>
-                                <div class="share-news-btn" onclick="shareNews('${title}', '${item.link}')">📤 مشاركة</div>
-                            </div>
+                            <div class="share-news-btn" onclick="shareNews('${title}', '${item.link}')">📤 مشاركة الخبر</div>
                         </div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
