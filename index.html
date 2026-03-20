@@ -9,11 +9,11 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
         .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; padding: 20px 0; }
-        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; margin-top: 10px; min-height: 200px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { color: var(--green); border-bottom: 2px solid #333; padding: 10px; }
         td { padding: 12px 5px; border-bottom: 1px solid #222; text-align: center; }
-        img { width: 20px; vertical-align: middle; margin-left: 8px; }
+        img { width: 18px; vertical-align: middle; margin-left: 5px; }
         .footer { text-align: center; color: #666; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding-top: 10px; }
     </style>
 </head>
@@ -22,29 +22,33 @@
     <div class="header">⚽ GOALZONE 2026</div>
     
     <div style="text-align:center; margin-bottom:15px;">
-        <h3 style="color:var(--gold);">ترتيب الدوري الإنجليزي (الموسم الحالي 2026)</h3>
+        <h3 style="color:var(--gold);">ترتيب الدوري الإنجليزي (مباشر 2026)</h3>
     </div>
 
     <div class="box" id="standings">
-        <p style="text-align:center;">جاري جلب أحدث البيانات من السيرفر العالمي... 🔄</p>
+        <p style="text-align:center;">جاري جلب أحدث البيانات الحقيقية... 🔄</p>
     </div>
 
     <div class="footer">
         بواسطة المبرمج: <b>HALEEM HLMY</b> <br>
-        المصدر: Football-Data.org (Official 2026)
+        المصدر المباشر: Football-Data API v4
     </div>
 
     <script>
-        // المفتاح الجديد بتاعك يا حليم
+        // مفتاحك الجديد يا حليم
         const TOKEN = "2388962a5e2454c87c909d662a32188";
 
         async function getStandings() {
             try {
-                // بنطلب الدوري الإنجليزي (PL) لموسم 2025/2026
-                const res = await fetch('https://api.football-data.org/v4/competitions/PL/standings', {
-                    headers: { 'X-Auth-Token': TOKEN }
-                });
-                const data = await res.json();
+                // استخدمنا وسيط (Proxy) عشان السيرفر يرضى يبعت الداتا للموبايل
+                const proxyUrl = 'https://api.allorigins.win/get?url=';
+                const apiUrl = encodeURIComponent('https://api.football-data.org/v4/competitions/PL/standings');
+                
+                const res = await fetch(proxyUrl + apiUrl);
+                const responseData = await res.json();
+                
+                // تحويل البيانات من نص إلى كائن (JSON)
+                const data = JSON.parse(responseData.contents);
                 
                 if (data.standings && data.standings[0]) {
                     const table = data.standings[0].table;
@@ -60,10 +64,10 @@
                     });
                     document.getElementById('standings').innerHTML = html + '</table>';
                 } else {
-                    document.getElementById('standings').innerHTML = "السيرفر بيحدث البيانات.. جرب كمان دقيقة.";
+                    document.getElementById('standings').innerHTML = "السيرفر مكسل.. جرب كمان شوية.";
                 }
             } catch (error) {
-                document.getElementById('standings').innerHTML = "خطأ في الاتصال بالسيرفر الجديد.";
+                document.getElementById('standings').innerHTML = "حدث خطأ.. تأكد من اتصالك بالإنترنت.";
             }
         }
 
