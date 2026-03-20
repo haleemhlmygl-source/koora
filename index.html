@@ -20,18 +20,18 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        /* مهارة كروية مضمونة خفيفة جداً */
-        .gif-container { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #333; margin-bottom: 25px; background: #000; }
-        .gif-container img { width: 100%; display: block; min-height: 200px; background: #111; }
+        /* قسم المهارات المضمون 100% */
+        .skill-box { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #333; margin-bottom: 25px; background: #000; text-align: center; padding: 20px 0; position: relative;}
+        .skill-box img { width: 100%; display: block; min-height: 180px; object-fit: cover; }
+        .ball-icon { font-size: 50px; animation: rotate 4s linear infinite; display: block; margin-bottom: 10px; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* مواجهات اليوم ثابتة */
-        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #222; }
+        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .pulse { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0.3; } }
 
-        /* الأخبار */
         .news-card { background: var(--card); border-radius: 18px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); }
         .news-title { color: #eee; font-size: 0.95rem; text-decoration: none; display: block; font-weight: 700; line-height: 1.6; text-align: left; direction: ltr; }
 
@@ -45,15 +45,15 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">تم استعادة استقرار GoalZone بالكامل .. المبرمج حليم حلمي يحييكم من سوهاج .. تابع مباريات الجمعة 20 مارس الحصرية ..</div>
+        <div class="ticker-text">المبرمج حليم حلمي يعتمد النسخة النهائية المستقرة .. تابع مواجهات الليلة المباشرة لحظة بلحظة من قلب سوهاج ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
-        <div class="section-title">🖼️ مهارات كروية حصرية</div>
-        <div class="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZhcTVqZzR4ZWZ4eG9pbnNqZ2x6bmV4Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/H7OfX8W4i16f1JmAtI/giphy.gif" alt="Football Skill">
+        <div class="section-title">✨ رادار مهارات 2026</div>
+        <div class="skill-box">
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3J6eGoxbmZpbmR4eG9pbnNqZ2x6bmV4Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/W8K5L9p6T996U/giphy.gif" alt="Football Magic">
         </div>
 
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
