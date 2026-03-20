@@ -6,17 +6,16 @@
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --glass: rgba(255, 255, 255, 0.05); }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         
-        /* شريط الحالة العلوي */
         .top-bar { background: #000; height: 32px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.7rem; color: #888; border-bottom: 1px solid #1a1a1a; }
         .status { color: var(--green); font-weight: bold; display: flex; align-items: center; gap: 6px; }
         .dot { height: 8px; width: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0.3; } }
 
         .header-area { padding: 20px 0; text-align: center; }
-        .header { color: var(--green); font-size: 2rem; font-weight: 900; margin: 0; text-shadow: 0 0 15px rgba(0,230,118,0.3); }
+        .header { color: var(--green); font-size: 2rem; font-weight: 900; margin: 0; }
 
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 38px; overflow: hidden; display: flex; align-items: center; }
         .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.75rem; height: 100%; display: flex; align-items: center; z-index: 2; }
@@ -26,48 +25,40 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.1rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: bold; }
         
-        .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 4px 10px; border-radius: 8px; }
         
         .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 10px; }
-        .win-h { background: var(--green); box-shadow: 0 0 8px var(--green); }
-        .win-a { background: #ff3d00; box-shadow: 0 0 8px #ff3d00; }
-        .draw { background: #555; }
-        .predict-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; margin-top: 8px; }
+        .win-h { background: var(--green); width: 55%; }
+        .draw { background: #555; width: 25%; }
+        .win-a { background: #ff3d00; width: 20%; }
+        .predict-labels { display: flex; justify-content: space-between; font-size: 0.6rem; color: #888; margin-top: 5px; }
 
-        /* نافذة المبرمج حليم (Modal) */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
-        .modal-content { background: linear-gradient(145deg, #1c1f26, #05070a); margin: 20% auto; padding: 30px; border: 1px solid var(--green); width: 85%; border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,230,118,0.2); animation: zoomIn 0.3s ease; }
-        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .dev-name { color: var(--green); font-size: 1.5rem; font-weight: 900; margin-bottom: 10px; }
-        .dev-bio { color: #ccc; font-size: 0.85rem; margin-bottom: 25px; line-height: 1.6; }
-        .close-btn { background: var(--green); color: black; border: none; padding: 8px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-
-        .wa-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; animation: pulse-wa 2s infinite; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
+        .modal-content { background: #1c1f26; margin: 25% auto; padding: 25px; border: 1px solid var(--green); width: 80%; border-radius: 20px; text-align: center; }
+        
+        .wa-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; animation: pulse-wa 2s infinite; font-size: 24px; }
         @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; border-top: 1px solid #111; cursor: pointer; }
         .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); }
+        .news-title { color: #eee; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: 700; }
+        
+        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; border-top: 1px solid #111; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div id="devModal" class="modal">
         <div class="modal-content">
-            <div class="dev-name">HALEEM HLMY</div>
-            <div class="dev-bio">
-                🚀 مبرمج رياضي متخصص في تجربة المستخدم <br>
-                📍 سوهاج - الحرافشة <br>
-                ⚽ مطور منصة GoalZone 2026
-            </div>
-            <a href="https://wa.me/20552715934" style="text-decoration:none; display:block; background:#25d366; color:white; padding:12px; border-radius:12px; margin-bottom:15px; font-weight:bold;">تواصل عبر واتساب 💬</a>
-            <button class="close-btn" onclick="closeModal()">إغلاق البطاقة</button>
+            <h2 style="color:var(--green); margin:0;">HALEEM HLMY</h2>
+            <p style="font-size:0.8rem; color:#ccc;">مبرمج رياضي متخصص <br> سوهاج - الحرافشة</p>
+            <button onclick="closeModal()" style="background:var(--green); border:none; padding:8px 20px; border-radius:8px; font-weight:bold;">إغلاق</button>
         </div>
     </div>
 
     <div class="top-bar">
-        <div class="status"><span class="dot"></span> Smart AI Engine Online</div>
+        <div class="status"><span class="dot"></span> Live Data Verified</div>
         <div>20 مارس 2026 | سوهاج</div>
     </div>
 
@@ -75,42 +66,38 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">موقع GoalZone يحصل على تحديث "بطاقة المبرمج الذكية" .. تابع توقعات مباريات الليلة المباشرة .. المبرمج حليم حلمي يحييكم ..</div>
+        <div class="ticker-text">خاصية التوقعات الذكية مفعلة الآن .. المبرمج حليم حلمي يحييكم من قلب سوهاج .. تابع مباريات الجمعة 20 مارس ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
-        <div class="section-title">📅 مواجهات الجمعة 20 مارس</div>
+        <div class="section-title">📅 مواجهات الجمعة المباشرة</div>
         
         <div class="match-box">
             <div class="match-info"><span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span> <span class="time">21:30</span></div>
-            <div class="predict-bar"><div class="win-h" style="width: 55%"></div><div class="draw" style="width: 25%"></div><div class="win-a" style="width: 20%"></div></div>
-            <div class="predict-labels"><span>توقعات الفوز 55%</span><span>تعادل</span><span>20%</span></div>
+            <div class="predict-bar"><div class="win-h"></div><div class="draw"></div><div class="win-a"></div></div>
+            <div class="predict-labels"><span>توقع فوز 55%</span><span>تعادل</span><span>20%</span></div>
         </div>
 
         <div class="match-box">
-            <div class="match-info"><span class="teams">🇪🇸 فياريال 🆚 ريال سوسيداد</span> <span class="time">22:00</span></div>
-            <div class="predict-bar"><div class="win-h" style="width: 40%"></div><div class="draw" style="width: 30%"></div><div class="win-a" style="width: 30%"></div></div>
-            <div class="predict-labels"><span>توقعات الفوز 40%</span><span>تعادل</span><span>30%</span></div>
+            <div class="match-info"><span class="teams">🇪🇸 فياريال 🆚 سوسيداد</span> <span class="time">22:00</span></div>
+            <div class="predict-bar"><div class="win-h" style="width:40%"></div><div class="draw" style="width:30%"></div><div class="win-a" style="width:30%"></div></div>
+            <div class="predict-labels"><span>توقع فوز 40%</span><span>تعادل</span><span>30%</span></div>
         </div>
 
         <div class="section-title">🌍 آخر الأنباء المترجمة</div>
-        <div id="news-section"><p style="text-align:center;">جاري سحب التحديثات... 🔄</p></div>
+        <div id="news-section"><p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p></div>
     </div>
 
     <div class="footer" onclick="openModal()">
         تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> <br>
-        2026 © جميع الحقوق محفوظة | اضغط لرؤية بطاقة المبرمج
+        2026 © جميع الحقوق محفوظة | اضغط للبطاقة
     </div>
 
     <script>
         function openModal() { document.getElementById('devModal').style.display = 'block'; }
         function closeModal() { document.getElementById('devModal').style.display = 'none'; }
-        window.onclick = function(event) {
-            let modal = document.getElementById('devModal');
-            if (event.target == modal) { modal.style.display = 'none'; }
-        }
 
         async function loadNews() {
             try {
@@ -118,6 +105,14 @@
                 const data = await res.json();
                 let html = '';
                 for (let item of data.items.slice(0, 5)) {
-                    const transRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
-                    const tData = await transRes.json();
-                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.
+                    const tRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
+                    const tData = await tRes.json();
+                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a></div>`;
+                }
+                document.getElementById('news-section').innerHTML = html;
+            } catch (e) { document.getElementById('news-section').innerHTML = "تحقق من اتصالك بالإنترنت."; }
+        }
+        loadNews();
+    </script>
+</body>
+</html>
