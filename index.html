@@ -16,7 +16,7 @@
         @keyframes blink { 50% { opacity: 0.3; } }
 
         .header-area { padding: 25px 0; text-align: center; }
-        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; text-shadow: 0 0 20px rgba(0,230,118,0.2); }
+        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
 
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
         .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; }
@@ -31,21 +31,14 @@
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; border: 1px solid rgba(0,230,118,0.2); }
         .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
 
-        .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 15px; }
-        .win-h { background: var(--green); width: 55%; }
-        .draw { background: #444; width: 25%; }
-        .win-a { background: var(--live); width: 20%; }
-
         .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 5px solid var(--gold); }
         .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 12px; }
         .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 6px 14px; border-radius: 20px; cursor: pointer; }
 
-        /* منطقة الباركود QR Code */
         .qr-area { background: #000; border: 1px solid #222; border-radius: 20px; padding: 25px; margin-top: 40px; text-align: center; border-top: 3px solid var(--gold); }
-        .qr-label { font-size: 0.8rem; color: var(--gold); margin-bottom: 15px; font-weight: bold; }
-        #qrcode { display: inline-block; padding: 10px; background: white; border-radius: 10px; margin-bottom: 10px; }
+        #qrcode { display: inline-block; padding: 10px; background: white; border-radius: 10px; }
 
-        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(37,211,102,0.4); z-index: 100; text-decoration: none; font-size: 26px; animation: pulse-wa 2s infinite; }
+        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 26px; animation: pulse-wa 2s infinite; }
         @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
         .footer { text-align: center; color: #555; padding: 40px 20px; font-size: 0.85rem; }
@@ -54,54 +47,55 @@
 <body>
 
     <div class="top-bar">
-        <div class="status"><span class="dot"></span> Smart System & QR Active</div>
-        <div>20 مارس 2026 | سوهاج</div>
+        <div class="status"><span class="dot"></span> Smart System Ready</div>
+        <div>20 مارس 2026 | الحرافشة</div>
     </div>
 
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">خاصية الباركود الذكي مفعلة الآن .. المبرمج حليم حلمي يحييكم من قلب سوهاج .. تابع الأخبار والمباريات لحظة بلحظة ..</div>
+        <div class="ticker-text">المبرمج حليم حلمي يعيد ضبط نظام المباريات بالكامل .. تابع تغطية الجمعة 20 مارس الحصرية ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
-        <div class="match-box">
-            <div class="match-info">
-                <span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span> 
-                <div class="time-box"><span class="pulse-red"></span> <span class="time">21:30</span></div>
+        <div id="match-list">
+            <div class="match-box">
+                <div class="match-info"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">21:30</span></div></div>
             </div>
-            <div class="predict-bar"><div class="win-h"></div><div class="draw"></div><div class="win-a"></div></div>
+            <div class="match-box">
+                <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
+            </div>
+            <div class="match-box">
+                <div class="match-info"><span>🇫🇷 أوكسير 🆚 نيس</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
+            </div>
         </div>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
-        <div id="news-section"><p style="text-align:center;">جاري سحب وترجمة الأخبار... 🔄</p></div>
+        <div id="news-section"><p style="text-align:center;">جاري التحديث... 🔄</p></div>
 
         <div class="qr-area">
-            <div class="qr-label">📱 صوّر الباركود لمشاركة الموقع مع أصدقائك</div>
+            <div style="font-size:0.8rem; color:var(--gold); margin-bottom:15px;">📱 صوّر الباركود لمشاركة الموقع</div>
             <div id="qrcode"></div>
-            <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">بواسطة المبرمج: HALEEM HLMY</div>
+            <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">HALEEM HLMY</div>
         </div>
     </div>
 
     <div class="footer">
-        تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> <br>
-        2026 © جميع الحقوق محفوظة | سوهاج - الحرافشة
+        تطوير: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©
     </div>
 
     <script>
-        // توليد الباركود أوتوماتيكياً لرابط الموقع الحالي
-        new QRCode(document.getElementById("qrcode"), {
-            text: window.location.href,
-            width: 120,
-            height: 120,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
-        });
+        window.onload = function() {
+            new QRCode(document.getElementById("qrcode"), {
+                text: window.location.href,
+                width: 120, height: 120
+            });
+            loadNews();
+        };
 
         async function loadNews() {
             try {
@@ -111,25 +105,16 @@
                 for (let item of data.items.slice(0, 5)) {
                     const tRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
                     const tData = await tRes.json();
-                    const title = tData.responseData.translatedText;
-                    html += `
-                        <div class="news-card">
-                            <a href="${item.link}" target="_blank" class="news-title">📍 ${title}</a>
-                            <div class="share-news-btn" onclick="shareNews('${title}', '${item.link}')">📤 مشاركة الخبر</div>
-                        </div>`;
+                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a><div class="share-news-btn" onclick="shareNews('${tData.responseData.translatedText}', '${item.link}')">📤 مشاركة</div></div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
             } catch (e) { document.getElementById('news-section').innerHTML = "تحقق من الإنترنت."; }
         }
 
         function shareNews(title, url) {
-            if (navigator.share) {
-                navigator.share({ title: 'GoalZone News', text: title, url: url });
-            } else {
-                window.open(`https://wa.me/?text=${encodeURIComponent(title + " " + url)}`);
-            }
+            if (navigator.share) navigator.share({ title: 'GoalZone', text: title, url: url });
+            else window.open(`https://wa.me/?text=${encodeURIComponent(title + " " + url)}`);
         }
-        loadNews();
     </script>
 </body>
 </html>
