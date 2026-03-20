@@ -676,7 +676,9 @@
 
     // ===== LIVE MATCHES API =====
     const API_KEY = 'a2388962a5e2454c87c909d662a32188';
-    const API_HOST = 'v3.football.api-sports.io';
+    // نجرب الاتنين: RapidAPI و api-sports مباشرة
+    const RAPID_HOST = 'api-football-v1.p.rapidapi.com';
+    const DIRECT_HOST = 'v3.football.api-sports.io';
 
     const LEAGUES = [
         { id: 39,  name: 'Premier League',   flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
@@ -696,10 +698,44 @@
         let allSections = '';
         let hasMatches = false;
 
+        // اكتشاف الـ host الصح تلقائياً
+        let workingHeaders = null;
+        let workingBaseUrl = null;
+        try {
+            const r1 = await fetch(`https://v3.football.api-sports.io/fixtures?league=39&season=2025&date=${today}`, {
+                headers: { 'x-apisports-key': API_KEY }
+            });
+            const d1 = await r1.json();
+            if (Array.isArray(d1.response)) {
+                workingBaseUrl = 'https://v3.football.api-sports.io';
+                workingHeaders = { 'x-apisports-key': API_KEY };
+                console.log('✅ Direct API works');
+            }
+        } catch(e) { console.log('Direct API failed:', e); }
+
+        if (!workingBaseUrl) {
+            try {
+                const r2 = await fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2025&date=${today}`, {
+                    headers: { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': 'api-football-v1.p.rapidapi.com' }
+                });
+                const d2 = await r2.json();
+                if (Array.isArray(d2.response)) {
+                    workingBaseUrl = 'https://api-football-v1.p.rapidapi.com/v3';
+                    workingHeaders = { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': 'api-football-v1.p.rapidapi.com' };
+                    console.log('✅ RapidAPI works');
+                }
+            } catch(e) { console.log('RapidAPI failed:', e); }
+        }
+
+        if (!workingBaseUrl) {
+            container.innerHTML = '<p style="text-align:center;color:var(--live);padding:30px;font-size:0.9rem">⚠️ تعذّر الاتصال بالـ API<br><small style="color:var(--text2)">تحقق من صلاحية الـ Key</small></p>';
+            return;
+        }
+
         for (const league of LEAGUES) {
             try {
-                const res = await fetch(`https://${API_HOST}/fixtures?league=${league.id}&date=${today}&season=${season}`, {
-                    headers: { 'x-apisports-key': API_KEY, 'x-rapidapi-host': API_HOST }
+                const res = await fetch(`${workingBaseUrl}/fixtures?league=${league.id}&date=${today}&season=${season}`, {
+                    headers: workingHeaders
                 });
                 const data = await res.json();
                 const fixtures = data.response;
@@ -767,8 +803,8 @@
         let hasMatches = false;
         for (const league of LEAGUES) {
             try {
-                const res = await fetch(`https://${API_HOST}/fixtures?league=${league.id}&season=2025&from=${from}&to=${to}`, {
-                    headers: { 'x-apisports-key': API_KEY, 'x-rapidapi-host': API_HOST }
+                const res = await fetch(`https://v3.football.api-sports.io/fixtures?league=${league.id}&season=2025&from=${from}&to=${to}`, {
+                    headers: { 'x-apisports-key': API_KEY }
                 });
                 const data = await res.json();
                 const fixtures = data.response;
