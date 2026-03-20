@@ -692,12 +692,13 @@
         container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>';
 
         const today = new Date().toISOString().slice(0, 10);
+        const season = new Date().getFullYear();
         let allSections = '';
         let hasMatches = false;
 
         for (const league of LEAGUES) {
             try {
-                const res = await fetch(`https://${API_HOST}/fixtures?league=${league.id}&date=${today}&season=2024`, {
+                const res = await fetch(`https://${API_HOST}/fixtures?league=${league.id}&date=${today}&season=${season}`, {
                     headers: { 'x-apisports-key': API_KEY }
                 });
                 const data = await res.json();
