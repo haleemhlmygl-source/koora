@@ -26,12 +26,20 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 18px; border: 1px solid #222; }
+        /* كروت المواعيد */
+        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
-        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; border: 1px solid rgba(0,230,118,0.2); }
+        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
 
-        .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 5px solid var(--gold); }
+        /* جدول الترتيب المطور */
+        .standing-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; margin-bottom: 30px; border: 1px solid #222; }
+        .standing-table th { background: #1a1a1a; color: var(--gold); padding: 12px; font-size: 0.8rem; text-align: center; }
+        .standing-table td { padding: 12px; text-align: center; border-bottom: 1px solid #1a1a1a; font-size: 0.85rem; }
+        .standing-table tr:nth-child(2) td:first-child { color: var(--green); font-weight: 900; } /* الأول */
+
+        /* الأخبار */
+        .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 4px solid var(--gold); }
         .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 12px; }
         .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 6px 14px; border-radius: 20px; cursor: pointer; }
 
@@ -47,32 +55,45 @@
 <body>
 
     <div class="top-bar">
-        <div class="status"><span class="dot"></span> Smart System Ready</div>
-        <div>20 مارس 2026 | الحرافشة</div>
+        <div class="status"><span class="dot"></span> Smart Data Verified</div>
+        <div>20 مارس 2026 | سوهاج</div>
     </div>
 
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">المبرمج حليم حلمي يعيد ضبط نظام المباريات بالكامل .. تابع تغطية الجمعة 20 مارس الحصرية ..</div>
+        <div class="ticker-text">خاصية جدول ترتيب الدوري المصري مفعلة الآن .. المبرمج حليم حلمي يعيد ضبط نظام المباريات .. تابع كل جديد لحظة بلحظة ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
-        <div id="match-list">
-            <div class="match-box">
-                <div class="match-info"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">21:30</span></div></div>
-            </div>
-            <div class="match-box">
-                <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
-            </div>
-            <div class="match-box">
-                <div class="match-info"><span>🇫🇷 أوكسير 🆚 نيس</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
-            </div>
+        <div class="match-box">
+            <div class="match-info"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">21:30</span></div></div>
         </div>
+        <div class="match-box">
+            <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
+        </div>
+
+        <div class="section-title">🏆 ترتيب الدوري المصري 2026</div>
+        <table class="standing-table">
+            <thead>
+                <tr>
+                    <th>الترتيب</th>
+                    <th>النادي</th>
+                    <th>لعب</th>
+                    <th>نقاط</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>🦅 الأهلي</td><td>18</td><td>45</td></tr>
+                <tr><td>2</td><td>🏹 الزمالك</td><td>17</td><td>38</td></tr>
+                <tr><td>3</td><td>🔵 بيراميدز</td><td>18</td><td>36</td></tr>
+                <tr><td>4</td><td>🟢 المصري</td><td>17</td><td>30</td></tr>
+            </tbody>
+        </table>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
         <div id="news-section"><p style="text-align:center;">جاري التحديث... 🔄</p></div>
@@ -84,9 +105,7 @@
         </div>
     </div>
 
-    <div class="footer">
-        تطوير: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©
-    </div>
+    <div class="footer">تطوير: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©</div>
 
     <script>
         window.onload = function() {
