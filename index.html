@@ -377,47 +377,8 @@
             <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الآن</button>
 
             <div class="section-title">📅 مواجهات اليوم</div>
-
-            <!-- Bundesliga -->
-            <div class="league-section">
-                <div class="league-header">🇩🇪 الدوري الألماني - Bundesliga</div>
-                <div class="match-card"><span class="match-teams">Leipzig <span class="match-vs">vs</span> Hoffenheim</span><span class="match-time">21:30</span></div>
-                <div class="match-card"><span class="match-teams">Bayern Munich <span class="match-vs">vs</span> Dortmund</span><span class="match-time live">🔴 LIVE 67'</span></div>
-            </div>
-
-            <!-- La Liga -->
-            <div class="league-section">
-                <div class="league-header">🇪🇸 الدوري الإسباني - La Liga</div>
-                <div class="match-card"><span class="match-teams">Villarreal <span class="match-vs">vs</span> Real Sociedad</span><span class="match-time">22:00</span></div>
-                <div class="match-card"><span class="match-teams">Real Madrid <span class="match-vs">vs</span> Barcelona</span><span class="match-time">23:00</span></div>
-            </div>
-
-            <!-- Ligue 1 -->
-            <div class="league-section">
-                <div class="league-header">🇫🇷 الدوري الفرنسي - Ligue 1</div>
-                <div class="match-card"><span class="match-teams">Auxerre <span class="match-vs">vs</span> Nice</span><span class="match-time">22:00</span></div>
-                <div class="match-card"><span class="match-teams">PSG <span class="match-vs">vs</span> Lyon</span><span class="match-time">22:45</span></div>
-            </div>
-
-            <!-- Premier League -->
-            <div class="league-section">
-                <div class="league-header">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الدوري الإنجليزي - Premier League</div>
-                <div class="match-card"><span class="match-teams">Arsenal <span class="match-vs">vs</span> Man City</span><span class="match-time">22:30</span></div>
-                <div class="match-card"><span class="match-teams">Liverpool <span class="match-vs">vs</span> Chelsea</span><span class="match-time">22:30</span></div>
-            </div>
-
-            <!-- Serie A -->
-            <div class="league-section">
-                <div class="league-header">🇮🇹 الدوري الإيطالي - Serie A</div>
-                <div class="match-card"><span class="match-teams">AC Milan <span class="match-vs">vs</span> Inter Milan</span><span class="match-time">21:45</span></div>
-                <div class="match-card"><span class="match-teams">Juventus <span class="match-vs">vs</span> Napoli</span><span class="match-time">21:45</span></div>
-            </div>
-
-            <!-- UCL -->
-            <div class="league-section">
-                <div class="league-header">⭐ دوري أبطال أوروبا - UCL</div>
-                <div class="match-card"><span class="match-teams">Real Madrid <span class="match-vs">vs</span> Man City</span><span class="match-time">23:00</span></div>
-                <div class="match-card"><span class="match-teams">Bayern <span class="match-vs">vs</span> PSG</span><span class="match-time">23:00</span></div>
+            <div id="matches-container">
+                <div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>
             </div>
 
             <div class="section-title">📢 إعلانات</div>
@@ -713,13 +674,85 @@
         window.open(`https://wa.me/?text=${encodeURIComponent(text + window.location.href)}`);
     }
 
+    // ===== LIVE MATCHES API =====
+    const API_KEY = 'a2388962a5e2454c87c909d662a32188';
+    const API_HOST = 'v3.football.api-sports.io';
+
+    const LEAGUES = [
+        { id: 39,  name: 'Premier League',   flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+        { id: 140, name: 'La Liga',           flag: '🇪🇸' },
+        { id: 78,  name: 'Bundesliga',        flag: '🇩🇪' },
+        { id: 135, name: 'Serie A',           flag: '🇮🇹' },
+        { id: 61,  name: 'Ligue 1',           flag: '🇫🇷' },
+        { id: 2,   name: 'دوري أبطال أوروبا', flag: '⭐' },
+    ];
+
+    async function fetchMatches() {
+        const container = document.getElementById('matches-container');
+        container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>';
+
+        const today = new Date().toISOString().slice(0, 10);
+        let allSections = '';
+        let hasMatches = false;
+
+        for (const league of LEAGUES) {
+            try {
+                const res = await fetch(`https://${API_HOST}/fixtures?league=${league.id}&date=${today}&season=2024`, {
+                    headers: { 'x-apisports-key': API_KEY }
+                });
+                const data = await res.json();
+                const fixtures = data.response;
+                if (!fixtures || fixtures.length === 0) continue;
+
+                hasMatches = true;
+                let cards = '';
+                fixtures.forEach(f => {
+                    const status = f.fixture.status.short;
+                    const home = f.teams.home.name;
+                    const away = f.teams.away.name;
+                    const time = new Date(f.fixture.date).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                    const elapsed = f.fixture.status.elapsed;
+                    const goalsH = f.goals.home ?? '-';
+                    const goalsA = f.goals.away ?? '-';
+
+                    let timeLabel = '';
+                    if (status === '1H' || status === '2H' || status === 'HT') {
+                        timeLabel = `<span class="match-time live">🔴 ${elapsed ? elapsed + "'" : 'HT'}</span>`;
+                    } else if (status === 'FT') {
+                        timeLabel = `<span class="match-time" style="color:var(--text2)">${goalsH} - ${goalsA} FT</span>`;
+                    } else {
+                        timeLabel = `<span class="match-time">${time}</span>`;
+                    }
+
+                    const score = (status === '1H' || status === '2H' || status === 'HT')
+                        ? `<span style="color:var(--gold);font-weight:900;margin:0 8px">${goalsH} - ${goalsA}</span>` : '';
+
+                    cards += `<div class="match-card">
+                        <span class="match-teams">${home} ${score}<span class="match-vs">vs</span> ${away}</span>
+                        ${timeLabel}
+                    </div>`;
+                });
+
+                allSections += `<div class="league-section">
+                    <div class="league-header">${league.flag} ${league.name}</div>
+                    ${cards}
+                </div>`;
+            } catch (e) { continue; }
+        }
+
+        if (!hasMatches) {
+            container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:30px">⚽ لا توجد مباريات اليوم</p>';
+        } else {
+            container.innerHTML = allSections;
+        }
+    }
+
     // ===== INIT =====
     window.onload = () => {
         renderStandings('pl');
-        // Simulate match notification after 5 seconds
-        setTimeout(() => {
-            if (notifOn) showToast('⚽ Bayern Munich vs Dortmund تبدأ خلال 15 دقيقة!', 4000);
-        }, 5000);
+        fetchMatches();
+        // Refresh every 60 seconds
+        setInterval(fetchMatches, 60000);
     };
     </script>
 </body>
