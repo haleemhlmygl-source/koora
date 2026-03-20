@@ -9,7 +9,7 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; }
         body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
         
-        /* شريط الأخبار المتحرك */
+        /* شريط الأخبار العلوي */
         .ticker { background: var(--red); color: #fff; padding: 8px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 10px; margin-bottom: 15px; }
         .ticker span { display: inline-block; padding-left: 100%; animation: ticker 25s linear infinite; font-weight: bold; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
@@ -18,7 +18,7 @@
         .section-title { background: var(--card); padding: 12px; border-radius: 10px; margin: 20px 0 10px; border-right: 6px solid var(--green); font-weight: 800; font-size: 0.95rem; }
         
         /* شريط النتائج المباشرة بالعرض */
-        .live-wrap { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; }
+        .live-wrap { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; min-height: 80px; }
         .match-box { background: #1c1f26; min-width: 140px; padding: 10px; border-radius: 12px; border: 1px solid #333; text-align: center; }
         .live-tag { background: var(--red); font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; animation: blink 1s infinite; }
         .score { font-size: 1.1rem; font-weight: 900; color: var(--gold); margin: 5px 0; }
@@ -29,13 +29,13 @@
         .tab { background: var(--card); border: 1px solid #444; color: #bbb; padding: 10px 18px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.8rem; }
         .tab.active { background: var(--green); color: #000; font-weight: bold; }
 
-        .box { background: var(--card); border-radius: 15px; padding: 12px; border: 1px solid #333; margin-bottom: 20px; }
+        .box { background: var(--card); border-radius: 15px; padding: 12px; border: 1px solid #333; margin-bottom: 20px; min-height: 200px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { color: var(--green); padding: 10px 5px; border-bottom: 2px solid #333; }
         td { padding: 10px 5px; border-bottom: 1px solid #222; text-align: center; }
         .team-info { text-align: right; display: flex; align-items: center; gap: 6px; }
 
-        .footer { text-align: center; color: #555; font-size: 0.75rem; padding: 20px 0; border-top: 1px solid #222; }
+        .footer { text-align: center; color: #666; font-size: 0.75rem; padding: 20px 0; border-top: 1px solid #222; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -51,7 +51,7 @@
         <p style="padding:10px; font-size:0.75rem;">جاري جلب مباريات الدقيقة الحالية... 🔄</p>
     </div>
 
-    <div class="section-title">📊 ترتيب الدوريات الكبرى</div>
+    <div class="section-title">📊 ترتيب الدوريات والهدافين</div>
     <div class="tabs">
         <button class="tab active" onclick="load(39, 'الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
         <button class="tab" onclick="load(140, 'الإسباني', this)">🇪🇸 الإسباني</button>
@@ -65,70 +65,4 @@
 
     <div class="footer">
         بواسطة المبرمج: <b>HALEEM HLMY</b> <br>
-        مكان الإصدار: الحرافشة - سوهاج | 2026 <br>
-        نسخة المبرمجين المحترفين v2.0
-    </div>
-
-    <script>
-        const API_KEY = "3233c035c06b5a688ee984abb39f4b67";
-
-        // 1. تحديث الماتشات اللي شغالة دلوقتي
-        async function updateLive() {
-            try {
-                const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all`, {
-                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
-                });
-                const d = await res.json();
-                const box = document.getElementById('live-matches');
-                if (d.response && d.response.length > 0) {
-                    let h = '';
-                    d.response.slice(0, 10).forEach(m => {
-                        h += `
-                        <div class="match-box">
-                            <span class="live-tag">${m.fixture.status.elapsed}'</span>
-                            <div style="font-size:0.65rem; margin-top:5px;">${m.teams.home.name}</div>
-                            <div class="score">${m.goals.home} - ${m.goals.away}</div>
-                            <div style="font-size:0.65rem;">${m.teams.away.name}</div>
-                        </div>`;
-                    });
-                    box.innerHTML = h;
-                } else {
-                    box.innerHTML = `<p style="padding:10px; font-size:0.75rem;">لا توجد مباريات جارية حالياً.</p>`;
-                }
-            } catch (e) {}
-        }
-
-        // 2. تحديث جدول الترتيب
-        async function load(id, name, btn) {
-            if(btn) {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            const box = document.getElementById('main-content');
-            box.innerHTML = `<p style="text-align:center; padding:20px;">جاري جلب ترتيب ${name}... 🔄</p>`;
-
-            try {
-                // بنطلب موسم 2025 لأنه في نظام API هو الموسم اللي بينتهي في 2026
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, {
-                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
-                });
-                const d = await res.json();
-                if (d.response && d.response[0]) {
-                    const st = d.response[0].league.standings[0];
-                    let h = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr>';
-                    st.slice(0, 10).forEach(i => {
-                        h += `<tr><td>${i.rank}</td><td><div class="team-info"><img src="${i.team.logo}" width="18"> ${i.team.name}</div></td><td>${i.all.played}</td><td><b>${i.points}</b></td></tr>`;
-                    });
-                    box.innerHTML = h + '</table>';
-                }
-            } catch (e) { box.innerHTML = "خطأ في الشبكة."; }
-        }
-
-        window.onload = () => {
-            updateLive();
-            load(39, 'الإنجليزي', null);
-            setInterval(updateLive, 60000); // تحديث الماتشات كل دقيقة
-        };
-    </script>
-</body>
-</html>
+        مكان الإصدار: الحراف
