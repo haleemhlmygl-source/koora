@@ -11,83 +11,74 @@
         .header { color: var(--green); font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 25px; }
         .section-title { color: var(--gold); font-size: 1rem; margin: 20px 0 10px; border-right: 4px solid var(--green); padding-right: 10px; }
         
-        .match-card { background: #1c1f26; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; font-size: 0.85rem; }
-        .match-card b { color: var(--green); }
-        .match-status { color: #888; font-size: 0.7rem; }
+        /* كروت المواعيد الحقيقية */
+        .match-card { background: #1c1f26; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+        .match-card .teams { font-size: 0.9rem; font-weight: 700; }
+        .match-card .time { color: var(--green); font-weight: 900; font-size: 1rem; }
+        .league-tag { font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px; }
 
-        .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #333; margin-bottom: 15px; }
+        /* كروت الأخبار المترجمة */
+        .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #333; margin-bottom: 15px; border-right: 4px solid var(--gold); }
         .news-title { color: #fff; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: bold; }
         
-        .footer { text-align: center; color: #555; font-size: 0.75rem; margin-top: 40px; border-top: 1px solid #222; padding-top: 15px; padding-bottom: 20px; }
+        .footer { text-align: center; color: #555; font-size: 0.75rem; margin-top: 40px; border-top: 1px solid #222; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">⏱️ مباريات حقيقية الآن (سيرفر عالمي)</div>
-    <div id="matches-section">
-        <p style="text-align:center;">جاري سحب المواعيد الحقيقية... 🔄</p>
+    <div class="section-title">⏱️ مباريات اليوم (الجمعة 20 مارس)</div>
+    <div id="matches">
+        <div class="match-card">
+            <div><span class="league-tag">الدوري الألماني</span><span class="teams">لايبزيج 🆚 هوفنهايم</span></div>
+            <span class="time">21:30</span>
+        </div>
+        <div class="match-card">
+            <div><span class="league-tag">الدوري الإسباني</span><span class="teams">فياريال 🆚 ريال سوسيداد</span></div>
+            <span class="time">22:00</span>
+        </div>
+        <div class="match-card">
+            <div><span class="league-tag">الدوري الفرنسي</span><span class="teams">أوكسير 🆚 نيس</span></div>
+            <span class="time">22:00</span>
+        </div>
     </div>
 
-    <div class="section-title">📰 أخبار حليم المترجمة</div>
+    <div class="section-title">📰 أحدث الأخبار (مُترجمة للعربية)</div>
     <div id="news-section">
-        <p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p>
+        <p style="text-align:center;">جاري سحب الأخبار الحية... 🔄</p>
     </div>
 
     <div class="footer">
-        بواسطة المبرمج: <b>HALEEM HLMY</b> | سوهاج <br>
-        مصدر البيانات: Football-Data.org & BBC
+        بواسطة المبرمج: <b>HALEEM HLMY</b> | سوهاج - الحرافشة <br>
+        جميع البيانات محدثة ليوم 20 مارس 2026
     </div>
 
     <script>
-        const TOKEN = "2388962a5e2454c87c909d662a32188";
-
-        async function loadApp() {
+        async function loadNews() {
             try {
-                // 1. جلب المواعيد الحقيقية (الدوري الإنجليزي كمثال)
-                const matchRes = await fetch('https://api.football-data.org/v4/competitions/PL/matches?status=SCHEDULED', {
-                    headers: { 'X-Auth-Token': TOKEN }
-                });
-                const matchData = await matchRes.json();
-                let matchHtml = '';
+                // جلب الأخبار من المصدر العالمي المفتوح (BBC)
+                const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
+                const data = await res.json();
+                let html = '';
                 
-                if (matchData.matches && matchData.matches.length > 0) {
-                    matchData.matches.slice(0, 4).forEach(m => {
-                        const date = new Date(m.utcDate).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-                        matchHtml += `
-                        <div class="match-card">
-                            <span>${m.homeTeam.shortName} 🆚 ${m.awayTeam.shortName}</span>
-                            <b>${date}</b>
-                        </div>`;
-                    });
-                } else {
-                    matchHtml = "<p style='text-align:center; font-size:0.8rem;'>لا توجد مباريات مجدولة حالياً في الدوري الإنجليزي.</p>";
-                }
-                document.getElementById('matches-section').innerHTML = matchHtml;
+                // ترجمة العناوين بشكل مباشر وسريع
+                for (let item of data.items.slice(0, 4)) {
+                    const transRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
+                    const tData = await transRes.json();
+                    const translatedText = tData.responseData.translatedText;
 
-                // 2. جلب الأخبار وترجمتها
-                const newsRes = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
-                const newsData = await newsRes.json();
-                let newsHtml = '';
-                
-                for (let item of newsData.items.slice(0, 4)) {
-                    const translatedRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
-                    const tData = await translatedRes.json();
-                    const arabicTitle = tData.responseData.translatedText;
-
-                    newsHtml += `
+                    html += `
                     <div class="news-card">
-                        <a href="${item.link}" target="_blank" class="news-title">📍 ${arabicTitle}</a>
+                        <a href="${item.link}" target="_blank" class="news-title">📍 ${translatedText}</a>
                     </div>`;
                 }
-                document.getElementById('news-section').innerHTML = newsHtml;
-
+                document.getElementById('news-section').innerHTML = html;
             } catch (e) {
-                console.log(e);
+                document.getElementById('news-section').innerHTML = "تحقق من اتصالك بالإنترنت لتحديث الأخبار.";
             }
         }
-        loadApp();
+        loadNews();
     </script>
 </body>
 </html>
