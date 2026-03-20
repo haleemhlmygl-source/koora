@@ -10,7 +10,9 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; --input: #1a1e24; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
         
+        /* شريط التنبيه العلوي - تعديل التوقيت هنا */
         .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.75rem; padding: 8px 0; font-weight: 900; box-shadow: 0 2px 10px rgba(255, 61, 0, 0.4); }
+        
         .header-area { padding: 25px 0; text-align: center; }
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; text-shadow: 0 0 15px rgba(0,230,118,0.2); }
 
@@ -41,64 +43,4 @@
 </head>
 <body>
 
-    <div class="alert-bar">📢 تنبيه: مباريات الليلة تبدأ في تمام التاسعة والنصف مساءً بتوقيت سوهاج</div>
-
-    <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
-
-    <div class="ticker-wrap">
-        <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع في سوهاج بتطوير المبدع حليم حلمي .. تابعوا نتائج مباريات اليوم لحظة بلحظة ..</div>
-    </div>
-
-    <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
-
-    <div class="content">
-        <div class="section-title">📅 مواجهات الليلة المباشرة</div>
-        <div class="match-box">
-            <div class="match-info"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse"></span><span class="time">21:30</span></div></div>
-        </div>
-        <div class="match-box">
-            <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse"></span><span class="time">22:00</span></div></div>
-        </div>
-        <div class="match-box">
-            <div class="match-info"><span>🇫🇷 أوكسير 🆚 نيس</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse"></span><span class="time">22:00</span></div></div>
-        </div>
-
-        <div class="section-title">🌍 Global Football News</div>
-        <div id="news-section"><p style="text-align:center;">جاري جلب الأخبار... 🔄</p></div>
-
-        <div class="section-title">📧 تواصل مع المبرمج</div>
-        <div class="contact-form">
-            <input type="text" placeholder="اسمك الكريم" id="name">
-            <textarea rows="4" placeholder="اكتب اقتراحك أو رسالتك هنا..." id="msg"></textarea>
-            <button onclick="sendMsg()">إرسال الرسالة عبر واتساب</button>
-        </div>
-    </div>
-
-    <div class="footer">تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©</div>
-
-    <script>
-        async function loadNews() {
-            try {
-                const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
-                const data = await res.json();
-                let html = '';
-                for (let item of data.items.slice(0, 5)) {
-                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a></div>`;
-                }
-                document.getElementById('news-section').innerHTML = html;
-            } catch (e) { document.getElementById('news-section').innerHTML = "Check connection."; }
-        }
-
-        function sendMsg() {
-            const name = document.getElementById('name').value;
-            const msg = document.getElementById('msg').value;
-            if(name && msg) {
-                const text = `أهلاً حليم، أنا ${name}. رسالتي هي: ${msg}`;
-                window.open(`https://wa.me/20552715934?text=${encodeURIComponent(text)}`);
-            } else { alert("برجاء ملء الاسم والرسالة!"); }
-        }
-        loadNews();
-    </script>
-</body>
-</html>
+    
