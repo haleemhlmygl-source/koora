@@ -10,47 +10,45 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; }
-        .header-area { padding: 25px 0; text-align: center; }
+        .header-area { padding: 20px 0; text-align: center; }
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.88rem; }
+        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.85rem; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
         .content { padding: 15px; max-width: 600px; margin: auto; }
-        .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; text-align: right; }
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px; border-right: 5px solid var(--green); padding-right: 10px; font-weight: 900; text-align: right; }
         
-        /* تصميم مكان النتائج الحية */
-        .live-score-container { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #222; min-height: 400px; }
+        /* مكان النتائج الحية الجديد */
+        .live-frame { width: 100%; height: 500px; border: 1px solid #222; border-radius: 15px; background: #000; overflow: hidden; }
 
-        .news-card { background: var(--card); border-radius: 18px; padding: 20px; border: 1px solid #222; margin-top: 15px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
-        .news-title { color: #eee; font-size: 0.95rem; text-decoration: none; display: block; font-weight: 700; }
+        .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; margin-top: 10px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
+        .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; }
         .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 20px; }
-        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
-        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; border-top: 1px solid #111; }
+        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .footer { text-align: center; color: #444; padding: 30px; font-size: 0.8rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
-    <div class="alert-bar">📢 مباشر الآن: نتائج مباريات اليوم لحظة بلحظة</div>
-
+    <div class="alert-bar">📢 مباشر الآن: نتائج مباريات اليوم والتحليلات الحية</div>
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">أهلاً بكم في GoalZone .. تابعوا النتائج الحية والأخبار العالمية بتطوير حليم حلمي ..</div>
+        <div class="ticker-text">تابع النتائج الحية لمباريات اليوم بتوقيت القاهرة .. تطوير المبرمج حليم حلمي ..</div>
     </div>
     <a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">🏆 نتائج المباريات المباشرة</div>
         
-        <div class="live-score-container">
-            <iframe src="https://www.scoreaxis.com/widget/live-scores?autoHeight=1&theme=dark&font=Cairo" 
-                    style="width:100%; border:none; transition: all 0.2s ease;"></iframe>
+        <div class="live-frame">
+            <iframe src="https://www.livescore.in/ar/free/widgets/m/?type=match-list&amp;category=1&amp;m=1&amp;containerId=ls-widget&amp;theme=dark" 
+                    width="100%" height="500" frameborder="0" scrolling="yes"></iframe>
         </div>
 
-        <div class="section-title">🌍 Global News (BBC Sport)</div>
+        <div class="section-title">🌍 أخبار حية (BBC)</div>
         <div id="news-section"></div>
-        
-        <button class="share-btn" onclick="shareSite()">🔗 شارك الموقع مع أصدقائك</button>
+        <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع أصدقائك</button>
     </div>
 
     <div class="footer">
@@ -61,17 +59,17 @@
     <script>
         async function fetchLiveNews() {
             try {
-                const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
-                const data = await response.json();
+                const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
+                const data = await res.json();
                 let html = '';
-                data.items.slice(0, 5).forEach(item => {
+                data.items.slice(0, 4).forEach(item => {
                     html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a></div>`;
                 });
                 document.getElementById('news-section').innerHTML = html;
-            } catch (e) { document.getElementById('news-section').innerHTML = "المصدر غير متاح."; }
+            } catch (e) { document.getElementById('news-section').innerHTML = "المصدر غير متاح حالياً."; }
         }
         function shareSite() {
-            const text = "تابع نتائج المباريات الحية والأخبار العالمية الآن على GoalZone: ";
+            const text = "تابع نتائج المباريات الحية الآن على GoalZone: ";
             window.open(`https://wa.me/?text=${encodeURIComponent(text + window.location.href)}`);
         }
         window.onload = fetchLiveNews;
