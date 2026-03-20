@@ -9,7 +9,7 @@
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
-        .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; box-shadow: 0 2px 10px rgba(255, 61, 0, 0.4); }
+        .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; }
         .header-area { padding: 30px 0; text-align: center; }
         .logo-box { display: inline-block; padding: 10px 25px; border: 3px solid var(--green); border-radius: 15px; box-shadow: 0 0 20px rgba(0, 230, 118, 0.3); }
         .logo-main { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; text-shadow: 0 0 10px var(--green); }
@@ -20,9 +20,20 @@
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
         .content { padding: 15px; max-width: 600px; margin: auto; }
         .section-title { color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px; border-right: 5px solid var(--green); padding-right: 10px; font-weight: 900; text-align: right; }
-        .live-btn-main { width: 100%; padding: 20px; background: linear-gradient(45deg, #ff3d00, #ff8e53); color: white; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3); }
+        .live-btn-main { width: 100%; padding: 20px; background: linear-gradient(45deg, #ff3d00, #ff8e53); color: white; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3); margin-bottom: 10px; }
         .match-card { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
         .match-time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem; }
+        
+        /* التحكم في مساحة الإعلانات عشان ماتكبرش بزيادة */
+        .ad-container-fixed { 
+            max-height: 250px; 
+            overflow: hidden; 
+            margin: 20px 0; 
+            border-radius: 12px; 
+            border: 1px solid #222;
+            background: #000;
+        }
+
         .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; margin-bottom: 10px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
         .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; }
         .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 20px; }
@@ -31,7 +42,7 @@
     </style>
 </head>
 <body>
-    <div class="alert-bar">📢 مباشر الآن: تابع نتائج مباريات اليوم والنتائج لحظة بلحظة</div>
+    <div class="alert-bar">📢 مباشر الآن: تابعوا تغطية مباريات اليوم والنتائج لحظة بلحظة</div>
     
     <div class="header-area">
         <div class="logo-box">
@@ -51,19 +62,20 @@
         <div class="section-title">🏆 متابعة النتائج الحية</div>
         <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الآن</button>
 
-        <div style="text-align: center; margin: 25px 0;">
-            <p style="color: #333; font-size: 0.6rem; margin-bottom: 5px;">ADVERTISEMENT</p>
-            <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
-            <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
-        </div>
-
         <div class="section-title">📅 مواجهات الليلة (توقيت القاهرة)</div>
         <div class="match-card"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="match-time">21:30</span></div>
         <div class="match-card"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="match-time">22:00</span></div>
         <div class="match-card"><span>🇫🇷 Auxerre vs Nice</span> <span class="match-time">22:00</span></div>
 
+        <div class="section-title">📢 إعلانات تهمك</div>
+        <div class="ad-container-fixed">
+            <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
+            <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
+        </div>
+
         <div class="section-title">🌍 أخبار حية (BBC)</div>
         <div id="news-section"></div>
+        
         <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع أصدقائك</button>
     </div>
 
