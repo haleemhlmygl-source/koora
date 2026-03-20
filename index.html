@@ -25,16 +25,7 @@
         .match-info { display: flex; justify-content: space-between; align-items: center; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
-
-        /* جدول الهيبة المطور */
-        .table-container { background: var(--card); border-radius: 20px; border: 1px solid #222; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .st-table { width: 100%; border-collapse: collapse; }
-        .st-table th { background: #1a1a1a; color: #888; padding: 15px 10px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-        .st-table td { padding: 15px 10px; text-align: center; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; font-weight: bold; }
-        .st-table tr:last-child td { border: none; }
-        .rank-1 { color: var(--green); text-shadow: 0 0 10px rgba(0,230,118,0.5); }
-        .team-name { text-align: right !important; display: flex; align-items: center; gap: 10px; }
-        .pts { color: var(--gold); font-weight: 900; }
+        @keyframes blink { 50% { opacity: 0.3; } }
 
         .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 4px solid var(--gold); }
         .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 12px; }
@@ -54,70 +45,36 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">تحديث "جدول الصدارة الماسي" متاح الآن .. المبرمج حليم حلمي يعيد تعريف الاحترافية .. تابع صراع القمة في الدوري المصري ..</div>
+        <div class="ticker-text">تم استعادة استقرار النظام 100% .. المبرمج حليم حلمي يحييكم .. تابع مباريات الجمعة 20 مارس الحصرية لحظة بلحظة ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
-        <div class="match-box">
-            <div class="match-info"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">21:30</span></div></div>
-        </div>
-        <div class="match-box">
-            <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
-        </div>
-
-        <div class="section-title">🏆 جدول الصدارة - الدوري المصري</div>
-        <div class="table-container">
-            <table class="st-table">
-                <thead>
-                    <tr>
-                        <th>الترتيب</th>
-                        <th style="text-align: right;">النادي</th>
-                        <th>لعب</th>
-                        <th>نقاط</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="rank-1">01</td>
-                        <td class="team-name">🦅 الأهلي</td>
-                        <td>18</td>
-                        <td class="pts">46</td>
-                    </tr>
-                    <tr>
-                        <td>02</td>
-                        <td class="team-name">🏹 الزمالك</td>
-                        <td>18</td>
-                        <td class="pts">40</td>
-                    </tr>
-                    <tr>
-                        <td>03</td>
-                        <td class="team-name">🔵 بيراميدز</td>
-                        <td>18</td>
-                        <td class="pts">37</td>
-                    </tr>
-                    <tr>
-                        <td>04</td>
-                        <td class="team-name">🟢 المصري</td>
-                        <td>18</td>
-                        <td class="pts">32</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div id="matches">
+            <div class="match-box">
+                <div class="match-info"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">21:30</span></div></div>
+            </div>
+            <div class="match-box">
+                <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
+            </div>
+            <div class="match-box">
+                <div class="match-info"><span>🇫🇷 أوكسير 🆚 نيس</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
+            </div>
         </div>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
-        <div id="news-section"><p style="text-align:center;">جاري التحديث... 🔄</p></div>
+        <div id="news-section"><p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p></div>
 
         <div class="qr-area">
+            <div style="font-size:0.8rem; color:var(--gold); margin-bottom:15px;">📱 صوّر الباركود لمشاركة الموقع</div>
             <div id="qrcode"></div>
             <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">HALEEM HLMY</div>
         </div>
     </div>
 
-    <div class="footer">برمجة وتصميم: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026</div>
+    <div class="footer">برمجة: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026</div>
 
     <script>
         window.onload = function() {
