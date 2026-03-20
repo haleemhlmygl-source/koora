@@ -6,99 +6,84 @@
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: rgba(18, 21, 26, 0.95); --green: #00e676; --gold: #ffd700; }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff3d00; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         
-        .top-bar { background: #000; height: 30px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.65rem; color: #666; border-bottom: 1px solid #111; }
-        .status-online { color: var(--green); display: flex; align-items: center; gap: 5px; }
-        .dot { height: 6px; width: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 1.5s infinite; }
-        @keyframes pulse { 50% { opacity: 0.4; } }
+        .top-bar { background: #000; height: 32px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.7rem; color: #888; border-bottom: 1px solid #1a1a1a; }
+        .status { color: var(--green); font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .dot { height: 8px; width: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
 
-        .header-area { padding: 15px; text-align: center; }
-        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; margin: 0; }
+        .header-area { padding: 20px 0; text-align: center; }
+        .header { color: var(--green); font-size: 2rem; font-weight: 900; margin: 0; }
 
-        .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 35px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.7rem; height: 100%; display: flex; align-items: center; z-index: 2; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 30s linear infinite; font-size: 0.8rem; }
+        .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 38px; overflow: hidden; display: flex; align-items: center; }
+        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.75rem; height: 100%; display: flex; align-items: center; z-index: 2; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 30s linear infinite; font-size: 0.85rem; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
 
         .content { padding: 15px; }
-        .filter-wrap { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0 20px; scrollbar-width: none; }
-        .filter-btn { background: #1c1f26; border: 1px solid #333; color: #888; padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; transition: 0.3s; }
-        .filter-btn.active { background: var(--green); color: black; font-weight: 900; }
-
-        .match-card { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-        .match-card.hidden { display: none; }
-        .no-matches { text-align: center; padding: 20px; color: #555; font-size: 0.9rem; display: none; }
-        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 4px 12px; border-radius: 8px; }
-
-        .wa-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.4); z-index: 100; text-decoration: none; font-size: 22px; }
-
-        .news-card { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); }
-        .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; }
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: bold; }
         
-        .footer { text-align: center; color: #333; padding: 40px 20px; border-top: 1px solid #111; font-size: 0.75rem; }
+        .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
+        .match-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .teams { font-weight: 700; font-size: 0.95rem; }
+        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 4px 10px; border-radius: 8px; }
+        
+        .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 10px; }
+        .win-h { background: var(--green); height: 100%; }
+        .win-a { background: var(--red); height: 100%; }
+        .draw { background: #555; height: 100%; }
+        .predict-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #666; margin-top: 5px; }
+
+        /* زر واتساب مربوط برقم حليم 0552715934 */
+        .wa-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(37,211,102,0.4); z-index: 100; text-decoration: none; animation: pulse-wa 2s infinite; }
+        @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); }
+        .news-title { color: #eee; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: 700; }
+        
+        .footer { text-align: center; color: #333; padding: 40px 20px; font-size: 0.8rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="status-online"><span class="dot"></span> Live Data Verified</div>
-        <div>20 مارس 2026 | حليم حلمي</div>
+        <div class="status"><span class="dot"></span> Smart System Online</div>
+        <div>20 مارس 2026 | سوهاج - الحرافشة</div>
     </div>
 
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">مواعيد مباريات الجمعة 20 مارس محدثة بالكامل .. تابع أحدث المستجدات العالمية مترجمة بالعربية .. المبرمج حليم حلمي ..</div>
+        <div class="ticker-text">المبرمج حليم حلمي يطلق التحديث النهائي .. تابع توقعات مباريات الليلة المباشرة .. أهلاً بكم في عالم الاحتراف الرياضي ..</div>
     </div>
 
-    <a href="https://wa.me/201016834015" class="wa-float" target="_blank">💬</a>
+    <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
-        <div class="section-title" style="color:var(--gold); border-right:5px solid var(--green); padding-right:10px; margin-bottom:15px; font-weight:bold;">📅 مواجهات اليوم</div>
+        <div class="section-title">📅 مواجهات الجمعة 20 مارس</div>
         
-        <div class="filter-wrap">
-            <div class="filter-btn active" onclick="filterMatches('all', this)">الكل</div>
-            <div class="filter-btn" onclick="filterMatches('ger', this)">الألماني</div>
-            <div class="filter-btn" onclick="filterMatches('esp', this)">الإسباني</div>
-            <div class="filter-btn" onclick="filterMatches('fra', this)">الفرنسي</div>
+        <div class="match-box">
+            <div class="match-info"><span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span> <span class="time">21:30</span></div>
+            <div class="predict-bar"><div class="win-h" style="width: 55%"></div><div class="draw" style="width: 25%"></div><div class="win-a" style="width: 20%"></div></div>
+            <div class="predict-labels"><span>فوز لايبزيج 55%</span><span>تعادل</span><span>فوز هوفنهايم 20%</span></div>
         </div>
 
-        <div id="match-list">
-            <div class="match-card" data-league="ger"><span>🇩🇪 لايبزيج 🆚 هوفنهايم</span> <span class="time">21:30</span></div>
-            <div class="match-card" data-league="esp"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <span class="time">22:00</span></div>
-            <div class="match-card" data-league="fra"><span>🇫🇷 أوكسير 🆚 نيس</span> <span class="time">22:00</span></div>
+        <div class="match-box">
+            <div class="match-info"><span class="teams">🇪🇸 فياريال 🆚 ريال سوسيداد</span> <span class="time">22:00</span></div>
+            <div class="predict-bar"><div class="win-h" style="width: 40%"></div><div class="draw" style="width: 30%"></div><div class="win-a" style="width: 30%"></div></div>
+            <div class="predict-labels"><span>فياريال 40%</span><span>تعادل</span><span>سوسيداد 30%</span></div>
         </div>
-        <div id="no-matches-msg" class="no-matches">لا توجد مباريات مجدولة حالياً لهذا الدوري</div>
 
-        <div class="section-title" style="color:var(--gold); border-right:5px solid var(--green); padding-right:10px; margin-top:30px; margin-bottom:15px; font-weight:bold;">🌍 موجز الأخبار العالمية</div>
-        <div id="news-section"><p style="text-align:center;">جاري التحديث... 🔄</p></div>
+        <div class="section-title">🌍 موجز الأنباء العالمية</div>
+        <div id="news-section"><p style="text-align:center;">جاري سحب التحديثات... 🔄</p></div>
     </div>
 
-    <div class="footer">تطوير: <b>HALEEM HLMY</b> | سوهاج - الحرافشة</div>
+    <div class="footer">تطوير وبرمجة المبدع: <b>HALEEM HLMY</b> <br> 2026 © جميع الحقوق محفوظة</div>
 
     <script>
-        function filterMatches(league, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const matches = document.querySelectorAll('.match-card');
-            let found = false;
-            
-            matches.forEach(m => {
-                if (league === 'all' || m.getAttribute('data-league') === league) {
-                    m.classList.remove('hidden');
-                    found = true;
-                } else {
-                    m.classList.add('hidden');
-                }
-            });
-
-            document.getElementById('no-matches-msg').style.display = found ? 'none' : 'block';
-        }
-
         async function loadNews() {
             try {
                 const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
