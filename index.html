@@ -8,13 +8,17 @@
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; }
-        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 25px; }
-        .section-title { color: var(--gold); font-size: 1rem; margin: 20px 0 10px; border-right: 4px solid var(--green); padding-right: 10px; font-weight: bold; }
+        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 20px; }
         
-        /* كروت المواعيد الحقيقية ليوم الجمعة 20 مارس */
+        /* قسم المباريات الحقيقية */
+        .section-title { color: var(--gold); font-size: 1rem; margin: 20px 0 10px; border-right: 4px solid var(--green); padding-right: 10px; font-weight: bold; }
         .match-card { background: #1c1f26; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
         .match-card .teams { font-size: 0.9rem; font-weight: 700; }
         .match-card .time { color: var(--green); font-weight: 900; }
+
+        /* مساحة الإعلانات اللي طلبتها */
+        .ad-container { background: #1a1e26; border: 1px dashed #444; border-radius: 10px; padding: 10px; margin: 20px 0; text-align: center; color: #666; font-size: 0.7rem; }
+        .ad-slot { min-height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(0,230,118,0.05); color: var(--green); font-weight: bold; }
 
         .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #333; margin-bottom: 15px; border-right: 4px solid var(--gold); }
         .news-title { color: #fff; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: bold; }
@@ -26,55 +30,41 @@
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">⏱️ مباريات اليوم الحقيقية (الجمعة 20 مارس)</div>
+    <div class="section-title">⏱️ مباريات اليوم (20 مارس الحقيقية)</div>
     <div id="matches">
-        <div class="match-card">
-            <span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span>
-            <span class="time">21:30</span>
-        </div>
-        <div class="match-card">
-            <span class="teams">🇪🇸 فياريال 🆚 ريال سوسيداد</span>
-            <span class="time">22:00</span>
-        </div>
-        <div class="match-card">
-            <span class="teams">🇫🇷 أوكسير 🆚 نيس</span>
-            <span class="time">22:00</span>
+        <div class="match-card"><span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span> <span class="time">21:30</span></div>
+        <div class="match-card"><span class="teams">🇪🇸 فياريال 🆚 ريال سوسيداد</span> <span class="time">22:00</span></div>
+    </div>
+
+    <div class="ad-container">
+        مساحة إعلانية (Ads)
+        <div class="ad-slot" id="ad-slot">
+            جاري جلب الإعلان...
         </div>
     </div>
 
-    <div class="section-title">📰 أحدث الأخبار (مترجمة بالثانية)</div>
+    <div class="section-title">📰 أخبار حليم المترجمة بالثانية</div>
     <div id="news-section">
-        <p style="text-align:center;">جاري سحب وترجمة الأخبار... 🔄</p>
+        <p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p>
     </div>
 
     <div class="footer">
-        بواسطة المبرمج: <b>HALEEM HLMY</b> | سوهاج - الحرافشة <br>
-        جميع البيانات محدثة بالثانية 2026
+        بواسطة المبرمج: <b>HALEEM HLMY</b> | سوهاج - الحرافشة
     </div>
 
     <script>
         async function loadNews() {
             try {
-                // جلب الأخبار من BBC
                 const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
                 const data = await res.json();
                 let html = '';
-                
-                // ترجمة العناوين بشكل مباشر
-                for (let item of data.items.slice(0, 5)) {
+                for (let item of data.items.slice(0, 4)) {
                     const transRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
                     const tData = await transRes.json();
-                    const translatedText = tData.responseData.translatedText;
-
-                    html += `
-                    <div class="news-card">
-                        <a href="${item.link}" target="_blank" class="news-title">📍 ${translatedText}</a>
-                    </div>`;
+                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a></div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
-            } catch (e) {
-                document.getElementById('news-section').innerHTML = "تحقق من اتصالك بالإنترنت.";
-            }
+            } catch (e) { console.log(e); }
         }
         loadNews();
     </script>
