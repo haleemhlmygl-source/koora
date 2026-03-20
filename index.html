@@ -3,92 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>GoalZone 2026 - HALEEM HLMY</title>
-    <meta name="description" content="المنصة الرياضية الأسرع بمتابعة أخبار كرة القدم العالمية ومواعيد المباريات - تطوير المبدع حليم حلمي">
-    <meta property="og:title" content="⚽ GoalZone 2026 | HALEEM HLMY">
-    <meta property="og:description" content="تابع نتائج المباريات والأخبار العالمية لحظة بلحظة مع المبرمج حليم حلمي.">
-    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-    
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; --input: #1a1e24; }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; }
-        .header-area { padding: 25px 0; text-align: center; }
+        .header-area { padding: 20px 0; text-align: center; }
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
+        
+        /* مكان الإعلان العلوي */
+        .ad-space-top { background: rgba(255, 215, 0, 0.05); border: 1px dashed var(--gold); margin: 10px; padding: 15px; border-radius: 12px; font-size: 0.8rem; color: var(--gold); text-align: center; cursor: pointer; }
+
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.88rem; }
+        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.85rem; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
+
         .content { padding: 15px; max-width: 600px; margin: auto; }
-        .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; text-align: right; }
-        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #222; }
-        .match-info { display: flex; justify-content: space-between; align-items: center; }
-        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
-        .news-card { background: var(--card); border-radius: 18px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
-        .news-title { color: #eee; font-size: 0.95rem; text-decoration: none; display: block; font-weight: 700; line-height: 1.6; }
-        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; font-size: 1rem; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
-        .share-btn:hover { background: #075E54; transform: scale(1.02); }
-        .contact-form { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #222; margin-top: 20px; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: var(--input); color: white; font-family: 'Cairo', sans-serif; box-sizing: border-box; }
-        .contact-form button { width: 100%; padding: 15px; background: var(--green); color: black; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; }
-        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
-        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; border-top: 1px solid #111; margin-top: 30px; }
-        .visitor-counter img { height: 25px; filter: drop-shadow(0 0 5px var(--green)); }
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px; border-right: 5px solid var(--green); padding-right: 10px; font-weight: 900; text-align: right; }
+        
+        .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.9rem; }
+
+        /* مكان الإعلان بين المواعيد */
+        .ad-mid-box { background: #1a1e24; border-radius: 15px; padding: 20px; margin: 20px 0; border: 1px solid #333; text-align: center; color: #555; font-weight: bold; }
+
+        .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; margin-bottom: 10px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
+        .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; display: block; }
+
+        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 10px; }
+        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .footer { text-align: center; color: #444; padding: 30px; font-size: 0.8rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
+
     <div class="alert-bar">📢 تنبيه: مباريات الليلة تبدأ في تمام الساعة 21:30 مساءً بتوقيت القاهرة</div>
+
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
-    <div class="ticker-wrap">
-        <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا نتائج مباريات اليوم لحظة بلحظة بتوقيت القاهرة ..</div>
+
+    <div class="ad-space-top" onclick="window.open('https://wa.me/20552715934')">
+        ✨ مساحة إعلانية مميزة .. تواصل معنا للإعلان هنا ✨
     </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker-label">إعلان ممول</div>
+        <div class="ticker-text">تواصل مع المبرمج حليم حلمي للحصول على مساحتك الإعلانية الخاصة وتصل لآلاف المتابعين يومياً ..</div>
+    </div>
+
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
+
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
-        <div class="match-box"><div class="match-info"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="time">21:30</span></div></div>
-        <div class="match-box"><div class="match-info"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="time">22:00</span></div></div>
-        <div class="match-box"><div class="match-info"><span>🇫🇷 Auxerre vs Nice</span> <span class="time">22:00</span></div></div>
-        <div class="section-title">🌍 Global News (BBC Sport)</div>
-        <div id="news-section"><p style="text-align:center;">جاري جلب الأخبار... 🔄</p></div>
-        <div class="section-title">📢 انشر الموقع</div>
-        <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع أصدقائك</button>
-        <div class="section-title">📧 تواصل مع المبرمج</div>
-        <div class="contact-form">
-            <input type="text" placeholder="اسمك الكريم" id="user-name">
-            <textarea rows="4" placeholder="اكتب اقتراحك..." id="user-msg"></textarea>
-            <button onclick="sendWhatsApp()">إرسال الرسالة</button>
+        <div class="match-box"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="time">21:30</span></div>
+        <div class="match-box"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="time">22:00</span></div>
+        
+        <div class="ad-mid-box">
+             📢 إعلانك هنا <br> <span style="font-size: 0.7rem; color: #444;">Ads by GoalZone</span>
         </div>
+
+        <div class="match-box"><span>🇫🇷 Auxerre vs Nice</span> <span class="time">22:00</span></div>
+
+        <div class="section-title">🌍 أخبار حية (Live News)</div>
+        <div id="news-section"><p style="text-align:center;">جاري التحميل... 🔄</p></div>
+
+        <button class="share-btn" onclick="shareSite()">🔗 انشر الموقع واكسب متابعين</button>
     </div>
+
     <div class="footer">
-        <div class="visitor-counter"><img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="VisitorsCounter"><div style="font-size: 0.65rem; margin-top: 5px;">عدد زوار المنصة</div></div><br>
+        <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors"><br>
         تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©
     </div>
+
     <script>
         async function fetchLiveNews() {
             try {
                 const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
                 const data = await res.json();
                 let html = '';
-                data.items.slice(0, 5).forEach(item => {
+                data.items.slice(0, 4).forEach(item => {
                     html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a></div>`;
                 });
                 document.getElementById('news-section').innerHTML = html;
             } catch (e) { document.getElementById('news-section').innerHTML = "المصدر غير متاح."; }
         }
-        function sendWhatsApp() {
-            const name = document.getElementById('user-name').value;
-            const msg = document.getElementById('user-msg').value;
-            if(name && msg) window.open(`https://wa.me/20552715934?text=${encodeURIComponent('أهلاً حليم، أنا ' + name + ': ' + msg)}`);
-            else alert("أكمل البيانات!");
-        }
         function shareSite() {
-            const text = "تابع نتائج المباريات والأخبار العالمية لحظة بلحظة على موقع GoalZone بتطوير المبدع حليم حلمي ⚽🔥: ";
-            const url = window.location.href;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text + url)}`);
+            const text = "تابع نتائج المباريات والأخبار العالمية لحظة بلحظة على موقع GoalZone بتطوير المبدع حليم حلمي: ";
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + window.location.href)}`);
         }
         window.onload = fetchLiveNews;
     </script>
