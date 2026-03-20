@@ -6,13 +6,13 @@
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #05070a; color: white; font-family: 'Cairo', sans-serif; text-align: center; padding: 15px; }
+        body { background: #05070a; color: white; font-family: 'Cairo', sans-serif; text-align: center; padding: 20px; }
         .header { color: #00e676; font-size: 1.8rem; font-weight: 900; margin-bottom: 20px; }
         .box { background: #12151a; border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 150px; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         th { color: #00e676; border-bottom: 2px solid #333; padding: 10px; }
         td { padding: 12px 5px; border-bottom: 1px solid #222; }
-        .footer { margin-top: 25px; color: #666; font-size: 0.7rem; border-top: 1px solid #222; padding-top: 10px; }
+        .footer { margin-top: 30px; color: #666; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -21,7 +21,7 @@
     <div style="color:#ffd700; margin-bottom:10px;">ترتيب الدوري الإنجليزي (مباشر 2026)</div>
 
     <div class="box" id="content">
-        جاري الاتصال بالسيرفر.. انتظر 3 ثواني 🔄
+        جاري سحب البيانات الحقيقية الآن... 🔄
     </div>
 
     <div class="footer">المبرمج: <b>HALEEM HLMY</b> | الحرافشة - سوهاج</div>
@@ -30,14 +30,13 @@
         const TOKEN = "2388962a5e2454c87c909d662a32188";
 
         async function start() {
-            // "زقة" صغيرة للسيرفر عشان يرضى يفتح
-            await new Promise(r => setTimeout(r, 2000)); 
-            
             try {
-                const res = await fetch('https://api.football-data.org/v4/competitions/PL/standings', {
+                // استخدمنا وسيط خارجي عشان نتخطى مشكلة الحجب (CORS)
+                const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.football-data.org/v4/competitions/PL/standings'), {
                     headers: { 'X-Auth-Token': TOKEN }
                 });
-                const data = await res.json();
+                const response = await res.json();
+                const data = JSON.parse(response.contents);
                 
                 if (data.standings && data.standings[0]) {
                     let table = data.standings[0].table;
@@ -46,11 +45,9 @@
                         html += `<tr><td>${t.position}</td><td style="text-align:right;">${t.team.shortName}</td><td><b>${t.points}</b></td></tr>`;
                     });
                     document.getElementById('content').innerHTML = html + '</table>';
-                } else {
-                    document.getElementById('content').innerHTML = "السيرفر مضغوط حالياً.. انتظر دقيقة وأعد المحاولة.";
                 }
             } catch (e) {
-                document.getElementById('content').innerHTML = "حدث خطأ بسيط.. جرب تحديث الصفحة.";
+                document.getElementById('content').innerHTML = "السيرفر العالمي لا يستجيب حالياً.. جرب غداً صباحاً.";
             }
         }
         start();
