@@ -9,73 +9,61 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; }
         .header { color: var(--green); font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 20px; }
-        
-        /* قسم المواعيد */
-        .section-title { color: var(--gold); font-size: 1rem; margin: 15px 0; border-right: 4px solid var(--green); padding-right: 10px; }
-        .match-card { background: #1c1f26; border-radius: 12px; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; font-size: 0.85rem; }
-        
-        /* قسم الأخبار */
-        .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; margin-bottom: 15px; }
-        .news-title { color: #fff; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; }
-        
-        /* شريط الإعلانات الصغير */
-        .ad-space { background: linear-gradient(90deg, #1a1a1a, #333); color: #888; padding: 8px; border-radius: 8px; font-size: 0.7rem; text-align: center; margin-top: 20px; border: 1px dashed #555; }
-        
-        .footer { text-align: center; color: #444; font-size: 0.75rem; margin-top: 20px; }
+        .section-title { color: var(--gold); font-size: 1rem; margin: 15px 0; border-right: 4px solid var(--green); padding-right: 10px; font-weight: bold; }
+        .match-card { background: #1c1f26; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; font-size: 0.85rem; }
+        .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; margin-bottom: 12px; transition: 0.3s; }
+        .news-card:hover { border-color: var(--green); }
+        .news-title { color: #fff; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: 700; }
+        .ad-banner { background: #00e676; color: #000; padding: 8px; border-radius: 10px; font-size: 0.75rem; text-align: center; margin: 20px 0; font-weight: 900; }
+        .footer { text-align: center; color: #555; font-size: 0.7rem; margin-top: 20px; border-top: 1px solid #222; padding-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">⏱️ مباريات اليوم (20 مارس)</div>
-    <div id="matches-container">
-        <div class="match-card"><span>جاري جلب المواعيد...</span></div>
+    <div class="section-title">⏱️ أهم مباريات اليوم</div>
+    <div id="matches">
+        <div class="match-card"><span>مانشستر يونايتد 🆚 بورنموث</span> <b>20:00</b></div>
+        <div class="match-card"><span>لايبزيج 🆚 هوفنهايم</span> <b>19:30</b></div>
+        <div class="match-card"><span>فياريال 🆚 ريال سوسيداد</span> <b>20:00</b></div>
     </div>
 
-    <div class="section-title">📰 أحدث الأخبار (بالعربي)</div>
-    <div id="news-container">
-        <p style="text-align:center;">جاري الترجمة والجلب... 🔄</p>
+    <div class="section-title">📰 الأخبار العالمية بالعربية</div>
+    <div id="news">
+        <p style="text-align:center;">جاري ترجمة أحدث العناوين... 🔄</p>
     </div>
 
-    <div class="ad-space">
-        📢 مساحة إعلانية صغيرة | برعاية المبرمج حليم حلمي - الحرافشة
+    <div class="ad-banner">
+        📢 للإعلان في موقع حليم حلمي - تواصل معنا عبر الواتساب
     </div>
 
-    <div class="footer">المبرمج: <b>HALEEM HLMY</b> | سوهاج 2026</div>
+    <div class="footer">تطوير المبرمج: <b>HALEEM HLMY</b> | سوهاج - الحرافشة</div>
 
     <script>
-        // دالة لجلب الأخبار وترجمتها (بشكل تقريبي سريع)
-        async function fetchData() {
+        async function loadNews() {
             try {
-                // 1. جلب الأخبار
-                const newsRes = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
-                const newsData = await newsRes.json();
+                const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
+                const data = await res.json();
+                let html = '';
                 
-                let newsHtml = '';
-                newsData.items.slice(0, 5).forEach(item => {
-                    // ملاحظة: الترجمة هنا تعتمد على مصدر RSS، العناوين ستظل بالإنجليزية لكن التصميم مهيأ للعربي
-                    newsHtml += `
+                for (let item of data.items.slice(0, 5)) {
+                    // ترجمة بسيطة وسريعة للعناوين
+                    const translatedTitle = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
+                    const tData = await translatedTitle.json();
+                    const finalTitle = tData.responseData.translatedText;
+
+                    html += `
                     <div class="news-card">
-                        <a href="${item.link}" target="_blank" class="news-title">📌 ${item.title}</a>
+                        <a href="${item.link}" target="_blank" class="news-title">📍 ${finalTitle}</a>
                     </div>`;
-                });
-                document.getElementById('news-container').innerHTML = newsHtml;
-
-                // 2. مواعيد المباريات (بيانات افتراضية ليوم 20 مارس لضمان السرعة)
-                const matchesHtml = `
-                    <div class="match-card"><span>مانشستر يونايتد 🆚 بورنموث</span> <b>20:00</b></div>
-                    <div class="match-card"><span>لايبزيج 🆚 هوفنهايم</span> <b>19:30</b></div>
-                    <div class="match-card"><span>فياريال 🆚 ريال سوسيداد</span> <b>20:00</b></div>
-                `;
-                document.getElementById('matches-container').innerHTML = matchesHtml;
-
+                }
+                document.getElementById('news').innerHTML = html;
             } catch (e) {
-                document.getElementById('news-container').innerHTML = "تحقق من الاتصال بالإنترنت.";
+                document.getElementById('news').innerHTML = "حدث خطأ في الترجمة، جاري المحاولة مرة أخرى.";
             }
         }
-
-        fetchData();
+        loadNews();
     </script>
 </body>
 </html>
