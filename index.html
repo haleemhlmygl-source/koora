@@ -4,40 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone 2026 - HALEEM HLMY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
-        
-        /* شريط التنبيه العلوي ثابت */
-        .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; border-bottom: 2px solid rgba(255,255,255,0.1); }
-        
-        .header-area { padding: 25px 0; text-align: center; }
-        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
-
-        .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 30s linear infinite; font-size: 0.9rem; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-
-        .content { padding: 15px; }
-        .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
-        
-        .match-box { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #222; }
-        .match-info { display: flex; justify-content: space-between; align-items: center; }
-        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
-        .pulse { height: 8px; width: 8px; background: var(--live); border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
-
-        /* قسم تواصل سريع */
-        .contact-btn { display: block; width: 100%; padding: 15px; background: var(--green); color: black; border-radius: 15px; text-align: center; text-decoration: none; font-weight: 900; margin-top: 20px; font-size: 1rem; }
-
-        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; }
+        body { background: #05070a; color: white; font-family: sans-serif; margin: 0; padding: 0; text-align: center; }
+        .alert { background: #ff3d00; padding: 10px; font-weight: bold; font-size: 14px; }
+        .header { color: #00e676; font-size: 35px; margin: 30px 0; font-weight: 900; }
+        .ticker { background: #111; padding: 10px; border-bottom: 1px solid #222; font-size: 14px; overflow: hidden; white-space: nowrap; }
+        .match-box { background: #12151a; margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .time { color: #00e676; font-weight: bold; background: rgba(0,230,118,0.1); padding: 5px 10px; border-radius: 8px; }
+        .footer { color: #444; padding: 40px; font-size: 12px; }
+        .wa-btn { display: inline-block; background: #25d366; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="alert-bar">📢 تنبيه: مباريات الليلة تبدأ في التاسعة والنصف مساءً بتوقيت القاهرة</div>
+    <div class="alert">📢 تنبيه: مباريات الليلة تبدأ في التاسعة والنصف مساءً بتوقيت القاهرة</div>
 
-    <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
+    <div class="header">⚽ GOALZONE 2026</div>
+
+    <div class="ticker">
+        أهلاً بكم في GoalZone بتطوير المبدع حليم حلمي .. تابعوا مباريات اليوم بتوقيت القاهرة ..
+    </div>
+
+    <div style="padding: 10px;">
+        <h3 style="color: #ffd700; text-align: right; border-right: 4px solid #00e676; padding-right: 10px;">📅 مواجهات الليلة</h3>
+        
+        <div class="match-box">
+            <span>🇩🇪 لايبزيج 🆚 هوفنهايم</span>
+            <span class="time">21:30</span>
+        </div>
+
+        <div class="match-box">
+            <span>🇪🇸 فياريال 🆚 ريال سوسيداد</span>
+            <span class="time">22:00</span>
+        </div>
+
+        <div class="match-box">
+            <span>🇫🇷 أوكسير 🆚 نيس</span>
+            <span class="time">22:00</span>
+        </div>
+
+        <a href="https://wa.me/20552715934" class="wa-btn">تواصل مع المبرمج حليم</a>
+    </div>
+
+    <div class="footer">تطوير وبرمجة: HALEEM HLMY | سوهاج 2026 ©</div>
+
+</body>
+</html>
