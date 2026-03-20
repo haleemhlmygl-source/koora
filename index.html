@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>GoalZone 2026 - HALEEM HLMY</title>
+    <meta name="description" content="المنصة الرياضية الأسرع بمتابعة أخبار كرة القدم العالمية ومواعيد المباريات - تطوير المبدع حليم حلمي">
+    <meta property="og:title" content="⚽ GoalZone 2026 | HALEEM HLMY">
+    <meta property="og:description" content="تابع نتائج المباريات والأخبار العالمية لحظة بلحظة مع المبرمج حليم حلمي.">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/532/532495.png">
+    
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -23,7 +29,8 @@
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .news-card { background: var(--card); border-radius: 18px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
         .news-title { color: #eee; font-size: 0.95rem; text-decoration: none; display: block; font-weight: 700; line-height: 1.6; }
-        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; font-size: 1rem; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; font-size: 1rem; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .share-btn:hover { background: #075E54; transform: scale(1.02); }
         .contact-form { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid #222; margin-top: 20px; }
         .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #333; background: var(--input); color: white; font-family: 'Cairo', sans-serif; box-sizing: border-box; }
         .contact-form button { width: 100%; padding: 15px; background: var(--green); color: black; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; }
@@ -57,7 +64,7 @@
         </div>
     </div>
     <div class="footer">
-        <div class="visitor-counter"><img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors"><div style="font-size: 0.65rem; margin-top: 5px;">عدد زوار المنصة</div></div><br>
+        <div class="visitor-counter"><img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="VisitorsCounter"><div style="font-size: 0.65rem; margin-top: 5px;">عدد زوار المنصة</div></div><br>
         تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©
     </div>
     <script>
@@ -79,7 +86,7 @@
             else alert("أكمل البيانات!");
         }
         function shareSite() {
-            const text = "تابع نتائج المباريات والأخبار العالمية لحظة بلحظة على موقع GoalZone بتطوير المبدع حليم حلمي: ";
+            const text = "تابع نتائج المباريات والأخبار العالمية لحظة بلحظة على موقع GoalZone بتطوير المبدع حليم حلمي ⚽🔥: ";
             const url = window.location.href;
             window.open(`https://wa.me/?text=${encodeURIComponent(text + url)}`);
         }
