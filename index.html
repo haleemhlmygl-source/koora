@@ -20,9 +20,9 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        /* مشغل الفيديو المضمون 100% */
-        .video-container { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,230,118,0.2); margin-bottom: 25px; background: #000; position: relative; padding-bottom: 56.25%; height: 0; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* قسم الأهداف المتحركة المضمون 100% */
+        .gif-container { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,230,118,0.2); margin-bottom: 25px; background: #000; }
+        .gif-container img { width: 100%; display: block; }
 
         .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
@@ -43,15 +43,15 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">تم تحديث قسم الملخصات بنجاح .. المبرمج حليم حلمي يحييكم .. تابع مواجهات الليلة المباشرة لحظة بلحظة ..</div>
+        <div class="ticker-text">تم تشغيل رادار الأهداف المتحركة .. المبرمج حليم حلمي يحييكم من سوهاج .. تابع مواجهات الليلة المباشرة لحظة بلحظة ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
-        <div class="section-title">📺 ملخصات وأهداف الأسبوع</div>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PLp0n4966_VAn8aQ6G6703_o1PzJ6mD6hL" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="section-title">🖼️ مهارات وأهداف الأسبوع</div>
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ4eG9pbnNqZ2x6bmV4Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" alt="Football Skill">
         </div>
 
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
@@ -81,7 +81,7 @@
                     html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a></div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
-            } catch (e) { document.getElementById('news-section').innerHTML = "Check your internet connection."; }
+            } catch (e) { document.getElementById('news-section').innerHTML = "Check your internet."; }
         }
         loadNews();
     </script>
