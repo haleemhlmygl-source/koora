@@ -4,76 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone 2026 - HALEEM HLMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #05070a; color: white; font-family: sans-serif; margin: 0; padding: 0; text-align: center; }
-        .alert-top { background: #ff3d00; color: white; padding: 12px; font-weight: bold; font-size: 13px; border-bottom: 2px solid #222; }
-        .header { color: #00e676; font-size: 32px; margin: 25px 0; font-weight: 900; letter-spacing: 1px; }
-        .marquee-box { background: #111; padding: 8px; border-bottom: 1px solid #222; color: #eee; font-size: 13px; }
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         
-        .content-area { padding: 10px; max-width: 500px; margin: auto; }
-        h3 { color: #ffd700; text-align: right; padding-right: 15px; border-right: 4px solid #00e676; margin: 25px 0 15px; font-size: 1.1rem; }
-        
-        /* كروت المواعيد */
-        .match-card { background: #12151a; margin-bottom: 12px; padding: 18px; border-radius: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .time-tag { color: #00e676; font-weight: bold; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(0,230,118,0.2); }
-        
-        /* كروت الأخبار الثابتة */
-        .news-card { background: #12151a; margin-bottom: 12px; padding: 18px; border-radius: 12px; border: 1px solid #222; border-right: 4px solid #ffd700; text-align: right; }
-        .news-text { color: #eee; font-size: 0.95rem; line-height: 1.6; font-weight: bold; display: block; text-decoration: none; }
+        .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; }
+        .header-area { padding: 25px 0; text-align: center; }
+        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
 
-        .footer { color: #444; padding: 40px 20px; font-size: 12px; line-height: 1.6; }
-        .wa-link { display: inline-block; background: #25d366; color: white; padding: 14px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; width: 80%; }
+        .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 30s linear infinite; font-size: 0.9rem; color: #eee; }
+        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
+
+        .content { padding: 15px; max-width: 600px; margin: auto; }
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; text-align: right; }
+        
+        .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.9rem; }
+
+        /* كروت الأخبار من المصدر */
+        .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #222; margin-bottom: 12px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
+        .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; line-height: 1.5; display: block; }
+
+        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <div class="alert-top">📢 تنبيه: مباريات الليلة تبدأ في تمام التاسعة والنصف مساءً بتوقيت القاهرة</div>
+    <div class="alert-bar">📢 تنبيه: مباريات الليلة تبدأ في تمام 21:30 بتوقيت القاهرة</div>
 
-    <div class="header">⚽ GOALZONE 2026</div>
+    <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
-    <div class="marquee-box">
-        <marquee scrollamount="6">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا نتائج مباريات اليوم لحظة بلحظة بتوقيت القاهرة ..</marquee>
+    <div class="ticker-wrap">
+        <div class="ticker-text">
+            <marquee scrollamount="6">Welcome to GoalZone by HALEEM HLMY .. Live Sports Updates from Global Sources .. Stay Tuned ..</marquee>
+        </div>
     </div>
 
-    <div class="content-area">
-        <h3>📅 مواجهات الليلة المباشرة</h3>
-        
-        <div class="match-card">
-            <span>🇩🇪 لايبزيج 🆚 هوفنهايم</span>
-            <span class="time-tag">21:30</span>
-        </div>
+    <div class="content">
+        <div class="section-title">📅 مواجهات الليلة المباشرة</div>
+        <div class="match-box"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="time">21:30</span></div>
+        <div class="match-box"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="time">22:00</span></div>
+        <div class="match-box"><span>🇫🇷 Auxerre vs Nice</span> <span class="time">22:00</span></div>
 
-        <div class="match-card">
-            <span>🇪🇸 فياريال 🆚 ريال سوسيداد</span>
-            <span class="time-tag">22:00</span>
-        </div>
-
-        <div class="match-card">
-            <span>🇫🇷 أوكسير 🆚 نيس</span>
-            <span class="time-tag">22:00</span>
-        </div>
-
-        <h3>🌍 موجز الأخبار العالمية</h3>
-        
-        <div class="news-card">
-            <span class="news-text">📍 صراع الصدارة يشتعل في الدوري الإسباني قبل مواجهات الليلة المرتقبة.</span>
-        </div>
-
-        <div class="news-card">
-            <span class="news-text">📍 تقارير: أندية الدوري الإنجليزي تستعد لصفقات قياسية في صيف 2026.</span>
-        </div>
-
-        <div class="news-card">
-            <span class="news-text">📍 الاتحاد الدولي لكرة القدم (فيفا) يدرس تحديثات جديدة لقوانين التسلل.</span>
-        </div>
-
-        <a href="https://wa.me/20552715934" class="wa-link">📱 تواصل مع المبرمج حليم حلمي</a>
-    </div>
-
-    <div class="footer">
-        برمجة وتطوير المبدع: <b>HALEEM HLMY</b><br>
-        سوهاج - جمهورية مصر العربية 2026 ©
-    </div>
-
-</body>
-</html>
+        <div class="section
