@@ -4,54 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone 2026 - HALEEM HLMY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; text-align: center; }
-        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin-bottom: 5px; animation: slideDown 0.8s ease; }
-        .subtitle { color: #888; font-size: 0.85rem; margin-bottom: 25px; }
-        .box { background: var(--card); border-radius: 25px; padding: 20px; border: 1px solid #333; box-shadow: 0 15px 35px rgba(0,0,0,0.6); animation: fadeIn 1.2s ease; position: relative; overflow: hidden; }
-        .section-title { color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 12px; font-weight: 700; }
-        table { width: 100%; border-collapse: collapse; }
-        th { color: var(--green); font-size: 0.85rem; padding: 12px; border-bottom: 2px solid #222; }
-        td { padding: 14px 5px; border-bottom: 1px solid #1c1f26; font-size: 0.95rem; transition: 0.3s; }
-        tr:hover td { background: #1a1e26; color: var(--gold); }
-        .rank { font-weight: 900; color: #666; width: 30px; }
-        .pts { font-weight: 900; color: var(--green); }
-        .footer { margin-top: 40px; padding: 20px; border-top: 1px solid #222; color: #777; font-size: 0.8rem; line-height: 2; }
-        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .live-dot { height: 10px; width: 10px; background-color: var(--red); border-radius: 50%; display: inline-block; margin-left: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        body { background: #05070a; color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; }
+        .header { color: #00e676; font-size: 2rem; font-weight: 900; text-align: center; margin-bottom: 20px; }
+        .news-card { background: #12151a; border-radius: 15px; padding: 15px; border: 1px solid #333; margin-bottom: 15px; animation: fadeIn 0.5s ease; }
+        .news-title { color: #ffd700; font-size: 1rem; font-weight: 700; margin-bottom: 8px; display: block; text-decoration: none; }
+        .news-date { color: #666; font-size: 0.75rem; }
+        .footer { text-align: center; color: #444; font-size: 0.8rem; margin-top: 30px; border-top: 1px solid #222; padding-top: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="header">⚽ GOALZONE 2026</div>
-    <div class="subtitle"><span class="live-dot"></span> بوابة المبرمج حليم حلمي | الحرافشة - سوهاج</div>
+    <div class="header">⚽ أخبار الكورة الحية</div>
+    <div style="text-align:center; color:#888; margin-bottom:20px;">تغطية مباشرة - سوهاج 2026</div>
 
-    <div class="box">
-        <div class="section-title">🏆 متصدرين الدوريات (تحديث 2026)</div>
-        <table>
-            <tr>
-                <th>#</th>
-                <th style="text-align:right;">الفريق</th>
-                <th>الدوري</th>
-                <th>نقاط</th>
-            </tr>
-            <tr><td class="rank">1</td><td style="text-align:right;">🔴 ليفربول</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</td><td class="pts">68</td></tr>
-            <tr><td class="rank">2</td><td style="text-align:right;">🦅 الأهلي</td><td>🇪🇬 مصر</td><td class="pts">61</td></tr>
-            <tr><td class="rank">3</td><td style="text-align:right;">⚪ ريال مدريد</td><td>🇪🇸 إسبانيا</td><td class="pts">64</td></tr>
-            <tr><td class="rank">4</td><td style="text-align:right;">🔵 الهلال</td><td>🇸🇦 السعودية</td><td class="pts">67</td></tr>
-            <tr><td class="rank">5</td><td style="text-align:right;">🔵 مان سيتي</td><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</td><td class="pts">65</td></tr>
-        </table>
+    <div id="news-container">
+        <p style="text-align:center;">جاري جلب أحدث الأخبار العالمية... 🔄</p>
     </div>
 
-    <div class="footer">
-        <b>صُنع بكل فخر بواسطة: حليم حلمي (HALEEM HLMY)</b><br>
-        مكان الإصدار: سوهاج - الحرافشة | مارس 2026<br>
-        دعم فني وتطوير Gemini AI 🚀
-    </div>
+    <div class="footer">المبرمج: <b>HALEEM HLMY</b> | جميع الحقوق محفوظة ©</div>
 
+    <script>
+        async function fetchNews() {
+            try {
+                // بنسحب الأخبار من مصدر BBC Sports العالمي (مفتوح ومجاني وسريع)
+                const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
+                const data = await res.json();
+                
+                let html = '';
+                data.items.slice(0, 8).forEach(item => {
+                    html += `
+                    <div class="news-card">
+                        <a href="${item.link}" target="_blank" class="news-title">${item.title}</a>
+                        <div class="news-date">📅 نُشر في: ${item.pubDate}</div>
+                    </div>`;
+                });
+                document.getElementById('news-container').innerHTML = html;
+            } catch (e) {
+                document.getElementById('news-container').innerHTML = "حدث خطأ في جلب الأخبار، حاول لاحقاً.";
+            }
+        }
+        fetchNews();
+    </script>
 </body>
 </html>
