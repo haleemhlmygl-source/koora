@@ -7,36 +7,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
         
-        .header-area { padding: 20px 15px; text-align: center; background: linear-gradient(to bottom, #12151a, transparent); }
-        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; margin: 0; letter-spacing: 1px; }
+        /* شريط الحالة العلوي */
+        .top-bar { background: #000; height: 30px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.65rem; color: #666; border-bottom: 1px solid #111; }
+        .status-online { color: var(--green); display: flex; align-items: center; gap: 5px; }
+        .dot { height: 6px; width: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 5px var(--green); }
 
-        /* شريط الأنباء العاجلة المستحدث */
+        .header-area { padding: 15px; text-align: center; }
+        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; margin: 0; letter-spacing: 2px; text-shadow: 0 0 15px rgba(0,230,118,0.2); }
+
+        /* شريط عاجل المطور */
         .ticker-wrap { background: #1a1a1a; border-bottom: 1px solid #333; height: 35px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.75rem; height: 100%; display: flex; align-items: center; z-index: 2; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 20s linear infinite; font-size: 0.8rem; color: #ccc; }
+        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.75rem; height: 100%; display: flex; align-items: center; z-index: 2; position: relative; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 25s linear infinite; font-size: 0.8rem; color: #ddd; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
 
-        .content { padding: 15px; }
-        .section-title { color: var(--gold); font-size: 1rem; margin: 25px 0 12px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .content { padding: 15px; animation: fadeIn 1s ease; }
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
         
-        /* كروت المواعيد الاحترافية */
-        .match-card { background: #12151a; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; transition: 0.3s; }
-        .match-card:hover { border-color: var(--green); transform: translateX(-5px); }
-        .time { color: var(--green); font-weight: 900; text-shadow: 0 0 5px rgba(0,230,118,0.4); }
+        /* كروت المواعيد المطورة */
+        .match-card { background: linear-gradient(145deg, #1c1f26, #12151a); border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; position: relative; }
+        .match-card::after { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--green); border-radius: 12px 0 0 12px; opacity: 0; transition: 0.3s; }
+        .match-card:hover::after { opacity: 1; }
+        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(0,230,118,0.2); }
 
         /* مساحة الإعلان */
-        .ad-box { background: #0a0c10; border: 1px dashed #333; border-radius: 8px; padding: 15px; text-align: center; margin: 25px 0; }
-        .ad-label { font-size: 0.6rem; color: #444; display: block; margin-bottom: 5px; }
+        .ad-box { background: #0a0c10; border: 1px dashed #333; border-radius: 10px; padding: 15px; text-align: center; margin: 30px 0; }
 
-        .news-card { background: #12151a; border-radius: 15px; padding: 18px; border: 1px solid #222; margin-bottom: 15px; border-left: 3px solid var(--gold); }
-        .news-title { color: #eee; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: 700; }
+        .news-card { background: #12151a; border-radius: 18px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-top: 4px solid var(--gold); }
+        .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; }
         
-        .footer { text-align: center; color: #555; font-size: 0.75rem; margin-top: 50px; padding: 25px; border-top: 1px solid #222; }
+        .footer { text-align: center; color: #444; font-size: 0.75rem; margin-top: 60px; padding: 30px; border-top: 1px solid #222; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+        <div class="status-online"><span class="dot"></span> Server Online</div>
+        <div>20 مارس 2026 | الحرافشة</div>
+    </div>
 
     <div class="header-area">
         <h1 class="header">⚽ GOALZONE 2026</h1>
@@ -45,7 +56,7 @@
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
         <div class="ticker-text">
-            سيرفرات GoalZone تؤكد جاهزية ليفربول لموقعة الغد .. المبرمج حليم حلمي يطلق النسخة المطورة لعام 2026 .. اشتعال المنافسة في الدوري الإسباني بين ريال مدريد وبرشلونة ..
+            حليم حلمي يُعلن عن أكبر تحديث تقني لموقع GoalZone .. ليفربول يُخطط لصفقة كبرى في ميركاتو 2026 .. تغطية حية وحصرية للدوريات الكبرى من قلب سوهاج ..
         </div>
     </div>
 
@@ -56,19 +67,19 @@
         <div class="match-card"><span>🇫🇷 أوكسير 🆚 نيس</span> <span class="time">22:00</span></div>
 
         <div class="ad-box">
-            <span class="ad-label">ADVERTISING</span>
-            <div style="color:#222; font-size:0.8rem;">مساحة إعلانية شاغرة</div>
+            <span style="font-size:0.6rem; color:#444;">ADVERTISING</span>
+            <div style="color:#222; font-weight:bold; margin-top:5px;">مساحة إعلانية شاغرة</div>
         </div>
 
         <div class="section-title">🌍 آخر المستجدات العالمية</div>
         <div id="news-section">
-            <p style="text-align:center;">جاري تحديث النشرة الإخبارية... 🔄</p>
+            <p style="text-align:center;">جاري سحب وترجمة الأخبار... 🔄</p>
         </div>
     </div>
 
     <div class="footer">
-        تطوير وبرمجة المبدع: <b>HALEEM HLMY</b> <br>
-        مكان الإصدار: الحرافشة - سوهاج | مارس 2026
+        تطوير وبرمجة: <b>HALEEM HLMY</b> <br>
+        2026 © جميع الحقوق محفوظة | سوهاج - الحرافشة
     </div>
 
     <script>
