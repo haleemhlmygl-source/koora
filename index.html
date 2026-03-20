@@ -7,71 +7,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
-        .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; padding: 20px 0; }
-        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; margin-top: 10px; min-height: 200px; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; }
+        .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; margin-bottom: 20px; }
+        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 200px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { color: var(--green); border-bottom: 2px solid #333; padding: 10px; }
         td { padding: 12px 5px; border-bottom: 1px solid #222; text-align: center; }
-        img { width: 18px; vertical-align: middle; margin-left: 5px; }
-        .footer { text-align: center; color: #666; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding-top: 10px; }
+        .footer { text-align: center; color: #666; font-size: 0.75rem; margin-top: 30px; border-top: 1px solid #222; padding: 10px; }
+        .btn-wrap { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
+        button { background: #1c1f26; color: white; border: 1px solid #444; padding: 8px 15px; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="header">⚽ GOALZONE 2026</div>
     
-    <div style="text-align:center; margin-bottom:15px;">
-        <h3 style="color:var(--gold);">ترتيب الدوري الإنجليزي (مباشر 2026)</h3>
+    <div class="btn-wrap">
+        <button onclick="getStanding('PL')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</button>
+        <button onclick="getStanding('PD')">🇪🇸 إسبانيا</button>
     </div>
 
     <div class="box" id="standings">
-        <p style="text-align:center;">جاري جلب أحدث البيانات الحقيقية... 🔄</p>
+        <p style="text-align:center;">اضغط على الدوري لجلب بيانات 2026... 🔄</p>
     </div>
 
-    <div class="footer">
-        بواسطة المبرمج: <b>HALEEM HLMY</b> <br>
-        المصدر المباشر: Football-Data API v4
-    </div>
+    <div class="footer">المبرمج: <b>HALEEM HLMY</b> | سوهاج 2026</div>
 
     <script>
-        // مفتاحك الجديد يا حليم
         const TOKEN = "2388962a5e2454c87c909d662a32188";
 
-        async function getStandings() {
+        async function getStanding(league) {
+            const box = document.getElementById('standings');
+            box.innerHTML = "<p style='text-align:center;'>جاري سحب البيانات المباشرة... 🔄</p>";
+            
             try {
-                // استخدمنا وسيط (Proxy) عشان السيرفر يرضى يبعت الداتا للموبايل
-                const proxyUrl = 'https://api.allorigins.win/get?url=';
-                const apiUrl = encodeURIComponent('https://api.football-data.org/v4/competitions/PL/standings');
-                
-                const res = await fetch(proxyUrl + apiUrl);
-                const responseData = await res.json();
-                
-                // تحويل البيانات من نص إلى كائن (JSON)
-                const data = JSON.parse(responseData.contents);
+                // استخدام وسيط آخر أسرع
+                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.football-data.org/v4/competitions/${league}/standings`)}`);
+                const json = await res.json();
+                const data = JSON.parse(json.contents);
                 
                 if (data.standings && data.standings[0]) {
                     const table = data.standings[0].table;
-                    let html = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr>';
-                    
-                    table.slice(0, 15).forEach(team => {
-                        html += `<tr>
-                            <td>${team.position}</td>
-                            <td style="text-align:right;"><img src="${team.team.crest}"> ${team.team.shortName}</td>
-                            <td>${team.playedGames}</td>
-                            <td><b>${team.points}</b></td>
-                        </tr>`;
+                    let html = '<table><tr><th>#</th><th>الفريق</th><th>ل</th><th>ن</th></tr>';
+                    table.slice(0, 10).forEach(team => {
+                        html += `<tr><td>${team.position}</td><td style="text-align:right;">${team.team.shortName}</td><td>${team.playedGames}</td><td><b>${team.points}</b></td></tr>`;
                     });
-                    document.getElementById('standings').innerHTML = html + '</table>';
-                } else {
-                    document.getElementById('standings').innerHTML = "السيرفر مكسل.. جرب كمان شوية.";
+                    box.innerHTML = html + '</table>';
                 }
-            } catch (error) {
-                document.getElementById('standings').innerHTML = "حدث خطأ.. تأكد من اتصالك بالإنترنت.";
+            } catch (e) {
+                box.innerHTML = "<p style='text-align:center;'>السيرفر مزدحم حالياً.. جرب تضغط تاني كمان دقيقة.</p>";
             }
         }
-
-        getStandings();
+        // ابدأ بالإنجليزي تلقائياً
+        getStanding('PL');
     </script>
 </body>
 </html>
