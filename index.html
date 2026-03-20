@@ -8,65 +8,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
-        
-        /* شريط التنبيه العلوي */
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; box-shadow: 0 2px 10px rgba(255, 61, 0, 0.4); }
-        
-        /* تصميم اللوجو الاحترافي بالكود (CSS Logo) */
-        .header-area { padding: 35px 0; text-align: center; }
-        .logo-box { display: inline-block; padding: 15px 30px; border: 3px solid var(--green); border-radius: 20px; box-shadow: 0 0 25px rgba(0, 230, 118, 0.2); background: rgba(0, 230, 118, 0.02); }
-        .logo-main { color: var(--green); font-size: 2.4rem; font-weight: 900; margin: 0; text-shadow: 0 0 12px var(--green); letter-spacing: 2px; }
-        .logo-sub { color: var(--gold); font-size: 0.85rem; font-weight: 700; margin-top: 8px; display: block; border-top: 1px solid #222; padding-top: 8px; letter-spacing: 1px; }
-
-        /* شريط الأخبار المتحرك */
+        .header-area { padding: 30px 0; text-align: center; }
+        .logo-box { display: inline-block; padding: 10px 25px; border: 3px solid var(--green); border-radius: 15px; box-shadow: 0 0 20px rgba(0, 230, 118, 0.3); }
+        .logo-main { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; text-shadow: 0 0 10px var(--green); }
+        .logo-sub { color: var(--gold); font-size: 0.8rem; font-weight: 700; display: block; border-top: 1px solid #333; padding-top: 5px; margin-top: 5px; }
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.88rem; }
+        .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; }
+        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 35s linear infinite; font-size: 0.85rem; }
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-
         .content { padding: 15px; max-width: 600px; margin: auto; }
-        .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; text-align: right; }
-        
-        /* زر النتائج الحية الكبير */
-        .live-btn-main { width: 100%; padding: 22px; background: linear-gradient(45deg, #ff3d00, #ff8e53); color: white; border: none; border-radius: 18px; font-weight: 900; cursor: pointer; font-size: 1.15rem; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(255, 61, 0, 0.3); transition: 0.3s; }
-        .live-btn-main:active { transform: scale(0.98); }
-
-        /* كروت المباريات */
-        .match-card { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .match-time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; border: 1px solid rgba(0,230,118,0.2); }
-
-        /* كروت الأخبار */
-        .news-card { background: var(--card); border-radius: 18px; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
-        .news-title { color: #eee; font-size: 0.95rem; text-decoration: none; display: block; font-weight: 700; line-height: 1.6; }
-
-        /* زر المشاركة */
-        .share-btn { width: 100%; padding: 18px; background: #128C7E; color: white; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; font-size: 1rem; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(18, 140, 126, 0.3); }
-
-        /* زر واتساب العائم برقم حليم */
-        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 28px; box-shadow: 0 8px 25px rgba(0,0,0,0.5); animation: pulse-wa 2s infinite; }
-        @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
-
-        /* الفوتر وعداد الزوار */
-        .footer { text-align: center; color: #444; padding: 50px 20px; font-size: 0.85rem; border-top: 1px solid #111; margin-top: 40px; }
-        .visitor-counter { margin-bottom: 20px; }
-        .visitor-counter img { height: 28px; filter: drop-shadow(0 0 8px var(--green)); }
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 20px 0 10px; border-right: 5px solid var(--green); padding-right: 10px; font-weight: 900; text-align: right; }
+        .live-btn-main { width: 100%; padding: 20px; background: linear-gradient(45deg, #ff3d00, #ff8e53); color: white; border: none; border-radius: 15px; font-weight: 900; cursor: pointer; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(255, 61, 0, 0.3); }
+        .match-card { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .match-time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.85rem; }
+        .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; margin-bottom: 10px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
+        .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; }
+        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 20px; }
+        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .footer { text-align: center; color: #444; padding: 30px; font-size: 0.8rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
-
-    <div class="alert-bar">📢 مباشر الآن: تابعوا تغطية مباريات اليوم والنتائج لحظة بلحظة</div>
-
+    <div class="alert-bar">📢 مباشر الآن: تابع نتائج مباريات اليوم والنتائج لحظة بلحظة</div>
+    
     <div class="header-area">
         <div class="logo-box">
             <span class="logo-main">GOALZONE 2026</span>
             <span class="logo-sub">DEVELOPED BY HALEEM HLMY</span>
         </div>
     </div>
-
+    
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا النتائج المباشرة والأخبار العالمية لحظة بلحظة ..</div>
+        <div class="ticker-text">أهلاً بكم في GoalZone .. تابعوا النتائج المباشرة والأخبار العالمية بتطوير حليم حلمي ..</div>
     </div>
 
     <a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
@@ -75,52 +51,43 @@
         <div class="section-title">🏆 متابعة النتائج الحية</div>
         <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الآن</button>
 
+        <div style="text-align: center; margin: 25px 0;">
+            <p style="color: #333; font-size: 0.6rem; margin-bottom: 5px;">ADVERTISEMENT</p>
+            <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
+            <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
+        </div>
+
         <div class="section-title">📅 مواجهات الليلة (توقيت القاهرة)</div>
         <div class="match-card"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="match-time">21:30</span></div>
-        <div class="match-card"><span>🇪🇸 Villarreal vs Real Sociedad</span> <span class="match-time">22:00</span></div>
+        <div class="match-card"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="match-time">22:00</span></div>
         <div class="match-card"><span>🇫🇷 Auxerre vs Nice</span> <span class="match-time">22:00</span></div>
 
-        <div class="section-title">🌍 Global News (BBC Sport)</div>
-        <div id="news-section"><p style="text-align:center; color: #666;">جاري جلب آخر الأخبار العالمية... 🔄</p></div>
-        
+        <div class="section-title">🌍 أخبار حية (BBC)</div>
+        <div id="news-section"></div>
         <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع أصدقائك</button>
     </div>
 
     <div class="footer">
-        <div class="visitor-counter">
-            <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors Counter">
-            <div style="font-size: 0.7rem; color: #666; margin-top: 8px;">عدد زوار المنصة الموحد</div>
-        </div>
+        <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors"><br>
         تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©
     </div>
 
     <script>
-        // جلب الأخبار من المصدر العالمي
         async function fetchLiveNews() {
             try {
-                const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
-                const data = await response.json();
+                const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
+                const data = await res.json();
                 let html = '';
-                data.items.slice(0, 5).forEach(item => {
-                    html += `
-                        <div class="news-card">
-                            <a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a>
-                        </div>`;
+                data.items.slice(0, 4).forEach(item => {
+                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a></div>`;
                 });
                 document.getElementById('news-section').innerHTML = html;
-            } catch (e) {
-                document.getElementById('news-section').innerHTML = "<p style='text-align:center; color: #ff3d00;'>عذراً، تعذر جلب الأخبار حالياً.</p>";
-            }
+            } catch (e) { document.getElementById('news-section').innerHTML = "المصدر غير متاح."; }
         }
-
-        // وظيفة مشاركة الموقع عبر الواتساب
         function shareSite() {
-            const text = "تابع نتائج المباريات الحية والأخبار العالمية الآن على GoalZone بتطوير المبدع حليم حلمي ⚽🔥: ";
-            const url = window.location.href;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text + url)}`);
+            const text = "تابع نتائج المباريات والأخبار العالمية على GoalZone: ";
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + window.location.href)}`);
         }
-
-        // تشغيل الوظائف عند التحميل
         window.onload = fetchLiveNews;
     </script>
 </body>
