@@ -6,231 +6,129 @@
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root{--bg:#05070a;--card:#12151a;--green:#00e676;--gold:#ffd700;--red:#ff4d4d;}
-        *{box-sizing:border-box;}
-        body{background:var(--bg);color:#fff;font-family:'Cairo',sans-serif;margin:0;padding:10px;overflow-x:hidden;}
-        .news-ticker{background:var(--red);color:#fff;padding:8px 0;font-size:.85rem;overflow:hidden;white-space:nowrap;border-radius:10px;margin-bottom:15px;}
-        .news-ticker span{display:inline-block;animation:ticker 30s linear infinite;font-weight:bold;padding-right:100vw;}
-        @keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-        .header{text-align:center;color:var(--green);font-size:1.8rem;font-weight:900;padding:10px 0;text-shadow:0 0 10px rgba(0,230,118,.3);}
-        .section-title{background:var(--card);padding:12px;border-radius:10px;margin:20px 0 10px;border-right:6px solid var(--green);font-weight:800;font-size:1rem;color:var(--green);}
-        .live-scroll{display:flex;overflow-x:auto;gap:12px;padding-bottom:10px;scrollbar-width:none;}
-        .live-scroll::-webkit-scrollbar{display:none;}
-        .live-card{background:#1c1f26;min-width:160px;padding:12px 10px;border-radius:12px;border:1px solid #2a2a2a;text-align:center;flex-shrink:0;}
-        .live-card.is-live{border-color:rgba(255,77,77,.6);}
-        .badge{font-size:.68rem;padding:2px 8px;border-radius:4px;display:inline-block;font-weight:bold;}
-        .badge-live{background:var(--red);animation:blink 1s infinite;}
-        .badge-fin{background:#2a2a2a;color:#aaa;}
-        .badge-ns{background:#0d2b1a;color:var(--green);}
-        .live-score{font-size:1.4rem;font-weight:900;color:var(--gold);margin:6px 0;}
-        .team-sm{font-size:.72rem;margin:4px 0;display:flex;align-items:center;justify-content:center;gap:4px;}
-        .team-sm img{width:20px;height:20px;object-fit:contain;}
-        .league-sm{font-size:.6rem;color:#555;margin-top:5px;}
-        @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-        .tabs{display:flex;overflow-x:auto;gap:8px;margin-bottom:15px;scrollbar-width:none;}
-        .tabs::-webkit-scrollbar{display:none;}
-        .tab-btn{background:var(--card);border:1px solid #444;color:#bbb;padding:10px 16px;border-radius:20px;white-space:nowrap;cursor:pointer;font-weight:bold;font-size:.82rem;font-family:'Cairo',sans-serif;}
-        .tab-btn.active{background:var(--green);color:#000;border-color:var(--green);}
-        .box{background:var(--card);border-radius:15px;padding:12px;border:1px solid #222;margin-bottom:15px;overflow-x:auto;}
-        table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:300px;}
-        th{color:var(--green);padding:10px 4px;border-bottom:2px solid #2a2a2a;font-size:.75rem;}
-        td{padding:9px 4px;border-bottom:1px solid #1a1a1a;text-align:center;}
-        tr:last-child td{border-bottom:none;}
-        .team-cell{text-align:right;display:flex;align-items:center;gap:6px;}
-        .team-cell img{width:22px;height:22px;object-fit:contain;}
-        .r1{color:var(--gold);font-weight:900;}.r2{color:var(--green);font-weight:700;}.rrel{color:var(--red);}
-        .pts{font-weight:900;color:var(--green);}
-        .msg{text-align:center;padding:28px;color:#888;font-size:.88rem;line-height:2;}
-        .spin{display:inline-block;animation:spin 1s linear infinite;}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        .retry-btn{margin-top:12px;padding:9px 22px;background:var(--green);border:none;border-radius:20px;color:#000;font-family:'Cairo',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
-        .upd{font-size:.7rem;color:#444;text-align:center;margin-top:6px;}
-        .upd b{color:var(--green);}
-        .scorer-row{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid #1a1a1a;}
-        .scorer-row:last-child{border-bottom:none;}
-        .scorer-rank{width:28px;height:28px;border-radius:50%;background:#1c1f26;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#888;flex-shrink:0;}
-        .scorer-rank.top{background:rgba(255,215,0,.15);color:var(--gold);}
-        .scorer-img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#222;flex-shrink:0;}
-        .scorer-info{flex:1;min-width:0;}
-        .scorer-name{font-size:.88rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .scorer-team{font-size:.7rem;color:#666;margin-top:2px;display:flex;align-items:center;gap:4px;}
-        .scorer-team img{width:14px;height:14px;object-fit:contain;}
-        .scorer-goals{font-size:1.2rem;font-weight:900;color:var(--gold);}
-        .notif-btn{position:fixed;bottom:20px;left:20px;background:var(--green);color:#000;border:none;border-radius:50%;width:52px;height:52px;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,230,118,.4);z-index:999;}
-        .footer{text-align:center;color:#555;font-size:.78rem;padding:20px 0;border-top:1px solid #1a1a1a;line-height:1.8;margin-top:10px;}
+        :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
+        
+        /* شريط الأخبار المتحرك */
+        .ticker { background: var(--red); color: #fff; padding: 8px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 10px; margin-bottom: 15px; }
+        .ticker span { display: inline-block; padding-left: 100%; animation: ticker 25s linear infinite; font-weight: bold; }
+        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
+
+        .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; padding: 10px 0; }
+        .section-title { background: var(--card); padding: 12px; border-radius: 10px; margin: 20px 0 10px; border-right: 6px solid var(--green); font-weight: 800; font-size: 0.95rem; }
+        
+        /* شريط النتائج المباشرة بالعرض */
+        .live-wrap { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; }
+        .match-box { background: #1c1f26; min-width: 140px; padding: 10px; border-radius: 12px; border: 1px solid #333; text-align: center; }
+        .live-tag { background: var(--red); font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; animation: blink 1s infinite; }
+        .score { font-size: 1.1rem; font-weight: 900; color: var(--gold); margin: 5px 0; }
+        @keyframes blink { 50% { opacity: 0.4; } }
+
+        /* التبويبات والجداول */
+        .tabs { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; }
+        .tab { background: var(--card); border: 1px solid #444; color: #bbb; padding: 10px 18px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.8rem; }
+        .tab.active { background: var(--green); color: #000; font-weight: bold; }
+
+        .box { background: var(--card); border-radius: 15px; padding: 12px; border: 1px solid #333; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { color: var(--green); padding: 10px 5px; border-bottom: 2px solid #333; }
+        td { padding: 10px 5px; border-bottom: 1px solid #222; text-align: center; }
+        .team-info { text-align: right; display: flex; align-items: center; gap: 6px; }
+
+        .footer { text-align: center; color: #555; font-size: 0.75rem; padding: 20px 0; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
-<div class="news-ticker"><span id="ticker-text">📢 GoalZone 2026 — نتائج ومباريات حقيقية مباشرة .. برعاية المبرمج حليم حلمي 🌟</span></div>
-<div class="header">⚽ GOALZONE 2026</div>
 
-<div class="section-title">⏱️ مباريات اليوم</div>
-<div class="live-scroll" id="live-box"><div class="msg"><span class="spin">⚽</span> جاري التحميل...</div></div>
-<div class="upd" id="live-upd"></div>
+    <div class="ticker">
+        <span>📢 تغطية حية لنتائج الجمعة 20 مارس 2026 .. تصميم المبرمج حليم حلمي .. تابع ترتيب ليفربول والأهلي والهلال لحظة بلحظة! ⚽</span>
+    </div>
 
-<div class="section-title">📊 ترتيب الدوريات</div>
-<div class="tabs" id="stand-tabs">
-    <button class="tab-btn active" onclick="loadStand(39,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-    <button class="tab-btn" onclick="loadStand(140,'الإسباني',this)">🇪🇸 الإسباني</button>
-    <button class="tab-btn" onclick="loadStand(135,'الإيطالي',this)">🇮🇹 الإيطالي</button>
-    <button class="tab-btn" onclick="loadStand(78,'الألماني',this)">🇩🇪 الألماني</button>
-    <button class="tab-btn" onclick="loadStand(61,'الفرنسي',this)">🇫🇷 الفرنسي</button>
-    <button class="tab-btn" onclick="loadStand(307,'السعودي',this)">🇸🇦 السعودي</button>
-    <button class="tab-btn" onclick="loadStand(233,'المصري',this)">🇪🇬 المصري</button>
-</div>
-<div class="box" id="stand-box"><div class="msg"><span class="spin">⚽</span> جاري التحميل...</div></div>
-<div class="upd" id="stand-upd"></div>
+    <div class="header">⚽ GOALZONE 2026</div>
 
-<div class="section-title">🏅 الهدافين</div>
-<div class="tabs" id="scorer-tabs">
-    <button class="tab-btn active" onclick="loadScorers(39,'الإنجليزي',this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-    <button class="tab-btn" onclick="loadScorers(140,'الإسباني',this)">🇪🇸 الإسباني</button>
-    <button class="tab-btn" onclick="loadScorers(135,'الإيطالي',this)">🇮🇹 الإيطالي</button>
-    <button class="tab-btn" onclick="loadScorers(78,'الألماني',this)">🇩🇪 الألماني</button>
-    <button class="tab-btn" onclick="loadScorers(61,'الفرنسي',this)">🇫🇷 الفرنسي</button>
-    <button class="tab-btn" onclick="loadScorers(307,'السعودي',this)">🇸🇦 السعودي</button>
-    <button class="tab-btn" onclick="loadScorers(233,'المصري',this)">🇪🇬 المصري</button>
-</div>
-<div class="box" id="scorers-box"><div class="msg"><span class="spin">⚽</span> جاري التحميل...</div></div>
+    <div class="section-title">⏱️ نتائج مباريات الآن (مباشر)</div>
+    <div class="live-wrap" id="live-matches">
+        <p style="padding:10px; font-size:0.75rem;">جاري جلب مباريات الدقيقة الحالية... 🔄</p>
+    </div>
 
-<div class="footer">بواسطة المبرمج: <b>HALEEM HLMY</b><br>مكان الإصدار: الحرافشة - سوهاج | مارس 2026<br>جميع الحقوق محفوظة ©</div>
-<button class="notif-btn" id="notif-btn" onclick="toggleNotif()">🔔</button>
+    <div class="section-title">📊 ترتيب الدوريات الكبرى</div>
+    <div class="tabs">
+        <button class="tab active" onclick="load(39, 'الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+        <button class="tab" onclick="load(140, 'الإسباني', this)">🇪🇸 الإسباني</button>
+        <button class="tab" onclick="load(307, 'السعودي', this)">🇸🇦 السعودي</button>
+        <button class="tab" onclick="load(233, 'المصري', this)">🇪🇬 المصري</button>
+    </div>
 
-<script>
-// ← الرابط الجديد عبر Vercel — بيحل مشكلة CORS نهائياً
-var PROXY   = "https://koora-tan.vercel.app/api/football?path=";
-var SEASON  = 2025;
-var notifOn = false;
+    <div class="box" id="main-content">
+        <p style="text-align:center; padding:20px;">جاري تحديث البيانات... 🔄</p>
+    </div>
 
-function nowTime(){return new Date().toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});}
-function logo(url){return url?'<img src="'+url+'" onerror="this.style.display=\'none\'" alt="">':'';}
+    <div class="footer">
+        بواسطة المبرمج: <b>HALEEM HLMY</b> <br>
+        مكان الإصدار: الحرافشة - سوهاج | 2026 <br>
+        نسخة المبرمجين المحترفين v2.0
+    </div>
 
-function apiFetch(path, cb){
-    fetch(PROXY + encodeURIComponent(path.replace(/^\//,"")))
-    .then(function(r){return r.json();})
-    .then(function(d){cb(d);})
-    .catch(function(){cb(null);});
-}
+    <script>
+        const API_KEY = "3233c035c06b5a688ee984abb39f4b67";
 
-function toggleNotif(){
-    if(!("Notification" in window)){alert("المتصفح لا يدعم الإشعارات");return;}
-    Notification.requestPermission().then(function(p){
-        if(p==="granted"){
-            notifOn=!notifOn;
-            document.getElementById("notif-btn").textContent=notifOn?"🔕":"🔔";
-            if(notifOn)new Notification("GoalZone 2026 ⚽",{body:"تم تفعيل الإشعارات! ستصلك أهداف المباريات 🥅"});
+        // 1. تحديث الماتشات اللي شغالة دلوقتي
+        async function updateLive() {
+            try {
+                const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all`, {
+                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
+                });
+                const d = await res.json();
+                const box = document.getElementById('live-matches');
+                if (d.response && d.response.length > 0) {
+                    let h = '';
+                    d.response.slice(0, 10).forEach(m => {
+                        h += `
+                        <div class="match-box">
+                            <span class="live-tag">${m.fixture.status.elapsed}'</span>
+                            <div style="font-size:0.65rem; margin-top:5px;">${m.teams.home.name}</div>
+                            <div class="score">${m.goals.home} - ${m.goals.away}</div>
+                            <div style="font-size:0.65rem;">${m.teams.away.name}</div>
+                        </div>`;
+                    });
+                    box.innerHTML = h;
+                } else {
+                    box.innerHTML = `<p style="padding:10px; font-size:0.75rem;">لا توجد مباريات جارية حالياً.</p>`;
+                }
+            } catch (e) {}
         }
-    });
-}
 
-function loadToday(){
-    var box=document.getElementById("live-box");
-    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل مباريات اليوم...</div>';
-    var today=new Date().toISOString().split("T")[0];
-    apiFetch("fixtures?date="+today, function(data){
-        if(!data||!data.response||!data.response.length){
-            box.innerHTML='<div class="msg">📅 لا توجد مباريات اليوم</div>';
-            return;
+        // 2. تحديث جدول الترتيب
+        async function load(id, name, btn) {
+            if(btn) {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            const box = document.getElementById('main-content');
+            box.innerHTML = `<p style="text-align:center; padding:20px;">جاري جلب ترتيب ${name}... 🔄</p>`;
+
+            try {
+                // بنطلب موسم 2025 لأنه في نظام API هو الموسم اللي بينتهي في 2026
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, {
+                    "headers": { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" }
+                });
+                const d = await res.json();
+                if (d.response && d.response[0]) {
+                    const st = d.response[0].league.standings[0];
+                    let h = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr>';
+                    st.slice(0, 10).forEach(i => {
+                        h += `<tr><td>${i.rank}</td><td><div class="team-info"><img src="${i.team.logo}" width="18"> ${i.team.name}</div></td><td>${i.all.played}</td><td><b>${i.points}</b></td></tr>`;
+                    });
+                    box.innerHTML = h + '</table>';
+                }
+            } catch (e) { box.innerHTML = "خطأ في الشبكة."; }
         }
-        var matches=data.response;
-        matches.sort(function(a,b){
-            var o={"1H":0,"2H":0,"HT":0,"ET":0,"LIVE":0,"FT":1,"AET":1,"PEN":1,"NS":2,"TBD":2};
-            return (o[a.fixture.status.short]??2)-(o[b.fixture.status.short]??2);
-        });
-        var html="",tickers=[];
-        matches.forEach(function(m){
-            var st=m.fixture.status.short;
-            var isL=["1H","2H","HT","ET","LIVE"].indexOf(st)>-1;
-            var isF=["FT","AET","PEN"].indexOf(st)>-1;
-            var home=m.teams.home.name,away=m.teams.away.name;
-            var hL=m.teams.home.logo,aL=m.teams.away.logo;
-            var sH=m.goals.home,sA=m.goals.away;
-            var hasS=sH!==null&&sH!==undefined;
-            var elapsed=m.fixture.status.elapsed;
-            var mTime=new Date(m.fixture.date).toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"});
-            var badge=isL?'<span class="badge badge-live">🔴 '+(elapsed?elapsed+"'":"مباشر")+'</span>'
-                :isF?'<span class="badge badge-fin">انتهت ✓</span>'
-                :'<span class="badge badge-ns">⏰ '+mTime+'</span>';
-            var score=hasS?'<div class="live-score">'+sH+' - '+sA+'</div>'
-                :'<div class="live-score" style="color:#444;font-size:1rem">vs</div>';
-            html+='<div class="live-card'+(isL?" is-live":"")+'">'+badge
-                +'<div class="team-sm" style="margin-top:8px">'+logo(hL)+home+'</div>'
-                +score+'<div class="team-sm">'+logo(aL)+away+'</div>'
-                +'<div class="league-sm">'+(m.league&&m.league.name||"")+'</div></div>';
-            if(hasS)tickers.push("⚽ "+home+" "+sH+" - "+sA+" "+away);
-        });
-        box.innerHTML=html;
-        document.getElementById("live-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b>";
-        if(tickers.length)document.getElementById("ticker-text").textContent=tickers.join("   •   ")+"   •   GoalZone 2026 🌟";
-    });
-}
 
-function loadStand(id,name,btn){
-    if(btn){document.querySelectorAll("#stand-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
-    var box=document.getElementById("stand-box");
-    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل '+name+'...</div>';
-    apiFetch("standings?league="+id+"&season="+SEASON, function(data){
-        if(!data||!data.response||!data.response.length){
-            box.innerHTML='<div class="msg">⚠️ تعذّر تحميل '+name+'<br><button class="retry-btn" onclick="loadStand('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
-            return;
-        }
-        var table=data.response[0].league.standings[0];
-        var total=table.length;
-        var html='<table><tr><th>#</th><th style="text-align:right">الفريق</th><th>ل</th><th>ف</th><th>ت</th><th>خ</th><th>ن</th></tr>';
-        table.forEach(function(t){
-            var r=t.rank;
-            var rc=r===1?"r1":r<=3?"r2":r>=total-2?"rrel":"";
-            html+='<tr><td class="'+rc+'"><b>'+r+'</b></td>'
-                +'<td><div class="team-cell">'+logo(t.team.logo)+(t.team.name||"")+'</div></td>'
-                +'<td>'+(t.all.played||0)+'</td>'
-                +'<td>'+(t.all.win||0)+'</td>'
-                +'<td>'+(t.all.draw||0)+'</td>'
-                +'<td>'+(t.all.lose||0)+'</td>'
-                +'<td class="pts">'+t.points+'</td></tr>';
-        });
-        box.innerHTML=html+'</table>';
-        document.getElementById("stand-upd").innerHTML="آخر تحديث: <b>"+nowTime()+"</b> ✅";
-    });
-}
-
-function loadScorers(id,name,btn){
-    if(btn){document.querySelectorAll("#scorer-tabs .tab-btn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");}
-    var box=document.getElementById("scorers-box");
-    box.innerHTML='<div class="msg"><span class="spin">⚽</span> جاري تحميل هدافين '+name+'...</div>';
-    apiFetch("players/topscorers?league="+id+"&season="+SEASON, function(data){
-        if(!data||!data.response||!data.response.length){
-            box.innerHTML='<div class="msg">⚠️ تعذّر تحميل هدافين '+name+'<br><button class="retry-btn" onclick="loadScorers('+id+',\''+name+'\',null)">🔄 إعادة المحاولة</button></div>';
-            return;
-        }
-        var html="";
-        data.response.slice(0,15).forEach(function(item,i){
-            var r=i+1;
-            var p=item.player||{};
-            var s=item.statistics[0]||{};
-            var goals=(s.goals&&s.goals.total)||0;
-            var assists=(s.goals&&s.goals.assists)||0;
-            html+='<div class="scorer-row">'
-                +'<div class="scorer-rank'+(r<=3?" top":"")+'">'+r+'</div>'
-                +(p.photo?'<img class="scorer-img" src="'+p.photo+'" onerror="this.style.display=\'none\'">':'')
-                +'<div class="scorer-info">'
-                +'<div class="scorer-name">'+(p.name||"")+'</div>'
-                +'<div class="scorer-team">'+logo(s.team&&s.team.logo||"")+(s.team&&s.team.name||"")+'</div>'
-                +'</div>'
-                +'<div style="text-align:center">'
-                +'<div class="scorer-goals">'+goals+' ⚽</div>'
-                +(assists?'<div style="font-size:.65rem;color:#42a5f5">'+assists+' 🅰️</div>':'')
-                +'</div></div>';
-        });
-        box.innerHTML=html;
-    });
-}
-
-window.onload=function(){
-    loadToday();
-    loadStand(39,"الإنجليزي",null);
-    loadScorers(39,"الإنجليزي",null);
-    setInterval(loadToday,60000);
-};
-</script>
+        window.onload = () => {
+            updateLive();
+            load(39, 'الإنجليزي', null);
+            setInterval(updateLive, 60000); // تحديث الماتشات كل دقيقة
+        };
+    </script>
 </body>
 </html>
