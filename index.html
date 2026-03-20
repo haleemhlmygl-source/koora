@@ -9,25 +9,27 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         
+        /* شريط التنبيه العلوي */
         .alert-bar { background: var(--live); color: white; text-align: center; font-size: 0.8rem; padding: 10px 0; font-weight: 900; }
+        
         .header-area { padding: 25px 0; text-align: center; }
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
 
-        .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
-        .ticker-text { white-space: nowrap; padding-right: 100%; animation: ticker 30s linear infinite; font-size: 0.9rem; color: #eee; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-
+        .marquee-box { background: #111; padding: 8px; border-bottom: 1px solid #222; color: #eee; font-size: 13px; }
+        
         .content { padding: 15px; max-width: 600px; margin: auto; }
         .section-title { color: var(--gold); font-size: 1.1rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; text-align: right; }
         
+        /* كروت المواجهات */
         .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.9rem; }
+        .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.9rem; border: 1px solid rgba(0,230,118,0.2); }
 
-        /* كروت الأخبار من المصدر */
+        /* كروت الأخبار */
         .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #222; margin-bottom: 12px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
         .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; line-height: 1.5; display: block; }
 
-        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; }
+        .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .footer { text-align: center; color: #444; padding: 40px 20px; font-size: 0.8rem; border-top: 1px solid #111; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -36,11 +38,11 @@
 
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
-    <div class="ticker-wrap">
-        <div class="ticker-text">
-            <marquee scrollamount="6">Welcome to GoalZone by HALEEM HLMY .. Live Sports Updates from Global Sources .. Stay Tuned ..</marquee>
-        </div>
+    <div class="marquee-box">
+        <marquee scrollamount="6">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا نتائج مباريات اليوم من المصادر العالمية ..</marquee>
     </div>
+
+    <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
@@ -48,4 +50,30 @@
         <div class="match-box"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="time">22:00</span></div>
         <div class="match-box"><span>🇫🇷 Auxerre vs Nice</span> <span class="time">22:00</span></div>
 
-        <div class="section
+        <div class="section-title">🌍 Global News (BBC Source)</div>
+        <div id="news-container"><p style="text-align:center;">Loading Live Source... 🔄</p></div>
+    </div>
+
+    <div class="footer">تطوير وبرمجة المبدع: <b>HALEEM HLMY</b> | سوهاج 2026 ©</div>
+
+    <script>
+        async function getBBCNews() {
+            try {
+                const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
+                const data = await response.json();
+                let newsHtml = '';
+                data.items.slice(0, 5).forEach(item => {
+                    newsHtml += `
+                        <div class="news-card">
+                            <a href="${item.link}" target="_blank" class="news-title">📍 ${item.title}</a>
+                        </div>`;
+                });
+                document.getElementById('news-container').innerHTML = newsHtml;
+            } catch (error) {
+                document.getElementById('news-container').innerHTML = "<p>Source offline. Check internet.</p>";
+            }
+        }
+        getBBCNews();
+    </script>
+</body>
+</html>
