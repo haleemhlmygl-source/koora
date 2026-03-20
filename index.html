@@ -21,15 +21,17 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
+        /* قسم الفيديوهات الجديد */
+        .video-container { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,230,118,0.2); margin-bottom: 25px; background: #000; position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
         .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
 
         .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 4px solid var(--gold); }
         .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 12px; }
-        .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 6px 14px; border-radius: 20px; cursor: pointer; }
 
         .qr-area { background: #000; border: 1px solid #222; border-radius: 20px; padding: 25px; margin-top: 40px; text-align: center; border-top: 3px solid var(--gold); }
         #qrcode { display: inline-block; padding: 10px; background: white; border-radius: 10px; }
@@ -45,12 +47,17 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">تم استعادة استقرار النظام 100% .. المبرمج حليم حلمي يحييكم .. تابع مباريات الجمعة 20 مارس الحصرية لحظة بلحظة ..</div>
+        <div class="ticker-text">خاصية ملخصات الأهداف مفعلة الآن .. المبرمج حليم حلمي يحييكم من قلب سوهاج .. تابع مباريات الجمعة 20 مارس الحصرية ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
+        <div class="section-title">📺 ملخصات وأهداف عالمية</div>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLp0n4966_VAn8aQ6G6703_o1PzJ6mD6hL" allowfullscreen></iframe>
+        </div>
+
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
         <div id="matches">
             <div class="match-box">
@@ -59,22 +66,18 @@
             <div class="match-box">
                 <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
             </div>
-            <div class="match-box">
-                <div class="match-info"><span>🇫🇷 أوكسير 🆚 نيس</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
-            </div>
         </div>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
         <div id="news-section"><p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p></div>
 
         <div class="qr-area">
-            <div style="font-size:0.8rem; color:var(--gold); margin-bottom:15px;">📱 صوّر الباركود لمشاركة الموقع</div>
             <div id="qrcode"></div>
-            <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">HALEEM HLMY</div>
+            <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">بواسطة المبرمج: HALEEM HLMY</div>
         </div>
     </div>
 
-    <div class="footer">برمجة: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026</div>
+    <div class="footer">برمجة وتطوير المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026</div>
 
     <script>
         window.onload = function() {
@@ -90,7 +93,7 @@
                 for (let item of data.items.slice(0, 5)) {
                     const tRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
                     const tData = await tRes.json();
-                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a><div class="share-news-btn" onclick="shareNews('${tData.responseData.translatedText}', '${item.link}')">📤 مشاركة</div></div>`;
+                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a><div class="share-news-btn" onclick="shareNews('${tData.responseData.translatedText}', '${item.link}')" style="display:inline-flex; align-items:center; gap:5px; color:var(--green); font-size:0.75rem; font-weight:bold; border:1px solid rgba(0,230,118,0.2); padding:6px 14px; border-radius:20px; cursor:pointer;">📤 مشاركة</div></div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
             } catch (e) { document.getElementById('news-section').innerHTML = "تحقق من الإنترنت."; }
