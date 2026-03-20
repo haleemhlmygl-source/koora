@@ -7,86 +7,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --red: #ff4d4d; }
-        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
-        .ticker { background: var(--red); color: #fff; padding: 8px; font-size: 0.85rem; overflow: hidden; white-space: nowrap; border-radius: 10px; margin-bottom: 15px; }
-        .ticker span { display: inline-block; padding-left: 100%; animation: ticker 25s linear infinite; font-weight: bold; }
-        @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
-        .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; padding: 10px 0; }
-        .section-title { background: var(--card); padding: 12px; border-radius: 10px; margin: 20px 0 10px; border-right: 6px solid var(--green); font-weight: 800; font-size: 0.95rem; }
-        .live-wrap { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; min-height: 80px; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; padding: 10px; }
+        .header { text-align: center; color: var(--green); font-size: 1.8rem; font-weight: 900; padding: 15px; }
+        .live-wrap { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 20px; }
         .match-box { background: #1c1f26; min-width: 140px; padding: 10px; border-radius: 12px; border: 1px solid #333; text-align: center; }
-        .score { font-size: 1.1rem; font-weight: 900; color: var(--gold); }
-        .tabs { display: flex; overflow-x: auto; gap: 8px; margin-bottom: 15px; }
-        .tab { background: var(--card); border: 1px solid #444; color: #bbb; padding: 10px 18px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 0.8rem; }
-        .tab.active { background: var(--green); color: #000; font-weight: bold; }
-        .box { background: var(--card); border-radius: 15px; padding: 12px; border: 1px solid #333; min-height: 200px; }
+        .box { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #333; min-height: 200px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        td { padding: 10px 5px; border-bottom: 1px solid #222; text-align: center; }
-        th { color: var(--green); padding-bottom: 10px; border-bottom: 2px solid #333; }
-        .team-info { text-align: right; display: flex; align-items: center; gap: 6px; }
-        .footer { text-align: center; color: #666; font-size: 0.75rem; padding: 20px 0; border-top: 1px solid #222; }
+        td, th { padding: 10px 5px; border-bottom: 1px solid #222; text-align: center; }
+        .footer { text-align: center; color: #666; font-size: 0.75rem; margin-top: 20px; border-top: 1px solid #222; padding-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="ticker"><span>📢 تغطية حية لنتائج الجمعة 20 مارس 2026 .. تصميم المبرمج حليم حلمي .. تابع ليفربول والأهلي لحظة بلحظة! ⚽</span></div>
     <div class="header">⚽ GOALZONE 2026</div>
-    <div class="section-title">⏱️ نتائج مباريات الآن (مباشر)</div>
-    <div id="live-matches" class="live-wrap"><p style="padding:10px; font-size:0.75rem;">جاري جلب مباريات اللحظة... 🔄</p></div>
-    <div class="section-title">📊 ترتيب الدوريات الكبرى</div>
-    <div class="tabs">
-        <button class="tab active" onclick="load(39, 'الإنجليزي', this)">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
-        <button class="tab" onclick="load(140, 'الإسباني', this)">🇪🇸 الإسباني</button>
-        <button class="tab" onclick="load(307, 'السعودي', this)">🇸🇦 السعودي</button>
-        <button class="tab" onclick="load(233, 'المصري', this)">🇪🇬 المصري</button>
+    <div class="live-wrap" id="live-matches"></div>
+    <div style="display:flex; gap:5px; margin-bottom:15px; overflow-x:auto;">
+        <button onclick="load(39, 'الإنجليزي')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 الإنجليزي</button>
+        <button onclick="load(140, 'الإسباني')">🇪🇸 الإسباني</button>
+        <button onclick="load(307, 'السعودي')">🇸🇦 السعودي</button>
+        <button onclick="load(233, 'المصري')">🇪🇬 المصري</button>
     </div>
-    <div id="main-content" class="box"><p style="text-align:center; padding:20px;">جاري تحديث البيانات بالمفتاح الجديد... 🔄</p></div>
-    <div class="footer">بواسطة: <b>HALEEM HLMY</b> | سوهاج 2026</div>
+    <div id="main-content" class="box"></div>
+    <div class="footer">المبرمج: <b>HALEEM HLMY</b> | سوهاج 2026</div>
 
     <script>
-        // المفتاح الجديد اللي أنت بعته يا بطل
         const API_KEY = "9e21494c49c75f64c6b7149ca8671fd4";
         const HEADERS = { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" };
 
         async function updateLive() {
-            try {
-                const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all`, { headers: HEADERS });
-                const d = await res.json();
-                const box = document.getElementById('live-matches');
-                if (d.response && d.response.length > 0) {
-                    let h = '';
-                    d.response.slice(0, 10).forEach(m => {
-                        h += `<div class="match-box"><span style="color:red; font-size:0.6rem;">● مباشر</span><div class="score">${m.goals.home} - ${m.goals.away}</div><div style="font-size:0.6rem; color:#aaa;">${m.teams.home.name}</div></div>`;
-                    });
-                    box.innerHTML = h;
-                } else { box.innerHTML = "<p style='font-size:0.7rem; padding:10px;'>لا توجد مباريات جارية حالياً.</p>"; }
-            } catch (e) { console.error(e); }
+            const res = await fetch(`https://v3.football.api-sports.io/fixtures?live=all`, { headers: HEADERS });
+            const d = await res.json();
+            if (d.response) {
+                let h = '';
+                d.response.slice(0, 5).forEach(m => {
+                    h += `<div class="match-box"><div style="color:red; font-size:0.6rem;">● مباشر</div><div>${m.goals.home}-${m.goals.away}</div><div style="font-size:0.6rem;">${m.teams.home.name}</div></div>`;
+                });
+                document.getElementById('live-matches').innerHTML = h;
+            }
         }
 
-        async function load(id, name, btn) {
-            if(btn) {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            const box = document.getElementById('main-content');
-            box.innerHTML = `<p style="text-align:center; padding:20px;">جاري جلب ترتيب ${name}... 🔄</p>`;
-            try {
-                // بنطلب موسم 2025 (اللي بينتهي في 2026)
-                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2025`, { headers: HEADERS });
+        async function load(id, name) {
+            document.getElementById('main-content').innerHTML = "جاري البحث عن بيانات حقيقية... 🔄";
+            // الكود هيجرب سنة 2024 و 2023 عشان يطلع لك أي جدول موجود فعلاً في السيرفر
+            const seasons = [2024, 2023];
+            for (let s of seasons) {
+                const res = await fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${s}`, { headers: HEADERS });
                 const d = await res.json();
                 if (d.response && d.response[0]) {
                     const st = d.response[0].league.standings[0];
-                    let h = '<table><tr><th>#</th><th style="text-align:right;">الفريق</th><th>ل</th><th>ن</th></tr>';
-                    st.slice(0, 12).forEach(i => {
-                        h += `<tr><td>${i.rank}</td><td><div class="team-info"><img src="${i.team.logo}" width="18"> ${i.team.name}</div></td><td>${i.all.played}</td><td><b>${i.points}</b></td></tr>`;
+                    let h = '<table><tr><th>#</th><th>الفريق</th><th>ن</th></tr>';
+                    st.slice(0, 10).forEach(i => {
+                        h += `<tr><td>${i.rank}</td><td style="text-align:right;">${i.team.name}</td><td><b>${i.points}</b></td></tr>`;
                     });
-                    box.innerHTML = h + '</table>';
-                } else {
-                    box.innerHTML = "<p style='text-align:center; padding:20px;'>عفواً، الداتا للموسم الحالي غير متوفرة بعد.</p>";
+                    document.getElementById('main-content').innerHTML = h + '</table>';
+                    return;
                 }
-            } catch (e) { box.innerHTML = "خطأ في الاتصال بالشبكة."; }
+            }
+            document.getElementById('main-content').innerHTML = "لم نجد بيانات لهذا الدوري حالياً.";
         }
-
-        window.onload = () => { updateLive(); load(39, 'الإنجليزي', null); setInterval(updateLive, 60000); };
+        updateLive(); load(39, 'الإنجليزي');
     </script>
 </body>
 </html>
