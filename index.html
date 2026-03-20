@@ -6,47 +6,74 @@
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <style>
         body { background: #05070a; color: white; font-family: sans-serif; margin: 0; padding: 0; text-align: center; }
-        .alert { background: #ff3d00; padding: 10px; font-weight: bold; font-size: 14px; }
-        .header { color: #00e676; font-size: 35px; margin: 30px 0; font-weight: 900; }
-        .ticker { background: #111; padding: 10px; border-bottom: 1px solid #222; font-size: 14px; overflow: hidden; white-space: nowrap; }
-        .match-box { background: #12151a; margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .time { color: #00e676; font-weight: bold; background: rgba(0,230,118,0.1); padding: 5px 10px; border-radius: 8px; }
-        .footer { color: #444; padding: 40px; font-size: 12px; }
-        .wa-btn { display: inline-block; background: #25d366; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+        .alert-top { background: #ff3d00; color: white; padding: 12px; font-weight: bold; font-size: 13px; border-bottom: 2px solid #222; }
+        .header { color: #00e676; font-size: 32px; margin: 25px 0; font-weight: 900; letter-spacing: 1px; }
+        .marquee-box { background: #111; padding: 8px; border-bottom: 1px solid #222; color: #eee; font-size: 13px; }
+        
+        .content-area { padding: 10px; max-width: 500px; margin: auto; }
+        h3 { color: #ffd700; text-align: right; padding-right: 15px; border-right: 4px solid #00e676; margin: 25px 0 15px; font-size: 1.1rem; }
+        
+        /* كروت المواعيد */
+        .match-card { background: #12151a; margin-bottom: 12px; padding: 18px; border-radius: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .time-tag { color: #00e676; font-weight: bold; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(0,230,118,0.2); }
+        
+        /* كروت الأخبار الثابتة */
+        .news-card { background: #12151a; margin-bottom: 12px; padding: 18px; border-radius: 12px; border: 1px solid #222; border-right: 4px solid #ffd700; text-align: right; }
+        .news-text { color: #eee; font-size: 0.95rem; line-height: 1.6; font-weight: bold; display: block; text-decoration: none; }
+
+        .footer { color: #444; padding: 40px 20px; font-size: 12px; line-height: 1.6; }
+        .wa-link { display: inline-block; background: #25d366; color: white; padding: 14px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; width: 80%; }
     </style>
 </head>
 <body>
 
-    <div class="alert">📢 تنبيه: مباريات الليلة تبدأ في التاسعة والنصف مساءً بتوقيت القاهرة</div>
+    <div class="alert-top">📢 تنبيه: مباريات الليلة تبدأ في تمام التاسعة والنصف مساءً بتوقيت القاهرة</div>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="ticker">
-        أهلاً بكم في GoalZone بتطوير المبدع حليم حلمي .. تابعوا مباريات اليوم بتوقيت القاهرة ..
+    <div class="marquee-box">
+        <marquee scrollamount="6">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا نتائج مباريات اليوم لحظة بلحظة بتوقيت القاهرة ..</marquee>
     </div>
 
-    <div style="padding: 10px;">
-        <h3 style="color: #ffd700; text-align: right; border-right: 4px solid #00e676; padding-right: 10px;">📅 مواجهات الليلة</h3>
+    <div class="content-area">
+        <h3>📅 مواجهات الليلة المباشرة</h3>
         
-        <div class="match-box">
+        <div class="match-card">
             <span>🇩🇪 لايبزيج 🆚 هوفنهايم</span>
-            <span class="time">21:30</span>
+            <span class="time-tag">21:30</span>
         </div>
 
-        <div class="match-box">
+        <div class="match-card">
             <span>🇪🇸 فياريال 🆚 ريال سوسيداد</span>
-            <span class="time">22:00</span>
+            <span class="time-tag">22:00</span>
         </div>
 
-        <div class="match-box">
+        <div class="match-card">
             <span>🇫🇷 أوكسير 🆚 نيس</span>
-            <span class="time">22:00</span>
+            <span class="time-tag">22:00</span>
         </div>
 
-        <a href="https://wa.me/20552715934" class="wa-btn">تواصل مع المبرمج حليم</a>
+        <h3>🌍 موجز الأخبار العالمية</h3>
+        
+        <div class="news-card">
+            <span class="news-text">📍 صراع الصدارة يشتعل في الدوري الإسباني قبل مواجهات الليلة المرتقبة.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-text">📍 تقارير: أندية الدوري الإنجليزي تستعد لصفقات قياسية في صيف 2026.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-text">📍 الاتحاد الدولي لكرة القدم (فيفا) يدرس تحديثات جديدة لقوانين التسلل.</span>
+        </div>
+
+        <a href="https://wa.me/20552715934" class="wa-link">📱 تواصل مع المبرمج حليم حلمي</a>
     </div>
 
-    <div class="footer">تطوير وبرمجة: HALEEM HLMY | سوهاج 2026 ©</div>
+    <div class="footer">
+        برمجة وتطوير المبدع: <b>HALEEM HLMY</b><br>
+        سوهاج - جمهورية مصر العربية 2026 ©
+    </div>
 
 </body>
 </html>
