@@ -13,8 +13,9 @@
         .header-area { padding: 20px 0; text-align: center; }
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
         
-        /* مكان الإعلان العلوي */
-        .ad-space-top { background: rgba(255, 215, 0, 0.05); border: 1px dashed var(--gold); margin: 10px; padding: 15px; border-radius: 12px; font-size: 0.8rem; color: var(--gold); text-align: center; cursor: pointer; }
+        /* مساحات الإعلانات */
+        .ad-space { background: rgba(255, 215, 0, 0.05); border: 1px dashed var(--gold); margin: 15px; padding: 20px; border-radius: 15px; text-align: center; }
+        .ad-btn { background: var(--gold); color: black; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 0.8rem; display: inline-block; margin-top: 10px; }
 
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 40px; overflow: hidden; display: flex; align-items: center; }
         .ticker-label { background: var(--green); color: black; padding: 0 15px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; }
@@ -27,13 +28,10 @@
         .match-box { background: var(--card); border-radius: 15px; padding: 18px; margin-bottom: 12px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 8px; font-size: 0.9rem; }
 
-        /* مكان الإعلان بين المواعيد */
-        .ad-mid-box { background: #1a1e24; border-radius: 15px; padding: 20px; margin: 20px 0; border: 1px solid #333; text-align: center; color: #555; font-weight: bold; }
-
         .news-card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; margin-bottom: 10px; border-right: 4px solid var(--gold); text-align: left; direction: ltr; }
         .news-title { color: #eee; font-size: 0.9rem; text-decoration: none; font-weight: bold; display: block; }
 
-        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 10px; }
+        .share-btn { width: 100%; padding: 15px; background: #128C7E; color: white; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 20px; }
         .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .footer { text-align: center; color: #444; padding: 30px; font-size: 0.8rem; border-top: 1px solid #111; }
     </style>
@@ -44,24 +42,23 @@
 
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
-    <div class="ad-space-top" onclick="window.open('https://wa.me/20552715934')">
-        ✨ مساحة إعلانية مميزة .. تواصل معنا للإعلان هنا ✨
-    </div>
-
     <div class="ticker-wrap">
-        <div class="ticker-label">إعلان ممول</div>
-        <div class="ticker-text">تواصل مع المبرمج حليم حلمي للحصول على مساحتك الإعلانية الخاصة وتصل لآلاف المتابعين يومياً ..</div>
+        <div class="ticker-label">عاجل</div>
+        <div class="ticker-text">أهلاً بكم في GoalZone .. المنصة الرياضية الأسرع بتطوير المبدع حليم حلمي .. تابعوا نتائج مباريات اليوم لحظة بلحظة ..</div>
     </div>
 
-    <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
+    <a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
+        
         <div class="match-box"><span>🇩🇪 Leipzig vs Hoffenheim</span> <span class="time">21:30</span></div>
         <div class="match-box"><span>🇪🇸 Villarreal vs Sociedad</span> <span class="time">22:00</span></div>
         
-        <div class="ad-mid-box">
-             📢 إعلانك هنا <br> <span style="font-size: 0.7rem; color: #444;">Ads by GoalZone</span>
+        <div class="ad-space">
+             <div style="font-weight: bold; color: #eee; margin-bottom: 5px;">📍 إعلانك هنا يصل لآلاف المتابعين</div>
+             <div style="font-size: 0.75rem; color: #888;">Ads by GoalZone Network</div>
+             <a href="https://wa.me/201145811173?text=أهلاً حليم، أريد الاستفسار عن باقات الإعلان في موقعك" class="ad-btn">أعلن معنا الآن 🚀</a>
         </div>
 
         <div class="match-box"><span>🇫🇷 Auxerre vs Nice</span> <span class="time">22:00</span></div>
@@ -69,7 +66,7 @@
         <div class="section-title">🌍 أخبار حية (Live News)</div>
         <div id="news-section"><p style="text-align:center;">جاري التحميل... 🔄</p></div>
 
-        <button class="share-btn" onclick="shareSite()">🔗 انشر الموقع واكسب متابعين</button>
+        <button class="share-btn" onclick="shareSite()">🔗 شارك الموقع واكسب مع حليم</button>
     </div>
 
     <div class="footer">
@@ -90,7 +87,7 @@
             } catch (e) { document.getElementById('news-section').innerHTML = "المصدر غير متاح."; }
         }
         function shareSite() {
-            const text = "تابع نتائج المباريات والأخبار العالمية لحظة بلحظة على موقع GoalZone بتطوير المبدع حليم حلمي: ";
+            const text = "تابع نتائج المباريات والأخبار العالمية لحظة بلحظة على موقع GoalZone بتطوير المبدع حليم حلمي ⚽🔥: ";
             window.open(`https://wa.me/?text=${encodeURIComponent(text + window.location.href)}`);
         }
         window.onload = fetchLiveNews;
