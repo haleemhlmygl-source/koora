@@ -20,13 +20,13 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        /* قسم المهارات المضمون 100% */
-        .skill-box { width: 100%; border-radius: 20px; overflow: hidden; border: 1px solid #333; margin-bottom: 25px; background: #000; text-align: center; padding: 20px 0; position: relative;}
-        .skill-box img { width: 100%; display: block; min-height: 180px; object-fit: cover; }
-        .ball-icon { font-size: 50px; animation: rotate 4s linear infinite; display: block; margin-bottom: 10px; }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        /* قسم الرادار الذكي (كود داخلي مضمون 100%) */
+        .radar-box { width: 100%; border-radius: 20px; border: 1px solid #222; background: var(--card); padding: 40px 0; text-align: center; position: relative; overflow: hidden; }
+        .ball-glow { font-size: 60px; display: inline-block; animation: bounce 2s ease-in-out infinite; filter: drop-shadow(0 0 15px var(--green)); }
+        @keyframes bounce { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
+        .radar-text { display: block; margin-top: 15px; color: var(--green); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; }
 
-        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
+        .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .pulse { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
@@ -45,15 +45,16 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">المبرمج حليم حلمي يعتمد النسخة النهائية المستقرة .. تابع مواجهات الليلة المباشرة لحظة بلحظة من قلب سوهاج ..</div>
+        <div class="ticker-text">المبرمج حليم حلمي يعتمد النسخة الماسية المستقرة 100% .. تابع مواجهات الليلة المباشرة لحظة بلحظة من قلب سوهاج ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
-        <div class="section-title">✨ رادار مهارات 2026</div>
-        <div class="skill-box">
-            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3J6eGoxbmZpbmR4eG9pbnNqZ2x6bmV4Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/W8K5L9p6T996U/giphy.gif" alt="Football Magic">
+        <div class="section-title">✨ رادار مهارات حليم</div>
+        <div class="radar-box">
+            <div class="ball-glow">⚽</div>
+            <span class="radar-text">LIVE RADAR ACTIVE</span>
         </div>
 
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
@@ -71,7 +72,7 @@
         <div id="news-section"><p style="text-align:center;">جاري جلب الأخبار... 🔄</p></div>
     </div>
 
-    <div class="footer">تطوير وبرمجة المبدع: <b>HALEEM HLMY</b> | سوهاج 2026 ©</div>
+    <div class="footer">تطوير وبرمجة: <b>HALEEM HLMY</b> | سوهاج 2026 ©</div>
 
     <script>
         async function loadNews() {
