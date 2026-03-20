@@ -10,11 +10,6 @@
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
         
-        .top-bar { background: #000; height: 32px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.7rem; color: #888; border-bottom: 1px solid #1a1a1a; }
-        .status { color: var(--green); font-weight: bold; display: flex; align-items: center; gap: 6px; }
-        .dot { height: 8px; width: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
-
         .header-area { padding: 25px 0; text-align: center; }
         .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; }
 
@@ -26,19 +21,21 @@
         .content { padding: 15px; }
         .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        /* كروت المواعيد */
         .match-box { background: linear-gradient(145deg, #12151a, #0a0c10); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid #222; }
         .match-info { display: flex; justify-content: space-between; align-items: center; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
         .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
 
-        /* جدول الترتيب المطور */
-        .standing-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 15px; overflow: hidden; margin-bottom: 30px; border: 1px solid #222; }
-        .standing-table th { background: #1a1a1a; color: var(--gold); padding: 12px; font-size: 0.8rem; text-align: center; }
-        .standing-table td { padding: 12px; text-align: center; border-bottom: 1px solid #1a1a1a; font-size: 0.85rem; }
-        .standing-table tr:nth-child(2) td:first-child { color: var(--green); font-weight: 900; } /* الأول */
+        /* جدول الهيبة المطور */
+        .table-container { background: var(--card); border-radius: 20px; border: 1px solid #222; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .st-table { width: 100%; border-collapse: collapse; }
+        .st-table th { background: #1a1a1a; color: #888; padding: 15px 10px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .st-table td { padding: 15px 10px; text-align: center; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; font-weight: bold; }
+        .st-table tr:last-child td { border: none; }
+        .rank-1 { color: var(--green); text-shadow: 0 0 10px rgba(0,230,118,0.5); }
+        .team-name { text-align: right !important; display: flex; align-items: center; gap: 10px; }
+        .pts { color: var(--gold); font-weight: 900; }
 
-        /* الأخبار */
         .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 4px solid var(--gold); }
         .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 12px; }
         .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 6px 14px; border-radius: 20px; cursor: pointer; }
@@ -48,22 +45,16 @@
 
         .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; text-decoration: none; font-size: 26px; animation: pulse-wa 2s infinite; }
         @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
         .footer { text-align: center; color: #555; padding: 40px 20px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <div class="status"><span class="dot"></span> Smart Data Verified</div>
-        <div>20 مارس 2026 | سوهاج</div>
-    </div>
-
     <div class="header-area"><h1 class="header">⚽ GOALZONE 2026</h1></div>
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">خاصية جدول ترتيب الدوري المصري مفعلة الآن .. المبرمج حليم حلمي يعيد ضبط نظام المباريات .. تابع كل جديد لحظة بلحظة ..</div>
+        <div class="ticker-text">تحديث "جدول الصدارة الماسي" متاح الآن .. المبرمج حليم حلمي يعيد تعريف الاحترافية .. تابع صراع القمة في الدوري المصري ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
@@ -77,42 +68,60 @@
             <div class="match-info"><span>🇪🇸 فياريال 🆚 ريال سوسيداد</span> <div style="display:flex;align-items:center;gap:8px;"><span class="pulse-red"></span><span class="time">22:00</span></div></div>
         </div>
 
-        <div class="section-title">🏆 ترتيب الدوري المصري 2026</div>
-        <table class="standing-table">
-            <thead>
-                <tr>
-                    <th>الترتيب</th>
-                    <th>النادي</th>
-                    <th>لعب</th>
-                    <th>نقاط</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td>🦅 الأهلي</td><td>18</td><td>45</td></tr>
-                <tr><td>2</td><td>🏹 الزمالك</td><td>17</td><td>38</td></tr>
-                <tr><td>3</td><td>🔵 بيراميدز</td><td>18</td><td>36</td></tr>
-                <tr><td>4</td><td>🟢 المصري</td><td>17</td><td>30</td></tr>
-            </tbody>
-        </table>
+        <div class="section-title">🏆 جدول الصدارة - الدوري المصري</div>
+        <div class="table-container">
+            <table class="st-table">
+                <thead>
+                    <tr>
+                        <th>الترتيب</th>
+                        <th style="text-align: right;">النادي</th>
+                        <th>لعب</th>
+                        <th>نقاط</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank-1">01</td>
+                        <td class="team-name">🦅 الأهلي</td>
+                        <td>18</td>
+                        <td class="pts">46</td>
+                    </tr>
+                    <tr>
+                        <td>02</td>
+                        <td class="team-name">🏹 الزمالك</td>
+                        <td>18</td>
+                        <td class="pts">40</td>
+                    </tr>
+                    <tr>
+                        <td>03</td>
+                        <td class="team-name">🔵 بيراميدز</td>
+                        <td>18</td>
+                        <td class="pts">37</td>
+                    </tr>
+                    <tr>
+                        <td>04</td>
+                        <td class="team-name">🟢 المصري</td>
+                        <td>18</td>
+                        <td class="pts">32</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
         <div id="news-section"><p style="text-align:center;">جاري التحديث... 🔄</p></div>
 
         <div class="qr-area">
-            <div style="font-size:0.8rem; color:var(--gold); margin-bottom:15px;">📱 صوّر الباركود لمشاركة الموقع</div>
             <div id="qrcode"></div>
             <div style="font-size: 0.7rem; color: #666; margin-top: 10px;">HALEEM HLMY</div>
         </div>
     </div>
 
-    <div class="footer">تطوير: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 ©</div>
+    <div class="footer">برمجة وتصميم: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026</div>
 
     <script>
         window.onload = function() {
-            new QRCode(document.getElementById("qrcode"), {
-                text: window.location.href,
-                width: 120, height: 120
-            });
+            new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 120, height: 120 });
             loadNews();
         };
 
