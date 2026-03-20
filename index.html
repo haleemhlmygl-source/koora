@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; --live: #ff3d00; }
-        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; transition: 0.3s; }
         
-        /* شريط الحالة العلوي */
         .top-bar { background: #000; height: 32px; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; font-size: 0.7rem; color: #888; border-bottom: 1px solid #1a1a1a; }
-        .status { color: var(--green); font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .status { font-weight: bold; display: flex; align-items: center; gap: 6px; animation: glowText 3s infinite; }
+        @keyframes glowText { 0%, 100% { color: var(--green); } 50% { color: #ccff00; } }
         .dot-green { height: 8px; width: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 1.5s infinite; }
         @keyframes blink { 50% { opacity: 0.3; } }
 
         .header-area { padding: 25px 0; text-align: center; }
-        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; letter-spacing: 1px; }
+        .header { color: var(--green); font-size: 2.2rem; font-weight: 900; margin: 0; text-shadow: 0 0 20px rgba(0,230,118,0.2); }
 
         .ticker-wrap { background: #111; border-bottom: 1px solid #222; height: 38px; overflow: hidden; display: flex; align-items: center; }
         .ticker-label { background: var(--green); color: black; padding: 0 18px; font-weight: 900; font-size: 0.8rem; height: 100%; display: flex; align-items: center; z-index: 2; }
@@ -24,32 +24,30 @@
         @keyframes ticker { 0% { transform: translate(0, 0); } 100% { transform: translate(100%, 0); } }
 
         .content { padding: 15px; }
-        .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
+        .section-title { color: var(--gold); font-size: 1.2rem; margin: 25px 0 15px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 900; }
         
-        /* كروت المواعيد المطورة */
-        .match-box { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 18px; border: 1px solid #222; position: relative; overflow: hidden; }
-        .match-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .teams { font-weight: 700; font-size: 1rem; color: #fff; }
+        .match-box { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 18px; border: 1px solid #222; transition: 0.3s; }
+        .match-info { display: flex; justify-content: space-between; align-items: center; }
         .time-box { display: flex; align-items: center; gap: 8px; }
         .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 5px 12px; border-radius: 10px; font-size: 0.9rem; }
-        .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
+        .pulse-red { height: 8px; width: 8px; background: var(--live); border-radius: 50%; box-shadow: 0 0 8px var(--live); animation: blink 1s infinite; }
 
-        /* بار التوقعات */
-        .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 12px; }
+        .predict-bar { height: 6px; background: #222; border-radius: 10px; display: flex; overflow: hidden; margin-top: 15px; }
         .win-h { background: var(--green); width: 55%; }
         .draw { background: #444; width: 25%; }
         .win-a { background: var(--live); width: 20%; }
-        .predict-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #777; margin-top: 8px; font-weight: bold; }
+        .predict-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #777; margin-top: 8px; }
 
-        /* زر واتساب مربوط برقم حليم 0552715934 */
+        /* الأخبار مع زر المشاركة */
+        .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 5px solid var(--gold); position: relative; }
+        .news-card:active { background: #1a1e26; }
+        .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; margin-bottom: 10px; }
+        .share-news-btn { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(0,230,118,0.2); padding: 5px 12px; border-radius: 20px; cursor: pointer; }
+
         .wa-float { position: fixed; bottom: 25px; left: 20px; background: #25d366; color: white; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(37,211,102,0.4); z-index: 100; text-decoration: none; font-size: 26px; animation: pulse-wa 2s infinite; }
         @keyframes pulse-wa { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        /* الأخبار */
-        .news-card { background: var(--card); border-radius: 18px; padding: 22px; border: 1px solid #222; margin-bottom: 16px; border-right: 5px solid var(--gold); transition: 0.3s; }
-        .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; }
-        
-        .footer { text-align: center; color: #333; padding: 50px 20px; font-size: 0.85rem; border-top: 1px solid #111; cursor: pointer; }
+        .footer { text-align: center; color: #333; padding: 50px 20px; font-size: 0.85rem; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
@@ -63,21 +61,20 @@
 
     <div class="ticker-wrap">
         <div class="ticker-label">عاجل</div>
-        <div class="ticker-text">موقع GoalZone في نسخته النهائية .. المبرمج حليم حلمي يحييكم من قلب سوهاج .. تابع مباريات الجمعة 20 مارس الحصرية ..</div>
+        <div class="ticker-text">موقع GoalZone في أقوى نسخة برمجية لعام 2026 .. المبرمج حليم حلمي يحييكم .. تابع الأخبار والمباريات لحظة بلحظة ..</div>
     </div>
 
     <a href="https://wa.me/20552715934" class="wa-float" target="_blank">💬</a>
 
     <div class="content">
         <div class="section-title">📅 مواجهات الليلة المباشرة</div>
-        
         <div class="match-box">
             <div class="match-info">
                 <span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span> 
                 <div class="time-box"><span class="pulse-red"></span> <span class="time">21:30</span></div>
             </div>
             <div class="predict-bar"><div class="win-h"></div><div class="draw"></div><div class="win-a"></div></div>
-            <div class="predict-labels"><span>فوز لايبزيج 55%</span><span>تعادل</span><span>20%</span></div>
+            <div class="predict-labels"><span>توقع الفوز 55%</span><span>تعادل</span><span>20%</span></div>
         </div>
 
         <div class="match-box">
@@ -86,16 +83,16 @@
                 <div class="time-box"><span class="pulse-red"></span> <span class="time">22:00</span></div>
             </div>
             <div class="predict-bar"><div class="win-h" style="width:40%"></div><div class="draw" style="width:30%"></div><div class="win-a" style="width:30%"></div></div>
-            <div class="predict-labels"><span>فياريال 40%</span><span>تعادل</span><span>30%</span></div>
+            <div class="predict-labels"><span>توقع الفوز 40%</span><span>تعادل</span><span>30%</span></div>
         </div>
 
         <div class="section-title">🌍 موجز الأخبار العالمية</div>
-        <div id="news-section"><p style="text-align:center;">جاري سحب وترجمة الأخبار... 🔄</p></div>
+        <div id="news-section"><p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p></div>
     </div>
 
     <div class="footer">
-        تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> <br>
-        سوهاج - الحرافشة | 2026 © جميع الحقوق محفوظة
+        تطوير المبدع: <b style="color:var(--green)">HALEEM HLMY</b> <br>
+        2026 © جميع الحقوق محفوظة | الحرافشة - سوهاج
     </div>
 
     <script>
@@ -107,10 +104,23 @@
                 for (let item of data.items.slice(0, 5)) {
                     const tRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
                     const tData = await tRes.json();
-                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a></div>`;
+                    const title = tData.responseData.translatedText;
+                    html += `
+                        <div class="news-card">
+                            <a href="${item.link}" target="_blank" class="news-title">📍 ${title}</a>
+                            <div class="share-news-btn" onclick="shareNews('${title}', '${item.link}')">📤 مشاركة الخبر</div>
+                        </div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
-            } catch (e) { document.getElementById('news-section').innerHTML = "تحقق من اتصالك بالإنترنت."; }
+            } catch (e) { document.getElementById('news-section').innerHTML = "تحقق من الإنترنت."; }
+        }
+
+        function shareNews(title, url) {
+            if (navigator.share) {
+                navigator.share({ title: 'GoalZone News', text: title, url: url });
+            } else {
+                window.open(`https://wa.me/?text=${encodeURIComponent(title + " " + url)}`);
+            }
         }
         loadNews();
     </script>
