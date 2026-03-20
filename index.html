@@ -8,48 +8,54 @@
     <style>
         :root { --bg: #05070a; --card: #12151a; --green: #00e676; --gold: #ffd700; }
         body { background: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 15px; }
-        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 20px; }
+        .header { color: var(--green); font-size: 1.8rem; font-weight: 900; text-align: center; margin-bottom: 25px; letter-spacing: 1px; }
         
-        /* قسم المباريات الحقيقية */
-        .section-title { color: var(--gold); font-size: 1rem; margin: 20px 0 10px; border-right: 4px solid var(--green); padding-right: 10px; font-weight: bold; }
-        .match-card { background: #1c1f26; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
-        .match-card .teams { font-size: 0.9rem; font-weight: 700; }
-        .match-card .time { color: var(--green); font-weight: 900; }
-
-        /* مساحة الإعلانات اللي طلبتها */
-        .ad-container { background: #1a1e26; border: 1px dashed #444; border-radius: 10px; padding: 10px; margin: 20px 0; text-align: center; color: #666; font-size: 0.7rem; }
-        .ad-slot { min-height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(0,230,118,0.05); color: var(--green); font-weight: bold; }
-
-        .news-card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid #333; margin-bottom: 15px; border-right: 4px solid var(--gold); }
-        .news-title { color: #fff; font-size: 0.95rem; line-height: 1.6; text-decoration: none; display: block; font-weight: bold; }
+        /* عناوين الأقسام الاحترافية */
+        .section-title { color: var(--gold); font-size: 1.1rem; margin: 25px 0 12px; border-right: 5px solid var(--green); padding-right: 12px; font-weight: 700; }
         
-        .footer { text-align: center; color: #555; font-size: 0.75rem; margin-top: 40px; border-top: 1px solid #222; padding-top: 15px; }
+        .match-card { background: linear-gradient(145deg, #1c1f26, #12151a); border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+        .match-card .teams { font-size: 0.95rem; font-weight: 700; }
+        .match-card .time { color: var(--green); font-weight: 900; background: rgba(0,230,118,0.1); padding: 2px 8px; border-radius: 5px; }
+
+        /* منطقة الإعلانات المطورة */
+        .ad-wrap { margin: 25px 0; padding: 1px; background: linear-gradient(90deg, transparent, #333, transparent); }
+        .ad-box { background: #0a0c10; border: 1px solid #222; border-radius: 8px; padding: 15px; text-align: center; }
+        .ad-label { display: block; font-size: 0.6rem; color: #444; margin-bottom: 5px; text-transform: uppercase; }
+        .ad-content { color: #333; font-weight: bold; font-size: 0.8rem; }
+
+        .news-card { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid #333; margin-bottom: 15px; transition: 0.3s; }
+        .news-card:hover { border-color: var(--green); }
+        .news-title { color: #eee; font-size: 1rem; line-height: 1.7; text-decoration: none; display: block; font-weight: 700; }
+        
+        .footer { text-align: center; color: #555; font-size: 0.75rem; margin-top: 50px; border-top: 1px solid #222; padding-top: 20px; }
     </style>
 </head>
 <body>
 
     <div class="header">⚽ GOALZONE 2026</div>
 
-    <div class="section-title">⏱️ مباريات اليوم (20 مارس الحقيقية)</div>
+    <div class="section-title">📅 مواجهات اليوم المباشرة</div>
     <div id="matches">
         <div class="match-card"><span class="teams">🇩🇪 لايبزيج 🆚 هوفنهايم</span> <span class="time">21:30</span></div>
         <div class="match-card"><span class="teams">🇪🇸 فياريال 🆚 ريال سوسيداد</span> <span class="time">22:00</span></div>
+        <div class="match-card"><span class="teams">🇫🇷 أوكسير 🆚 نيس</span> <span class="time">22:00</span></div>
     </div>
 
-    <div class="ad-container">
-        مساحة إعلانية (Ads)
-        <div class="ad-slot" id="ad-slot">
-            جاري جلب الإعلان...
+    <div class="ad-wrap">
+        <div class="ad-box">
+            <span class="ad-label">ADVERTISING</span>
+            <div class="ad-content">مساحة إعلانية شاغرة</div>
         </div>
     </div>
 
-    <div class="section-title">📰 أخبار حليم المترجمة بالثانية</div>
+    <div class="section-title">🌍 آخر المستجدات العالمية</div>
     <div id="news-section">
-        <p style="text-align:center;">جاري جلب وترجمة الأخبار... 🔄</p>
+        <p style="text-align:center;">جاري تحديث النشرة الإخبارية... 🔄</p>
     </div>
 
     <div class="footer">
-        بواسطة المبرمج: <b>HALEEM HLMY</b> | سوهاج - الحرافشة
+        تطوير وبرمجة: <b>HALEEM HLMY</b> <br>
+        2026 © جميع الحقوق محفوظة
     </div>
 
     <script>
@@ -58,10 +64,10 @@
                 const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
                 const data = await res.json();
                 let html = '';
-                for (let item of data.items.slice(0, 4)) {
+                for (let item of data.items.slice(0, 5)) {
                     const transRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(item.title)}&langpair=en|ar`);
                     const tData = await transRes.json();
-                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">📍 ${tData.responseData.translatedText}</a></div>`;
+                    html += `<div class="news-card"><a href="${item.link}" target="_blank" class="news-title">⭐ ${tData.responseData.translatedText}</a></div>`;
                 }
                 document.getElementById('news-section').innerHTML = html;
             } catch (e) { console.log(e); }
