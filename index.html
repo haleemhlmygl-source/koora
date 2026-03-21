@@ -2,13 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
+
     <title>GoalZone 2026 - HALEEM HLMY</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    
     <style>
         :root{--bg:#05070a;--bg2:#0d1117;--card:#12151a;--card2:#1a1f28;--green:#00e676;--gold:#ffd700;--live:#ff3d00;--border:#1e2530;--text:#e8eaf0;--text2:#8892a4;--glow:rgba(0,230,118,0.15)}
         [data-theme="light"]{--bg:#f0f4f8;--bg2:#e4eaf2;--card:#fff;--card2:#f7f9fc;--border:#d0dae8;--text:#1a2233;--text2:#5a6a82}
@@ -28,12 +28,6 @@
         .ticker-track{overflow:hidden;flex:1}
         .ticker-text{white-space:nowrap;animation:ticker 40s linear infinite;font-size:.8rem;color:var(--text2)}
         @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(100%)}}
-        .search-wrap{max-width:640px;margin:16px auto 0;padding:0 16px}
-        .search-box{display:flex;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-        .search-box input{flex:1;background:transparent;border:none;outline:none;padding:13px 16px;font-size:.9rem;color:var(--text);font-family:'Cairo',sans-serif}
-        .search-box button{background:var(--green);border:none;padding:0 20px;cursor:pointer;font-size:18px;color:#000}
-        .search-results{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-top:8px;overflow:hidden;display:none}
-        .search-result-item{padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:.85rem}
         .tabs-wrap{max-width:640px;margin:14px auto 0;padding:0 16px}
         .tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;padding:4px;gap:2px}
         .tab-btn{flex:1;padding:10px 4px;background:transparent;border:none;color:var(--text2);cursor:pointer;font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:700;border-radius:10px;transition:all .2s;white-space:nowrap}
@@ -45,4 +39,28 @@
         .league-section{margin-bottom:16px}
         .league-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card2);border-radius:12px 12px 0 0;border:1px solid var(--border);font-weight:900;font-size:.85rem}
         .match-card{background:var(--card);border:1px solid var(--border);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
-        .match-
+        .match-time{color:var(--green);font-weight:900;background:rgba(0,230,118,.1);padding:4px 12px;border-radius:8px;font-size:.82rem}
+        .standings-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+        .standings-table th{background:var(--card2);padding:10px;color:var(--text2)}
+        .standings-table td{padding:10px;text-align:center;border-bottom:1px solid var(--border)}
+        .footer{text-align:center;color:var(--text2);padding:28px 16px;font-size:.78rem;border-top:1px solid var(--border);margin-top:20px}
+        .wa-float{position:fixed;bottom:25px;left:20px;background:#25d366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:100;text-decoration:none;font-size:22px;box-shadow:0 5px 18px rgba(0,0,0,.4)}
+    </style>
+
+    <script>
+        // كود تشغيل إعلانات مونيتاج
+        (function(){
+            var d = document.createElement('script');
+            d.src = 'https://3nbf4.com/act/files/tag.min.js?z=10757479';
+            d.async = true;
+            document.head.appendChild(d);
+        })();
+    </script>
+</head>
+<body>
+
+<div class="alert-bar">📢 مباشر الان: تابعوا تغطية مباريات اليوم والنتائج لحظة بلحظة</div>
+
+<div class="header-area">
+    <div class="header-top">
+        <button class="notif-btn" id="notifBtn" onclick="toggleNotif()">🔔 الا
