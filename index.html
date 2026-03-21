@@ -105,6 +105,8 @@
         .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
         @keyframes spin{to{transform:rotate(360deg)}}
         .no-matches{text-align:center;padding:30px;color:var(--text2)}
+        .news-source-btn{padding:7px 16px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2);transition:all .2s}
+        .news-source-btn.active{background:var(--green);color:#000;border-color:var(--green)}
         .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
         .yt-btn{background:#ff0000;color:#fff !important;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none !important;white-space:nowrap}
         .yt-btn:hover{opacity:.85}
@@ -206,6 +208,10 @@
     <!-- NEWS TAB -->
     <div class="tab-page" id="tab-news">
         <div class="section-title">🌍 اخبار كرة القدم</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC عربي</button>
+            <button class="news-source-btn" onclick="fetchNews(1)">⚽ BBC Sport</button>
+        </div>
         <div id="news-section"><div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div></div>
     </div>
 
@@ -430,15 +436,37 @@ function renderStandings(league) {
 }
 
 // News
-async function fetchNews() {
+async function fetchNews(sourceIndex) {
     const sec = document.getElementById('news-section');
+    sourceIndex = sourceIndex !== undefined ? sourceIndex : 0;
+
+    document.querySelectorAll('.news-source-btn').forEach(function(b,i){
+        b.classList.toggle('active', i === sourceIndex);
+    });
+
+    sec.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div>';
+
+    const sources = [
+        'https://feeds.bbci.co.uk/arabic/sports/rss.xml',
+        'https://feeds.bbci.co.uk/sport/football/rss.xml',
+    ];
+
     try {
-        const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.bbci.co.uk%2Fsport%2Ffootball%2Frss.xml');
-        const d = await r.json();
-        let html = '';
-        d.items.slice(0,6).forEach(function(item){
-            const date = new Date(item.pubDate).toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
-            html += '<div class="news-card"><a href="'+item.link+'" target="_blank" class="news-title">📍 '+item.title+'</a><div class="news-date">🕐 '+date+'</div></div>';
+        var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(sources[sourceIndex]);
+        var r = await fetch(url);
+        var d = await r.json();
+        if (!d.items || d.items.length === 0) throw new Error('No items');
+        var html = '';
+        d.items.slice(0,8).forEach(function(item){
+            var date = new Date(item.pubDate).toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
+            var img = item.thumbnail || '';
+            var card = '<div class="news-card" style="cursor:pointer">';
+            if(img){ card += '<img src="' + img + '" style="width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px" onerror="this.style.display=none">'; }
+            card += '<a href="' + item.link + '" target="_blank" class="news-title">📍 ' + item.title + '</a>';
+            card += '<div class="news-date">🕐 ' + date + '</div>';
+            card += '<div style="margin-top:8px"><a href="' + item.link + '" target="_blank" style="background:var(--green);color:#000;padding:5px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">اقرأ المزيد</a></div>';
+            card += '</div>';
+            html += card;
         });
         sec.innerHTML = html || '<p style="text-align:center;color:var(--text2);padding:20px">لا توجد اخبار</p>';
     } catch(e) {
