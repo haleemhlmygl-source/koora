@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="monetag" content="10757479">
+
     <title>GoalZone 2026 - HALEEM HLMY</title>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js');
-        }
-    </script>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
     <style>
         :root{--bg:#05070a;--bg2:#0d1117;--card:#12151a;--card2:#1a1f28;--green:#00e676;--gold:#ffd700;--live:#ff3d00;--border:#1e2530;--text:#e8eaf0;--text2:#8892a4;--glow:rgba(0,230,118,0.15)}
         [data-theme="light"]{--bg:#f0f4f8;--bg2:#e4eaf2;--card:#fff;--card2:#f7f9fc;--border:#d0dae8;--text:#1a2233;--text2:#5a6a82}
@@ -103,9 +102,21 @@
         .no-matches{text-align:center;padding:30px;color:var(--text2)}
         .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
     </style>
+
+    <script>
+        // كود تشغيل إشعارات Monetag
+        (function(){
+            var d = document.createElement('script');
+            d.src = 'https://3nbf4.com/act/files/tag.min.js?z=10757479';
+            d.async = true;
+            document.head.appendChild(d);
+        })();
+    </script>
 </head>
 <body>
+
 <div class="alert-bar">📢 مباشر الان: تابعوا تغطية مباريات اليوم والنتائج لحظة بلحظة</div>
+
 <div class="header-area">
     <div class="header-top">
         <button class="notif-btn" id="notifBtn" onclick="toggleNotif()">🔔 الاشعارات</button>
@@ -116,8 +127,114 @@
         <span class="logo-sub">DEVELOPED BY HALEEM HLMY</span>
     </div>
 </div>
+
+<div class="ticker-wrap">
+    <div class="ticker-label">عاجل</div>
+    <div class="ticker-track">
+        <div class="ticker-text">⚽ اهلا بكم في GoalZone 2026 .. تابعوا النتائج المباشرة .. Premier League .. La Liga .. Bundesliga .. Serie A .. 🏆 Champions League</div>
+    </div>
+</div>
+
+<div class="search-wrap">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 ابحث عن فريق..." oninput="searchTeam()">
+        <button>⚽</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+</div>
+
+<div class="tabs-wrap">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('matches',this)">🏟️ المباريات</button>
+        <button class="tab-btn" onclick="showTab('standings',this)">📊 الترتيب</button>
+        <button class="tab-btn" onclick="showTab('stats',this)">📈 الاحصائيات</button>
+        <button class="tab-btn" onclick="showTab('news',this)">📰 الاخبار</button>
+    </div>
+</div>
+
+<a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
+
+<div class="content">
+    <div class="tab-page active" id="tab-matches">
+        <div class="section-title">🏆 متابعة النتائج الحية</div>
+        <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الان</button>
+        <div class="section-title">📅 مواجهات اليوم</div>
+        <div id="matches-container"></div>
+        <div class="section-title">📢 اعلانات</div>
+        <div class="ad-container-fixed">
+            <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
+            <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
+        </div>
+        <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع اصدقائك</button>
+    </div>
+
+    <div class="tab-page" id="tab-standings">
+        <div id="standingsContainer"></div>
+    </div>
+    
+    <div class="tab-page" id="tab-stats">
+        <div class="section-title">📈 احصائيات الموسم</div>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-num">2847</div><div class="stat-label">هدف هذا الموسم</div></div>
+            <div class="stat-card"><div class="stat-num">380</div><div class="stat-label">مباراة مكتملة</div></div>
+        </div>
+    </div>
+
+    <div class="tab-page" id="tab-news">
+        <div id="news-section"></div>
+    </div>
+</div>
+
+<div class="footer">
+    تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 &copy;
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-    // جميع دوال الـ JavaScript الخاصة بك هنا (renderMatches, toggleTheme, etc.)
+const MATCHES = [
+    {
+        league:"Premier League", flag:"🏴",
+        games:[
+            {home:"Brighton",  away:"Liverpool",  time:"15:30", status:"upcoming", score:""},
+            {home:"Fulham",    away:"Burnley",    time:"18:00", status:"upcoming", score:""},
+        ]
+    },
+    {
+        league:"CAF Champions League", flag:"🌍",
+        games:[
+            {home:"Al Ahly",      away:"Esperance Tunis",   time:"22:00", status:"upcoming", score:""},
+        ]
+    }
+];
+
+function renderMatches() {
+    const c = document.getElementById('matches-container');
+    let html = '';
+    MATCHES.forEach(lg => {
+        html += `<div class="league-header">${lg.flag} ${lg.league}</div>`;
+        lg.games.forEach(g => {
+            html += `<div class="match-card"><span>${g.home} vs ${g.away}</span><span class="match-time">${g.time}</span></div>`;
+        });
+    });
+    c.innerHTML = html;
+}
+
+function showTab(name, el) {
+    document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    el.classList.add('active');
+}
+
+function toggleTheme() {
+    const body = document.documentElement;
+    const current = body.getAttribute('data-theme');
+    body.setAttribute('data-theme', current === 'light' ? '' : 'light');
+}
+
+window.onload = renderMatches;
 </script>
+
 </body>
 </html>
