@@ -675,156 +675,170 @@
     }
 
     // ===== LIVE MATCHES API =====
-    const API_KEY = 'a2388962a5e2454c87c909d662a32188';
-    // نجرب الاتنين: RapidAPI و api-sports مباشرة
-    const RAPID_HOST = 'api-football-v1.p.rapidapi.com';
-    const DIRECT_HOST = 'v3.football.api-sports.io';
+    const API_KEY = '15dbe54fcfmsh8419f4e02f6dc34p1ede09jsn3b066d055fc4';
+    const API_HOST = 'free-api-live-football-data.p.rapidapi.com';
+    const API_BASE = 'https://free-api-live-football-data.p.rapidapi.com';
 
+    // معرفات الدوريات في هذا الـ API
     const LEAGUES = [
-        { id: 39,  name: 'Premier League',   flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-        { id: 140, name: 'La Liga',           flag: '🇪🇸' },
-        { id: 78,  name: 'Bundesliga',        flag: '🇩🇪' },
-        { id: 135, name: 'Serie A',           flag: '🇮🇹' },
-        { id: 61,  name: 'Ligue 1',           flag: '🇫🇷' },
-        { id: 2,   name: 'دوري أبطال أوروبا', flag: '⭐' },
+        { id: 2,   name: 'Premier League',    flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+        { id: 4,   name: 'La Liga',           flag: '🇪🇸' },
+        { id: 5,   name: 'Bundesliga',        flag: '🇩🇪' },
+        { id: 8,   name: 'Serie A',           flag: '🇮🇹' },
+        { id: 9,   name: 'Ligue 1',           flag: '🇫🇷' },
+        { id: 3,   name: 'دوري أبطال أوروبا', flag: '⭐' },
     ];
 
     async function fetchMatches() {
         const container = document.getElementById('matches-container');
         container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>';
 
-        const today = new Date().toISOString().slice(0, 10);
-        const season = 2025;
-        let allSections = '';
-        let hasMatches = false;
+        const headers = {
+            'x-rapidapi-key': API_KEY,
+            'x-rapidapi-host': API_HOST,
+            'Content-Type': 'application/json'
+        };
 
-        // اكتشاف الـ host الصح تلقائياً
-        let workingHeaders = null;
-        let workingBaseUrl = null;
         try {
-            const r1 = await fetch(`https://v3.football.api-sports.io/fixtures?league=39&season=2025&date=${today}`, {
-                headers: { 'x-apisports-key': API_KEY }
-            });
-            const d1 = await r1.json();
-            if (Array.isArray(d1.response)) {
-                workingBaseUrl = 'https://v3.football.api-sports.io';
-                workingHeaders = { 'x-apisports-key': API_KEY };
-                console.log('✅ Direct API works');
+            // جيب المباريات اللايف الحالية
+            const liveRes = await fetch(`${API_BASE}/football-live-matches`, { headers });
+            const liveData = await liveRes.json();
+
+            // جيب مباريات اليوم
+            const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+            const todayRes = await fetch(`${API_BASE}/football-get-all-fixtures?date=${today}`, { headers });
+            const todayData = await todayRes.json();
+
+            let allMatches = [];
+
+            // اضف المباريات اللايف
+            if (liveData && liveData.response && liveData.response.length > 0) {
+                liveData.response.forEach(m => {
+                    allMatches.push({ ...m, isLive: true });
+                });
             }
-        } catch(e) { console.log('Direct API failed:', e); }
 
-        if (!workingBaseUrl) {
-            try {
-                const r2 = await fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2025&date=${today}`, {
-                    headers: { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': 'api-football-v1.p.rapidapi.com' }
+            // اضف مباريات اليوم
+            if (todayData && todayData.response && todayData.response.length > 0) {
+                todayData.response.forEach(m => {
+                    // تجنب التكرار
+                    if (!allMatches.find(x => x.id === m.id)) {
+                        allMatches.push({ ...m, isLive: false });
+                    }
                 });
-                const d2 = await r2.json();
-                if (Array.isArray(d2.response)) {
-                    workingBaseUrl = 'https://api-football-v1.p.rapidapi.com/v3';
-                    workingHeaders = { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': 'api-football-v1.p.rapidapi.com' };
-                    console.log('✅ RapidAPI works');
-                }
-            } catch(e) { console.log('RapidAPI failed:', e); }
-        }
+            }
 
-        if (!workingBaseUrl) {
-            container.innerHTML = '<p style="text-align:center;color:var(--live);padding:30px;font-size:0.9rem">⚠️ تعذّر الاتصال بالـ API<br><small style="color:var(--text2)">تحقق من صلاحية الـ Key</small></p>';
-            return;
-        }
+            if (allMatches.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center;padding:24px;color:var(--text2)">
+                        <p>⚽ لا توجد مباريات اليوم</p><br>
+                        <button onclick="fetchWeekMatches()" style="background:var(--green);color:#000;border:none;padding:10px 20px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;cursor:pointer">
+                            📅 عرض مباريات الأسبوع
+                        </button>
+                    </div>`;
+                return;
+            }
 
-        for (const league of LEAGUES) {
-            try {
-                const res = await fetch(`${workingBaseUrl}/fixtures?league=${league.id}&date=${today}&season=${season}`, {
-                    headers: workingHeaders
-                });
-                const data = await res.json();
-                const fixtures = data.response;
-                if (!fixtures || fixtures.length === 0) continue;
+            // رتّب المباريات حسب الدوري
+            const grouped = {};
+            allMatches.forEach(m => {
+                const leagueName = m.league?.name || m.competition?.name || 'أخرى';
+                const leagueFlag = getLeagueFlag(leagueName);
+                if (!grouped[leagueName]) grouped[leagueName] = { flag: leagueFlag, matches: [] };
+                grouped[leagueName].matches.push(m);
+            });
 
-                hasMatches = true;
+            let html = '';
+            for (const [league, data] of Object.entries(grouped)) {
                 let cards = '';
-                fixtures.forEach(f => {
-                    const status = f.fixture.status.short;
-                    const home = f.teams.home.name;
-                    const away = f.teams.away.name;
-                    const time = new Date(f.fixture.date).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-                    const elapsed = f.fixture.status.elapsed;
-                    const goalsH = f.goals.home ?? '-';
-                    const goalsA = f.goals.away ?? '-';
+                data.matches.forEach(m => {
+                    const home = m.home?.name || m.homeTeam?.name || '---';
+                    const away = m.away?.name || m.awayTeam?.name || '---';
+                    const goalsH = m.home?.goals ?? m.score?.home ?? '-';
+                    const goalsA = m.away?.goals ?? m.score?.away ?? '-';
+                    const elapsed = m.minute || m.elapsed || '';
+                    const status = m.status || '';
+                    const isLive = m.isLive || status === 'IN_PLAY' || status === 'LIVE';
 
                     let timeLabel = '';
-                    if (status === '1H' || status === '2H' || status === 'HT') {
-                        timeLabel = `<span class="match-time live">🔴 ${elapsed ? elapsed + "'" : 'HT'}</span>`;
-                    } else if (status === 'FT') {
+                    if (isLive) {
+                        timeLabel = `<span class="match-time live">🔴 ${elapsed ? elapsed+"'" : 'LIVE'}</span>`;
+                    } else if (status === 'FINISHED' || status === 'FT') {
                         timeLabel = `<span class="match-time" style="color:var(--text2)">${goalsH} - ${goalsA} FT</span>`;
                     } else {
-                        timeLabel = `<span class="match-time">${time}</span>`;
+                        const d = m.date || m.fixture?.date || '';
+                        const t = d ? new Date(d).toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'}) : '--:--';
+                        timeLabel = `<span class="match-time">${t}</span>`;
                     }
 
-                    const score = (status === '1H' || status === '2H' || status === 'HT')
-                        ? `<span style="color:var(--gold);font-weight:900;margin:0 8px">${goalsH} - ${goalsA}</span>` : '';
-
+                    const score = isLive ? `<span style="color:var(--gold);font-weight:900;margin:0 6px">${goalsH}-${goalsA}</span>` : '';
                     cards += `<div class="match-card">
-                        <span class="match-teams">${home} ${score}<span class="match-vs">vs</span> ${away}</span>
+                        <span class="match-teams">${home}${score}<span class="match-vs">vs</span>${away}</span>
                         ${timeLabel}
                     </div>`;
                 });
-
-                allSections += `<div class="league-section">
-                    <div class="league-header">${league.flag} ${league.name}</div>
+                html += `<div class="league-section">
+                    <div class="league-header">${data.flag} ${league}</div>
                     ${cards}
                 </div>`;
-            } catch (e) {
-                console.error('League fetch error:', e);
-                continue;
             }
-        }
+            container.innerHTML = html;
 
-        if (!hasMatches) {
-            container.innerHTML = `
-                <div style="text-align:center;padding:24px;color:var(--text2)">
-                    <p>⚽ لا توجد مباريات اليوم</p>
-                    <br>
-                    <button onclick="fetchWeekMatches()" style="background:var(--green);color:#000;border:none;padding:10px 20px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;cursor:pointer">
-                        📅 عرض مباريات الأسبوع
-                    </button>
-                </div>`;
-        } else {
-            container.innerHTML = allSections;
+        } catch(e) {
+            console.error('fetchMatches error:', e);
+            container.innerHTML = `<p style="text-align:center;color:var(--live);padding:30px">⚠️ خطأ في التحميل: ${e.message}</p>`;
         }
+    }
+
+    function getLeagueFlag(name) {
+        if (!name) return '⚽';
+        const n = name.toLowerCase();
+        if (n.includes('premier')) return '🏴󠁧󠁢󠁥󠁮󠁧󠁿';
+        if (n.includes('la liga') || n.includes('laliga')) return '🇪🇸';
+        if (n.includes('bundesliga')) return '🇩🇪';
+        if (n.includes('serie a')) return '🇮🇹';
+        if (n.includes('ligue 1') || n.includes('ligue1')) return '🇫🇷';
+        if (n.includes('champions')) return '⭐';
+        if (n.includes('europa')) return '🌍';
+        return '⚽';
     }
 
     async function fetchWeekMatches() {
         const container = document.getElementById('matches-container');
         container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري التحميل...</div>';
-        const from = new Date().toISOString().slice(0,10);
-        const to = new Date(Date.now() + 7*24*60*60*1000).toISOString().slice(0,10);
-        let allSections = '';
-        let hasMatches = false;
-        for (const league of LEAGUES) {
-            try {
-                const res = await fetch(`https://v3.football.api-sports.io/fixtures?league=${league.id}&season=2025&from=${from}&to=${to}`, {
-                    headers: { 'x-apisports-key': API_KEY }
-                });
-                const data = await res.json();
-                const fixtures = data.response;
-                if (!fixtures || fixtures.length === 0) continue;
-                hasMatches = true;
-                let cards = '';
-                fixtures.slice(0,4).forEach(f => {
-                    const home = f.teams.home.name;
-                    const away = f.teams.away.name;
-                    const dateStr = new Date(f.fixture.date).toLocaleDateString('ar-EG', {weekday:'short',month:'short',day:'numeric'});
-                    const time = new Date(f.fixture.date).toLocaleTimeString('ar-EG', {hour:'2-digit',minute:'2-digit'});
-                    cards += `<div class="match-card"><span class="match-teams">${home} <span class="match-vs">vs</span> ${away}</span><span class="match-time" style="font-size:0.72rem;line-height:1.4">${dateStr}<br>${time}</span></div>`;
-                });
-                allSections += `<div class="league-section"><div class="league-header">${league.flag} ${league.name}</div>${cards}</div>`;
-            } catch(e) { continue; }
+        const headers = { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': API_HOST, 'Content-Type': 'application/json' };
+        try {
+            // جيب المباريات القادمة
+            const res = await fetch(`${API_BASE}/football-live-matches`, { headers });
+            const data = await res.json();
+            if (!data.response || data.response.length === 0) {
+                container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:30px">⚽ لا توجد مباريات قريبة</p>';
+                return;
+            }
+            let html = '';
+            const grouped = {};
+            data.response.forEach(m => {
+                const league = m.league?.name || m.competition?.name || 'أخرى';
+                if (!grouped[league]) grouped[league] = [];
+                grouped[league].push(m);
+            });
+            for (const [league, matches] of Object.entries(grouped)) {
+                let cards = matches.slice(0,5).map(m => {
+                    const home = m.home?.name || '---';
+                    const away = m.away?.name || '---';
+                    const d = m.date || '';
+                    const t = d ? new Date(d).toLocaleTimeString('ar-EG', {hour:'2-digit',minute:'2-digit'}) : '--:--';
+                    return `<div class="match-card"><span class="match-teams">${home} <span class="match-vs">vs</span> ${away}</span><span class="match-time">${t}</span></div>`;
+                }).join('');
+                html += `<div class="league-section"><div class="league-header">${getLeagueFlag(league)} ${league}</div>${cards}</div>`;
+            }
+            container.innerHTML = html;
+        } catch(e) {
+            container.innerHTML = '<p style="text-align:center;color:var(--live);padding:30px">⚠️ تعذّر التحميل</p>';
         }
-        container.innerHTML = hasMatches ? allSections : '<p style="text-align:center;color:var(--text2);padding:30px">⚽ لا توجد مباريات قريبة</p>';
     }
 
-    // ===== INIT =====
+        // ===== INIT =====
     window.onload = () => {
         renderStandings('pl');
         fetchMatches();
