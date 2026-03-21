@@ -54,6 +54,7 @@
         .match-time{color:var(--green);font-weight:900;background:rgba(0,230,118,.1);padding:4px 12px;border-radius:8px;font-size:.82rem;white-space:nowrap}
         .match-time.live{background:rgba(255,61,0,.15);color:var(--live);animation:lp 1.5s infinite}
         .match-time.ft{background:rgba(255,255,255,.05);color:var(--text2)}
+        .yt-btn{background:#ff0000;color:#fff;border:none;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
         @keyframes lp{0%,100%{opacity:1}50%{opacity:.6}}
         .standings-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--border)}
         .standings-table th{background:var(--card2);padding:10px;text-align:center;color:var(--text2);font-weight:700;border-bottom:1px solid var(--border)}
@@ -96,6 +97,11 @@
         @keyframes spin{to{transform:rotate(360deg)}}
         .no-matches{text-align:center;padding:30px;color:var(--text2)}
         .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
+        .yt-btn{background:#ff0000;color:#fff !important;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none !important;white-space:nowrap}
+        .yt-btn:hover{opacity:.85}
+        .yt-btn{background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none;white-space:nowrap;transition:opacity .2s}
+        .yt-btn:hover{opacity:.85}
+        .yt-soon{background:#555}
     </style>
 </head>
 <body>
@@ -252,7 +258,9 @@ function renderMatches() {
             } else {
                 tl = '<span class="match-time">' + g.time + '</span>';
             }
-            return '<div class="match-card"><span class="match-teams">' + g.home + '<span class="match-vs">vs</span>' + g.away + '</span>' + tl + '</div>';
+            var ytQ = encodeURIComponent('اهداف ' + g.home + ' ' + g.away + ' 2026');
+            var ytBtn = '<a href="https://www.youtube.com/results?search_query=' + ytQ + '" target="_blank" class="yt-btn">' + (g.status==='ft' ? '▶ الاهداف' : '▶ يوتيوب') + '</a>';
+            return '<div class="match-card"><span class="match-teams">' + g.home + '<span class="match-vs">vs</span>' + g.away + '</span><div style="display:flex;align-items:center;gap:8px">' + tl + ytBtn + '</div></div>';
         }).join('');
         html += '<div class="league-section"><div class="league-header">' + lg.flag + ' ' + lg.league + '</div>' + cards + '</div>';
     });
