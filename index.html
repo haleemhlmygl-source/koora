@@ -464,7 +464,15 @@ async function fetchNews(sourceIndex) {
             if(img){ card += '<img src="' + img + '" style="width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px" onerror="this.style.display=none">'; }
             card += '<a href="' + item.link + '" target="_blank" class="news-title">📍 ' + item.title + '</a>';
             card += '<div class="news-date">🕐 ' + date + '</div>';
-            card += '<div style="margin-top:8px"><a href="' + item.link + '" target="_blank" style="background:var(--green);color:#000;padding:5px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">اقرأ المزيد</a></div>';
+            var siteUrl = 'https://haleemhlmygl-source.github.io/koora';
+            var fbShare = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(siteUrl);
+            var waText = encodeURIComponent('📍 ' + item.title + '\n\nاقرأ المزيد على GoalZone 2026:\n' + siteUrl);
+            var waShare = 'https://wa.me/?text=' + waText;
+            card += '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">';
+            card += '<a href="' + item.link + '" target="_blank" style="background:var(--green);color:#000;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📖 اقرأ المزيد</a>';
+            card += '<a href="' + fbShare + '" target="_blank" style="background:#1877f2;color:#fff;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📘 شارك</a>';
+            card += '<a href="' + waShare + '" target="_blank" style="background:#25d366;color:#fff;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">💬 واتساب</a>';
+            card += '</div>';
             card += '</div>';
             html += card;
         });
