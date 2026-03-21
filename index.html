@@ -208,9 +208,10 @@
     <!-- NEWS TAB -->
     <div class="tab-page" id="tab-news">
         <div class="section-title">🌍 اخبار كرة القدم</div>
-        <div style="display:flex;gap:8px;margin-bottom:12px">
-            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC عربي</button>
-            <button class="news-source-btn" onclick="fetchNews(1)">⚽ BBC Sport</button>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC رياضة</button>
+            <button class="news-source-btn" onclick="fetchNews(1)">⚽ Goal عربي</button>
+            <button class="news-source-btn" onclick="fetchNews(2)">🏴 BBC Sport</button>
         </div>
         <div id="news-section"><div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div></div>
     </div>
