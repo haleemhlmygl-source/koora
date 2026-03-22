@@ -560,7 +560,20 @@ async function fetchNews(sourceIndex) {
     }
 }
 
-// Share
+// Toggle Article
+    function toggleArticle(id) {
+        var body = document.getElementById('body-' + id);
+        var arrow = document.getElementById('arrow-' + id);
+        if (body.classList.contains('open')) {
+            body.classList.remove('open');
+            arrow.textContent = '▼';
+        } else {
+            body.classList.add('open');
+            arrow.textContent = '▲';
+        }
+    }
+
+    // Share
 function shareSite() {
     window.open('https://wa.me/?text='+encodeURIComponent('🏆 تابع نتائج المباريات على GoalZone 2026:\n'+window.location.href));
 }
