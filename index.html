@@ -294,7 +294,12 @@ function renderMatches() {
             }
             var ytQ = encodeURIComponent('اهداف ' + g.home + ' ' + g.away + ' 2026');
             var ytBtn = '<a href="https://www.youtube.com/results?search_query=' + ytQ + '" target="_blank" class="yt-btn">' + (g.status==='ft' ? '▶ الاهداف' : '▶ يوتيوب') + '</a>';
-            return '<div class="match-card"><span class="match-teams">' + g.home + '<span class="match-vs">vs</span>' + g.away + '</span><div style="display:flex;align-items:center;gap:8px">' + tl + ytBtn + '</div></div>';
+            var liveQ = encodeURIComponent('بث مباشر ' + g.home + ' ' + g.away + ' 2026');
+            var liveBtn = '';
+            if(g.status === 'live' || g.status === 'upcoming') {
+                liveBtn = '<a href="https://www.youtube.com/results?search_query=' + liveQ + '" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none;white-space:nowrap;margin-right:4px">📺 بث</a>';
+            }
+            return '<div class="match-card"><span class="match-teams">' + g.home + '<span class="match-vs">vs</span>' + g.away + '</span><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' + liveBtn + tl + ytBtn + '</div></div>';
         }).join('');
         html += '<div class="league-section"><div class="league-header">' + lg.flag + ' ' + lg.league + '</div>' + cards + '</div>';
     });
