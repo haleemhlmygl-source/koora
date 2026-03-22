@@ -105,6 +105,14 @@
         .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
         @keyframes spin{to{transform:rotate(360deg)}}
         .no-matches{text-align:center;padding:30px;color:var(--text2)}
+        .article-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden}
+        .article-header{padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+        .article-header:hover{background:var(--card2)}
+        .article-title{font-weight:900;font-size:.9rem;color:var(--text);margin-bottom:4px}
+        .article-meta{font-size:.72rem;color:var(--text2)}
+        .article-arrow{color:var(--gold);font-size:1rem;transition:transform .3s}
+        .article-body{display:none;padding:0 16px 16px;font-size:.85rem;line-height:1.8;color:var(--text);border-top:1px solid var(--border)}
+        .article-body.open{display:block}
         .news-source-btn{padding:7px 16px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2);transition:all .2s}
         .news-source-btn.active{background:var(--green);color:#000;border-color:var(--green)}
         .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
@@ -154,6 +162,7 @@
         <button class="tab-btn" onclick="showTab('standings',this)">📊 الترتيب</button>
         <button class="tab-btn" onclick="showTab('stats',this)">📈 الاحصائيات</button>
         <button class="tab-btn" onclick="showTab('news',this)">📰 الاخبار</button>
+        <button class="tab-btn" onclick="showTab('articles',this)">✍️ مقالات</button>
     </div>
 </div>
 <a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
@@ -203,6 +212,50 @@
             <div class="scorer-row"><span class="scorer-rank">4️⃣</span><div class="scorer-info"><div class="scorer-name">Mohamed Salah</div><div class="scorer-team">🏴 Liverpool</div></div><span class="scorer-goals">22 هدف</span></div>
             <div class="scorer-row"><span class="scorer-rank">5️⃣</span><div class="scorer-info"><div class="scorer-name">Vinicius Jr.</div><div class="scorer-team">🇪🇸 Real Madrid</div></div><span class="scorer-goals">20 هدف</span></div>
         </div>
+    </div>
+
+    <!-- ARTICLES TAB -->
+    <div class="tab-page" id="tab-articles">
+        <div class="section-title">✍️ مقالات وتحليلات</div>
+
+        <div class="article-card" onclick="toggleArticle('art1')">
+            <div class="article-header">
+                <div>
+                    <div class="article-title">⚽ تحليل | ريال مدريد 3-2 أتلتيكو مدريد</div>
+                    <div class="article-meta">🗓️ 22 مارس 2026 | ✍️ GoalZone</div>
+                </div>
+                <span class="article-arrow" id="arrow-art1">▼</span>
+            </div>
+            <div class="article-body" id="body-art1">
+                <p>كان الديربي المدريدي من أقوى مباريات الموسم! ريال مدريد استطاع أن يحسم المباراة بنتيجة 3-2 في مواجهة مثيرة مع غريمه أتلتيكو مدريد.</p>
+                <br>
+                <b>🔥 أبرز ما حدث:</b>
+                <ul style="margin: 10px 0 10px 20px; line-height: 2">
+                    <li>ريال مدريد سيطر على الكرة في الشوط الأول</li>
+                    <li>أتلتيكو عاد بقوة في الشوط الثاني وعادل النتيجة</li>
+                    <li>الهدف الحاسم جاء في الدقائق الأخيرة</li>
+                    <li>مبابي كان النجم الأبرز بهدفين رائعين</li>
+                </ul>
+                <br>
+                <b>📈 إحصائيات:</b>
+                <ul style="margin: 10px 0 10px 20px; line-height: 2">
+                    <li>الاستحواذ: ريال 58% - أتلتيكو 42%</li>
+                    <li>التسديدات: 14 - 9</li>
+                    <li>الأهداف: مبابي ×2 | فينيسيوس ×1</li>
+                </ul>
+                <br>
+                <div style="background:rgba(0,230,118,0.1);border-right:4px solid var(--green);padding:12px;border-radius:8px;margin-top:10px">
+                    💬 <b>رأي GoalZone:</b> مباراة استثنائية أثبت فيها ريال مدريد أنه الأقوى في المدينة هذا الموسم، لكن أتلتيكو قدم مقاومة شرسة تستحق الاحترام.
+                </div>
+                <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 شارك على فيسبوك</a>
+                    <a href="https://wa.me/?text=${encodeURIComponent('تحليل ديربي مدريد | ريال مدريد 3-2 أتلتيكو
+اقرأ المقال على GoalZone:
+https://haleemhlmygl-source.github.io/koora')}" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 شارك على واتساب</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- NEWS TAB -->
