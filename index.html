@@ -641,13 +641,21 @@ function shareSite() {
 
 // Init
 window.onload = function() {
+    var c = document.getElementById('matches-container');
     try {
+        if (typeof MATCHES === 'undefined') {
+            c.innerHTML = '<p style="color:orange;padding:20px">MATCHES غير معرف!</p>';
+            return;
+        }
+        if (typeof renderMatches !== 'function') {
+            c.innerHTML = '<p style="color:orange;padding:20px">renderMatches غير موجود!</p>';
+            return;
+        }
         renderMatches();
     } catch(e) {
-        console.error('renderMatches error:', e);
-        document.getElementById('matches-container').innerHTML = '<p style="color:red;padding:20px">خطأ: ' + e.message + '</p>';
+        c.innerHTML = '<p style="color:red;padding:20px;direction:ltr">Error: ' + e.message + ' | ' + e.stack + '</p>';
     }
-    renderStandings('pl');
+    try { renderStandings('pl'); } catch(e2) {}
 };
 </script>
 </body>
