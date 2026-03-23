@@ -640,7 +640,12 @@ function shareSite() {
 
 // Init
 window.onload = function() {
-    renderMatches();
+    try {
+        renderMatches();
+    } catch(e) {
+        console.error('renderMatches error:', e);
+        document.getElementById('matches-container').innerHTML = '<p style="color:red;padding:20px">خطأ: ' + e.message + '</p>';
+    }
     renderStandings('pl');
 };
 </script>
