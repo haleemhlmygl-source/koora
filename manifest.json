@@ -1,0 +1,26 @@
+{
+  "name": "GoalZone 2026",
+  "short_name": "GoalZone",
+  "description": "تابع نتائج المباريات والأخبار الرياضية لحظة بلحظة",
+  "start_url": "/koora/",
+  "display": "standalone",
+  "background_color": "#05070a",
+  "theme_color": "#00e676",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/532/532495.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/532/532495.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["sports", "news"]
+}
