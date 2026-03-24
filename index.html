@@ -171,6 +171,53 @@
         <div class="ticker-text">⚽ اهلا بكم في GoalZone 2026 .. تابعوا النتائج المباشرة .. Premier League .. La Liga .. Bundesliga .. Serie A .. 🏆 Champions League</div>
     </div>
 </div>
+<!-- NEWS SLIDER -->
+<div style="margin:12px 16px;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.4)" id="newsSlider">
+    <div class="slide active" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:block;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
+        <div style="width:100%;height:180px;background:linear-gradient(135deg,#8b0000,#cc0000,#ff6b6b);display:flex;align-items:center;justify-content:center;font-size:4rem">🏆</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
+            <span style="background:#ff3d00;color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">🔴 عاجل</span>
+            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">المحكمة الرياضية تعلق قرار كاف بمنح لقب أمم أفريقيا للمغرب</div>
+        </div>
+    </div>
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
+        <div style="width:100%;height:180px;background:linear-gradient(135deg,#0d1b4b,#1a237e,#3949ab);display:flex;align-items:center;justify-content:center;font-size:4rem">⭐</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
+            <span style="background:#ffd700;color:#000;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">⭐ أبطال أوروبا</span>
+            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">ريال مدريد vs بايرن ميونخ.. قمة ربع النهائي في 7 أبريل</div>
+        </div>
+    </div>
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
+        <div style="width:100%;height:180px;background:linear-gradient(135deg,#004d1a,#00832d,#00c853);display:flex;align-items:center;justify-content:center;font-size:4rem">🇪🇬</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
+            <span style="background:#00e676;color:#000;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">🇪🇬 المنتخب</span>
+            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">مصر تستعد لكأس العالم 2026 بوديتين أمام السعودية وإسبانيا</div>
+        </div>
+    </div>
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
+        <div style="width:100%;height:180px;background:linear-gradient(135deg,#0d2137,#1565c0,#1976d2);display:flex;align-items:center;justify-content:center;font-size:4rem">⚽</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
+            <span style="background:#1877f2;color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">🇪🇬 الدوري المصري</span>
+            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">الزمالك يتصدر الدوري المصري بفارق 3 نقاط عن الأهلي</div>
+        </div>
+    </div>
+    <div style="position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;z-index:10">
+        <button onclick="changeSlide(-1)" style="background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px">&#8249;</button>
+        <button onclick="changeSlide(1)" style="background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px">&#8250;</button>
+    </div>
+</div>
+<div id="slideDots" style="display:flex;justify-content:center;gap:6px;padding:6px 0;margin-bottom:4px">
+    <div onclick="goToSlide(0)" style="width:8px;height:8px;border-radius:50%;background:#00e676;cursor:pointer" class="sdot"></div>
+    <div onclick="goToSlide(1)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
+    <div onclick="goToSlide(2)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
+    <div onclick="goToSlide(3)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
+</div>
+
+
 <div class="search-wrap">
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="🔍 ابحث عن فريق..." oninput="searchTeam()">
@@ -980,6 +1027,31 @@ function shareSite() {
     }
 
     function resetTimer() {
+        clearInterval(slideTimer);
+        slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    }
+
+var currentSlide = 0;
+    var slideTimer;
+
+    function showSlide(n) {
+        var slides = document.querySelectorAll('.slide');
+        var dots = document.querySelectorAll('.sdot');
+        slides.forEach(function(s){ s.style.display='none'; });
+        dots.forEach(function(d){ d.style.background='rgba(255,255,255,0.3)'; });
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].style.display = 'block';
+        dots[currentSlide].style.background = '#00e676';
+    }
+
+    function changeSlide(dir) {
+        showSlide(currentSlide + dir);
+        clearInterval(slideTimer);
+        slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    }
+
+    function goToSlide(n) {
+        showSlide(n);
         clearInterval(slideTimer);
         slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
     }
