@@ -13,6 +13,13 @@
     <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone 2026 - HALEEM HLMY</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GoalZone">
+    <meta name="theme-color" content="#00e676">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -228,6 +235,13 @@
     <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone 2026 - HALEEM HLMY</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GoalZone">
+    <meta name="theme-color" content="#00e676">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -989,5 +1003,44 @@ window.onload = function() {
     try { renderStandings('pl'); } catch(e2) {}
 };
 </script>
+    <!-- PWA Install Button -->
+    <div id="pwa-install" style="display:none;position:fixed;bottom:85px;right:16px;z-index:200">
+        <button onclick="installPWA()" style="background:var(--green);color:#000;border:none;padding:12px 20px;border-radius:25px;font-family:Cairo,sans-serif;font-weight:900;font-size:.85rem;box-shadow:0 4px 15px rgba(0,230,118,0.4);cursor:pointer;display:flex;align-items:center;gap:8px">
+            📲 تثبيت التطبيق
+        </button>
+    </div>
+
+    <script>
+    // PWA Registration
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(function(reg) { console.log('SW registered'); })
+            .catch(function(err) { console.log('SW error:', err); });
+    }
+
+    // PWA Install Prompt
+    var deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('pwa-install').style.display = 'block';
+    });
+
+    function installPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(result) {
+                if (result.outcome === 'accepted') {
+                    document.getElementById('pwa-install').style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+    }
+
+    window.addEventListener('appinstalled', function() {
+        document.getElementById('pwa-install').style.display = 'none';
+    });
+    </script>
 </body>
 </html>
