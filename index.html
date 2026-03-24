@@ -105,6 +105,235 @@
         .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
         @keyframes spin{to{transform:rotate(360deg)}}
         .no-matches{text-align:center;padding:30px;color:var(--text2)}
+        .news-slider{position:relative;overflow:hidden;border-radius:16px;margin:16px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+        .slide{display:none;position:relative;height:200px;cursor:pointer}
+        .slide.active{display:block}
+        .slide img{width:100%;height:200px;object-fit:cover;border-radius:16px}
+        .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%);border-radius:16px}
+        .slide-content{position:absolute;bottom:0;left:0;right:0;padding:16px}
+        .slide-tag{background:var(--live);color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:6px}
+        .slide-title{color:#fff;font-size:.95rem;font-weight:900;line-height:1.5}
+        .slide-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
+        .slide-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all .3s}
+        .slide-dot.active{background:var(--green);transform:scale(1.3)}
+        .slide-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;z-index:10;pointer-events:none}
+        .slide-arrow{background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;pointer-events:all;transition:background .2s}
+        .slide-arrow:hover{background:var(--green);color:#000}
+        .article-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden}
+        .article-header{padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+        .article-header:hover{background:var(--card2)}
+        .article-title{font-weight:900;font-size:.9rem;color:var(--text);margin-bottom:4px}
+        .article-meta{font-size:.72rem;color:var(--text2)}
+        .article-arrow{color:var(--gold);font-size:1rem;transition:transform .3s}
+        .article-body{display:none;padding:0 16px 16px;font-size:.85rem;line-height:1.8;color:var(--text);border-top:1px solid var(--border)}
+        .article-body.open{display:block}
+        .news-source-btn{padding:7px 16px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2);transition:all .2s}
+        .news-source-btn.active{background:var(--green);color:#000;border-color:var(--green)}
+        .messenger-btn{background:linear-gradient(135deg,#0084ff,#00c6ff);color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none;display:inline-block}
+        .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
+        .yt-btn{background:#ff0000;color:#fff !important;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none !important;white-space:nowrap}
+        .yt-btn:hover{opacity:.85}
+        .yt-btn{background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none;white-space:nowrap;transition:opacity .2s}
+        .yt-btn:hover{opacity:.85}
+        .yt-soon{background:#555}
+    </style>
+<script>
+    (function(){
+        var d = document.createElement('script');
+        d.src = 'https://3nbf4.com/act/files/tag.min.js?z=10757479';
+        d.async = true;
+        document.head.appendChild(d);
+    })();
+    </script>
+</head>
+<body>
+<div class="alert-bar">📢 مباشر الان: تابعوا تغطية مباريات اليوم والنتائج لحظة بلحظة</div>
+<div class="header-area">
+    <div class="header-top">
+        <button class="notif-btn" id="notifBtn" onclick="toggleNotif()">🔔 الاشعارات</button>
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+    <div class="logo-box">
+        <span class="logo-main">GOALZONE 2026</span>
+        <span class="logo-sub">DEVELOPED BY HALEEM HLMY</span>
+    </div>
+</div>
+<div class="ticker-wrap">
+    <div class="ticker-label">عاجل</div>
+    <div class="ticker-track">
+        <div class="ticker-text">⚽ اهلا بكم في GoalZone 2026 .. تابعوا النتائج المباشرة .. Premier League .. La Liga .. Bundesliga .. Serie A .. 🏆 Champions League</div>
+    </div>
+</div>
+<div class="search-wrap">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 ابحث عن فريق..." oninput="searchTeam()">
+        <button>⚽</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+</div>
+<div class="tabs-wrap">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('matches',this)">🏟️ المباريات</button>
+        <button class="tab-btn" onclick="showTab('standings',this)">📊 الترتيب</button>
+        <button class="tab-btn" onclick="showTab('stats',this)">📈 الاحصائيات</button>
+        <button class="tab-btn" onclick="showTab('news',this)">📰 الاخبار</button>
+        <button class="tab-btn" onclick="showTab('articles',this)">✍️ مقالات</button>
+    </div>
+</div>
+<a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
+<div class="content">
+
+    <!-- MATCHES TAB -->
+    <div class="tab-page active" id="tab-matches">
+        <div class="section-title">🏆 متابعة النتائج الحية</div>
+        <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الان</button>
+        <div class="section-title">📅 مواجهات اليوم</div>
+        <div id="matches-container">
+<div class="date-header">📅 الثلاثاء، 24 مارس 2026 - أسبوع المنتخبات 🌍</div>
+
+<div class="league-section">
+<div class="league-header">🇪🇬 الدوري المصري الممتاز</div>
+<div class="match-card"><span class="match-teams">البنك الأهلي <span class="match-vs">vs</span> غزل المحلة</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time ft">1-1 FT</span><a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D8%A8%D9%86%D9%83+%D8%A7%D9%84%D8%A7%D9%87%D9%84%D9%8A+%D8%BA%D8%B2%D9%84+%D8%A7%D9%84%D9%85%D8%AD%D9%84%D8%A9" target="_blank" class="yt-btn">▶ الاهداف</a></div></div>
+<div class="match-card"><span class="match-teams">المقاولون العرب <span class="match-vs">vs</span> بتروجت</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time ft">1-1 FT</span><a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D9%85%D9%82%D8%A7%D9%88%D9%84%D9%88%D9%86+%D8%A8%D8%AA%D8%B1%D9%88%D8%AC%D8%AA" target="_blank" class="yt-btn">▶ الاهداف</a></div></div>
+<div class="match-card"><span class="match-teams">الجونة <span class="match-vs">vs</span> وادي دجلة</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time ft">0-0 FT</span><a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D8%AC%D9%88%D9%86%D8%A9+%D9%88%D8%A7%D8%AF%D9%8A+%D8%AF%D8%AC%D9%84%D8%A9" target="_blank" class="yt-btn">▶ الاهداف</a></div></div>
+<div class="match-card"><span class="match-teams">الإسماعيلي <span class="match-vs">vs</span> حرس الحدود</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time ft">0-0 FT</span><a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D8%A7%D8%B3%D9%85%D8%A7%D8%B9%D9%8A%D9%84%D9%8A+%D8%AD%D8%B1%D8%B3+%D8%A7%D9%84%D8%AD%D8%AF%D9%88%D8%AF" target="_blank" class="yt-btn">▶ الاهداف</a></div></div>
+<div class="match-card"><span class="match-teams">الاتحاد السكندري <span class="match-vs">vs</span> فاركو</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time ft">1-1 FT</span><a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D8%A7%D8%AA%D8%AD%D8%A7%D8%AF+%D9%81%D8%A7%D8%B1%D9%83%D9%88" target="_blank" class="yt-btn">▶ الاهداف</a></div></div>
+</div>
+
+<div class="league-section">
+<div class="league-header">🌍 منتخب مصر - معسكر كأس العالم 2026</div>
+<div class="match-card"><span class="match-teams">مصر 🇪🇬 <span class="match-vs">vs</span> 🇸🇦 السعودية</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time">ودية - قريباً</span><a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%85%D8%A8%D8%A7%D8%B4%D8%B1+%D9%85%D8%B5%D8%B1+%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a></div></div>
+<div class="match-card"><span class="match-teams">مصر 🇪🇬 <span class="match-vs">vs</span> 🇪🇸 إسبانيا</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time">ودية - قريباً</span><a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%85%D8%A8%D8%A7%D8%B4%D8%B1+%D9%85%D8%B5%D8%B1+%D8%A7%D8%B3%D8%A8%D8%A7%D9%86%D9%8A%D8%A7+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a></div></div>
+</div>
+
+<div class="league-section">
+<div class="league-header">⭐ دوري أبطال أوروبا - ربع النهائي (7-8 أبريل)</div>
+<div class="match-card"><span class="match-teams">ريال مدريد <span class="match-vs">vs</span> بايرن ميونخ</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time">07 أبريل 22:00</span><a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%85%D8%A8%D8%A7%D8%B4%D8%B1+%D8%B1%D9%8A%D8%A7%D9%84+%D8%A8%D8%A7%D9%8A%D8%B1%D9%86" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a></div></div>
+<div class="match-card"><span class="match-teams">سبورتينغ <span class="match-vs">vs</span> أرسنال</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time">07 أبريل 22:00</span><a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%85%D8%A8%D8%A7%D8%B4%D8%B1+%D8%A7%D8%B1%D8%B3%D9%86%D8%A7%D9%84+%D8%B3%D8%A8%D9%88%D8%B1%D8%AA%D9%8A%D9%86%D8%BA" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a></div></div>
+<div class="match-card"><span class="match-teams">باريس سان جيرمان <span class="match-vs">vs</span> ليفربول</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time">08 أبريل 22:00</span><a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%85%D8%A8%D8%A7%D8%B4%D8%B1+%D8%A8%D8%A7%D8%B1%D9%8A%D8%B3+%D9%84%D9%8A%D9%81%D8%B1%D8%A8%D9%88%D9%84" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a></div></div>
+<div class="match-card"><span class="match-teams">برشلونة <span class="match-vs">vs</span> أتلتيكو مدريد</span><div style="display:flex;align-items:center;gap:6px"><span class="match-time">08 أبريل 22:00</span><a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%85%D8%A8%D8%A7%D8%B4%D8%B1+%D8%A8%D8%B1%D8%B4%D9%84%D9%88%D9%86%D8%A9+%D8%A7%D8%AA%D9%84%D8%AA%D9%8A%D9%83%D9%88" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a></div></div>
+</div>
+</div>TYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZH609H0G6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3ZH609H0G6');
+    </script>
+    <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoalZone 2026 - HALEEM HLMY</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#05070a;--bg2:#0d1117;--card:#12151a;--card2:#1a1f28;--green:#00e676;--gold:#ffd700;--live:#ff3d00;--border:#1e2530;--text:#e8eaf0;--text2:#8892a4;--glow:rgba(0,230,118,0.15)}
+        [data-theme="light"]{--bg:#f0f4f8;--bg2:#e4eaf2;--card:#fff;--card2:#f7f9fc;--border:#d0dae8;--text:#1a2233;--text2:#5a6a82}
+        *{box-sizing:border-box;margin:0;padding:0;transition:background .3s,color .3s}
+        body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-height:100vh;overflow-x:hidden}
+        .alert-bar{background:linear-gradient(90deg,var(--live),#ff6d00);color:#fff;text-align:center;font-size:.78rem;padding:9px 0;font-weight:900}
+        .header-area{padding:24px 16px 16px;text-align:center;background:var(--bg2);border-bottom:1px solid var(--border)}
+        .header-top{display:flex;justify-content:flex-end;max-width:640px;margin:0 auto 16px;gap:10px}
+        .theme-btn{background:var(--card);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+        .notif-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:0 14px;height:38px;border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:900;font-family:'Cairo',sans-serif;display:flex;align-items:center;gap:6px}
+        .notif-btn.active{background:var(--green);color:#000;border-color:var(--green)}
+        .logo-box{display:inline-block;padding:12px 30px;border:2px solid var(--green);border-radius:16px;box-shadow:0 0 30px var(--glow)}
+        .logo-main{color:var(--green);font-size:2rem;font-weight:900;font-family:'Orbitron',sans-serif;letter-spacing:2px;text-shadow:0 0 20px var(--green)}
+        .logo-sub{color:var(--gold);font-size:.72rem;font-weight:700;display:block;border-top:1px solid var(--border);padding-top:5px;margin-top:5px}
+        .ticker-wrap{background:var(--bg2);border-bottom:1px solid var(--border);height:38px;overflow:hidden;display:flex;align-items:center}
+        .ticker-label{background:var(--green);color:#000;padding:0 14px;font-weight:900;font-size:.75rem;height:100%;display:flex;align-items:center;flex-shrink:0}
+        .ticker-track{overflow:hidden;flex:1}
+        .ticker-text{white-space:nowrap;animation:ticker 40s linear infinite;font-size:.8rem;color:var(--text2)}
+        @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(100%)}}
+        .search-wrap{max-width:640px;margin:16px auto 0;padding:0 16px}
+        .search-box{display:flex;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+        .search-box input{flex:1;background:transparent;border:none;outline:none;padding:13px 16px;font-size:.9rem;color:var(--text);font-family:'Cairo',sans-serif}
+        .search-box input::placeholder{color:var(--text2)}
+        .search-box button{background:var(--green);border:none;padding:0 20px;cursor:pointer;font-size:18px;color:#000}
+        .search-results{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-top:8px;overflow:hidden;display:none}
+        .search-result-item{padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:.85rem}
+        .search-result-item:last-child{border-bottom:none}
+        .search-result-item:hover{background:var(--card2)}
+        .tabs-wrap{max-width:640px;margin:14px auto 0;padding:0 16px}
+        .tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;padding:4px;gap:2px}
+        .tab-btn{flex:1;padding:10px 4px;background:transparent;border:none;color:var(--text2);cursor:pointer;font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:700;border-radius:10px;transition:all .2s;white-space:nowrap}
+        .tab-btn.active{background:var(--green);color:#000}
+        .content{padding:16px;max-width:640px;margin:auto}
+        .tab-page{display:none}
+        .tab-page.active{display:block}
+        .section-title{color:var(--gold);font-size:1rem;margin:20px 0 10px;border-right:4px solid var(--green);padding-right:10px;font-weight:900}
+        .live-btn-main{width:100%;padding:18px;background:linear-gradient(135deg,#ff3d00,#ff6d00);color:#fff;border:none;border-radius:16px;font-weight:900;cursor:pointer;font-size:1rem;font-family:'Cairo',sans-serif;box-shadow:0 6px 20px rgba(255,61,0,.3);margin-bottom:12px}
+        .date-header{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:8px 14px;font-size:.8rem;color:var(--gold);font-weight:900;margin:14px 0 6px;text-align:center}
+        .league-section{margin-bottom:16px}
+        .league-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card2);border-radius:12px 12px 0 0;border:1px solid var(--border);border-bottom:none;font-weight:900;font-size:.85rem}
+        .match-card{background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+        .match-card:last-child{border-radius:0 0 12px 12px}
+        .match-card:hover{background:var(--card2)}
+        .match-teams{font-size:.88rem;font-weight:700}
+        .match-vs{color:var(--text2);font-size:.75rem;margin:0 6px}
+        .match-time{color:var(--green);font-weight:900;background:rgba(0,230,118,.1);padding:4px 12px;border-radius:8px;font-size:.82rem;white-space:nowrap}
+        .match-time.live{background:rgba(255,61,0,.15);color:var(--live);animation:lp 1.5s infinite}
+        .match-time.ft{background:rgba(255,255,255,.05);color:var(--text2)}
+        .yt-btn{background:#ff0000;color:#fff;border:none;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+        @keyframes lp{0%,100%{opacity:1}50%{opacity:.6}}
+        .standings-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+        .standings-table th{background:var(--card2);padding:10px;text-align:center;color:var(--text2);font-weight:700;border-bottom:1px solid var(--border)}
+        .standings-table th:first-child{text-align:right;padding-right:14px}
+        .standings-table td{padding:10px;text-align:center;border-bottom:1px solid var(--border)}
+        .standings-table td:first-child{text-align:right;padding-right:14px;font-weight:700}
+        .standings-table tr:last-child td{border-bottom:none}
+        .standings-table tr:hover td{background:var(--card2)}
+        .pos-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:.72rem;font-weight:900;margin-left:8px}
+        .pos-cl{background:rgba(41,121,255,.2);color:#2979ff}
+        .pos-el{background:rgba(0,230,118,.2);color:var(--green)}
+        .pos-rel{background:rgba(255,61,0,.2);color:var(--live)}
+        .pts{color:var(--gold);font-weight:900}
+        .league-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+        .league-tab{padding:7px 14px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2)}
+        .league-tab.active{background:var(--green);color:#000;border-color:var(--green)}
+        .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+        .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+        .stat-num{font-size:2rem;font-weight:900;color:var(--green);line-height:1}
+        .stat-label{font-size:.75rem;color:var(--text2);margin-top:4px}
+        .top-scorers{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+        .scorer-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);gap:12px}
+        .scorer-row:last-child{border-bottom:none}
+        .scorer-rank{color:var(--gold);font-weight:900;min-width:24px}
+        .scorer-info{flex:1}
+        .scorer-name{font-weight:700;font-size:.88rem}
+        .scorer-team{font-size:.72rem;color:var(--text2)}
+        .scorer-goals{background:rgba(0,230,118,.1);color:var(--green);padding:4px 10px;border-radius:8px;font-weight:900;font-size:.85rem}
+        .news-card{background:var(--card);border-radius:14px;padding:14px 16px;border:1px solid var(--border);margin-bottom:10px;border-right:4px solid var(--gold)}
+        .news-title{color:var(--text);font-size:.88rem;text-decoration:none;font-weight:700;display:block}
+        .news-date{font-size:.72rem;color:var(--text2);margin-top:4px}
+        .ad-container-fixed{max-height:150px;overflow:hidden;margin:16px 0;border-radius:12px;border:1px solid var(--border);background:var(--card)}
+        .share-btn{width:100%;padding:15px;background:#128C7E;color:#fff;border:none;border-radius:14px;font-weight:900;cursor:pointer;margin-top:20px;font-family:'Cairo',sans-serif;font-size:.95rem}
+        .wa-float{position:fixed;bottom:25px;left:20px;background:#25d366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:100;text-decoration:none;font-size:22px;box-shadow:0 5px 18px rgba(0,0,0,.4)}
+        .toast{position:fixed;top:20px;right:20px;z-index:999;background:var(--card);border:1px solid var(--green);color:var(--text);padding:14px 20px;border-radius:14px;font-size:.85rem;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.3);transform:translateX(120%);transition:transform .3s;max-width:300px}
+        .toast.show{transform:translateX(0)}
+        .footer{text-align:center;color:var(--text2);padding:28px 16px;font-size:.78rem;border-top:1px solid var(--border);margin-top:20px}
+        .loading{text-align:center;padding:30px;color:var(--text2)}
+        .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .no-matches{text-align:center;padding:30px;color:var(--text2)}
+        .news-slider{position:relative;overflow:hidden;border-radius:16px;margin:16px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+        .slide{display:none;position:relative;height:200px;cursor:pointer}
+        .slide.active{display:block}
+        .slide img{width:100%;height:200px;object-fit:cover;border-radius:16px}
+        .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%);border-radius:16px}
+        .slide-content{position:absolute;bottom:0;left:0;right:0;padding:16px}
+        .slide-tag{background:var(--live);color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:6px}
+        .slide-title{color:#fff;font-size:.95rem;font-weight:900;line-height:1.5}
+        .slide-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
+        .slide-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all .3s}
+        .slide-dot.active{background:var(--green);transform:scale(1.3)}
+        .slide-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;z-index:10;pointer-events:none}
+        .slide-arrow{background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;pointer-events:all;transition:background .2s}
+        .slide-arrow:hover{background:var(--green);color:#000}
         .article-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden}
         .article-header{padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
         .article-header:hover{background:var(--card2)}
@@ -222,10 +451,11 @@
     <div class="tab-page" id="tab-standings">
         <div class="section-title">📊 ترتيب الدوريات</div>
         <div class="league-tabs">
-            <button class="league-tab active" onclick="showStandings('pl',this)">🏴 PL</button>
-            <button class="league-tab" onclick="showStandings('laliga',this)">🇪🇸 La Liga</button>
+            <button class="league-tab active" onclick="showStandings('egy',this)">🇪🇬 المصري</button>
+            <button class="league-tab" onclick="showStandings('pl',this)">🏴 PL</button>
+            <button class="league-tab" onclick="showStandings('laliga',this)">🇪🇸 Liga</button>
             <button class="league-tab" onclick="showStandings('bl',this)">🇩🇪 BL</button>
-            <button class="league-tab" onclick="showStandings('sa',this)">🇮🇹 Serie A</button>
+            <button class="league-tab" onclick="showStandings('sa',this)">🇮🇹 SA</button>
             <button class="league-tab" onclick="showStandings('l1',this)">🇫🇷 L1</button>
         </div>
         <div id="standingsContainer"></div>
@@ -711,8 +941,38 @@ function shareSite() {
 }
 
 // Init
+// News Slider
+    var currentSlide = 0;
+    var slideTimer;
+
+    function showSlide(n) {
+        var slides = document.querySelectorAll('.slide');
+        var dots = document.querySelectorAll('.slide-dot');
+        slides.forEach(function(s){ s.classList.remove('active'); });
+        dots.forEach(function(d){ d.classList.remove('active'); });
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function changeSlide(dir) {
+        showSlide(currentSlide + dir);
+        resetTimer();
+    }
+
+    function goToSlide(n) {
+        showSlide(n);
+        resetTimer();
+    }
+
+    function resetTimer() {
+        clearInterval(slideTimer);
+        slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    }
+
 window.onload = function() {
     var c = document.getElementById('matches-container');
+    slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
     try {
         if (typeof MATCHES === 'undefined') {
             c.innerHTML = '<p style="color:orange;padding:20px">MATCHES غير معرف!</p>';
