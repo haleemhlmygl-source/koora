@@ -1,113 +1,27 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koora Live</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koora Live</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: #0f172a;
-      color: white;
-    }
-
-    header {
-      background: #020617;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .matches {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
-
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-    }
-
-    .teams {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px 0;
-    }
-
-    .team {
-      font-size: 14px;
-    }
-
-    .time {
-      background: #22c55e;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-
-    button {
-      background: #ef4444;
-      border: none;
-      padding: 10px;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #dc2626;
-    }
-  </style>
+<style>
+body {background:#0f172a;color:white;font-family:Arial;text-align:center}
+.card {background:#1e293b;margin:10px;padding:10px;border-radius:10px}
+</style>
 </head>
 
 <body>
 
-<header>
-  ⚽ Koora Live
-</header>
+<h1>⚽ Koora Live</h1>
+<h2>مباريات اليوم</h2>
 
-<div class="container">
-  <h2>مباريات اليوم</h2>
-
-  <div class="matches" id="matches"></div>
-</div>
+<div id="matches"></div>
 
 <script>
 const matches = [
-  {
-    team1: "Barcelona",
-    team2: "Real Madrid",
-    time: "10:00 PM"
-  },
-  {
-    team1: "Liverpool",
-    team2: "Man City",
-    time: "8:00 PM"
-  },
-  {
-    team1: "PSG",
-    team2: "Bayern Munich",
-    time: "9:30 PM"
-  }
+  { team1: "Barcelona", team2: "Real Madrid", time: "10:00 PM" },
+  { team1: "Liverpool", team2: "Man City", time: "8:00 PM" }
 ];
 
 const container = document.getElementById("matches");
@@ -117,5 +31,13 @@ matches.forEach(match => {
   card.className = "card";
 
   card.innerHTML = `
-    <div class="teams">
-      <
+    <p>${match.team1} vs ${match.team2}</p>
+    <p>${match.time}</p>
+  `;
+
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
