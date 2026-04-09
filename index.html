@@ -21,11 +21,6 @@
     <meta name="theme-color" content="#00e676">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-    <!-- SEO -->
-    <meta name="description" content="GoalZone 2026 - نتائج المباريات المباشرة، ترتيب الدوريات، أخبار كرة القدم العربية والعالمية">
-    <meta property="og:title" content="GoalZone 2026 - نتائج مباشرة">
-    <meta property="og:description" content="تابع نتائج المباريات المباشرة والأخبار الرياضية">
-    <meta property="og:url" content="https://haleemhlmygl-source.github.io/koora">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root{--bg:#05070a;--bg2:#0d1117;--card:#12151a;--card2:#1a1f28;--green:#00e676;--gold:#ffd700;--live:#ff3d00;--border:#1e2530;--text:#e8eaf0;--text2:#8892a4;--glow:rgba(0,230,118,0.15)}
@@ -63,20 +58,7 @@
         .tab-page{display:none}
         .tab-page.active{display:block}
         .section-title{color:var(--gold);font-size:1rem;margin:20px 0 10px;border-right:4px solid var(--green);padding-right:10px;font-weight:900}
-
-        /* ====== LIVE SCORES WIDGET ====== */
-        .live-scores-wrap{margin-bottom:16px}
-        .live-scores-header{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#ff3d00,#ff6d00);padding:12px 16px;border-radius:14px 14px 0 0}
-        .live-scores-title{color:#fff;font-weight:900;font-size:.9rem;display:flex;align-items:center;gap:8px}
-        .live-dot{width:10px;height:10px;background:#fff;border-radius:50%;animation:lp 1s infinite}
-        .live-scores-tabs{display:flex;gap:6px}
-        .live-src-btn{background:rgba(255,255,255,0.2);color:#fff;border:none;padding:5px 12px;border-radius:20px;font-size:.72rem;font-weight:900;cursor:pointer;font-family:'Cairo',sans-serif}
-        .live-src-btn.active{background:#fff;color:#ff3d00}
-        .live-frame-wrap{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;overflow:hidden;position:relative;min-height:450px}
-        .live-frame-wrap iframe{width:100%;height:500px;border:none;display:block}
-        .live-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--card);z-index:2}
-        .live-loading.hidden{display:none}
-
+        .live-btn-main{width:100%;padding:18px;background:linear-gradient(135deg,#ff3d00,#ff6d00);color:#fff;border:none;border-radius:16px;font-weight:900;cursor:pointer;font-size:1rem;font-family:'Cairo',sans-serif;box-shadow:0 6px 20px rgba(255,61,0,.3);margin-bottom:12px}
         .date-header{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:8px 14px;font-size:.8rem;color:var(--gold);font-weight:900;margin:14px 0 6px;text-align:center}
         .league-section{margin-bottom:16px}
         .league-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card2);border-radius:12px 12px 0 0;border:1px solid var(--border);border-bottom:none;font-weight:900;font-size:.85rem}
@@ -88,8 +70,7 @@
         .match-time{color:var(--green);font-weight:900;background:rgba(0,230,118,.1);padding:4px 12px;border-radius:8px;font-size:.82rem;white-space:nowrap}
         .match-time.live{background:rgba(255,61,0,.15);color:var(--live);animation:lp 1.5s infinite}
         .match-time.ft{background:rgba(255,255,255,.05);color:var(--text2)}
-        .yt-btn{background:#ff0000;color:#fff;border:none;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:opacity .2s}
-        .yt-btn:hover{opacity:.85}
+        .yt-btn{background:#ff0000;color:#fff;border:none;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
         @keyframes lp{0%,100%{opacity:1}50%{opacity:.6}}
         .standings-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--border)}
         .standings-table th{background:var(--card2);padding:10px;text-align:center;color:var(--text2);font-weight:700;border-bottom:1px solid var(--border)}
@@ -131,7 +112,20 @@
         .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
         @keyframes spin{to{transform:rotate(360deg)}}
         .no-matches{text-align:center;padding:30px;color:var(--text2)}
-        .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
+        .news-slider{position:relative;overflow:hidden;border-radius:16px;margin:16px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+        .slide{display:none;position:relative;height:200px;cursor:pointer}
+        .slide.active{display:block}
+        .slide img{width:100%;height:200px;object-fit:cover;border-radius:16px}
+        .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%);border-radius:16px}
+        .slide-content{position:absolute;bottom:0;left:0;right:0;padding:16px}
+        .slide-tag{background:var(--live);color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:6px}
+        .slide-title{color:#fff;font-size:.95rem;font-weight:900;line-height:1.5}
+        .slide-dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
+        .slide-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all .3s}
+        .slide-dot.active{background:var(--green);transform:scale(1.3)}
+        .slide-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;z-index:10;pointer-events:none}
+        .slide-arrow{background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;pointer-events:all;transition:background .2s}
+        .slide-arrow:hover{background:var(--green);color:#000}
         .article-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden}
         .article-header{padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
         .article-header:hover{background:var(--card2)}
@@ -143,12 +137,14 @@
         .news-source-btn{padding:7px 16px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2);transition:all .2s}
         .news-source-btn.active{background:var(--green);color:#000;border-color:var(--green)}
         .messenger-btn{background:linear-gradient(135deg,#0084ff,#00c6ff);color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none;display:inline-block}
-
-        /* News Slider */
-        .slide{display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden}
-        .slide.active{display:block}
+        .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
+        .yt-btn{background:#ff0000;color:#fff !important;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none !important;white-space:nowrap}
+        .yt-btn:hover{opacity:.85}
+        .yt-btn{background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none;white-space:nowrap;transition:opacity .2s}
+        .yt-btn:hover{opacity:.85}
+        .yt-soon{background:#555}
     </style>
-    <script>
+<script>
     (function(){
         var d = document.createElement('script');
         d.src = 'https://3nbf4.com/act/files/tag.min.js?z=10757479';
@@ -175,10 +171,9 @@
         <div class="ticker-text">⚽ اهلا بكم في GoalZone 2026 .. تابعوا النتائج المباشرة .. Premier League .. La Liga .. Bundesliga .. Serie A .. 🏆 Champions League</div>
     </div>
 </div>
-
 <!-- NEWS SLIDER -->
 <div style="margin:12px 16px;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.4)" id="newsSlider">
-    <div class="slide active" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')">
+    <div class="slide active" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:block;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
         <div style="width:100%;height:180px;background:linear-gradient(135deg,#8b0000,#cc0000,#ff6b6b);display:flex;align-items:center;justify-content:center;font-size:4rem">🏆</div>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
@@ -186,15 +181,15 @@
             <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">المحكمة الرياضية تعلق قرار كاف بمنح لقب أمم أفريقيا للمغرب</div>
         </div>
     </div>
-    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')">
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
         <div style="width:100%;height:180px;background:linear-gradient(135deg,#0d1b4b,#1a237e,#3949ab);display:flex;align-items:center;justify-content:center;font-size:4rem">⭐</div>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
             <span style="background:#ffd700;color:#000;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">⭐ أبطال أوروبا</span>
-            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">ريال مدريد vs بايرن ميونخ.. قمة ربع النهائي الليلة 22:00</div>
+            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">مفاجأة! أتلتيكو يسقط برشلونة 2-0 وبايرن يهزم ريال 2-1 في ذهاب ربع النهائي</div>
         </div>
     </div>
-    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')">
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
         <div style="width:100%;height:180px;background:linear-gradient(135deg,#004d1a,#00832d,#00c853);display:flex;align-items:center;justify-content:center;font-size:4rem">🇪🇬</div>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
@@ -202,7 +197,7 @@
             <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">مصر تستعد لكأس العالم 2026 بوديتين أمام السعودية وإسبانيا</div>
         </div>
     </div>
-    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')">
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
         <div style="width:100%;height:180px;background:linear-gradient(135deg,#0d2137,#1565c0,#1976d2);display:flex;align-items:center;justify-content:center;font-size:4rem">⚽</div>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
         <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
@@ -222,6 +217,7 @@
     <div onclick="goToSlide(3)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
 </div>
 
+
 <div class="search-wrap">
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="🔍 ابحث عن فريق..." oninput="searchTeam()">
@@ -232,10 +228,9 @@
 <div class="tabs-wrap">
     <div class="tabs">
         <button class="tab-btn active" onclick="showTab('matches',this)">🏟️ المباريات</button>
-        <button class="tab-btn" onclick="showTab('live',this)">🔴 مباشر</button>
         <button class="tab-btn" onclick="showTab('standings',this)">📊 الترتيب</button>
-        <button class="tab-btn" onclick="showTab('stats',this)">📈 إحصاء</button>
-        <button class="tab-btn" onclick="showTab('news',this)">📰 أخبار</button>
+        <button class="tab-btn" onclick="showTab('stats',this)">📈 الاحصائيات</button>
+        <button class="tab-btn" onclick="showTab('news',this)">📰 الاخبار</button>
         <button class="tab-btn" onclick="showTab('articles',this)">✍️ مقالات</button>
     </div>
 </div>
@@ -244,79 +239,206 @@
 
     <!-- MATCHES TAB -->
     <div class="tab-page active" id="tab-matches">
+        <div class="section-title">🏆 متابعة النتائج الحية</div>
+        <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الان</button>
         <div class="section-title">📅 مواجهات اليوم</div>
         <div id="matches-container">
-            <div class="loading"><div class="spinner"></div>جاري التحميل...</div>
-        </div>
+<div class="date-header">📅 الخميس 9 أبريل 2026</div>
+
+<div class="league-section">
+<div class="league-header">⭐ نتائج أمس - ربع نهائي دوري أبطال أوروبا (ذهاب)</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">باريس سان جيرمان <span class="match-vs">vs</span> ليفربول</span>
+      <span class="match-time ft">2-0 FT</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A8%D8%A7%D8%B1%D9%8A%D8%B3+%D9%84%D9%8A%D9%81%D8%B1%D8%A8%D9%88%D9%84+2026" target="_blank" class="yt-btn">▶ الأهداف</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">برشلونة <span class="match-vs">vs</span> أتلتيكو مدريد</span>
+      <span class="match-time ft">0-2 FT</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD2</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A8%D8%B1%D8%B4%D9%84%D9%88%D9%86%D8%A9+%D8%A7%D8%AA%D9%84%D8%AA%D9%8A%D9%83%D9%88+2026" target="_blank" class="yt-btn">▶ الأهداف</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="league-section">
+<div class="league-header">⭐ نتائج أول أمس - ربع نهائي دوري الأبطال (ذهاب)</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">ريال مدريد <span class="match-vs">vs</span> بايرن ميونخ</span>
+      <span class="match-time ft">1-2 FT</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%B1%D9%8A%D8%A7%D9%84+%D8%A8%D8%A7%D9%8A%D8%B1%D9%86+2026" target="_blank" class="yt-btn">▶ الأهداف</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">سبورتينغ <span class="match-vs">vs</span> أرسنال</span>
+      <span class="match-time ft">0-1 FT</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD2</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%B3%D8%A8%D9%88%D8%B1%D8%AA%D9%8A%D9%86%D8%BA+%D8%A7%D8%B1%D8%B3%D9%86%D8%A7%D9%84+2026" target="_blank" class="yt-btn">▶ الأهداف</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="league-section">
+<div class="league-header">⭐ الإياب - ربع نهائي دوري الأبطال (14-15 أبريل)</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">ليفربول <span class="match-vs">vs</span> باريس سان جيرمان</span>
+      <span class="match-time">14 أبريل 22:00</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%84%D9%8A%D9%81%D8%B1%D8%A8%D9%88%D9%84+%D8%A8%D8%A7%D8%B1%D9%8A%D8%B3+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">أتلتيكو مدريد <span class="match-vs">vs</span> برشلونة</span>
+      <span class="match-time">14 أبريل 22:00</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD2</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D8%A7%D8%AA%D9%84%D8%AA%D9%8A%D9%83%D9%88+%D8%A8%D8%B1%D8%B4%D9%84%D9%88%D9%86%D8%A9+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">بايرن ميونخ <span class="match-vs">vs</span> ريال مدريد</span>
+      <span class="match-time">15 أبريل 22:00</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D8%A8%D8%A7%D9%8A%D8%B1%D9%86+%D8%B1%D9%8A%D8%A7%D9%84+%D9%85%D8%AF%D8%B1%D9%8A%D8%AF+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">أرسنال <span class="match-vs">vs</span> سبورتينغ</span>
+      <span class="match-time">15 أبريل 22:00</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD2</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D8%A7%D8%B1%D8%B3%D9%86%D8%A7%D9%84+%D8%B3%D8%A8%D9%88%D8%B1%D8%AA%D9%8A%D9%86%D8%BA+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="league-section">
+<div class="league-header">🏴 مباريات قادمة - الدوري الإنجليزي</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">وست هام <span class="match-vs">vs</span> وولفرهامبتون</span>
+      <span class="match-time">10 أبريل 22:00</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%88%D8%B3%D8%AA+%D9%87%D8%A7%D9%85+%D9%88%D9%88%D9%84%D9%81%D8%B1%D9%87%D8%A7%D9%85%D8%A8%D8%AA%D9%88%D9%86" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">أرسنال <span class="match-vs">vs</span> بورنموث</span>
+      <span class="match-time">11 أبريل 14:30</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD2</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D8%A7%D8%B1%D8%B3%D9%86%D8%A7%D9%84+%D8%A8%D9%88%D8%B1%D9%86%D9%85%D9%88%D8%AB+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">ليفربول <span class="match-vs">vs</span> فولهام</span>
+      <span class="match-time">11 أبريل 19:30</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D9%84%D9%8A%D9%81%D8%B1%D8%A8%D9%88%D9%84+%D9%81%D9%88%D9%84%D9%87%D8%A7%D9%85+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">تشيلسي <span class="match-vs">vs</span> مانشستر سيتي</span>
+      <span class="match-time">12 أبريل 18:30</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 beIN Sports HD3</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A8%D8%AB+%D8%AA%D8%B4%D9%8A%D9%84%D8%B3%D9%8A+%D9%85%D8%A7%D9%86+%D8%B3%D9%8A%D8%AA%D9%8A+2026" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="league-section">
+<div class="league-header">🇪🇬 الدوري المصري - آخر النتائج</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">البنك الأهلي <span class="match-vs">vs</span> غزل المحلة</span>
+      <span class="match-time ft">1-1 FT</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 ON Sport 1</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D8%A8%D9%86%D9%83+%D8%A7%D9%84%D8%A7%D9%87%D9%84%D9%8A+%D8%BA%D8%B2%D9%84+%D8%A7%D9%84%D9%85%D8%AD%D9%84%D8%A9" target="_blank" class="yt-btn">▶ الأهداف</a>
+    </div>
+  </div>
+</div>
+<div class="match-card">
+  <div style="width:100%">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span class="match-teams">الجونة <span class="match-vs">vs</span> وادي دجلة</span>
+      <span class="match-time ft">0-0 FT</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 ON Sport 2</span>
+      <a href="https://www.youtube.com/results?search_query=%D8%A7%D9%87%D8%AF%D8%A7%D9%81+%D8%A7%D9%84%D8%AC%D9%88%D9%86%D8%A9+%D9%88%D8%A7%D8%AF%D9%8A+%D8%AF%D8%AC%D9%84%D8%A9+2026" target="_blank" class="yt-btn">▶ الأهداف</a>
+    </div>
+  </div>
+</div>
+</div>
+</div></div>
         <div class="section-title">📢 اعلانات</div>
         <div class="ad-container-fixed">
             <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
             <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
         </div>
         <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع اصدقائك</button>
-    </div>
-
-    <!-- ====== LIVE TAB - النتائج المباشرة الحقيقية ====== -->
-    <div class="tab-page" id="tab-live">
-        <div class="section-title">🔴 النتائج المباشرة الآن</div>
-
-        <!-- اختيار المصدر -->
-        <div class="live-scores-wrap">
-            <div class="live-scores-header">
-                <div class="live-scores-title">
-                    <span class="live-dot"></span>
-                    نتائج مباشرة - تحديث فوري
-                </div>
-                <div class="live-scores-tabs">
-                    <button class="live-src-btn active" onclick="switchLiveSource(0,this)">Livescore</button>
-                    <button class="live-src-btn" onclick="switchLiveSource(1,this)">SofaScore</button>
-                    <button class="live-src-btn" onclick="switchLiveSource(2,this)">FlashScore</button>
-                </div>
-            </div>
-            <div class="live-frame-wrap">
-                <div class="live-loading" id="liveLoading">
-                    <div class="spinner"></div>
-                    <div style="color:var(--text2);margin-top:8px;font-size:.85rem">جاري تحميل النتائج المباشرة...</div>
-                </div>
-                <iframe
-                    id="liveFrame"
-                    src="https://www.livescore.com/en/football/live/"
-                    width="100%"
-                    height="550"
-                    frameborder="0"
-                    scrolling="yes"
-                    onload="document.getElementById('liveLoading').classList.add('hidden')"
-                    allow="autoplay">
-                </iframe>
-            </div>
-        </div>
-
-        <!-- بديل لو الـ iframe لم يعمل -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:12px">
-            <div style="font-weight:900;margin-bottom:12px;color:var(--gold)">🔗 روابط مباشرة بديلة</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-                <a href="https://www.livescore.com/en/football/live/" target="_blank"
-                   style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--text);display:flex;justify-content:space-between;align-items:center">
-                    <span>⚽ Livescore - نتائج مباشرة</span>
-                    <span style="color:var(--green);font-size:.8rem">فتح ←</span>
-                </a>
-                <a href="https://www.sofascore.com/" target="_blank"
-                   style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--text);display:flex;justify-content:space-between;align-items:center">
-                    <span>📊 SofaScore - إحصائيات مباشرة</span>
-                    <span style="color:var(--green);font-size:.8rem">فتح ←</span>
-                </a>
-                <a href="https://www.flashscore.com/" target="_blank"
-                   style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--text);display:flex;justify-content:space-between;align-items:center">
-                    <span>⚡ FlashScore - أسرع تحديث</span>
-                    <span style="color:var(--green);font-size:.8rem">فتح ←</span>
-                </a>
-                <a href="https://www.bbc.com/sport/football/scores-fixtures" target="_blank"
-                   style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--text);display:flex;justify-content:space-between;align-items:center">
-                    <span>📺 BBC Sport - نتائج موثوقة</span>
-                    <span style="color:var(--green);font-size:.8rem">فتح ←</span>
-                </a>
-            </div>
-        </div>
     </div>
 
     <!-- STANDINGS TAB -->
@@ -352,40 +474,92 @@
         </div>
     </div>
 
-    <!-- NEWS TAB -->
-    <div class="tab-page" id="tab-news">
-        <div class="section-title">🌍 اخبار كرة القدم</div>
-        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC عربي</button>
-            <button class="news-source-btn" onclick="fetchNews(1)">🏴 BBC Sport</button>
-        </div>
-        <div id="news-section"><div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div></div>
-    </div>
-
     <!-- ARTICLES TAB -->
     <div class="tab-page" id="tab-articles">
         <div class="section-title">✍️ مقالات وتحليلات</div>
 
+        <!-- NEW UCL ARTICLE -->
+        <div class="article-card" onclick="toggleArticle('art4')" style="border:2px solid var(--gold)">
+            <div class="article-header" style="background:rgba(255,215,0,0.08)">
+                <div>
+                    <div class="article-title">⭐ تحليل | مفاجآت ربع نهائي دوري الأبطال.. أتلتيكو يُسقط برشلونة وبايرن يُذهل ريال!</div>
+                    <div class="article-meta">🗓️ 9 أبريل 2026 | ✍️ GoalZone</div>
+                </div>
+                <span class="article-arrow" id="arrow-art4">▼</span>
+            </div>
+            <div class="article-body" id="body-art4">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+                    <div style="background:rgba(230,0,0,0.1);border:1px solid rgba(230,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
+                        <div style="font-size:.75rem;color:var(--text2);margin-bottom:4px">ربع النهائي - ذهاب</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">باريس سان جيرمان</div>
+                        <div style="font-size:1.4rem;font-weight:900;color:var(--live)">2 - 0</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">ليفربول</div>
+                    </div>
+                    <div style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:12px;text-align:center">
+                        <div style="font-size:.75rem;color:var(--text2);margin-bottom:4px">ربع النهائي - ذهاب</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">برشلونة</div>
+                        <div style="font-size:1.4rem;font-weight:900;color:var(--gold)">0 - 2</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">أتلتيكو مدريد</div>
+                    </div>
+                    <div style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:12px;text-align:center">
+                        <div style="font-size:.75rem;color:var(--text2);margin-bottom:4px">ربع النهائي - ذهاب</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">ريال مدريد</div>
+                        <div style="font-size:1.4rem;font-weight:900;color:var(--gold)">1 - 2</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">بايرن ميونخ</div>
+                    </div>
+                    <div style="background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.3);border-radius:10px;padding:12px;text-align:center">
+                        <div style="font-size:.75rem;color:var(--text2);margin-bottom:4px">ربع النهائي - ذهاب</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">سبورتينغ</div>
+                        <div style="font-size:1.4rem;font-weight:900;color:var(--green)">0 - 1</div>
+                        <div style="font-size:.82rem;font-weight:900;color:var(--text)">أرسنال</div>
+                    </div>
+                </div>
+                <p style="line-height:2;font-size:.86rem">
+                    ليلتان مليئتان بالمفاجآت في ربع نهائي دوري أبطال أوروبا! <b>أتلتيكو مدريد</b> أسقط العملاق برشلونة بنتيجة 2-0 في الكامب نو، فيما فاجأ <b>بايرن ميونخ</b> ريال مدريد في برنابيو وعاد بانتصار ثمين 2-1.
+                    <br><br>
+                    في الليلة الثانية، تقدم <b>باريس سان جيرمان</b> على ليفربول بنتيجة 2-0، ونجح <b>أرسنال</b> في خطف فوز ثمين من أرض سبورتينغ 0-1.
+                </p>
+                <div style="background:rgba(0,230,118,0.1);border-right:4px solid var(--green);padding:12px;border-radius:8px;margin-top:12px">
+                    💬 <b>رأي GoalZone:</b> الإياب سيكون مثيراً للغاية! برشلونة وريال مدريد أمام مهمة صعبة للعودة، فيما يملك ليفربول وأرسنال أوراقاً جيدة.
+                </div>
+                <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
+                    <a href="https://wa.me/?text=%D9%85%D9%81%D8%A7%D8%AC%D8%A2%D8%AA+%D8%B1%D8%A8%D8%B9+%D9%86%D9%87%D8%A7%D8%A6%D9%8A+%D8%AF%D9%88%D8%B1%D9%8A+%D8%A7%D9%84%D8%A3%D8%A8%D8%B7%D8%A7%D9%84%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BREAKING NEWS -->
         <div class="article-card" onclick="toggleArticle('art0')" style="border:2px solid var(--live)">
             <div class="article-header" style="background:rgba(255,61,0,0.1)">
                 <div>
                     <div class="article-title">🔴 عاجل | المحكمة الرياضية تعلق قرار كاف بمنح لقب أمم أفريقيا للمغرب!</div>
-                    <div class="article-meta">🗓️ 23 مارس 2026 | ✍️ GoalZone</div>
+                    <div class="article-meta">🗓️ 23 مارس 2026 | ✍️ GoalZone - عاجل</div>
                 </div>
                 <span class="article-arrow" id="arrow-art0">▼</span>
             </div>
             <div class="article-body" id="body-art0">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/2021_Africa_Cup_of_Nations_Final.jpg/1280px-2021_Africa_Cup_of_Nations_Final.jpg" 
+                     onerror="this.style.display='none'"
+                     style="width:100%;border-radius:10px;margin-bottom:12px;max-height:220px;object-fit:cover">
                 <div style="background:rgba(255,61,0,0.15);border-right:4px solid var(--live);padding:12px;border-radius:8px;margin-bottom:14px">
-                    🔴 <b>خبر عاجل</b>
+                    🔴 <b>خبر عاجل</b> - تقارير صحفية
                 </div>
                 <p style="line-height:2.2;font-size:.88rem">
-                    وافقت <b>المحكمة الرياضية الدولية (CAS)</b> على طعن منتخب <b>السنغال</b> وعلّقت تنفيذ قرار الاتحاد الأفريقي بمنح لقب بطولة أمم أفريقيا 2025 للمنتخب المغربي.
+                    وافقت <b>المحكمة الرياضية الدولية (CAS)</b> على طعن منتخب <b>السنغال</b> وعلّقت تنفيذ قرار الاتحاد الأفريقي لكرة القدم <b>(كاف)</b> بمنح لقب بطولة أمم أفريقيا 2025 للمنتخب المغربي.
                     <br><br>
-                    وأفادت التقارير بأن <b>الملف سيُحسم خلال 6 إلى 9 أشهر</b>، في انتظار صدور الحكم النهائي.
+                    جاء ذلك على خلفية <b>أحداث نهائي أمم أفريقيا الأخيرة</b>، حيث قدم المنتخب السنغالي طعناً رسمياً أمام المحكمة الرياضية الدولية.
+                    <br><br>
+                    وأفادت التقارير بأن <b>الملف سيُحسم خلال 6 إلى 9 أشهر</b>، في انتظار صدور الحكم النهائي الذي سيحدد الفائز الرسمي بالبطولة القارية.
                 </p>
+                <br>
+                <div style="background:rgba(0,230,118,0.1);border-right:4px solid var(--green);padding:12px;border-radius:8px">
+                    💬 <b>متابعة GoalZone:</b> قضية شائكة ستلقي بظلالها على كرة القدم الأفريقية لأشهر قادمة. تابعونا لأحدث المستجدات!
+                </div>
                 <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
-                    <a href="https://wa.me/?text=%F0%9F%94%B4+%D8%B9%D8%A7%D8%AC%D9%84+%7C+GoalZone+2026%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
+                    <a href="https://wa.me/?text=%F0%9F%94%B4%20%D8%B9%D8%A7%D8%AC%D9%84%20%7C%20%D8%AA%D8%B9%D9%84%D9%8A%D9%82+%D9%82%D8%B1%D8%A7%D8%B1+%D9%83%D8%A7%D9%81+%D8%A8%D9%85%D9%86%D8%AD+%D8%A7%D9%84%D9%84%D9%82%D8%A8+%D9%84%D9%84%D9%85%D8%BA%D8%B1%D8%A8%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                    <a href="https://www.facebook.com/dialog/send?link=https%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora&app_id=291494419107518&redirect_uri=https%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" class="messenger-btn">💬 مسنجر</a>
                 </div>
             </div>
         </div>
@@ -393,21 +567,88 @@
         <div class="article-card" onclick="toggleArticle('art3')">
             <div class="article-header">
                 <div>
-                    <div class="article-title">💔 الأهلي يودع أبطال أفريقيا.. الترجي يُسقط المارد الأحمر!</div>
+                    <div class="article-title">💔 الأهلي يودع أبطال أفريقيا.. الترجي يُسقط المارد الأحمر في عقر داره!</div>
                     <div class="article-meta">🗓️ 21 مارس 2026 | ✍️ عبد الحليم حلمي</div>
                 </div>
                 <span class="article-arrow" id="arrow-art3">▼</span>
             </div>
             <div class="article-body" id="body-art3">
                 <div style="background:linear-gradient(135deg,#cc0000,#1a1a2e);border-radius:12px;padding:16px;text-align:center;margin-bottom:14px;display:flex;justify-content:center;align-items:center;gap:20px">
-                    <div style="text-align:center"><div style="font-size:2rem">🔴</div><div style="color:#fff;font-weight:900;font-size:.9rem">الأهلي</div></div>
-                    <div style="text-align:center"><div style="color:#fff;font-size:1.8rem;font-weight:900">2 - 3</div><div style="color:var(--gold);font-size:.72rem;font-weight:900">المجموع: 2-4</div></div>
-                    <div style="text-align:center"><div style="font-size:2rem">🔴⚪</div><div style="color:#fff;font-weight:900;font-size:.9rem">الترجي</div></div>
+                    <div style="text-align:center">
+                        <div style="font-size:2rem">🔴</div>
+                        <div style="color:#fff;font-weight:900;font-size:.9rem">الأهلي</div>
+                        <div style="color:rgba(255,255,255,0.7);font-size:.75rem">مصر</div>
+                    </div>
+                    <div style="text-align:center">
+                        <div style="color:#fff;font-size:1.8rem;font-weight:900">2 - 3</div>
+                        <div style="color:var(--gold);font-size:.72rem;font-weight:900">الإياب | ربع النهائي</div>
+                        <div style="color:rgba(255,255,255,0.6);font-size:.68rem">المجموع: 2-4</div>
+                    </div>
+                    <div style="text-align:center">
+                        <div style="font-size:2rem">🔴⚪</div>
+                        <div style="color:#fff;font-weight:900;font-size:.9rem">الترجي</div>
+                        <div style="color:rgba(255,255,255,0.7);font-size:.75rem">تونس</div>
+                    </div>
                 </div>
-                <p style="line-height:2">ليلة سوداء في تاريخ النادي الأحمر! الترجي التونسي أسقط الأهلي وأقصاه من دوري أبطال أفريقيا بمجموع 4-2.</p>
+
+                <p style="line-height:2">
+                    ليلة سوداء في تاريخ النادي الأحمر! <b>الترجي التونسي</b> أسقط الأهلي في عقر داره باستاد القاهرة الدولي وأقصاه من دوري أبطال أفريقيا في دور ربع النهائي، بعد أن فاز بمجموع المباراتين <b>4-2</b>.
+                </p>
+                <br>
+                <b>📋 ملخص المباراة:</b>
+                <ul style="margin:10px 0 10px 20px;line-height:2.2">
+                    <li>تريزيجيه سجل هدف التقدم للأهلي في الدقيقة 10 ⚽</li>
+                    <li>الترجي عادل النتيجة وتقدم بهدفين في الشوط الثاني</li>
+                    <li>مروان عثمان عادل النتيجة في الدقيقة 84</li>
+                    <li>حمزة الجلاصي سجل الهدف القاتل في الدقيقة 94 💔</li>
+                    <li>الأهلي يودع البطولة بخسارته ذهاباً وإياباً 4-2</li>
+                </ul>
+                <br>
+                <b>🔴 أسباب الخروج المُر:</b>
+                <ul style="margin:10px 0 10px 20px;line-height:2.2">
+                    <li>ضعف الأداء الدفاعي في اللحظات الحاسمة</li>
+                    <li>الغياب الكبير لعدد من اللاعبين الأساسيين بسبب الإصابة</li>
+                    <li>عدم استغلال الفرص رغم التفوق في مراحل من المباراة</li>
+                    <li>هدف قاتل في الوقت بدل الضائع أنهى الحلم</li>
+                </ul>
+                <br>
+                <div style="background:rgba(255,61,0,0.1);border-right:4px solid var(--live);padding:12px;border-radius:8px;margin:10px 0">
+                    💬 <b>رأي الكاتب عبد الحليم حلمي:</b> خروج مؤلم للغاية! الأهلي الأكثر تتويجاً في أفريقيا لا يستحق هذا المصير. السؤال الكبير الآن: من يتحمل المسؤولية؟ المدرب؟ الإدارة؟ اللاعبون؟ الكرة المصرية تحتاج إلى وقفة جادة وحقيقية.
+                </div>
                 <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 شارك</a>
-                    <a href="https://wa.me/?text=%D8%AE%D8%B1%D9%88%D8%AC+%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A+%7C+GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 شارك على فيسبوك</a>
+                    <a href="https://wa.me/?text=%D8%AE%D8%B1%D9%88%D8%AC%20%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%20%D9%85%D9%86%20%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A3%D8%A8%D8%B7%D8%A7%D9%84%20%D8%A3%D9%81%D8%B1%D9%8A%D9%82%D9%8A%D8%A7%20%7C%20GoalZone%202026%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-card" onclick="toggleArticle('art2')">
+            <div class="article-header">
+                <div>
+                    <div class="article-title">🔴 إدارة الأهلي.. إلى أين؟</div>
+                    <div class="article-meta">🗓️ 23 مارس 2026 | ✍️ عبد الحليم حلمي</div>
+                </div>
+                <span class="article-arrow" id="arrow-art2">▼</span>
+            </div>
+            <div class="article-body" id="body-art2">
+                <div style="background:linear-gradient(135deg,#cc0000,#8b0000);border-radius:12px;padding:20px;text-align:center;margin-bottom:14px">
+                    <img src="https://logos-world.net/wp-content/uploads/2020/06/Al-Ahly-Logo.png" style="height:130px;object-fit:contain" onerror="this.src='https://www.al-ahly.com/sites/default/files/ahly-logo.png'">
+                    <div style="color:#fff;font-weight:900;margin-top:10px;font-size:1.1rem;letter-spacing:1px">🔴 النادي الأهلي المصري</div>
+                    <div style="color:rgba(255,255,255,0.7);font-size:.75rem;margin-top:4px">تأسس 1907 | الأكثر تتويجاً في أفريقيا</div>
+                </div>
+                <p style="line-height:2">
+                    صفقات كلّفت خزينة النادي الأحمر مبالغ كبيرة والمحصلة <b>صفر!</b>
+                    لا أحد يعلم من يتحمل المسؤولية..
+                    هل المدرب؟ بعض اللاعبين الذين يصفهم الجمهور بأنهم <b>"شبعوا"</b>؟
+                    أم اختيارات الإدارة والتخبط الدائم في اختيار مدربين لا يملكون القيادة للفريق الأحمر؟
+                </p>
+                <br>
+                <div style="background:rgba(255,61,0,0.1);border-right:4px solid var(--live);padding:12px;border-radius:8px;margin:10px 0">
+                    💬 <b>رأي الكاتب:</b> الأهلي يحتاج إلى قرارات جريئة وواضحة، لا مزيد من التجارب على حساب تاريخ النادي العريق.
+                </div>
+                <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 شارك على فيسبوك</a>
+                    <a href="https://wa.me/?text=%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%20%D8%A5%D9%84%D9%89%20%D8%A3%D9%8A%D9%86%3F%20%7C%20GoalZone%202026%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
                 </div>
             </div>
         </div>
@@ -415,97 +656,122 @@
         <div class="article-card" onclick="toggleArticle('art1')">
             <div class="article-header">
                 <div>
-                    <div class="article-title">⚽ تحليل | ريال مدريد 3-2 أتلتيكو مدريد - ديربي القرن</div>
+                    <div class="article-title">⚽ تحليل | ريال مدريد 3-2 أتلتيكو مدريد</div>
                     <div class="article-meta">🗓️ 22 مارس 2026 | ✍️ GoalZone</div>
                 </div>
                 <span class="article-arrow" id="arrow-art1">▼</span>
             </div>
             <div class="article-body" id="body-art1">
-                <p style="line-height:2">كان الديربي المدريدي من أقوى مباريات الموسم! ريال مدريد حسم المباراة بنتيجة 3-2 في مواجهة مثيرة.</p>
-                <ul style="margin:10px 0 10px 20px;line-height:2.2">
+                <p>كان الديربي المدريدي من أقوى مباريات الموسم! ريال مدريد استطاع أن يحسم المباراة بنتيجة 3-2 في مواجهة مثيرة مع غريمه أتلتيكو مدريد.</p>
+                <br>
+                <b>🔥 أبرز ما حدث:</b>
+                <ul style="margin: 10px 0 10px 20px; line-height: 2">
                     <li>ريال مدريد سيطر على الكرة في الشوط الأول</li>
-                    <li>أتلتيكو عاد بقوة وعادل النتيجة</li>
+                    <li>أتلتيكو عاد بقوة في الشوط الثاني وعادل النتيجة</li>
+                    <li>الهدف الحاسم جاء في الدقائق الأخيرة</li>
                     <li>مبابي كان النجم الأبرز بهدفين رائعين</li>
                 </ul>
+                <br>
+                <b>📈 إحصائيات:</b>
+                <ul style="margin: 10px 0 10px 20px; line-height: 2">
+                    <li>الاستحواذ: ريال 58% - أتلتيكو 42%</li>
+                    <li>التسديدات: 14 - 9</li>
+                    <li>الأهداف: مبابي ×2 | فينيسيوس ×1</li>
+                </ul>
+                <br>
                 <div style="background:rgba(0,230,118,0.1);border-right:4px solid var(--green);padding:12px;border-radius:8px;margin-top:10px">
-                    💬 <b>رأي GoalZone:</b> مباراة استثنائية أثبت فيها ريال أنه الأقوى في المدينة هذا الموسم.
+                    💬 <b>رأي GoalZone:</b> مباراة استثنائية أثبت فيها ريال مدريد أنه الأقوى في المدينة هذا الموسم، لكن أتلتيكو قدم مقاومة شرسة تستحق الاحترام.
                 </div>
                 <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 شارك</a>
-                    <a href="https://wa.me/?text=%D8%AA%D8%AD%D9%84%D9%8A%D9%84+%D8%AF%D9%8A%D8%B1%D8%A8%D9%8A+%D9%85%D8%AF%D8%B1%D9%8A%D8%AF+%7C+GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 شارك على فيسبوك</a>
+                    <a href="https://wa.me/?text=%D8%AA%D8%AD%D9%84%D9%8A%D9%84%20%D8%AF%D9%8A%D8%B1%D8%A8%D9%8A%20%D9%85%D8%AF%D8%B1%D9%8A%D8%AF%20%7C%20GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a><a href="https://www.facebook.com/dialog/send?link=https%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora&app_id=291494419107518&redirect_uri=https%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" class="messenger-btn">💬 مسنجر</a>
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <!-- NEWS TAB -->
+    <div class="tab-page" id="tab-news">
+        <div class="section-title">🌍 اخبار كرة القدم</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC رياضة</button>
+            <button class="news-source-btn" onclick="fetchNews(1)">⚽ Goal عربي</button>
+            <button class="news-source-btn" onclick="fetchNews(2)">🏴 BBC Sport</button>
+        </div>
+        <div id="news-section"><div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div></div>
     </div>
 
 </div>
 <div class="footer">
     <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors"><br><br>
-    تطوير وبرمجة: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 &copy;
+    تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج 2026 &copy;
 </div>
 <div class="toast" id="toast"></div>
-
 <script>
 // ============================================================
-// GoalZone 2026 - v4.0 - بتاريخ 7 أبريل 2026
-// عدّل المباريات هنا يدوياً كل يوم بسهولة
+// VERSION: v3.1 23/3/2026
+// تعديل المباريات هنا يدويا كل يوم - سهل جداً!
 // status: "upcoming" | "live" | "ft"
+// للمباريات اللايف: حط النتيجة في score مثلاً "2-1"
 // ============================================================
 var MATCHES = [
     {
-        league:"دوري أبطال أوروبا - ربع النهائي", flag:"⭐",
+        league:"🔴 لا توجد مباريات اليوم - أسبوع المنتخبات", flag:"🌍",
         games:[
-            {home:"ريال مدريد",  away:"بايرن ميونخ",       time:"07 أبريل 22:00", status:"upcoming", score:""},
-            {home:"سبورتينغ",    away:"أرسنال",             time:"07 أبريل 22:00", status:"upcoming", score:""},
-            {home:"باريس سان جيرمان", away:"ليفربول",      time:"08 أبريل 22:00", status:"upcoming", score:""},
-            {home:"برشلونة",     away:"أتلتيكو مدريد",     time:"08 أبريل 22:00", status:"upcoming", score:""},
+            {home:"المباريات تعود", away:"الأسبوع القادم", time:"", status:"upcoming", score:""},
         ]
     },
     {
-        league:"الدوري المصري الممتاز", flag:"🇪🇬",
+        league:"دوري أبطال أوروبا - ربع النهائي القادم", flag:"⭐",
         games:[
-            {home:"البنك الأهلي", away:"غزل المحلة",         time:"", status:"ft", score:"1-1"},
-            {home:"المقاولون العرب", away:"بتروجت",          time:"", status:"ft", score:"1-1"},
-            {home:"الجونة",       away:"وادي دجلة",          time:"", status:"ft", score:"0-0"},
-            {home:"الإسماعيلي",   away:"حرس الحدود",         time:"", status:"ft", score:"0-0"},
-            {home:"الاتحاد السكندري", away:"فاركو",          time:"", status:"ft", score:"1-1"},
+            {home:"ريال مدريد",  away:"بايرن ميونخ",  time:"07 أبريل - 22:00", status:"upcoming", score:""},
+            {home:"سبورتينغ",    away:"أرسنال",        time:"07 أبريل - 22:00", status:"upcoming", score:""},
+            {home:"باريس سان جيرمان", away:"ليفربول", time:"08 أبريل - 22:00", status:"upcoming", score:""},
+            {home:"برشلونة",     away:"أتلتيكو مدريد",time:"08 أبريل - 22:00", status:"upcoming", score:""},
         ]
     },
     {
-        league:"نتائج دوري الأبطال الأخيرة", flag:"⭐",
+        league:"نتائج دوري الأبطال - ثمن النهائي", flag:"⭐",
         games:[
-            {home:"باريس سان جيرمان", away:"تشيلسي",        time:"", status:"ft", score:"5-2"},
-            {home:"مان سيتي",    away:"ريال مدريد",          time:"", status:"ft", score:"1-2"},
-            {home:"برشلونة",     away:"نيوكاسل",             time:"", status:"ft", score:"7-2"},
-            {home:"ليفربول",     away:"غلطة سراي",           time:"", status:"ft", score:"4-0"},
+            {home:"باريس سان جيرمان", away:"تشيلسي",    time:"", status:"ft", score:"5-2"},
+            {home:"مان سيتي",    away:"ريال مدريد",    time:"", status:"ft", score:"1-2"},
+            {home:"أرسنال",      away:"ليفركوزن",      time:"", status:"ft", score:"2-0"},
+            {home:"برشلونة",     away:"نيوكاسل",       time:"", status:"ft", score:"7-2"},
+            {home:"ليفربول",     away:"غلطة سراي",     time:"", status:"ft", score:"4-0"},
+            {home:"توتنهام",     away:"أتلتيكو مدريد", time:"", status:"ft", score:"3-2"},
+            {home:"بايرن ميونخ", away:"أتالانتا",      time:"", status:"ft", score:"4-1"},
         ]
     },
     {
-        league:"الدوري الإنجليزي - آخر الجولات", flag:"🏴",
+        league:"نتائج الأسبوع الماضي - الإنجليزي", flag:"🏴",
         games:[
-            {home:"برايتون",      away:"ليفربول",            time:"", status:"ft", score:"2-1"},
-            {home:"إيفرتون",      away:"تشيلسي",             time:"", status:"ft", score:"3-0"},
-            {home:"توتنهام",      away:"نوتنغهام",           time:"", status:"ft", score:"0-3"},
+            {home:"نيوكاسل",      away:"سندرلاند",   time:"", status:"ft", score:"1-2"},
+            {home:"أستون فيلا",   away:"وست هام",    time:"", status:"ft", score:"2-0"},
+            {home:"توتنهام",      away:"نوتنغهام",   time:"", status:"ft", score:"0-3"},
+            {home:"برايتون",      away:"ليفربول",    time:"", status:"ft", score:"2-1"},
+            {home:"إيفرتون",      away:"تشيلسي",     time:"", status:"ft", score:"3-0"},
         ]
     },
     {
-        league:"الدوري الإسباني - آخر الجولات", flag:"🇪🇸",
+        league:"نتائج الأسبوع الماضي - الإسباني", flag:"🇪🇸",
         games:[
-            {home:"ريال مدريد",   away:"أتلتيكو مدريد",     time:"", status:"ft", score:"3-2"},
-            {home:"برشلونة",      away:"رايو فالييكانو",     time:"", status:"ft", score:"1-0"},
+            {home:"ريال مدريد",   away:"أتلتيكو مدريد", time:"", status:"ft", score:"3-2"},
+            {home:"برشلونة",      away:"رايو فالييكانو", time:"", status:"ft", score:"1-0"},
+            {home:"أتلتيك بلباو", away:"ريال بيتيس",    time:"", status:"ft", score:"2-1"},
+            {home:"سيلتا فيغو",   away:"ألافيس",        time:"", status:"ft", score:"3-4"},
         ]
     },
 ];
-
 // ============================================================
 
 function renderMatches() {
-    var c = document.getElementById('matches-container');
-    var today = new Date().toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-    var html = '<div class="date-header">📅 ' + today + '</div>';
+    const c = document.getElementById('matches-container');
+    const today = new Date().toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'});
+    let html = '<div class="date-header">📅 ' + today + '</div>';
     MATCHES.forEach(function(lg) {
-        var cards = lg.games.map(function(g) {
-            var tl = '';
+        let cards = lg.games.map(function(g) {
+            let tl = '';
             if(g.status==='live'){
                 tl = '<span class="match-time live">🔴 ' + (g.score||'LIVE') + '</span>';
             } else if(g.status==='ft'){
@@ -514,32 +780,22 @@ function renderMatches() {
                 tl = '<span class="match-time">' + g.time + '</span>';
             }
             var ytQ = encodeURIComponent('اهداف ' + g.home + ' ' + g.away + ' 2026');
-            var ytBtn = '<a href="https://www.youtube.com/results?search_query=' + ytQ + '" target="_blank" class="yt-btn">' + (g.status==='ft' ? '▶ الاهداف' : '📺 بث') + '</a>';
-            return '<div class="match-card"><span class="match-teams">' + g.home + '<span class="match-vs">vs</span>' + g.away + '</span><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' + tl + ytBtn + '</div></div>';
+            var ytBtn = '<a href="https://www.youtube.com/results?search_query=' + ytQ + '" target="_blank" class="yt-btn">' + (g.status==='ft' ? '▶ الاهداف' : '▶ يوتيوب') + '</a>';
+            var liveQ = encodeURIComponent('بث مباشر ' + g.home + ' ' + g.away + ' 2026');
+            var liveBtn = '';
+            if(g.status === 'live' || g.status === 'upcoming') {
+                liveBtn = '<a href="https://www.youtube.com/results?search_query=' + liveQ + '" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none;white-space:nowrap;margin-right:4px">📺 بث</a>';
+            }
+            return '<div class="match-card"><span class="match-teams">' + g.home + '<span class="match-vs">vs</span>' + g.away + '</span><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' + liveBtn + tl + ytBtn + '</div></div>';
         }).join('');
         html += '<div class="league-section"><div class="league-header">' + lg.flag + ' ' + lg.league + '</div>' + cards + '</div>';
     });
+    html += '<div class="no-matches" style="margin-top:10px;font-size:.8rem">لتحديث يومي تلقائي تابع: <a href="https://wa.me/201145811173" target="_blank">واتساب HALEEM</a></div>';
     c.innerHTML = html;
 }
 
-// Live Sources
-var liveSources = [
-    'https://www.livescore.com/en/football/live/',
-    'https://www.sofascore.com/football/livescore',
-    'https://www.flashscore.com/'
-];
-function switchLiveSource(idx, el) {
-    document.querySelectorAll('.live-src-btn').forEach(function(b){ b.classList.remove('active'); });
-    el.classList.add('active');
-    var frame = document.getElementById('liveFrame');
-    var loading = document.getElementById('liveLoading');
-    loading.classList.remove('hidden');
-    frame.src = liveSources[idx];
-    frame.onload = function(){ loading.classList.add('hidden'); };
-}
-
 // Theme
-var isDark = true;
+let isDark = true;
 function toggleTheme() {
     isDark = !isDark;
     document.documentElement.setAttribute('data-theme', isDark?'':'light');
@@ -548,10 +804,10 @@ function toggleTheme() {
 }
 
 // Notifications
-var notifOn = false;
+let notifOn = false;
 function toggleNotif() {
     notifOn = !notifOn;
-    var btn = document.getElementById('notifBtn');
+    const btn = document.getElementById('notifBtn');
     btn.classList.toggle('active', notifOn);
     btn.textContent = notifOn?'🔔 مفعلة':'🔔 الاشعارات';
     showToast(notifOn?'سيتم اشعارك قبل المباريات':'تم ايقاف الاشعارات');
@@ -559,25 +815,26 @@ function toggleNotif() {
 }
 
 // Toast
-function showToast(msg) {
-    var t = document.getElementById('toast');
+function showToast(msg, dur) {
+    dur = dur || 2500;
+    const t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('show');
-    setTimeout(function(){ t.classList.remove('show'); }, 2500);
+    setTimeout(function(){t.classList.remove('show');}, dur);
 }
 
 // Tabs
 function showTab(name, el) {
-    document.querySelectorAll('.tab-page').forEach(function(p){ p.classList.remove('active'); });
-    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-page').forEach(function(p){p.classList.remove('active');});
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
     document.getElementById('tab-'+name).classList.add('active');
     el.classList.add('active');
-    if(name==='standings') renderStandings('egy');
-    if(name==='news') fetchNews(0);
+    if(name==='standings') renderStandings('pl');
+    if(name==='news') fetchNews();
 }
 
 // Search
-var TEAMS = [
+const TEAMS = [
     {name:'Real Madrid',flag:'🇪🇸',league:'La Liga'},
     {name:'Barcelona',flag:'🇪🇸',league:'La Liga'},
     {name:'Bayern Munich',flag:'🇩🇪',league:'Bundesliga'},
@@ -586,16 +843,18 @@ var TEAMS = [
     {name:'Arsenal',flag:'🏴',league:'Premier League'},
     {name:'Chelsea',flag:'🏴',league:'Premier League'},
     {name:'PSG',flag:'🇫🇷',league:'Ligue 1'},
-    {name:'الأهلي',flag:'🇪🇬',league:'الدوري المصري'},
-    {name:'الزمالك',flag:'🇪🇬',league:'الدوري المصري'},
-    {name:'الترجي',flag:'🇹🇳',league:'الدوري التونسي'},
+    {name:'AC Milan',flag:'🇮🇹',league:'Serie A'},
+    {name:'Inter Milan',flag:'🇮🇹',league:'Serie A'},
+    {name:'Juventus',flag:'🇮🇹',league:'Serie A'},
+    {name:'Napoli',flag:'🇮🇹',league:'Serie A'},
+    {name:'Dortmund',flag:'🇩🇪',league:'Bundesliga'},
 ];
 function searchTeam() {
-    var q = document.getElementById('searchInput').value.toLowerCase().trim();
-    var res = document.getElementById('searchResults');
-    if(!q){ res.style.display='none'; return; }
-    var found = TEAMS.filter(function(t){ return t.name.toLowerCase().includes(q); });
-    if(!found.length){ res.style.display='none'; return; }
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const res = document.getElementById('searchResults');
+    if(!q){res.style.display='none';return;}
+    const found = TEAMS.filter(function(t){return t.name.toLowerCase().includes(q);});
+    if(!found.length){res.style.display='none';return;}
     res.style.display='block';
     res.innerHTML = found.map(function(t){
         return '<div class="search-result-item" onclick="selectTeam(\''+t.name+'\')"><span>'+t.flag+'</span><div><div style="font-weight:700">'+t.name+'</div><div style="font-size:.72rem;color:var(--text2)">'+t.league+'</div></div></div>';
@@ -606,18 +865,10 @@ function selectTeam(name){
     document.getElementById('searchResults').style.display = 'none';
     showToast('البحث عن: '+name);
 }
-document.addEventListener('click',function(e){ if(!e.target.closest('.search-wrap')) document.getElementById('searchResults').style.display='none'; });
+document.addEventListener('click',function(e){if(!e.target.closest('.search-wrap'))document.getElementById('searchResults').style.display='none';});
 
 // Standings
-var SD = {
-    egy:{name:'🇪🇬 الدوري المصري الممتاز',teams:[
-        {pos:1,name:'الزمالك',p:25,w:16,d:5,l:4,gd:'+28',pts:53,cls:'pos-cl'},
-        {pos:2,name:'الأهلي',p:25,w:15,d:5,l:5,gd:'+24',pts:50,cls:'pos-cl'},
-        {pos:3,name:'بيراميدز',p:25,w:14,d:4,l:7,gd:'+15',pts:46,cls:'pos-cl'},
-        {pos:4,name:'المصري',p:25,w:12,d:6,l:7,gd:'+10',pts:42,cls:'pos-el'},
-        {pos:5,name:'الإسماعيلي',p:25,w:11,d:5,l:9,gd:'+6',pts:38,cls:''},
-        {pos:14,name:'بتروجت',p:25,w:4,d:4,l:17,gd:'-22',pts:16,cls:'pos-rel'},
-    ]},
+const SD = {
     pl:{name:'🏴 Premier League',teams:[
         {pos:1,name:'Liverpool',p:30,w:22,d:5,l:3,gd:'+41',pts:71,cls:'pos-cl'},
         {pos:2,name:'Arsenal',p:30,w:20,d:6,l:4,gd:'+32',pts:66,cls:'pos-cl'},
@@ -653,12 +904,12 @@ var SD = {
     ]},
 };
 function showStandings(league, el) {
-    document.querySelectorAll('.league-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.league-tab').forEach(function(t){t.classList.remove('active');});
     if(el) el.classList.add('active');
     renderStandings(league);
 }
 function renderStandings(league) {
-    var data = SD[league] || SD['pl'];
+    const data = SD[league];
     document.getElementById('standingsContainer').innerHTML =
         '<div style="margin-bottom:8px;font-size:.85rem;color:var(--text2);text-align:center">'+data.name+'</div>'+
         '<table class="standings-table"><thead><tr><th>#</th><th style="text-align:right;padding-right:14px">الفريق</th><th>ل</th><th>ف</th><th>خ</th><th>ت</th><th>GD</th><th>نقاط</th></tr></thead><tbody>'+
@@ -666,19 +917,25 @@ function renderStandings(league) {
             return '<tr><td><span class="pos-badge '+t.cls+'">'+t.pos+'</span></td><td style="text-align:right;font-weight:700;padding-right:14px">'+t.name+'</td><td>'+t.p+'</td><td>'+t.w+'</td><td>'+t.l+'</td><td>'+t.d+'</td><td style="color:'+(t.gd.startsWith('+')?'var(--green)':'var(--live)')+'">'+t.gd+'</td><td class="pts">'+t.pts+'</td></tr>';
         }).join('')+
         '</tbody></table>'+
-        '<div style="margin-top:10px;font-size:.72rem;color:var(--text2);display:flex;gap:12px;flex-wrap:wrap"><span><span class="pos-badge pos-cl" style="display:inline-flex">C</span> أبطال أوروبا</span><span><span class="pos-badge pos-el" style="display:inline-flex">E</span> الدوري الأوروبي</span><span><span class="pos-badge pos-rel" style="display:inline-flex">R</span> هبوط</span></div>';
+        '<div style="margin-top:10px;font-size:.72rem;color:var(--text2);display:flex;gap:12px;flex-wrap:wrap"><span><span class="pos-badge pos-cl" style="display:inline-flex">C</span> ابطال اوروبا</span><span><span class="pos-badge pos-el" style="display:inline-flex">E</span> الدوري الاوروبي</span><span><span class="pos-badge pos-rel" style="display:inline-flex">R</span> هبوط</span></div>';
 }
 
 // News
 async function fetchNews(sourceIndex) {
-    var sec = document.getElementById('news-section');
+    const sec = document.getElementById('news-section');
     sourceIndex = sourceIndex !== undefined ? sourceIndex : 0;
-    document.querySelectorAll('.news-source-btn').forEach(function(b,i){ b.classList.toggle('active', i === sourceIndex); });
+
+    document.querySelectorAll('.news-source-btn').forEach(function(b,i){
+        b.classList.toggle('active', i === sourceIndex);
+    });
+
     sec.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div>';
-    var sources = [
+
+    const sources = [
         'https://feeds.bbci.co.uk/arabic/sports/rss.xml',
         'https://feeds.bbci.co.uk/sport/football/rss.xml',
     ];
+
     try {
         var url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(sources[sourceIndex]);
         var r = await fetch(url);
@@ -688,77 +945,158 @@ async function fetchNews(sourceIndex) {
         d.items.slice(0,8).forEach(function(item){
             var date = new Date(item.pubDate).toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
             var img = item.thumbnail || '';
-            var card = '<div class="news-card">';
-            if(img){ card += '<img src="'+img+'" style="width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px" onerror="this.style.display=\'none\'">'; }
-            card += '<a href="'+item.link+'" target="_blank" class="news-title">📍 '+item.title+'</a>';
-            card += '<div class="news-date">🕐 '+date+'</div>';
+            var card = '<div class="news-card" style="cursor:pointer">';
+            if(img){ card += '<img src="' + img + '" style="width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px" onerror="this.style.display=none">'; }
+            card += '<a href="' + item.link + '" target="_blank" class="news-title">📍 ' + item.title + '</a>';
+            card += '<div class="news-date">🕐 ' + date + '</div>';
             var siteUrl = 'https://haleemhlmygl-source.github.io/koora';
+            var fbShare = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(siteUrl);
+            var waText = encodeURIComponent('📍 ' + item.title + '\n\nاقرأ المزيد على GoalZone 2026:\n' + siteUrl);
+            var waShare = 'https://wa.me/?text=' + waText;
             card += '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">';
-            card += '<a href="'+item.link+'" target="_blank" style="background:var(--green);color:#000;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📖 اقرأ</a>';
-            card += '<a href="https://wa.me/?text='+encodeURIComponent('📍 '+item.title+'\n'+siteUrl)+'" target="_blank" style="background:#25d366;color:#fff;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">💬 واتساب</a>';
-            card += '</div></div>';
+            card += '<a href="' + item.link + '" target="_blank" style="background:var(--green);color:#000;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📖 اقرأ المزيد</a>';
+            card += '<a href="' + fbShare + '" target="_blank" style="background:#1877f2;color:#fff;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📘 شارك</a>';
+            card += '<a href="' + waShare + '" target="_blank" style="background:#25d366;color:#fff;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">💬 واتساب</a>';
+            card += '</div>';
+            card += '</div>';
             html += card;
         });
         sec.innerHTML = html || '<p style="text-align:center;color:var(--text2);padding:20px">لا توجد اخبار</p>';
     } catch(e) {
-        sec.innerHTML = '<p style="text-align:center;color:var(--text2);padding:20px">تعذر تحميل الاخبار، حاول مرة أخرى</p>';
+        sec.innerHTML = '<p style="text-align:center;color:var(--text2);padding:20px">تعذر تحميل الاخبار</p>';
     }
 }
 
-// Articles Toggle
-function toggleArticle(id) {
-    var body = document.getElementById('body-'+id);
-    var arrow = document.getElementById('arrow-'+id);
-    if(body.classList.contains('open')){ body.classList.remove('open'); arrow.textContent='▼'; }
-    else { body.classList.add('open'); arrow.textContent='▲'; }
-}
+// Toggle Article
+    function toggleArticle(id) {
+        var body = document.getElementById('body-' + id);
+        var arrow = document.getElementById('arrow-' + id);
+        if (body.classList.contains('open')) {
+            body.classList.remove('open');
+            arrow.textContent = '▼';
+        } else {
+            body.classList.add('open');
+            arrow.textContent = '▲';
+        }
+    }
 
-// Share
+    // Share
 function shareSite() {
-    window.open('https://wa.me/?text='+encodeURIComponent('🏆 تابع نتائج المباريات على GoalZone 2026:\nhttps://haleemhlmygl-source.github.io/koora'));
-}
-
-// Slider
-var currentSlide = 0;
-var slideTimer;
-function showSlide(n) {
-    var slides = document.querySelectorAll('.slide');
-    var dots = document.querySelectorAll('.sdot');
-    slides.forEach(function(s){ s.style.display='none'; });
-    dots.forEach(function(d){ d.style.background='rgba(255,255,255,0.3)'; });
-    currentSlide = (n + slides.length) % slides.length;
-    slides[currentSlide].style.display = 'block';
-    dots[currentSlide].style.background = '#00e676';
-}
-function changeSlide(dir) {
-    showSlide(currentSlide + dir);
-    clearInterval(slideTimer);
-    slideTimer = setInterval(function(){ showSlide(currentSlide+1); }, 4000);
-}
-function goToSlide(n) {
-    showSlide(n);
-    clearInterval(slideTimer);
-    slideTimer = setInterval(function(){ showSlide(currentSlide+1); }, 4000);
+    window.open('https://wa.me/?text='+encodeURIComponent('🏆 تابع نتائج المباريات على GoalZone 2026:\n'+window.location.href));
 }
 
 // Init
+// News Slider
+    var currentSlide = 0;
+    var slideTimer;
+
+    function showSlide(n) {
+        var slides = document.querySelectorAll('.slide');
+        var dots = document.querySelectorAll('.slide-dot');
+        slides.forEach(function(s){ s.classList.remove('active'); });
+        dots.forEach(function(d){ d.classList.remove('active'); });
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    function changeSlide(dir) {
+        showSlide(currentSlide + dir);
+        resetTimer();
+    }
+
+    function goToSlide(n) {
+        showSlide(n);
+        resetTimer();
+    }
+
+    function resetTimer() {
+        clearInterval(slideTimer);
+        slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    }
+
+var currentSlide = 0;
+    var slideTimer;
+
+    function showSlide(n) {
+        var slides = document.querySelectorAll('.slide');
+        var dots = document.querySelectorAll('.sdot');
+        slides.forEach(function(s){ s.style.display='none'; });
+        dots.forEach(function(d){ d.style.background='rgba(255,255,255,0.3)'; });
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].style.display = 'block';
+        dots[currentSlide].style.background = '#00e676';
+    }
+
+    function changeSlide(dir) {
+        showSlide(currentSlide + dir);
+        clearInterval(slideTimer);
+        slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    }
+
+    function goToSlide(n) {
+        showSlide(n);
+        clearInterval(slideTimer);
+        slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    }
+
 window.onload = function() {
-    renderMatches();
-    renderStandings('egy');
-    slideTimer = setInterval(function(){ showSlide(currentSlide+1); }, 4000);
+    var c = document.getElementById('matches-container');
+    slideTimer = setInterval(function(){ showSlide(currentSlide + 1); }, 4000);
+    try {
+        if (typeof MATCHES === 'undefined') {
+            c.innerHTML = '<p style="color:orange;padding:20px">MATCHES غير معرف!</p>';
+            return;
+        }
+        if (typeof renderMatches !== 'function') {
+            c.innerHTML = '<p style="color:orange;padding:20px">renderMatches غير موجود!</p>';
+            return;
+        }
+        renderMatches();
+    } catch(e) {
+        c.innerHTML = '<p style="color:red;padding:20px;direction:ltr">Error: ' + e.message + ' | ' + e.stack + '</p>';
+    }
+    try { renderStandings('pl'); } catch(e2) {}
 };
 </script>
+    <!-- PWA Install Button -->
+    <div id="pwa-install" style="display:none;position:fixed;bottom:85px;right:16px;z-index:200">
+        <button onclick="installPWA()" style="background:var(--green);color:#000;border:none;padding:12px 20px;border-radius:25px;font-family:Cairo,sans-serif;font-weight:900;font-size:.85rem;box-shadow:0 4px 15px rgba(0,230,118,0.4);cursor:pointer;display:flex;align-items:center;gap:8px">
+            📲 تثبيت التطبيق
+        </button>
+    </div>
 
-<!-- PWA -->
-<div id="pwa-install" style="display:none;position:fixed;bottom:85px;right:16px;z-index:200">
-    <button onclick="installPWA()" style="background:var(--green);color:#000;border:none;padding:12px 20px;border-radius:25px;font-family:Cairo,sans-serif;font-weight:900;font-size:.85rem;box-shadow:0 4px 15px rgba(0,230,118,0.4);cursor:pointer">📲 تثبيت التطبيق</button>
-</div>
-<script>
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(function(){}); }
-var deferredPrompt;
-window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); deferredPrompt=e; document.getElementById('pwa-install').style.display='block'; });
-function installPWA(){ if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(function(r){ if(r.outcome==='accepted') document.getElementById('pwa-install').style.display='none'; deferredPrompt=null; }); } }
-window.addEventListener('appinstalled',function(){ document.getElementById('pwa-install').style.display='none'; });
-</script>
+    <script>
+    // PWA Registration
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(function(reg) { console.log('SW registered'); })
+            .catch(function(err) { console.log('SW error:', err); });
+    }
+
+    // PWA Install Prompt
+    var deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('pwa-install').style.display = 'block';
+    });
+
+    function installPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function(result) {
+                if (result.outcome === 'accepted') {
+                    document.getElementById('pwa-install').style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+    }
+
+    window.addEventListener('appinstalled', function() {
+        document.getElementById('pwa-install').style.display = 'none';
+    });
+    </script>
 </body>
 </html>
