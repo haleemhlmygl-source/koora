@@ -463,8 +463,10 @@ async function loadLiveMatches() {
   EGYPT_MATCHES.forEach(function(m){ daysSetEgy.add(m.date); });
   
   if(daysSetEgy.size > 0) {
-    selectedDate = Array.from(daysSetEgy).sort().find(d => d >= todayStr) || Array.from(daysSetEgy).sort()[0];
-    renderDaySelector(Array.from(daysSetEgy).sort());
+    const egyDays = Array.from(daysSetEgy).sort();
+    selectedDate = egyDays.find(function(d){ return d >= todayStr; }) || egyDays[0];
+    renderDaySelector(egyDays);
+    renderMatchesForDay(selectedDate);
   } else {
     container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>';
   }
