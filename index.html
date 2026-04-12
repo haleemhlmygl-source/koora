@@ -1100,9 +1100,24 @@
             </div>
         </div>
 
+        <!-- عداد تنازلي -->
+        <div id="wc-countdown" style="display:flex;justify-content:center;gap:10px;margin-bottom:14px"></div>
+
+        <!-- تبويبات المونديال -->
+        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+            <button class="league-tab active" onclick="wcTab('groups',this)">🏟️ المجموعات</button>
+            <button class="league-tab" onclick="wcTab('egypt',this)">🇪🇬 منتخب مصر</button>
+            <button class="league-tab" onclick="wcTab('schedule',this)">📅 الجدول</button>
+        </div>
+
         <!-- المجموعات -->
-        <div class="section-title">مجموعات البطولة</div>
         <div id="wc-groups-container"></div>
+
+        <!-- منتخب مصر -->
+        <div id="wc-egypt-container" style="display:none"></div>
+
+        <!-- الجدول -->
+        <div id="wc-schedule-container" style="display:none"></div>
     </div>
 
     <!-- GOALS TAB -->
@@ -1592,7 +1607,7 @@ function showTab(name,el) {
   if(name==='standings') loadLiveStandings('pl');
   if(name==='news') fetchNews(0);
   if(name==='goals') renderGoals();
-  if(name==='worldcup') renderWorldCup();
+  if(name==='worldcup') { renderWorldCup(); renderCountdown(); if(!window.wcTimer) window.wcTimer=setInterval(renderCountdown,1000); }
 }
 
 const TEAMS = [
@@ -1781,6 +1796,141 @@ const WC_GROUPS = [
     {name:'بنما',          flag:'🇵🇦', seed:false},
   ]},
 ];
+
+// Egypt squad
+const EGYPT_SQUAD = {
+  coach: 'حسام حسن',
+  group: 'G',
+  groupTeams: ['بلجيكا 🇧🇪', 'مصر 🇪🇬', 'إيران 🇮🇷', 'نيوزيلندا 🇳🇿'],
+  players: [
+    {pos:'حارس', name:'محمد الشناوي', club:'الأهلي'},
+    {pos:'حارس', name:'مصطفى شوبير', club:'الأهلي'},
+    {pos:'دفاع', name:'أحمد فتحي', club:'الأهلي'},
+    {pos:'دفاع', name:'عمر كمال', club:'بيراميدز'},
+    {pos:'دفاع', name:'محمد عبدالمنعم', club:'الأهلي'},
+    {pos:'دفاع', name:'أحمد حمدي', club:'الزمالك'},
+    {pos:'وسط', name:'تريزيجيه', club:'طرابزون سبور'},
+    {pos:'وسط', name:'عمر مرموش', club:'مانشستر سيتي'},
+    {pos:'وسط', name:'محمد حامد', club:'الأهلي'},
+    {pos:'وسط', name:'زيزو', club:'بيراميدز'},
+    {pos:'هجوم', name:'محمد صلاح', club:'ليفربول'},
+    {pos:'هجوم', name:'مروان عطية', club:'بيراميدز'},
+    {pos:'هجوم', name:'أكرم توفيق', club:'بيراميدز'},
+  ],
+  matches: [
+    {date:'15 يونيو 2026', opponent:'إيران 🇮🇷', time:'18:00', venue:'دالاس'},
+    {date:'19 يونيو 2026', opponent:'بلجيكا 🇧🇪', time:'21:00', venue:'نيويورك'},
+    {date:'23 يونيو 2026', opponent:'نيوزيلندا 🇳🇿', time:'18:00', venue:'فيلادلفيا'},
+  ]
+};
+
+// WC Schedule - أبرز مباريات المرحلة الأولى
+const WC_SCHEDULE = [
+  {date:'11 يونيو', home:'🇲🇽 المكسيك', away:'🇿🇦 جنوب أفريقيا', group:'A', time:'21:00'},
+  {date:'12 يونيو', home:'🇧🇷 البرازيل', away:'🏴󠁧󠁢󠁳󠁣󠁴󠁿 اسكتلندا', group:'C', time:'00:00'},
+  {date:'12 يونيو', home:'🇦🇷 الأرجنتين', away:'🇩🇿 الجزائر', group:'J', time:'21:00'},
+  {date:'13 يونيو', home:'🇩🇪 ألمانيا', away:'🇨🇮 ساحل العاج', group:'E', time:'21:00'},
+  {date:'14 يونيو', home:'🇫🇷 فرنسا', away:'🇸🇳 السنغال', group:'I', time:'21:00'},
+  {date:'15 يونيو', home:'🇪🇬 مصر', away:'🇮🇷 إيران', group:'G', time:'18:00', highlight:true},
+  {date:'15 يونيو', home:'🇧🇪 بلجيكا', away:'🇳🇿 نيوزيلندا', group:'G', time:'21:00'},
+  {date:'16 يونيو', home:'🇪🇸 إسبانيا', away:'🇺🇾 أوروغواي', group:'H', time:'21:00'},
+  {date:'16 يونيو', home:'🇸🇦 السعودية', away:'🇨🇻 الرأس الأخضر', group:'H', time:'18:00', highlight:true},
+  {date:'17 يونيو', home:'🇵🇹 البرتغال', away:'🇨🇴 كولومبيا', group:'K', time:'21:00'},
+  {date:'18 يونيو', home:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا', away:'🇭🇷 كرواتيا', group:'L', time:'21:00'},
+  {date:'19 يونيو', home:'🇪🇬 مصر', away:'🇧🇪 بلجيكا', group:'G', time:'21:00', highlight:true},
+  {date:'20 يونيو', home:'🇸🇦 السعودية', away:'🇺🇾 أوروغواي', group:'H', time:'21:00', highlight:true},
+  {date:'23 يونيو', home:'🇪🇬 مصر', away:'🇳🇿 نيوزيلندا', group:'G', time:'18:00', highlight:true},
+];
+
+function wcTab(tab, el) {
+  document.querySelectorAll('#tab-worldcup .league-tab').forEach(function(b){b.classList.remove('active');});
+  if(el) el.classList.add('active');
+  document.getElementById('wc-groups-container').style.display = tab==='groups' ? 'block' : 'none';
+  document.getElementById('wc-egypt-container').style.display = tab==='egypt' ? 'block' : 'none';
+  document.getElementById('wc-schedule-container').style.display = tab==='schedule' ? 'block' : 'none';
+  if(tab==='egypt') renderEgyptPage();
+  if(tab==='schedule') renderWCSchedule();
+}
+
+function renderCountdown() {
+  const container = document.getElementById('wc-countdown');
+  if(!container) return;
+  const target = new Date('2026-06-11T18:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if(diff <= 0) { container.innerHTML = '<div style="color:var(--green);font-weight:900;font-size:1rem">🏆 البطولة بدأت!</div>'; return; }
+  const days = Math.floor(diff/(1000*60*60*24));
+  const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const mins = Math.floor((diff%(1000*60*60))/(1000*60));
+  const secs = Math.floor((diff%(1000*60))/1000);
+  const units = [{v:days,l:'يوم'},{v:hours,l:'ساعة'},{v:mins,l:'دقيقة'},{v:secs,l:'ثانية'}];
+  container.innerHTML = units.map(function(u){
+    return '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;text-align:center;min-width:60px"><div style="font-family:Bebas Neue,sans-serif;font-size:1.6rem;color:var(--red);line-height:1">'+String(u.v).padStart(2,'0')+'</div><div style="font-size:.62rem;color:var(--text3)">'+u.l+'</div></div>';
+  }).join('');
+}
+
+function renderEgyptPage() {
+  const container = document.getElementById('wc-egypt-container');
+  if(!container) return;
+  let html = '';
+  // Egypt info card
+  html += '<div style="background:linear-gradient(135deg,#cc0000,#8b0000);border-radius:12px;padding:16px;text-align:center;margin-bottom:14px">';
+  html += '<div style="font-size:3rem">🇪🇬</div>';
+  html += '<div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:#fff;letter-spacing:2px;margin:6px 0">منتخب مصر</div>';
+  html += '<div style="color:rgba(255,255,255,.7);font-size:.78rem">المجموعة G | المدرب: '+EGYPT_SQUAD.coach+'</div>';
+  html += '<div style="display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap">';
+  EGYPT_SQUAD.groupTeams.forEach(function(t){
+    const isEgypt = t.includes('مصر');
+    html += '<span style="background:'+(isEgypt?'rgba(255,255,255,.3)':'rgba(0,0,0,.3)')+';color:#fff;padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:'+(isEgypt?'900':'600')+'">'+t+'</span>';
+  });
+  html += '</div></div>';
+
+  // Egypt matches
+  html += '<div class="section-title">مباريات مصر في المونديال</div>';
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px">';
+  EGYPT_SQUAD.matches.forEach(function(m,i){
+    html += '<div style="padding:12px 14px;border-bottom:'+(i<EGYPT_SQUAD.matches.length-1?'1px solid var(--border)':'none')+';display:flex;align-items:center;justify-content:space-between">';
+    html += '<div><div style="font-size:.72rem;color:var(--text3)">📅 '+m.date+' | '+m.venue+'</div><div style="font-weight:900;font-size:.85rem;margin-top:2px">🇪🇬 مصر vs '+m.opponent+'</div></div>';
+    html += '<span style="background:rgba(0,212,106,.12);color:var(--green);padding:4px 10px;border-radius:6px;font-size:.75rem;font-weight:900">'+m.time+'</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Egypt squad
+  html += '<div class="section-title">قائمة المنتخب</div>';
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">';
+  const positions = ['حارس','دفاع','وسط','هجوم'];
+  positions.forEach(function(pos){
+    const players = EGYPT_SQUAD.players.filter(function(p){return p.pos===pos;});
+    if(!players.length) return;
+    html += '<div style="background:var(--card2);padding:6px 12px;font-size:.72rem;color:var(--text3);font-weight:900;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:1px">'+pos+'</div>';
+    players.forEach(function(p){
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border)">';
+      html += '<div style="font-weight:700;font-size:.84rem">'+p.name+'</div>';
+      html += '<div style="font-size:.72rem;color:var(--text3)">'+p.club+'</div>';
+      html += '</div>';
+    });
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderWCSchedule() {
+  const container = document.getElementById('wc-schedule-container');
+  if(!container) return;
+  let html = '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">';
+  html += '<div style="background:var(--card2);padding:10px 14px;font-size:.78rem;color:var(--text3);font-weight:900;border-bottom:1px solid var(--border)">📅 أبرز مباريات المرحلة الأولى</div>';
+  WC_SCHEDULE.forEach(function(m){
+    const hl = m.highlight ? 'border-right:3px solid var(--red);' : '';
+    html += '<div style="padding:10px 12px;border-bottom:1px solid var(--border);'+hl+'">';
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">';
+    html += '<div style="flex:1"><div style="font-size:.7rem;color:var(--text3)">'+m.date+' | المجموعة '+m.group+'</div><div style="font-weight:700;font-size:.82rem;margin-top:2px">'+m.home+' <span style="color:var(--text3);font-size:.7rem">vs</span> '+m.away+'</div></div>';
+    html += '<span style="background:'+(m.highlight?'rgba(232,0,28,.12)':'rgba(255,255,255,.05)')+';color:'+(m.highlight?'var(--red)':'var(--text3)')+';padding:3px 8px;border-radius:6px;font-size:.72rem;font-weight:900">'+m.time+'</span>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
 
 function renderWorldCup() {
   const container = document.getElementById('wc-groups-container');
