@@ -561,3 +561,332 @@ async function loadLiveMatches() {
 }
 
 
+
+function renderDaySelector(days) {
+  const container = document.getElementById('matches-container');
+  const todayStr = new Date().toISOString().split('T')[0];
+  let selectorHtml = '<div id="day-selector" style="display:flex;gap:8px;overflow-x:auto;padding:12px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none">';
+  days.forEach(function(day) {
+    const d = new Date(day+'T12:00:00');
+    const dayName = d.toLocaleDateString('ar-EG',{weekday:'short'});
+    const dayNum = d.toLocaleDateString('ar-EG',{day:'numeric',month:'short'});
+    const isToday = day === todayStr;
+    const isSelected = day === selectedDate;
+    const bg = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.12)' : 'var(--card)');
+    const color = isSelected ? '#000' : (isToday ? 'var(--green)' : 'var(--text2)');
+    const border = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.5)' : 'var(--border)');
+    selectorHtml += '<button onclick="selectDay(\''+day+'\')" style="flex-shrink:0;text-align:center;background:'+bg+';border:1px solid '+border+';border-radius:12px;padding:8px 14px;cursor:pointer;min-width:68px;font-family:Cairo,sans-serif">';
+    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+color+'">'+dayName+'</div>';
+    selectorHtml += '<div style="font-size:.68rem;color:'+color+';opacity:.8">'+dayNum+'</div>';
+    if(isToday) selectorHtml += '<div style="font-size:.58rem;color:var(--green);font-weight:900">اليوم</div>';
+    selectorHtml += '</button>';
+  });
+  selectorHtml += '</div><div id="matches-list"></div>';
+  container.innerHTML = selectorHtml;
+  renderMatchesForDay(selectedDate);
+}
+
+function selectDay(day) {
+  selectedDate = day;
+  const daysSet = new Set();
+  allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
+  EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
+  renderDaySelector(Array.from(daysSet).sort());
+}
+
+function renderMatchesForDay(day) {
+  const listContainer = document.getElementById('matches-list');
+  if(!listContainer) return;
+
+  const egyptDay = EGYPT_MATCHES.filter(function(m){ return m.date === day; });
+  const filtered = allMatchesData.map(function(lg) {
+    return {name:lg.name, flag:lg.flag, matches:lg.matches.filter(function(m){ return m.utcDate.split('T')[0] === day; })};
+  }).filter(function(lg){ return lg.matches.length > 0; });
+
+  if(egyptDay.length > 0) {
+    let egyptCards = '';
+    egyptDay.forEach(function(m) {
+      let timeBadge = '';
+      if(m.status==='live') timeBadge = '<span class="match-time live">🔴 '+(m.score||'LIVE')+'</span>';
+      else if(m.status==='ft') timeBadge = '<span class="match-time ft">'+m.score+' FT</span>';
+      else timeBadge = '<span class="match-time">⏰ '+m.time+'</span>';
+      const ytQ = encodeURIComponent('بث مباشر '+m.home+' '+m.away+' 2026');
+      const ytG = encodeURIComponent('اهداف '+m.home+' '+m.away+' 2026');
+      const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:5px 12px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
+      const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
+      egyptCards += `<div style="background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+          <div style="flex:1;text-align:center">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
+            <div style="font-size:.78rem;font-weight:900;color:var(--text)">${m.home}</div>
+          </div>
+          <div style="text-align:center;min-width:90px">
+            ${timeBadge}
+            <div style="font-size:.65rem;color:var(--text2);margin-top:3px">${m.channel||''}</div>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
+          </div>
+          <div style="flex:1;text-align:center">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
+            <div style="font-size:.78rem;font-weight:900;color:var(--text)">${m.away}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+    filtered.unshift({name:'الدوري المصري الممتاز', flag:'🇪🇬', matches:[], _egyptCards: egyptCards});
+  }
+
+  if(filtered.length===0){
+    listContainer.innerHTML = '<div class="no-matches">⚽ لا توجد مباريات هذا اليوم</div>';
+    return;
+  }
+
+  let html = '';
+  filtered.forEach(function(league) {
+    if(league._egyptCards) {
+      html += '<div class="league-section"><div class="league-header">'+league.flag+' '+league.name+'</div>'+league._egyptCards+'</div>';
+      return;
+    }
+    let cards = '';
+    league.matches.forEach(function(match) {
+      const home = getTeamName(match.homeTeam.name);
+      const away = getTeamName(match.awayTeam.name);
+      const status = match.status;
+      const time = formatMatchTime(match.utcDate);
+      let timeBadge = '';
+      if(status==='IN_PLAY'||status==='PAUSED'){
+        const s = (match.score.fullTime.home??0)+'-'+(match.score.fullTime.away??0);
+        timeBadge = '<span class="match-time live">🔴 '+s+'</span>';
+      } else if(status==='FINISHED'){
+        timeBadge = '<span class="match-time ft">'+match.score.fullTime.home+'-'+match.score.fullTime.away+' FT</span>';
+      } else {
+        timeBadge = '<span class="match-time">⏰ '+time+'</span>';
+      }
+      const ytQ = encodeURIComponent('بث مباشر '+home+' '+away+' 2026');
+      const ytG = encodeURIComponent('اهداف '+home+' '+away+' 2026');
+      const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:5px 12px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
+      const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
+      const homeCrest = match.homeTeam.crest || '';
+      const awayCrest = match.awayTeam.crest || '';
+      cards += `<div style="background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+          <div style="flex:1;text-align:center">
+            <img src="${homeCrest}" onerror="this.style.display='none'" style="width:40px;height:40px;object-fit:contain;display:block;margin:0 auto 4px">
+            <div style="font-size:.78rem;font-weight:900;color:var(--text)">${home}</div>
+          </div>
+          <div style="text-align:center;min-width:90px">
+            ${timeBadge}
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
+          </div>
+          <div style="flex:1;text-align:center">
+            <img src="${awayCrest}" onerror="this.style.display='none'" style="width:40px;height:40px;object-fit:contain;display:block;margin:0 auto 4px">
+            <div style="font-size:.78rem;font-weight:900;color:var(--text)">${away}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+    html += '<div class="league-section"><div class="league-header">'+league.flag+' '+league.name+'</div>'+cards+'</div>';
+  });
+
+  html += '<div style="text-align:center;margin-top:14px"><button onclick="loadLiveMatches()" style="background:var(--card);border:1px solid var(--green);color:var(--green);padding:10px 24px;border-radius:12px;font-family:Cairo,sans-serif;font-weight:900;cursor:pointer;font-size:.82rem">🔄 تحديث</button></div>';
+  listContainer.innerHTML = html;
+}
+
+function renderStaticMatches() {
+  const c = document.getElementById('matches-container');
+  const today = new Date().toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'});
+  c.innerHTML = '<div class="date-header">📅 '+today+'</div><div class="no-matches">⚽ لا توجد مباريات اليوم<br><a href="https://www.livescore.com/en/football/live/" target="_blank">🔴 النتائج المباشرة</a></div>';
+}
+
+// Theme
+let isDark = true;
+function toggleTheme() {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'':'light');
+  document.getElementById('themeBtn').textContent = isDark?'🌙':'☀️';
+  showToast(isDark?'الوضع الداكن':'الوضع الفاتح');
+}
+
+let notifOn = false;
+function toggleNotif() {
+  notifOn = !notifOn;
+  const btn = document.getElementById('notifBtn');
+  btn.classList.toggle('active',notifOn);
+  btn.textContent = notifOn?'🔔 مفعلة':'🔔 الاشعارات';
+  showToast(notifOn?'سيتم اشعارك قبل المباريات':'تم ايقاف الاشعارات');
+  if(notifOn && 'Notification' in window) Notification.requestPermission();
+}
+
+function showToast(msg,dur) {
+  dur=dur||2500;
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},dur);
+}
+
+function showTab(name,el) {
+  document.querySelectorAll('.tab-page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+  if(name==='standings') loadLiveStandings('pl');
+  if(name==='news') fetchNews(0);
+  if(name==='goals') renderGoals();
+}
+
+const TEAMS = [
+  {name:'Real Madrid',flag:'🇪🇸',league:'La Liga'},{name:'Barcelona',flag:'🇪🇸',league:'La Liga'},
+  {name:'Bayern Munich',flag:'🇩🇪',league:'Bundesliga'},{name:'Manchester City',flag:'🏴',league:'Premier League'},
+  {name:'Liverpool',flag:'🏴',league:'Premier League'},{name:'Arsenal',flag:'🏴',league:'Premier League'},
+  {name:'Chelsea',flag:'🏴',league:'Premier League'},{name:'PSG',flag:'🇫🇷',league:'Ligue 1'},
+  {name:'AC Milan',flag:'🇮🇹',league:'Serie A'},{name:'Inter Milan',flag:'🇮🇹',league:'Serie A'},
+  {name:'Juventus',flag:'🇮🇹',league:'Serie A'},{name:'Napoli',flag:'🇮🇹',league:'Serie A'},
+  {name:'Dortmund',flag:'🇩🇪',league:'Bundesliga'},
+];
+function searchTeam() {
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const res=document.getElementById('searchResults');
+  if(!q){res.style.display='none';return;}
+  const found=TEAMS.filter(function(t){return t.name.toLowerCase().includes(q);});
+  if(!found.length){res.style.display='none';return;}
+  res.style.display='block';
+  res.innerHTML=found.map(function(t){return '<div class="search-result-item" onclick="selectTeam(\''+t.name+'\')"><span>'+t.flag+'</span><div><div style="font-weight:700">'+t.name+'</div><div style="font-size:.72rem;color:var(--text2)">'+t.league+'</div></div></div>';}).join('');
+}
+function selectTeam(name){
+  document.getElementById('searchInput').value=name;
+  document.getElementById('searchResults').style.display='none';
+  showToast('البحث عن: '+name);
+}
+document.addEventListener('click',function(e){if(!e.target.closest('.search-wrap'))document.getElementById('searchResults').style.display='none';});
+
+async function loadLiveStandings(league) {
+  const container = document.getElementById('standingsContainer');
+  const leagueMap = {
+    pl:{code:'PL',name:'🏴 Premier League'},
+    laliga:{code:'PD',name:'🇪🇸 La Liga'},
+    bl:{code:'BL1',name:'🇩🇪 Bundesliga'},
+    sa:{code:'SA',name:'🇮🇹 Serie A'},
+    l1:{code:'FL1',name:'🇫🇷 Ligue 1'},
+  };
+  const lg = leagueMap[league];
+  if(!lg) return;
+  container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل الترتيب...</div>';
+  try {
+    const res = await fetch(WORKER_URL+'/v4/competitions/'+lg.code+'/standings');
+    if(!res.ok) throw new Error('API error');
+    const data = await res.json();
+    const table = data.standings.find(function(s){return s.type==='TOTAL';});
+    if(!table) throw new Error('No data');
+    let html = '<div style="margin-bottom:8px;font-size:.85rem;color:var(--text2);text-align:center">'+lg.name+'</div><table class="standings-table"><thead><tr><th>#</th><th style="text-align:right;padding-right:14px">الفريق</th><th>ل</th><th>ف</th><th>خ</th><th>ت</th><th>GD</th><th>نقاط</th></tr></thead><tbody>';
+    table.table.forEach(function(team){
+      const pos=team.position;
+      let cls='';
+      if(pos<=4) cls='pos-cl';
+      else if(pos===5||pos===6) cls='pos-el';
+      else if(pos>=table.table.length-2) cls='pos-rel';
+      const gd=team.goalDifference>=0?'+'+team.goalDifference:''+team.goalDifference;
+      const gdColor=team.goalDifference>=0?'var(--green)':'var(--live)';
+      html+='<tr><td><span class="pos-badge '+cls+'">'+pos+'</span></td><td style="text-align:right;font-weight:700;padding-right:14px">'+getTeamName(team.team.name)+'</td><td>'+team.playedGames+'</td><td>'+team.won+'</td><td>'+team.lost+'</td><td>'+team.draw+'</td><td style="color:'+gdColor+'">'+gd+'</td><td class="pts">'+team.points+'</td></tr>';
+    });
+    html+='</tbody></table><div style="margin-top:10px;font-size:.72rem;color:var(--text2);display:flex;gap:12px;flex-wrap:wrap"><span><span class="pos-badge pos-cl" style="display:inline-flex">C</span> أبطال أوروبا</span><span><span class="pos-badge pos-el" style="display:inline-flex">E</span> الدوري الأوروبي</span><span><span class="pos-badge pos-rel" style="display:inline-flex">R</span> هبوط</span></div>';
+    container.innerHTML = html;
+  } catch(err) {
+    container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:20px">تعذر تحميل الترتيب</p>';
+  }
+}
+
+function showStandings(league,el) {
+  document.querySelectorAll('.league-tab').forEach(function(t){t.classList.remove('active');});
+  if(el) el.classList.add('active');
+  loadLiveStandings(league);
+}
+
+async function fetchNews(sourceIndex) {
+  const sec=document.getElementById('news-section');
+  sourceIndex=sourceIndex!==undefined?sourceIndex:0;
+  document.querySelectorAll('.news-source-btn').forEach(function(b,i){b.classList.toggle('active',i===sourceIndex);});
+  sec.innerHTML='<div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div>';
+  const sources=['https://feeds.bbci.co.uk/arabic/sports/rss.xml','https://feeds.bbci.co.uk/sport/football/rss.xml'];
+  try {
+    var r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(sources[sourceIndex]));
+    var d=await r.json();
+    if(!d.items||d.items.length===0) throw new Error('No items');
+    var html='';
+    d.items.slice(0,8).forEach(function(item){
+      var date=new Date(item.pubDate).toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
+      var img=item.thumbnail||'';
+      var siteUrl='https://haleemhlmygl-source.github.io/koora';
+      var card='<div class="news-card">';
+      if(img) card+='<img src="'+img+'" style="width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px" onerror="this.style.display=none">';
+      card+='<a href="'+item.link+'" target="_blank" class="news-title">📍 '+item.title+'</a>';
+      card+='<div class="news-date">🕐 '+date+'</div>';
+      card+='<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">';
+      card+='<a href="'+item.link+'" target="_blank" style="background:var(--green);color:#000;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📖 اقرأ المزيد</a>';
+      card+='<a href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(siteUrl)+'" target="_blank" style="background:#1877f2;color:#fff;padding:6px 14px;border-radius:8px;font-size:.75rem;font-weight:900;text-decoration:none">📘 شارك</a>';
+      card+='</div></div>';
+      html+=card;
+    });
+    sec.innerHTML=html||'<p style="text-align:center;color:var(--text2);padding:20px">لا توجد اخبار</p>';
+  } catch(e) {
+    sec.innerHTML='<p style="text-align:center;color:var(--text2);padding:20px">تعذر تحميل الاخبار</p>';
+  }
+}
+
+function toggleArticle(id) {
+  var body=document.getElementById('body-'+id);
+  var arrow=document.getElementById('arrow-'+id);
+  if(body.classList.contains('open')){body.classList.remove('open');arrow.textContent='▼';}
+  else{body.classList.add('open');arrow.textContent='▲';}
+}
+
+function shareSite() {
+  window.open('https://wa.me/?text='+encodeURIComponent('🏆 تابع نتائج المباريات على GoalZone:\n'+window.location.href));
+}
+
+// Goals
+const GOALS_DATA = [];
+var currentGoalsFilter = 'all';
+function filterGoals(league, el) {
+  currentGoalsFilter = league;
+  document.querySelectorAll('#tab-goals .league-tab').forEach(function(b){b.classList.remove('active');});
+  if(el) el.classList.add('active');
+  renderGoals();
+}
+function renderGoals() {
+  const container = document.getElementById('goals-container');
+  container.innerHTML = '<div class="no-matches">🎬 أضف فيديوهات من يوتيوب في GOALS_DATA</div>';
+}
+
+// Slider
+var currentSlide=0,slideTimer;
+function showSlide(n) {
+  var slides=document.querySelectorAll('.slide');
+  var dots=document.querySelectorAll('.sdot');
+  slides.forEach(function(s){s.style.display='none';});
+  dots.forEach(function(d){d.style.background='rgba(255,255,255,0.3)';});
+  currentSlide=(n+slides.length)%slides.length;
+  slides[currentSlide].style.display='block';
+  dots[currentSlide].style.background='#00e676';
+}
+function changeSlide(dir){showSlide(currentSlide+dir);clearInterval(slideTimer);slideTimer=setInterval(function(){showSlide(currentSlide+1);},4000);}
+function goToSlide(n){showSlide(n);clearInterval(slideTimer);slideTimer=setInterval(function(){showSlide(currentSlide+1);},4000);}
+
+window.onload = function() {
+  slideTimer = setInterval(function(){showSlide(currentSlide+1);},4000);
+  loadLiveMatches();
+  loadLiveStandings('pl');
+};
+</script>
+
+<!-- PWA -->
+<div id="pwa-install" style="display:none;position:fixed;bottom:85px;right:16px;z-index:200">
+    <button onclick="installPWA()" style="background:var(--green);color:#000;border:none;padding:12px 20px;border-radius:25px;font-family:Cairo,sans-serif;font-weight:900;font-size:.85rem;box-shadow:0 4px 15px rgba(0,230,118,0.4);cursor:pointer">📲 تثبيت التطبيق</button>
+</div>
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){}).catch(function(){});}
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;document.getElementById('pwa-install').style.display='block';});
+function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')document.getElementById('pwa-install').style.display='none';deferredPrompt=null;});}}
+window.addEventListener('appinstalled',function(){document.getElementById('pwa-install').style.display='none';});
+</script>
+</body>
+</html>
