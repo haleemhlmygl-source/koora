@@ -385,26 +385,39 @@ async function loadLiveMatches() {
     const dateFrom = from.toISOString().split('T')[0];
     const dateTo = later.toISOString().split('T')[0];
 
-    const [plRes, clRes, pdRes, blRes, saRes] = await Promise.allSettled([
-      fetch(WORKER_URL+'/v4/competitions/PL/matches?dateFrom='+dateFrom+'&dateTo='+dateTo),
-      fetch(WORKER_URL+'/v4/competitions/CL/matches?dateFrom='+dateFrom+'&dateTo='+dateTo),
-      fetch(WORKER_URL+'/v4/competitions/PD/matches?dateFrom='+dateFrom+'&dateTo='+dateTo),
-      fetch(WORKER_URL+'/v4/competitions/BL1/matches?dateFrom='+dateFrom+'&dateTo='+dateTo),
-      fetch(WORKER_URL+'/v4/competitions/SA/matches?dateFrom='+dateFrom+'&dateTo='+dateTo),
-    ]);
-
-    allMatchesData = [];
-    const processLeague = async (result, name, flag) => {
-      if(result.status==='fulfilled' && result.value.ok) {
-        const data = await result.value.json();
-        if(data.matches && data.matches.length>0) allMatchesData.push({name,flag,matches:data.matches});
+    // جلب كل الدوريات بطلب واحد لكل دوري - مع cache محلي
+    const CACHE_KEY = 'gz_matches_'+dateFrom;
+    const CACHE_TIME = 5 * 60 * 1000; // 5 دقائق
+    const cached = sessionStorage.getItem(CACHE_KEY);
+    const cachedTime = sessionStorage.getItem(CACHE_KEY+'_t');
+    
+    if(cached && cachedTime && (Date.now()-parseInt(cachedTime)) < CACHE_TIME) {
+      allMatchesData = JSON.parse(cached);
+    } else {
+      const leagues_config = [
+        {code:'PL', name:'الدوري الإنجليزي الممتاز', flag:'🏴'},
+        {code:'CL', name:'دوري أبطال أوروبا', flag:'⭐'},
+        {code:'PD', name:'الدوري الإسباني', flag:'🇪🇸'},
+        {code:'BL1', name:'الدوري الألماني', flag:'🇩🇪'},
+        {code:'SA', name:'الدوري الإيطالي', flag:'🇮🇹'},
+      ];
+      allMatchesData = [];
+      // جلب بالتسلسل لتوفير الموارد
+      for(const lg of leagues_config) {
+        try {
+          const res = await fetch(WORKER_URL+'/v4/competitions/'+lg.code+'/matches?dateFrom='+dateFrom+'&dateTo='+dateTo);
+          if(res.ok) {
+            const data = await res.json();
+            if(data.matches && data.matches.length>0) allMatchesData.push({name:lg.name, flag:lg.flag, matches:data.matches});
+          }
+        } catch(e) { console.warn('Failed:', lg.code); }
       }
-    };
-    await processLeague(plRes,'الدوري الإنجليزي الممتاز','🏴');
-    await processLeague(clRes,'دوري أبطال أوروبا','⭐');
-    await processLeague(pdRes,'الدوري الإسباني','🇪🇸');
-    await processLeague(blRes,'الدوري الألماني','🇩🇪');
-    await processLeague(saRes,'الدوري الإيطالي','🇮🇹');
+      // حفظ في cache
+      try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(allMatchesData));
+        sessionStorage.setItem(CACHE_KEY+'_t', Date.now().toString());
+      } catch(e) {}
+    }
 
     if(allMatchesData.length===0){ renderStaticMatches(); return; }
 
