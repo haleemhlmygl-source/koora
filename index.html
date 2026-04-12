@@ -387,34 +387,14 @@ const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 // status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
 // ============================================================
 const EGYPT_MATCHES = [
-  // ========= الجولة الحالية =========
-  {
-    date: '2026-04-14', // تاريخ المباراة YYYY-MM-DD
-    home: 'الأهلي',
-    away: 'الزمالك',
-    time: '21:00',     // التوقيت المحلي
-    status: 'upcoming', // upcoming | live | ft
-    score: '',         // مثال: '2-1' لو انتهت
-    channel: 'ON Sport 1'
-  },
-  {
-    date: '2026-04-14',
-    home: 'بيراميدز',
-    away: 'المصري',
-    time: '18:00',
-    status: 'upcoming',
-    score: '',
-    channel: 'ON Sport 2'
-  },
-  {
-    date: '2026-04-15',
-    home: 'سيراميكا',
-    away: 'فاركو',
-    time: '19:00',
-    status: 'ft',
-    score: '2-0',
-    channel: 'ON Sport 1'
-  },
+  // ========= الإثنين 13 أبريل 2026 =========
+  {date:'2026-04-13', home:'غزل المحلة',   away:'وادي دجلة',        time:'18:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-13', home:'فاركو',         away:'حرس الحدود',       time:'18:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-13', home:'طلائع الجيش',  away:'بتروجت',           time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-13', home:'البنك الأهلي', away:'المقاولون العرب',  time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  // ========= الثلاثاء 14 أبريل 2026 =========
+  {date:'2026-04-14', home:'مودرن سبورت',  away:'الجونة',           time:'18:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-14', home:'الاتحاد السكندري', away:'زد',           time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
 ];
 // ============================================================
 
@@ -596,10 +576,25 @@ function renderMatchesForDay(day) {
       }
       const ytQ = encodeURIComponent('بث مباشر ' + m.home + ' ' + m.away + ' 2026');
       const ytG = encodeURIComponent('اهداف ' + m.home + ' ' + m.away + ' 2026');
-      const liveBtn = m.status !== 'ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
+      const liveBtn = m.status !== 'ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:5px 12px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
       const goalsBtn = m.status === 'ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
-      const channelBadge = m.channel ? '<span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 '+m.channel+'</span>' : '';
-      egyptCards += '<div class="match-card"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span class="match-teams">'+m.home+'<span class="match-vs">vs</span>'+m.away+'</span>'+timeBadge+'</div><div style="display:flex;gap:6px;flex-wrap:wrap">'+channelBadge+liveBtn+goalsBtn+'</div></div></div>';
+      egyptCards += `<div style="background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+          <div style="flex:1;text-align:center">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
+            <div style="font-size:.78rem;font-weight:900;color:var(--text);line-height:1.3">${m.home}</div>
+          </div>
+          <div style="text-align:center;min-width:90px">
+            ${timeBadge}
+            <div style="font-size:.65rem;color:var(--text2);margin-top:3px">${m.channel||''}</div>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
+          </div>
+          <div style="flex:1;text-align:center">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
+            <div style="font-size:.78rem;font-weight:900;color:var(--text);line-height:1.3">${m.away}</div>
+          </div>
+        </div>
+      </div>`;
     });
     filtered.unshift({name:'الدوري المصري الممتاز', flag:'🇪🇬', matches:[], _egyptCards: egyptCards});
   }
@@ -633,9 +628,26 @@ function renderMatchesForDay(day) {
       }
       const ytQ = encodeURIComponent('بث مباشر '+home+' '+away+' 2026');
       const ytG = encodeURIComponent('اهداف '+home+' '+away+' 2026');
-      const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
+      const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:5px 12px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
       const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
-      cards += '<div class="match-card"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span class="match-teams">'+home+'<span class="match-vs">vs</span>'+away+'</span>'+timeBadge+'</div><div style="display:flex;gap:6px;flex-wrap:wrap">'+liveBtn+goalsBtn+'</div></div></div>';
+      const homeCrest = match.homeTeam.crest || '';
+      const awayCrest = match.awayTeam.crest || '';
+      cards += `<div style="background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+          <div style="flex:1;text-align:center">
+            <img src="${homeCrest}" onerror="this.style.display='none'" style="width:40px;height:40px;object-fit:contain;margin-bottom:4px;display:block;margin:0 auto 4px">
+            <div style="font-size:.78rem;font-weight:900;color:var(--text);line-height:1.3">${home}</div>
+          </div>
+          <div style="text-align:center;min-width:90px">
+            ${timeBadge}
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
+          </div>
+          <div style="flex:1;text-align:center">
+            <img src="${awayCrest}" onerror="this.style.display='none'" style="width:40px;height:40px;object-fit:contain;margin-bottom:4px;display:block;margin:0 auto 4px">
+            <div style="font-size:.78rem;font-weight:900;color:var(--text);line-height:1.3">${away}</div>
+          </div>
+        </div>
+      </div>`;
     });
     html += '<div class="league-section"><div class="league-header">'+league.flag+' '+league.name+'</div>'+cards+'</div>';
   });
