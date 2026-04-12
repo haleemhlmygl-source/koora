@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZH609H0G6"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -13,245 +12,1004 @@
     <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoalZone - نتائج المباريات الحية | الدوري الإنجليزي والإسباني وأبطال أوروبا</title>
-    <meta name="description" content="GoalZone - تابع نتائج المباريات الحية لحظة بلحظة. الدوري الإنجليزي الممتاز، دوري أبطال أوروبا، الدوري الإسباني، الألماني، الإيطالي. مواعيد المباريات والترتيب.">
-    <meta name="keywords" content="نتائج مباريات, مباريات اليوم, الدوري الإنجليزي, دوري الأبطال, الدوري الإسباني, كرة القدم, GoalZone, نتائج حية">
+    <meta name="description" content="GoalZone - تابع نتائج المباريات الحية لحظة بلحظة. الدوري الإنجليزي الممتاز، دوري أبطال أوروبا، الدوري الإسباني، الألماني، الإيطالي.">
+    <meta name="keywords" content="نتائج مباريات, مباريات اليوم, الدوري الإنجليزي, دوري الأبطال, الدوري الإسباني, كرة القدم, GoalZone">
     <meta name="author" content="HALEEM HLMY">
     <meta name="robots" content="index, follow">
-    <meta name="language" content="Arabic">
     <link rel="canonical" href="https://haleemhlmygl-source.github.io/koora">
-
-    <!-- Open Graph للمشاركة على فيسبوك وواتساب -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://haleemhlmygl-source.github.io/koora">
     <meta property="og:title" content="GoalZone - نتائج المباريات الحية">
-    <meta property="og:description" content="تابع نتائج المباريات الحية لحظة بلحظة. الدوري الإنجليزي، أبطال أوروبا، الإسباني والمزيد.">
+    <meta property="og:description" content="تابع نتائج المباريات الحية لحظة بلحظة">
     <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-    <meta property="og:locale" content="ar_EG">
-    <meta property="og:site_name" content="GoalZone">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="GoalZone - نتائج المباريات الحية">
-    <meta name="twitter:description" content="تابع نتائج المباريات الحية لحظة بلحظة">
-    <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-
-    <!-- Schema.org للـ Google -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "GoalZone",
-      "url": "https://haleemhlmygl-source.github.io/koora",
-      "description": "موقع نتائج المباريات الحية - الدوري الإنجليزي الممتاز ودوري أبطال أوروبا والدوريات الكبرى",
-      "inLanguage": "ar",
-      "author": {
-        "@type": "Person",
-        "name": "HALEEM HLMY"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://haleemhlmygl-source.github.io/koora?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="GoalZone">
-    <meta name="theme-color" content="#00e676">
+    <meta name="theme-color" content="#e8001c">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
-        :root{--bg:#05070a;--bg2:#0d1117;--card:#12151a;--card2:#1a1f28;--green:#00e676;--gold:#ffd700;--live:#ff3d00;--border:#1e2530;--text:#e8eaf0;--text2:#8892a4;--glow:rgba(0,230,118,0.15)}
-        [data-theme="light"]{--bg:#f0f4f8;--bg2:#e4eaf2;--card:#fff;--card2:#f7f9fc;--border:#d0dae8;--text:#1a2233;--text2:#5a6a82}
-        *{box-sizing:border-box;margin:0;padding:0;transition:background .3s,color .3s}
-        body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-height:100vh;overflow-x:hidden}
-        .alert-bar{background:linear-gradient(90deg,var(--live),#ff6d00);color:#fff;text-align:center;font-size:.78rem;padding:9px 0;font-weight:900}
-        .header-area{padding:24px 16px 16px;text-align:center;background:var(--bg2);border-bottom:1px solid var(--border)}
-        .header-top{display:flex;justify-content:flex-end;max-width:640px;margin:0 auto 16px;gap:10px}
-        .theme-btn{background:var(--card);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
-        .notif-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:0 14px;height:38px;border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:900;font-family:'Cairo',sans-serif;display:flex;align-items:center;gap:6px}
-        .notif-btn.active{background:var(--green);color:#000;border-color:var(--green)}
-        .logo-box{display:inline-block;padding:12px 30px;border:2px solid var(--green);border-radius:16px;box-shadow:0 0 30px var(--glow)}
-        .logo-main{color:var(--green);font-size:2rem;font-weight:900;font-family:'Orbitron',sans-serif;letter-spacing:2px;text-shadow:0 0 20px var(--green)}
-        .logo-sub{color:var(--gold);font-size:.72rem;font-weight:700;display:block;border-top:1px solid var(--border);padding-top:5px;margin-top:5px}
-        .ticker-wrap{background:var(--bg2);border-bottom:1px solid var(--border);height:38px;overflow:hidden;display:flex;align-items:center}
-        .ticker-label{background:var(--green);color:#000;padding:0 14px;font-weight:900;font-size:.75rem;height:100%;display:flex;align-items:center;flex-shrink:0}
-        .ticker-track{overflow:hidden;flex:1}
-        .ticker-text{white-space:nowrap;animation:ticker 40s linear infinite;font-size:.8rem;color:var(--text2)}
-        @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(100%)}}
-        .search-wrap{max-width:640px;margin:16px auto 0;padding:0 16px}
-        .search-box{display:flex;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-        .search-box input{flex:1;background:transparent;border:none;outline:none;padding:13px 16px;font-size:.9rem;color:var(--text);font-family:'Cairo',sans-serif}
-        .search-box input::placeholder{color:var(--text2)}
-        .search-box button{background:var(--green);border:none;padding:0 20px;cursor:pointer;font-size:18px;color:#000}
-        .search-results{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-top:8px;overflow:hidden;display:none}
-        .search-result-item{padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:.85rem}
-        .search-result-item:last-child{border-bottom:none}
-        .search-result-item:hover{background:var(--card2)}
-        .tabs-wrap{max-width:640px;margin:14px auto 0;padding:0 16px}
-        .tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;padding:4px;gap:2px}
-        .tab-btn{flex:1;padding:10px 4px;background:transparent;border:none;color:var(--text2);cursor:pointer;font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:700;border-radius:10px;transition:all .2s;white-space:nowrap}
-        .tab-btn.active{background:var(--green);color:#000}
-        .content{padding:16px;max-width:640px;margin:auto}
-        .tab-page{display:none}
-        .tab-page.active{display:block}
-        .section-title{color:var(--gold);font-size:1rem;margin:20px 0 10px;border-right:4px solid var(--green);padding-right:10px;font-weight:900}
-        .live-btn-main{width:100%;padding:18px;background:linear-gradient(135deg,#ff3d00,#ff6d00);color:#fff;border:none;border-radius:16px;font-weight:900;cursor:pointer;font-size:1rem;font-family:'Cairo',sans-serif;box-shadow:0 6px 20px rgba(255,61,0,.3);margin-bottom:12px}
-        .date-header{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:8px 14px;font-size:.8rem;color:var(--gold);font-weight:900;margin:14px 0 6px;text-align:center}
-        .league-section{margin-bottom:16px}
-        .league-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card2);border-radius:12px 12px 0 0;border:1px solid var(--border);border-bottom:none;font-weight:900;font-size:.85rem}
-        .match-card{background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
-        .match-card:last-child{border-radius:0 0 12px 12px}
-        .match-card:hover{background:var(--card2)}
-        .match-teams{font-size:.88rem;font-weight:700}
-        .match-vs{color:var(--text2);font-size:.75rem;margin:0 6px}
-        .match-time{color:var(--green);font-weight:900;background:rgba(0,230,118,.1);padding:4px 12px;border-radius:8px;font-size:.82rem;white-space:nowrap}
-        .match-time.live{background:rgba(255,61,0,.15);color:var(--live);animation:lp 1.5s infinite}
-        .match-time.ft{background:rgba(255,255,255,.05);color:var(--text2)}
-        .yt-btn{background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none;white-space:nowrap;transition:opacity .2s}
-        .yt-btn:hover{opacity:.85}
-        @keyframes lp{0%,100%{opacity:1}50%{opacity:.6}}
-        .standings-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--border)}
-        .standings-table th{background:var(--card2);padding:10px;text-align:center;color:var(--text2);font-weight:700;border-bottom:1px solid var(--border)}
-        .standings-table th:first-child{text-align:right;padding-right:14px}
-        .standings-table td{padding:10px;text-align:center;border-bottom:1px solid var(--border)}
-        .standings-table td:first-child{text-align:right;padding-right:14px;font-weight:700}
-        .standings-table tr:last-child td{border-bottom:none}
-        .standings-table tr:hover td{background:var(--card2)}
-        .pos-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:.72rem;font-weight:900;margin-left:8px}
-        .pos-cl{background:rgba(41,121,255,.2);color:#2979ff}
-        .pos-el{background:rgba(0,230,118,.2);color:var(--green)}
-        .pos-rel{background:rgba(255,61,0,.2);color:var(--live)}
-        .pts{color:var(--gold);font-weight:900}
-        .league-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-        .league-tab{padding:7px 14px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2)}
-        .league-tab.active{background:var(--green);color:#000;border-color:var(--green)}
-        .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-        .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
-        .stat-num{font-size:2rem;font-weight:900;color:var(--green);line-height:1}
-        .stat-label{font-size:.75rem;color:var(--text2);margin-top:4px}
-        .top-scorers{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-        .scorer-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);gap:12px}
-        .scorer-row:last-child{border-bottom:none}
-        .scorer-rank{color:var(--gold);font-weight:900;min-width:24px}
-        .scorer-info{flex:1}
-        .scorer-name{font-weight:700;font-size:.88rem}
-        .scorer-team{font-size:.72rem;color:var(--text2)}
-        .scorer-goals{background:rgba(0,230,118,.1);color:var(--green);padding:4px 10px;border-radius:8px;font-weight:900;font-size:.85rem}
-        .news-card{background:var(--card);border-radius:14px;padding:14px 16px;border:1px solid var(--border);margin-bottom:10px;border-right:4px solid var(--gold)}
-        .news-title{color:var(--text);font-size:.88rem;text-decoration:none;font-weight:700;display:block}
-        .news-date{font-size:.72rem;color:var(--text2);margin-top:4px}
-        .ad-container-fixed{max-height:150px;overflow:hidden;margin:16px 0;border-radius:12px;border:1px solid var(--border);background:var(--card)}
-        .share-btn{width:100%;padding:15px;background:#128C7E;color:#fff;border:none;border-radius:14px;font-weight:900;cursor:pointer;margin-top:20px;font-family:'Cairo',sans-serif;font-size:.95rem}
-        .wa-float{position:fixed;bottom:25px;left:20px;background:#25d366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:100;text-decoration:none;font-size:22px;box-shadow:0 5px 18px rgba(0,0,0,.4)}
-        .toast{position:fixed;top:20px;right:20px;z-index:999;background:var(--card);border:1px solid var(--green);color:var(--text);padding:14px 20px;border-radius:14px;font-size:.85rem;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.3);transform:translateX(120%);transition:transform .3s;max-width:300px}
-        .toast.show{transform:translateX(0)}
-        .footer{text-align:center;color:var(--text2);padding:28px 16px;font-size:.78rem;border-top:1px solid var(--border);margin-top:20px}
-        .loading{text-align:center;padding:30px;color:var(--text2)}
-        .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        .no-matches{text-align:center;padding:30px;color:var(--text2)}
-        .slide{display:none;position:relative;height:200px;cursor:pointer}
-        .slide.active{display:block}
-        .article-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden}
-        .article-header{padding:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-        .article-header:hover{background:var(--card2)}
-        .article-title{font-weight:900;font-size:.9rem;color:var(--text);margin-bottom:4px}
-        .article-meta{font-size:.72rem;color:var(--text2)}
-        .article-arrow{color:var(--gold);font-size:1rem;transition:transform .3s}
-        .article-body{display:none;padding:0 16px 16px;font-size:.85rem;line-height:1.8;color:var(--text);border-top:1px solid var(--border)}
-        .article-body.open{display:block}
-        .news-source-btn{padding:7px 16px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'Cairo',sans-serif;color:var(--text2);transition:all .2s}
-        .news-source-btn.active{background:var(--green);color:#000;border-color:var(--green)}
-        .messenger-btn{background:linear-gradient(135deg,#0084ff,#00c6ff);color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none;display:inline-block}
-        .no-matches a{color:var(--green);text-decoration:none;font-weight:900}
+        :root {
+            --bg: #060a10;
+            --bg2: #0a0f18;
+            --bg3: #0f1520;
+            --card: #111827;
+            --card2: #1a2332;
+            --card3: #1f2d40;
+            --red: #e8001c;
+            --red2: #ff1a35;
+            --gold: #f5c518;
+            --live: #ff0000;
+            --green: #00d46a;
+            --border: #1e2d42;
+            --border2: #253548;
+            --text: #e8edf5;
+            --text2: #7a8fa8;
+            --text3: #4a6080;
+            --glow-red: rgba(232,0,28,0.2);
+            --glow-gold: rgba(245,197,24,0.15);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg2); }
+        ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            background: var(--red);
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .72rem;
+            font-weight: 700;
+            overflow: hidden;
+        }
+        .top-bar-label {
+            background: #000;
+            color: var(--red);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 900;
+            white-space: nowrap;
+            font-size: .68rem;
+        }
+        .top-bar-text {
+            white-space: nowrap;
+            animation: ticker 35s linear infinite;
+            color: #fff;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(180deg, #0a0f18 0%, #060a10 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+        }
+        .header-inner {
+            max-width: 640px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--red);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px var(--glow-red);
+        }
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+        .logo-sub {
+            font-size: .58rem;
+            color: var(--text2);
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text2);
+            transition: all .2s;
+        }
+        .btn-icon:hover, .btn-icon.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+        /* ===== LIVE BADGE ===== */
+        .live-banner {
+            background: linear-gradient(135deg, #1a0005, #2a0008);
+            border: 1px solid rgba(232,0,28,0.3);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all .2s;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .live-banner:hover { border-color: var(--red); box-shadow: 0 0 20px var(--glow-red); }
+        .live-dot {
+            width: 10px; height: 10px;
+            background: var(--live);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.3); }
+        }
+        .live-banner-text { font-weight: 900; font-size: .88rem; color: #fff; }
+        .live-banner-sub { font-size: .72rem; color: var(--text2); }
+        .live-arrow { margin-right: auto; color: var(--red); font-size: 1.2rem; }
+
+        /* ===== STARS BAR ===== */
+        .stars-bar {
+            display: flex;
+            gap: 12px;
+            padding: 10px 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid var(--border);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .stars-bar::-webkit-scrollbar { display: none; }
+        .star-item {
+            flex-shrink: 0;
+            text-align: center;
+            cursor: pointer;
+        }
+        .star-avatar {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--border2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin: 0 auto 4px;
+            transition: border-color .2s;
+            overflow: hidden;
+        }
+        .star-item:hover .star-avatar { border-color: var(--red); }
+        .star-name { font-size: .62rem; color: var(--text); font-weight: 700; }
+        .star-club { font-size: .55rem; color: var(--text3); }
+
+        /* ===== NEWS SLIDER ===== */
+        .slider-wrap {
+            position: relative;
+            margin: 12px 16px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,.5);
+            max-width: 608px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .slide { display: none; position: relative; height: 190px; cursor: pointer; }
+        .slide.active { display: block; }
+        .slide-bg { width: 100%; height: 190px; object-fit: cover; }
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.3) 60%, transparent 100%);
+        }
+        .slide-content {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 14px;
+        }
+        .slide-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: .65rem;
+            font-weight: 900;
+            margin-bottom: 6px;
+            letter-spacing: .5px;
+        }
+        .badge-live { background: var(--live); color: #fff; }
+        .badge-ucl { background: var(--gold); color: #000; }
+        .badge-egy { background: var(--green); color: #000; }
+        .badge-news { background: var(--red); color: #fff; }
+        .slide-title { color: #fff; font-size: .88rem; font-weight: 900; line-height: 1.5; }
+        .slide-arrows {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            z-index: 10;
+        }
+        .slide-btn {
+            width: 30px; height: 30px;
+            background: rgba(0,0,0,.5);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+        }
+        .slide-btn:hover { background: var(--red); }
+        .slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            padding: 8px 0 4px;
+        }
+        .sdot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--border2);
+            cursor: pointer;
+            transition: all .3s;
+        }
+        .sdot.active { background: var(--red); width: 18px; border-radius: 3px; }
+
+        /* ===== SEARCH ===== */
+        .search-wrap {
+            max-width: 640px;
+            margin: 12px auto;
+            padding: 0 16px;
+        }
+        .search-box {
+            display: flex;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color .2s;
+        }
+        .search-box:focus-within { border-color: var(--red); }
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 11px 14px;
+            font-size: .88rem;
+            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+        }
+        .search-box input::placeholder { color: var(--text3); }
+        .search-box button {
+            background: var(--red);
+            border: none;
+            padding: 0 16px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .search-results {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-top: 6px;
+            overflow: hidden;
+            display: none;
+        }
+        .search-result-item {
+            padding: 11px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .84rem;
+            transition: background .15s;
+        }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item:hover { background: var(--card2); }
+
+        /* ===== TABS ===== */
+        .tabs-wrap {
+            max-width: 640px;
+            margin: 0 auto 4px;
+            padding: 0 16px;
+        }
+        .tabs {
+            display: flex;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 3px;
+            gap: 2px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 9px 2px;
+            background: transparent;
+            border: none;
+            color: var(--text2);
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: .72rem;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+        .tab-btn.active {
+            background: var(--red);
+            color: #fff;
+            box-shadow: 0 2px 12px var(--glow-red);
+        }
+
+        /* ===== CONTENT ===== */
+        .content { padding: 12px 16px; max-width: 640px; margin: 0 auto; }
+        .tab-page { display: none; }
+        .tab-page.active { display: block; }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            font-size: .88rem;
+            font-weight: 900;
+            color: var(--text2);
+            margin: 16px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--red);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ===== DAY SELECTOR ===== */
+        #day-selector {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 0 10px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        #day-selector::-webkit-scrollbar { display: none; }
+        #day-selector button {
+            flex-shrink: 0;
+            text-align: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 14px;
+            cursor: pointer;
+            min-width: 68px;
+            font-family: 'Cairo', sans-serif;
+            transition: all .2s;
+        }
+        #day-selector button:hover { border-color: var(--red); }
+        #day-selector button.today-btn { border-color: rgba(232,0,28,0.4); }
+        #day-selector button.selected-btn { background: var(--red); border-color: var(--red); box-shadow: 0 2px 12px var(--glow-red); }
+
+        /* ===== LEAGUE SECTION ===== */
+        .league-section { margin-bottom: 14px; }
+        .league-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--card2);
+            border-radius: 10px 10px 0 0;
+            border: 1px solid var(--border);
+            border-bottom: none;
+            font-weight: 900;
+            font-size: .82rem;
+            color: var(--text);
+        }
+        .league-header img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        /* ===== MATCH CARD ===== */
+        .match-card-new {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-top: none;
+            padding: 14px 12px;
+            transition: background .15s;
+        }
+        .match-card-new:last-child { border-radius: 0 0 10px 10px; }
+        .match-card-new:hover { background: var(--card2); }
+        .match-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .match-team {
+            flex: 1;
+            text-align: center;
+        }
+        .match-team img {
+            width: 38px; height: 38px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 5px;
+        }
+        .match-team-placeholder {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: var(--card3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5px;
+            font-size: 1.1rem;
+        }
+        .match-team-name {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+        .match-center { text-align: center; min-width: 80px; }
+        .match-score {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+        .match-time-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: .75rem;
+            font-weight: 900;
+        }
+        .time-upcoming { background: rgba(0,212,106,.12); color: var(--green); }
+        .time-live { background: rgba(255,0,0,.15); color: var(--live); animation: pulse-text 1.5s infinite; }
+        .time-ft { background: rgba(255,255,255,.06); color: var(--text3); }
+        @keyframes pulse-text { 0%,100%{opacity:1} 50%{opacity:.6} }
+        .match-actions {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .btn-watch {
+            background: var(--red);
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: .7rem;
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .btn-goals {
+            background: var(--card3);
+            color: var(--text2);
+            border: 1px solid var(--border2);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: .7rem;
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .btn-channel {
+            background: transparent;
+            color: var(--text3);
+            border: none;
+            font-size: .65rem;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 3px;
+        }
+
+        /* ===== STANDINGS ===== */
+        .league-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .league-tab {
+            padding: 6px 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: .75rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            color: var(--text2);
+            transition: all .2s;
+        }
+        .league-tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .8rem;
+            background: var(--card);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .standings-table th {
+            background: var(--card2);
+            padding: 9px;
+            text-align: center;
+            color: var(--text3);
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        .standings-table th:first-child { text-align: right; padding-right: 12px; }
+        .standings-table td { padding: 9px; text-align: center; border-bottom: 1px solid var(--border); }
+        .standings-table td:first-child { text-align: right; padding-right: 12px; font-weight: 700; }
+        .standings-table tr:last-child td { border-bottom: none; }
+        .standings-table tr:hover td { background: var(--card2); }
+        .pos-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px; height: 20px;
+            border-radius: 5px;
+            font-size: .68rem;
+            font-weight: 900;
+            margin-left: 6px;
+        }
+        .pos-cl { background: rgba(41,121,255,.2); color: #5599ff; }
+        .pos-el { background: rgba(0,212,106,.2); color: var(--green); }
+        .pos-rel { background: rgba(232,0,28,.2); color: var(--red); }
+        .pts { color: var(--gold); font-weight: 900; }
+
+        /* ===== STATS ===== */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--red);
+        }
+        .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--red); line-height: 1; }
+        .stat-label { font-size: .72rem; color: var(--text2); margin-top: 4px; }
+        .top-scorers { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+        .scorer-row {
+            display: flex;
+            align-items: center;
+            padding: 11px 14px;
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+        .scorer-row:last-child { border-bottom: none; }
+        .scorer-rank { color: var(--gold); font-weight: 900; min-width: 24px; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; }
+        .scorer-info { flex: 1; }
+        .scorer-name { font-weight: 700; font-size: .86rem; }
+        .scorer-team { font-size: .7rem; color: var(--text2); }
+        .scorer-goals { background: rgba(232,0,28,.12); color: var(--red); padding: 3px 10px; border-radius: 6px; font-weight: 900; font-size: .82rem; }
+
+        /* ===== ARTICLES ===== */
+        .article-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: border-color .2s;
+        }
+        .article-card:hover { border-color: var(--border2); }
+        .article-header {
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background .15s;
+        }
+        .article-header:hover { background: var(--card2); }
+        .article-title { font-weight: 900; font-size: .88rem; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
+        .article-meta { font-size: .7rem; color: var(--text3); }
+        .article-arrow { color: var(--red); font-size: .9rem; flex-shrink: 0; margin-right: 10px; }
+        .article-body {
+            display: none;
+            padding: 0 14px 14px;
+            font-size: .84rem;
+            line-height: 1.9;
+            color: var(--text2);
+            border-top: 1px solid var(--border);
+        }
+        .article-body.open { display: block; }
+
+        /* ===== GOALS ===== */
+        .goal-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .goal-thumb {
+            position: relative;
+            cursor: pointer;
+        }
+        .goal-thumb img { width: 100%; height: 175px; object-fit: cover; display: block; }
+        .goal-play {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+        }
+        .goal-thumb:hover .goal-play { background: rgba(232,0,28,.4); }
+        .goal-play-btn {
+            width: 52px; height: 52px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 20px rgba(232,0,28,.5);
+        }
+        .goal-info { padding: 10px 12px; }
+        .goal-title { font-size: .82rem; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+        .goal-meta { display: flex; justify-content: space-between; font-size: .68rem; color: var(--text3); }
+
+        /* ===== NEWS ===== */
+        .news-source-btn {
+            padding: 6px 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: .75rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            color: var(--text2);
+            transition: all .2s;
+        }
+        .news-source-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+        .news-card {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            border-right: 3px solid var(--red);
+            transition: border-color .2s;
+        }
+        .news-card:hover { border-color: var(--red2); }
+        .news-title { color: var(--text); font-size: .86rem; text-decoration: none; font-weight: 700; display: block; line-height: 1.5; }
+        .news-date { font-size: .7rem; color: var(--text3); margin-top: 4px; }
+
+        /* ===== SHARE BTN ===== */
+        .share-btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #128C7E, #075E54);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            margin-top: 16px;
+            font-family: 'Cairo', sans-serif;
+            font-size: .9rem;
+        }
+
+        /* ===== ADS ===== */
+        .ad-wrap {
+            max-height: 140px;
+            overflow: hidden;
+            margin: 14px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
+        }
+
+        /* ===== FLOAT BTNS ===== */
+        .wa-float {
+            position: fixed;
+            bottom: 24px;
+            left: 20px;
+            background: #25d366;
+            color: #fff;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            text-decoration: none;
+            font-size: 20px;
+            box-shadow: 0 4px 16px rgba(37,211,102,.4);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 999;
+            background: var(--card2);
+            border: 1px solid var(--red);
+            color: var(--text);
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: .82rem;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(0,0,0,.4);
+            transform: translateX(120%);
+            transition: transform .3s;
+            max-width: 280px;
+        }
+        .toast.show { transform: translateX(0); }
+
+        /* ===== LOADING ===== */
+        .loading { text-align: center; padding: 28px; color: var(--text2); }
+        .spinner {
+            width: 30px; height: 30px;
+            border: 2px solid var(--border2);
+            border-top-color: var(--red);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .no-matches { text-align: center; padding: 28px; color: var(--text2); font-size: .86rem; }
+        .no-matches a { color: var(--red); text-decoration: none; font-weight: 900; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            color: var(--text3);
+            padding: 24px 16px;
+            font-size: .74rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        .footer b { color: var(--red); }
+
+        /* ===== REFRESH BTN ===== */
+        .refresh-btn {
+            width: 100%;
+            padding: 11px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text2);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            font-size: .8rem;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all .2s;
+        }
+        .refresh-btn:hover { border-color: var(--red); color: var(--red); }
+
+        /* ===== PWA ===== */
+        #pwa-install {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            z-index: 200;
+        }
+        #pwa-install button {
+            background: var(--red);
+            color: #fff;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 24px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            font-size: .82rem;
+            box-shadow: 0 4px 16px var(--glow-red);
+            cursor: pointer;
+        }
+
+        /* ===== MESSENGER BTN ===== */
+        .messenger-btn {
+            background: linear-gradient(135deg, #0084ff, #00c6ff);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 7px;
+            font-size: .76rem;
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-block;
+        }
     </style>
-<script>
+    <script>
     (function(){
         var d = document.createElement('script');
         d.src = 'https://3nbf4.com/act/files/tag.min.js?z=10757479';
         d.async = true;
         document.head.appendChild(d);
     })();
-</script>
+    </script>
 </head>
 <body>
-<div class="alert-bar">📢 مباشر الان: تابعوا تغطية مباريات اليوم والنتائج لحظة بلحظة</div>
-<div class="header-area">
-    <div class="header-top">
-        <button class="notif-btn" id="notifBtn" onclick="toggleNotif()">🔔 الاشعارات</button>
-        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    </div>
-    <div class="logo-box">
-        <span class="logo-main">GOALZONE</span>
-        <span class="logo-sub">DEVELOPED BY HALEEM HLMY</span>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <span class="top-bar-label">⚡ عاجل</span>
+    <span class="top-bar-text">🔴 برشلونة يتقدم بشكوى رسمية ضد حكام مباراة أتلتيكو .. ⚽ صلاح يجلس على الدكة في ليلة ليفربول أمام باريس .. 🏆 بايرن يهزم ريال ويتقدم في دوري الأبطال .. 🇪🇬 الأهلي يطالب باجتماع طارئ .. ⚽ GoalZone - أخبار · نتائج · مباريات</span>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-icon">⚽</div>
+            <div>
+                <div class="logo-text">GOALZONE</div>
+                <div class="logo-sub">BY HALEEM HLMY</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon" id="notifBtn" onclick="toggleNotif()">🔔</button>
+            <button class="btn-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
+        </div>
     </div>
 </div>
-<div class="ticker-wrap">
-    <div class="ticker-label">عاجل</div>
-    <div class="ticker-track">
-        <div class="ticker-text">🔴 عاجل: برشلونة يتقدم بشكوى رسمية ضد حكام مباراة أتلتيكو .. ⚽ صلاح يجلس على الدكة في ليلة ليفربول أمام باريس .. 🏆 بايرن يهزم ريال ويتقدم في دوري الأبطال .. 🇪🇬 الأهلي يطالب باجتماع طارئ بعد أحداث سيراميكا .. ⚽ GoalZone - أخبار · نتائج · مباريات</div>
+
+<!-- LIVE BANNER -->
+<div style="padding:0 16px;max-width:640px;margin:10px auto">
+    <div class="live-banner" onclick="window.open('https://www.livescore.com/en/football/live/')">
+        <div class="live-dot"></div>
+        <div>
+            <div class="live-banner-text">النتائج المباشرة الآن</div>
+            <div class="live-banner-sub">اضغط لمتابعة كل المباريات الحية</div>
+        </div>
+        <div class="live-arrow">←</div>
     </div>
 </div>
-<!-- Stars Banner -->
-<div style="background:linear-gradient(135deg,#0a0e14,#1a1a2e);border-bottom:2px solid rgba(0,230,118,0.15);padding:10px 16px;display:flex;gap:14px;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch">
-    <div style="flex-shrink:0;font-size:.65rem;color:var(--gold);font-weight:900;white-space:nowrap">⭐ نجوم</div>
-    <div style="flex-shrink:0;text-align:center"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#cc0000,#990000);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 3px;border:2px solid rgba(255,215,0,0.5)">🏴</div><div style="font-size:.62rem;color:#fff;font-weight:700">صلاح</div><div style="font-size:.55rem;color:rgba(255,255,255,0.4)">ليفربول</div></div>
-    <div style="flex-shrink:0;text-align:center"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#002366,#0057b8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 3px;border:2px solid rgba(255,215,0,0.5)">🇫🇷</div><div style="font-size:.62rem;color:#fff;font-weight:700">مبابي</div><div style="font-size:.55rem;color:rgba(255,255,255,0.4)">ريال مدريد</div></div>
-    <div style="flex-shrink:0;text-align:center"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#a50044,#c8102e);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 3px;border:2px solid rgba(255,215,0,0.5)">🇪🇸</div><div style="font-size:.62rem;color:#fff;font-weight:700">يامال</div><div style="font-size:.55rem;color:rgba(255,255,255,0.4)">برشلونة</div></div>
-    <div style="flex-shrink:0;text-align:center"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#6f2da8,#9b59b6);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 3px;border:2px solid rgba(255,215,0,0.5)">🇳🇴</div><div style="font-size:.62rem;color:#fff;font-weight:700">هالاند</div><div style="font-size:.55rem;color:rgba(255,255,255,0.4)">مان سيتي</div></div>
-    <div style="flex-shrink:0;text-align:center"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#003087,#0057b8);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 3px;border:2px solid rgba(255,215,0,0.5)">🇲🇦</div><div style="font-size:.62rem;color:#fff;font-weight:700">حكيمي</div><div style="font-size:.55rem;color:rgba(255,255,255,0.4)">باريس</div></div>
+
+<!-- STARS BAR -->
+<div class="stars-bar" style="max-width:640px;margin:0 auto">
+    <div style="flex-shrink:0;font-size:.62rem;color:var(--text3);font-weight:900;white-space:nowrap;align-self:center">⭐ نجوم</div>
+    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#cc0000,#990000)">🏴</div><div class="star-name">صلاح</div><div class="star-club">ليفربول</div></div>
+    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#001689,#0a3aad)">🇫🇷</div><div class="star-name">مبابي</div><div class="star-club">ريال مدريد</div></div>
+    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#a50044,#c8102e)">🇪🇸</div><div class="star-name">يامال</div><div class="star-club">برشلونة</div></div>
+    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#6f2da8,#9b59b6)">🇳🇴</div><div class="star-name">هالاند</div><div class="star-club">مان سيتي</div></div>
+    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#001a57,#0033a0)">🇲🇦</div><div class="star-name">حكيمي</div><div class="star-club">باريس</div></div>
+    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#dc143c,#a50000)">🇧🇷</div><div class="star-name">فينيسيوس</div><div class="star-club">ريال مدريد</div></div>
 </div>
+
 <!-- NEWS SLIDER -->
-<div style="margin:12px 16px;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.4)" id="newsSlider">
-    <div class="slide active" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:block;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
-        <div style="width:100%;height:180px;background:linear-gradient(135deg,#a50044,#dc143c,#ff6b6b);display:flex;align-items:center;justify-content:center;font-size:4rem">🚨</div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
-            <span style="background:#ff3d00;color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">🔴 عاجل</span>
-            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">المحكمة الرياضية تعلق قرار كاف بمنح لقب أمم أفريقيا للمغرب</div>
+<div class="slider-wrap" style="margin:10px 16px">
+    <div class="slide active" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="cursor:pointer">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#1a0005,#3d000f,#800020);display:flex;align-items:center;justify-content:center;font-size:5rem">🚨</div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <span class="slide-badge badge-live">🔴 عاجل</span>
+            <div class="slide-title">المحكمة الرياضية تعلق قرار كاف بمنح لقب أمم أفريقيا للمغرب</div>
         </div>
     </div>
-    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
-        <div style="width:100%;height:180px;background:linear-gradient(135deg,#0d1b4b,#1a237e,#3949ab);display:flex;align-items:center;justify-content:center;font-size:4rem">⭐</div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
-            <span style="background:#ffd700;color:#000;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">⭐ أبطال أوروبا</span>
-            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">مفاجأة! أتلتيكو يسقط برشلونة 2-0 وبايرن يهزم ريال 2-1 في ذهاب ربع النهائي</div>
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="cursor:pointer">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#0a0f2e,#1a2060,#2a3080);display:flex;align-items:center;justify-content:center;font-size:5rem">⭐</div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <span class="slide-badge badge-ucl">⭐ أبطال أوروبا</span>
+            <div class="slide-title">مفاجأة! أتلتيكو يسقط برشلونة 2-0 وبايرن يهزم ريال 2-1 في ذهاب ربع النهائي</div>
         </div>
     </div>
-    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
-        <div style="width:100%;height:180px;background:linear-gradient(135deg,#004d1a,#00832d,#00c853);display:flex;align-items:center;justify-content:center;font-size:4rem">🇪🇬</div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
-            <span style="background:#00e676;color:#000;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">🇪🇬 المنتخب</span>
-            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">😱 صلاح يجلس على الدكة في ليلة ليفربول الكارثية أمام باريس سان جيرمان</div>
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="cursor:pointer">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#003300,#005500,#007700);display:flex;align-items:center;justify-content:center;font-size:5rem">🇪🇬</div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <span class="slide-badge badge-egy">🇪🇬 المنتخب</span>
+            <div class="slide-title">😱 صلاح يجلس على الدكة في ليلة ليفربول الكارثية أمام باريس سان جيرمان</div>
         </div>
     </div>
-    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="display:none;position:relative;height:180px;cursor:pointer;border-radius:16px;overflow:hidden">
-        <div style="width:100%;height:180px;background:linear-gradient(135deg,#0d2137,#1565c0,#1976d2);display:flex;align-items:center;justify-content:center;font-size:4rem">⚽</div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%)"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px">
-            <span style="background:#1877f2;color:#fff;font-size:.68rem;font-weight:900;padding:3px 10px;border-radius:20px">🇪🇬 الدوري المصري</span>
-            <div style="color:#fff;font-size:.88rem;font-weight:900;margin-top:6px;line-height:1.5">🇪🇬 الأهلي يطالب بإيقاف حكم بعد جدل ركلة جزاء مباراة سيراميكا</div>
+    <div class="slide" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')" style="cursor:pointer">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#0a1520,#102030,#1a3050);display:flex;align-items:center;justify-content:center;font-size:5rem">⚽</div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <span class="slide-badge badge-news">🇪🇬 الدوري المصري</span>
+            <div class="slide-title">🇪🇬 الأهلي يطالب بإيقاف حكم بعد جدل ركلة جزاء مباراة سيراميكا</div>
         </div>
     </div>
-    <div style="position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;z-index:10">
-        <button onclick="changeSlide(-1)" style="background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px">&#8249;</button>
-        <button onclick="changeSlide(1)" style="background:rgba(0,0,0,0.5);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px">&#8250;</button>
+    <div class="slide-arrows">
+        <button class="slide-btn" onclick="changeSlide(-1)">&#8249;</button>
+        <button class="slide-btn" onclick="changeSlide(1)">&#8250;</button>
     </div>
 </div>
-<div id="slideDots" style="display:flex;justify-content:center;gap:6px;padding:6px 0;margin-bottom:4px">
-    <div onclick="goToSlide(0)" style="width:8px;height:8px;border-radius:50%;background:#00e676;cursor:pointer" class="sdot"></div>
-    <div onclick="goToSlide(1)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
-    <div onclick="goToSlide(2)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
-    <div onclick="goToSlide(3)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer" class="sdot"></div>
+<div class="slide-dots">
+    <div class="sdot active" onclick="goToSlide(0)"></div>
+    <div class="sdot" onclick="goToSlide(1)"></div>
+    <div class="sdot" onclick="goToSlide(2)"></div>
+    <div class="sdot" onclick="goToSlide(3)"></div>
 </div>
+
+<!-- SEARCH -->
 <div class="search-wrap">
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="🔍 ابحث عن فريق..." oninput="searchTeam()">
@@ -259,34 +1017,39 @@
     </div>
     <div class="search-results" id="searchResults"></div>
 </div>
-<div class="tabs-wrap">
+
+<!-- TABS -->
+<div class="tabs-wrap" style="margin-top:10px">
     <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('matches',this)">🏟️ المباريات</button>
-        <button class="tab-btn" onclick="showTab('standings',this)">📊 الترتيب</button>
-        <button class="tab-btn" onclick="showTab('stats',this)">📈 الاحصائيات</button>
-        <button class="tab-btn" onclick="showTab('news',this)">📰 الاخبار</button>
-        <button class="tab-btn" onclick="showTab('articles',this)">✍️ مقالات</button>
+        <button class="tab-btn active" onclick="showTab('matches',this)">🏟️ مباريات</button>
+        <button class="tab-btn" onclick="showTab('standings',this)">📊 ترتيب</button>
+        <button class="tab-btn" onclick="showTab('stats',this)">📈 إحصاء</button>
         <button class="tab-btn" onclick="showTab('goals',this)">🎬 أهداف</button>
+        <button class="tab-btn" onclick="showTab('news',this)">📰 أخبار</button>
+        <button class="tab-btn" onclick="showTab('articles',this)">✍️ مقالات</button>
     </div>
 </div>
+
+<!-- WA FLOAT -->
 <a href="https://wa.me/201145811173" class="wa-float" target="_blank">💬</a>
+
 <div class="content">
+
     <!-- MATCHES TAB -->
     <div class="tab-page active" id="tab-matches">
-        <div class="section-title">🏆 متابعة النتائج الحية</div>
-        <button class="live-btn-main" onclick="window.open('https://www.livescore.com/en/football/live/')">⚽ اضغط هنا لمتابعة النتائج المباشرة الان</button>
-        <div class="section-title">📅 مواجهات اليوم</div>
+        <div class="section-title">مواجهات اليوم</div>
         <div id="matches-container"><div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div></div>
-        <div class="section-title">📢 اعلانات</div>
-        <div class="ad-container-fixed">
+        <div class="section-title">إعلانات</div>
+        <div class="ad-wrap">
             <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
             <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
         </div>
-        <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع اصدقائك</button>
+        <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع أصدقائك</button>
     </div>
+
     <!-- STANDINGS TAB -->
     <div class="tab-page" id="tab-standings">
-        <div class="section-title">📊 ترتيب الدوريات</div>
+        <div class="section-title">ترتيب الدوريات</div>
         <div class="league-tabs">
             <button class="league-tab active" onclick="showStandings('pl',this)">🏴 PL</button>
             <button class="league-tab" onclick="showStandings('laliga',this)">🇪🇸 Liga</button>
@@ -296,38 +1059,63 @@
         </div>
         <div id="standingsContainer"><div class="loading"><div class="spinner"></div>جاري تحميل الترتيب...</div></div>
     </div>
+
     <!-- STATS TAB -->
     <div class="tab-page" id="tab-stats">
-        <div class="section-title">📈 احصائيات الموسم</div>
+        <div class="section-title">إحصائيات الموسم</div>
         <div class="stats-grid">
             <div class="stat-card"><div class="stat-num">2847</div><div class="stat-label">هدف هذا الموسم</div></div>
             <div class="stat-card"><div class="stat-num">380</div><div class="stat-label">مباراة مكتملة</div></div>
-            <div class="stat-card"><div class="stat-num">7.4</div><div class="stat-label">متوسط الاهداف</div></div>
+            <div class="stat-card"><div class="stat-num">7.4</div><div class="stat-label">متوسط الأهداف</div></div>
             <div class="stat-card"><div class="stat-num">142</div><div class="stat-label">بطاقة حمراء</div></div>
         </div>
-        <div class="section-title">⚽ هدافو الموسم</div>
+        <div class="section-title">هدافو الموسم</div>
         <div class="top-scorers">
-            <div class="scorer-row"><span class="scorer-rank">🥇</span><div class="scorer-info"><div class="scorer-name">Kylian Mbappe</div><div class="scorer-team">🇪🇸 Real Madrid</div></div><span class="scorer-goals">28 هدف</span></div>
-            <div class="scorer-row"><span class="scorer-rank">🥈</span><div class="scorer-info"><div class="scorer-name">Erling Haaland</div><div class="scorer-team">🏴 Man City</div></div><span class="scorer-goals">25 هدف</span></div>
-            <div class="scorer-row"><span class="scorer-rank">🥉</span><div class="scorer-info"><div class="scorer-name">Harry Kane</div><div class="scorer-team">🇩🇪 Bayern Munich</div></div><span class="scorer-goals">24 هدف</span></div>
-            <div class="scorer-row"><span class="scorer-rank">4️⃣</span><div class="scorer-info"><div class="scorer-name">Mohamed Salah</div><div class="scorer-team">🏴 Liverpool</div></div><span class="scorer-goals">22 هدف</span></div>
-            <div class="scorer-row"><span class="scorer-rank">5️⃣</span><div class="scorer-info"><div class="scorer-name">Vinicius Jr.</div><div class="scorer-team">🇪🇸 Real Madrid</div></div><span class="scorer-goals">20 هدف</span></div>
+            <div class="scorer-row"><span class="scorer-rank">1</span><div class="scorer-info"><div class="scorer-name">Kylian Mbappe</div><div class="scorer-team">🇪🇸 Real Madrid</div></div><span class="scorer-goals">28 هدف</span></div>
+            <div class="scorer-row"><span class="scorer-rank">2</span><div class="scorer-info"><div class="scorer-name">Erling Haaland</div><div class="scorer-team">🏴 Man City</div></div><span class="scorer-goals">25 هدف</span></div>
+            <div class="scorer-row"><span class="scorer-rank">3</span><div class="scorer-info"><div class="scorer-name">Harry Kane</div><div class="scorer-team">🇩🇪 Bayern Munich</div></div><span class="scorer-goals">24 هدف</span></div>
+            <div class="scorer-row"><span class="scorer-rank">4</span><div class="scorer-info"><div class="scorer-name">Mohamed Salah</div><div class="scorer-team">🏴 Liverpool</div></div><span class="scorer-goals">22 هدف</span></div>
+            <div class="scorer-row"><span class="scorer-rank">5</span><div class="scorer-info"><div class="scorer-name">Vinicius Jr.</div><div class="scorer-team">🇪🇸 Real Madrid</div></div><span class="scorer-goals">20 هدف</span></div>
         </div>
     </div>
+
+    <!-- GOALS TAB -->
+    <div class="tab-page" id="tab-goals">
+        <div class="section-title">أهداف المباريات</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+            <button class="league-tab active" onclick="filterGoals('all',this)">🌍 الكل</button>
+            <button class="league-tab" onclick="filterGoals('pl',this)">🏴 PL</button>
+            <button class="league-tab" onclick="filterGoals('cl',this)">⭐ UCL</button>
+            <button class="league-tab" onclick="filterGoals('laliga',this)">🇪🇸 Liga</button>
+            <button class="league-tab" onclick="filterGoals('egy',this)">🇪🇬 المصري</button>
+        </div>
+        <div id="goals-container"></div>
+    </div>
+
+    <!-- NEWS TAB -->
+    <div class="tab-page" id="tab-news">
+        <div class="section-title">أخبار كرة القدم</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC عربي</button>
+            <button class="news-source-btn" onclick="fetchNews(1)">🏴 BBC Sport</button>
+        </div>
+        <div id="news-section"><div class="loading"><div class="spinner"></div>جاري تحميل الأخبار...</div></div>
+    </div>
+
     <!-- ARTICLES TAB -->
     <div class="tab-page" id="tab-articles">
-        <div class="section-title">✍️ مقالات وتحليلات</div>
-        <div class="article-card" onclick="toggleArticle('art4')" style="border:2px solid var(--gold)">
-            <div class="article-header" style="background:rgba(255,215,0,0.08)">
+        <div class="section-title">مقالات وتحليلات</div>
+        <div class="article-card" onclick="toggleArticle('art4')" style="border-color:rgba(245,197,24,.3)">
+            <div class="article-header">
                 <div><div class="article-title">⭐ تحليل | مفاجآت ربع نهائي دوري الأبطال</div><div class="article-meta">🗓️ 9 أبريل 2026 | ✍️ GoalZone</div></div>
                 <span class="article-arrow" id="arrow-art4">▼</span>
             </div>
             <div class="article-body" id="body-art4">
-                <p style="line-height:2;font-size:.86rem">أتلتيكو مدريد أسقط برشلونة 2-0، بايرن هزم ريال 2-1، باريس تقدم على ليفربول 2-0، وأرسنال فاز على سبورتينغ 0-1.</p>
-                <div style="background:rgba(0,230,118,0.1);border-right:4px solid var(--green);padding:12px;border-radius:8px;margin-top:12px">💬 <b>رأي GoalZone:</b> الإياب سيكون مثيراً للغاية!</div>
-                <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
-                    <a href="https://wa.me/?text=GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                <p>أتلتيكو مدريد أسقط برشلونة 2-0، بايرن هزم ريال 2-1، باريس تقدم على ليفربول 2-0، وأرسنال فاز على سبورتينغ 0-1.</p>
+                <div style="background:rgba(232,0,28,0.08);border-right:3px solid var(--red);padding:10px;border-radius:6px;margin-top:10px">💬 <b>رأي GoalZone:</b> الإياب سيكون مثيراً للغاية!</div>
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:6px 14px;border-radius:7px;font-size:.76rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
+                    <a href="https://wa.me/?text=GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:6px 14px;border-radius:7px;font-size:.76rem;font-weight:900;text-decoration:none">💬 واتساب</a>
                 </div>
             </div>
         </div>
@@ -337,11 +1125,11 @@
                 <span class="article-arrow" id="arrow-art3">▼</span>
             </div>
             <div class="article-body" id="body-art3">
-                <p style="line-height:2">الترجي التونسي أسقط الأهلي 3-2 وأقصاه من دوري أبطال أفريقيا بمجموع 4-2.</p>
-                <div style="background:rgba(255,61,0,0.1);border-right:4px solid var(--live);padding:12px;border-radius:8px;margin:10px 0">💬 <b>رأي الكاتب:</b> خروج مؤلم للغاية! الكرة المصرية تحتاج وقفة جادة.</div>
-                <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
-                    <a href="https://wa.me/?text=GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                <p>الترجي التونسي أسقط الأهلي 3-2 وأقصاه من دوري أبطال أفريقيا بمجموع 4-2.</p>
+                <div style="background:rgba(232,0,28,0.08);border-right:3px solid var(--red);padding:10px;border-radius:6px;margin:10px 0">💬 خروج مؤلم للغاية! الكرة المصرية تحتاج وقفة جادة.</div>
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:6px 14px;border-radius:7px;font-size:.76rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
+                    <a href="https://wa.me/?text=GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:6px 14px;border-radius:7px;font-size:.76rem;font-weight:900;text-decoration:none">💬 واتساب</a>
                 </div>
             </div>
         </div>
@@ -351,48 +1139,24 @@
                 <span class="article-arrow" id="arrow-art2">▼</span>
             </div>
             <div class="article-body" id="body-art2">
-                <p style="line-height:2">صفقات كلّفت خزينة النادي الأحمر مبالغ كبيرة والمحصلة صفر!</p>
-                <div style="background:rgba(255,61,0,0.1);border-right:4px solid var(--live);padding:12px;border-radius:8px;margin:10px 0">💬 <b>رأي الكاتب:</b> الأهلي يحتاج قرارات جريئة.</div>
-                <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
-                    <a href="https://wa.me/?text=GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:7px 16px;border-radius:8px;font-size:.78rem;font-weight:900;text-decoration:none">💬 واتساب</a>
+                <p>صفقات كلّفت خزينة النادي الأحمر مبالغ كبيرة والمحصلة صفر!</p>
+                <div style="background:rgba(232,0,28,0.08);border-right:3px solid var(--red);padding:10px;border-radius:6px;margin:10px 0">💬 الأهلي يحتاج قرارات جريئة.</div>
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://haleemhlmygl-source.github.io/koora" target="_blank" style="background:#1877f2;color:#fff;padding:6px 14px;border-radius:7px;font-size:.76rem;font-weight:900;text-decoration:none">📘 فيسبوك</a>
+                    <a href="https://wa.me/?text=GoalZone%0Ahttps%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora" target="_blank" style="background:#25d366;color:#fff;padding:6px 14px;border-radius:7px;font-size:.76rem;font-weight:900;text-decoration:none">💬 واتساب</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- GOALS TAB -->
-    <div class="tab-page" id="tab-goals">
-        <div class="section-title">🎬 أهداف المباريات</div>
 
-        <!-- فلاتر الدوريات -->
-        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
-            <button class="league-tab active" onclick="filterGoals('all',this)">🌍 الكل</button>
-            <button class="league-tab" onclick="filterGoals('pl',this)">🏴 PL</button>
-            <button class="league-tab" onclick="filterGoals('cl',this)">⭐ UCL</button>
-            <button class="league-tab" onclick="filterGoals('laliga',this)">🇪🇸 Liga</button>
-            <button class="league-tab" onclick="filterGoals('egy',this)">🇪🇬 المصري</button>
-        </div>
-
-        <div id="goals-container">
-            <!-- يتم تحميلها من JS -->
-        </div>
-    </div>
-
-    <!-- NEWS TAB -->
-    <div class="tab-page" id="tab-news">
-        <div class="section-title">🌍 اخبار كرة القدم</div>
-        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-            <button class="news-source-btn active" onclick="fetchNews(0)">🌍 BBC رياضة</button>
-            <button class="news-source-btn" onclick="fetchNews(1)">🏴 BBC Sport</button>
-        </div>
-        <div id="news-section"><div class="loading"><div class="spinner"></div>جاري تحميل الاخبار...</div></div>
-    </div>
 </div>
+
 <div class="footer">
-    <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors"><br><br>
-    تطوير وبرمجة المبدع: <b style="color:var(--green)">HALEEM HLMY</b> | سوهاج &copy;
+    <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors" style="margin-bottom:8px"><br>
+    تطوير وبرمجة: <b>HALEEM HLMY</b> | سوهاج &copy; 2026
 </div>
 <div class="toast" id="toast"></div>
+
 
 <script>
 // ============================================================
@@ -575,9 +1339,10 @@ function renderDaySelector(days) {
     const bg = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.12)' : 'var(--card)');
     const color = isSelected ? '#000' : (isToday ? 'var(--green)' : 'var(--text2)');
     const border = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.5)' : 'var(--border)');
-    selectorHtml += '<button onclick="selectDay(\''+day+'\')" style="flex-shrink:0;text-align:center;background:'+bg+';border:1px solid '+border+';border-radius:12px;padding:8px 14px;cursor:pointer;min-width:68px;font-family:Cairo,sans-serif">';
-    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+color+'">'+dayName+'</div>';
-    selectorHtml += '<div style="font-size:.68rem;color:'+color+';opacity:.8">'+dayNum+'</div>';
+    const btnClass = isSelected ? 'selected-btn' : (isToday ? 'today-btn' : '');
+    selectorHtml += '<button onclick="selectDay(\''+day+'\')" class="'+btnClass+'">';
+    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+(isSelected?'#fff':(isToday?'var(--red)':'var(--text2)'))+'">'+dayName+'</div>';
+    selectorHtml += '<div style="font-size:.68rem;color:'+(isSelected?'rgba(255,255,255,.8)':(isToday?'var(--red)':'var(--text3)'))+'">'+dayNum+'</div>';
     if(isToday) selectorHtml += '<div style="font-size:.58rem;color:var(--green);font-weight:900">اليوم</div>';
     selectorHtml += '</button>';
   });
@@ -607,14 +1372,14 @@ function renderMatchesForDay(day) {
     let egyptCards = '';
     egyptDay.forEach(function(m) {
       let timeBadge = '';
-      if(m.status==='live') timeBadge = '<span class="match-time live">🔴 '+(m.score||'LIVE')+'</span>';
-      else if(m.status==='ft') timeBadge = '<span class="match-time ft">'+m.score+' FT</span>';
-      else timeBadge = '<span class="match-time">⏰ '+m.time+'</span>';
+      if(m.status==='live') timeBadge = '<span class="match-time-badge time-live">🔴 '+(m.score||'LIVE')+'</span>';
+      else if(m.status==='ft') timeBadge = '<span class="match-time-badge time-ft">'+m.score+'</span>';
+      else timeBadge = '<span class="match-time-badge time-upcoming">'+m.time+'</span>';
       const ytQ = encodeURIComponent('بث مباشر '+m.home+' '+m.away+' 2026');
       const ytG = encodeURIComponent('اهداف '+m.home+' '+m.away+' 2026');
-      const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:5px 12px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
-      const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
-      egyptCards += `<div style="background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 12px">
+      const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
+      const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
+      egyptCards += `<div class="match-card-new">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
           <div style="flex:1;text-align:center">
             <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
@@ -655,19 +1420,19 @@ function renderMatchesForDay(day) {
       let timeBadge = '';
       if(status==='IN_PLAY'||status==='PAUSED'){
         const s = (match.score.fullTime.home??0)+'-'+(match.score.fullTime.away??0);
-        timeBadge = '<span class="match-time live">🔴 '+s+'</span>';
+        timeBadge = '<span class="match-time-badge time-live">🔴 '+s+'</span>';
       } else if(status==='FINISHED'){
-        timeBadge = '<span class="match-time ft">'+match.score.fullTime.home+'-'+match.score.fullTime.away+' FT</span>';
+        timeBadge = '<span class="match-time-badge time-ft">'+match.score.fullTime.home+'-'+match.score.fullTime.away+'</span>';
       } else {
-        timeBadge = '<span class="match-time">⏰ '+time+'</span>';
+        timeBadge = '<span class="match-time-badge time-upcoming">'+time+'</span>';
       }
       const ytQ = encodeURIComponent('بث مباشر '+home+' '+away+' 2026');
       const ytG = encodeURIComponent('اهداف '+home+' '+away+' 2026');
-      const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:5px 12px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
-      const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
+      const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
+      const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
       const homeCrest = match.homeTeam.crest || '';
       const awayCrest = match.awayTeam.crest || '';
-      cards += `<div style="background:var(--card);border:1px solid var(--border);border-top:none;padding:14px 12px">
+      cards += `<div class="match-card-new">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
           <div style="flex:1;text-align:center">
             <img src="${homeCrest}" onerror="this.style.display='none'" style="width:40px;height:40px;object-fit:contain;display:block;margin:0 auto 4px">
@@ -873,18 +1638,15 @@ function renderGoals() {
 
   let html = '';
   filtered.forEach(function(goal) {
-    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden">';
-    html += '<div style="position:relative;cursor:pointer" onclick="playVideo(\''+goal.videoId+'\', this)">';
-    html += '<img src="https://img.youtube.com/vi/'+goal.videoId+'/mqdefault.jpg" style="width:100%;height:180px;object-fit:cover;display:block">';
-    html += '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">';
-    html += '<div style="width:56px;height:56px;background:#ff0000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem">▶</div>';
-    html += '</div></div>';
-    html += '<div id="player-'+goal.videoId+'" style="display:none">';
-    html += '<iframe width="100%" height="200" src="https://www.youtube.com/embed/'+goal.videoId+'?rel=0" frameborder="0" allowfullscreen></iframe>';
+    html += '<div class="goal-card">';
+    html += '<div class="goal-thumb" onclick="playVideo(\''+goal.videoId+'\', this)">';
+    html += '<img src="https://img.youtube.com/vi/'+goal.videoId+'/mqdefault.jpg" style="width:100%;height:175px;object-fit:cover;display:block" onerror="this.src=\'https://img.youtube.com/vi/'+goal.videoId+'/0.jpg\'">';
+    html += '<div class="goal-play"><div class="goal-play-btn">▶</div></div>';
     html += '</div>';
-    html += '<div style="padding:12px">';
-    html += '<div style="font-size:.82rem;font-weight:900;color:var(--text);margin-bottom:4px">'+goal.title+'</div>';
-    html += '<div style="display:flex;justify-content:space-between"><span style="font-size:.7rem;color:var(--text2)">'+goal.flag+' '+goal.leagueName+'</span><span style="font-size:.7rem;color:var(--text2)">📅 '+goal.date+'</span></div>';
+    html += '<div id="player-'+goal.videoId+'" style="display:none"><iframe width="100%" height="200" src="https://www.youtube.com/embed/'+goal.videoId+'?rel=0" frameborder="0" allowfullscreen></iframe></div>';
+    html += '<div class="goal-info">';
+    html += '<div class="goal-title">'+goal.title+'</div>';
+    html += '<div class="goal-meta"><span>'+goal.flag+' '+goal.leagueName+'</span><span>📅 '+goal.date+'</span></div>';
     html += '</div></div>';
   });
 
@@ -916,7 +1678,7 @@ window.onload = function() {
   loadLiveMatches();
   loadLiveStandings('pl');
 };
-</script>
+</script
 
 <!-- PWA -->
 <div id="pwa-install" style="display:none;position:fixed;bottom:85px;right:16px;z-index:200">
@@ -929,5 +1691,3 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();def
 function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')document.getElementById('pwa-install').style.display='none';deferredPrompt=null;});}}
 window.addEventListener('appinstalled',function(){document.getElementById('pwa-install').style.display='none';});
 </script>
-</body>
-</html>
