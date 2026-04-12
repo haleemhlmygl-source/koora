@@ -386,25 +386,27 @@ async function loadLiveMatches() {
     const dateTo = later.toISOString().split('T')[0];
 
     // Cache لمدة 5 دقائق
-    const CACHE_KEY = 'gz_'+dateFrom+'_'+dateTo;
+    const CACHE_VER = 'v2';
+    const CACHE_KEY = 'gz_'+CACHE_VER+'_'+dateFrom+'_'+dateTo;
     const CACHE_TIME = 5 * 60 * 1000;
     try {
       const cached = sessionStorage.getItem(CACHE_KEY);
       const cachedTime = sessionStorage.getItem(CACHE_KEY+'_t');
       if(cached && cachedTime && (Date.now()-parseInt(cachedTime)) < CACHE_TIME) {
-        allMatchesData = JSON.parse(cached);
-        // عرض فوري من الـ cache
-        const daysSet = new Set();
-        allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
-        const days = Array.from(daysSet).sort();
-        const todayStr = new Date().toISOString().split('T')[0];
-        if(!selectedDate || !days.includes(selectedDate)) {
-          selectedDate = days.includes(todayStr) ? todayStr : (days[0]||todayStr);
+        const parsed = JSON.parse(cached);
+        if(parsed && parsed.length > 0) {
+          allMatchesData = parsed;
+          const daysSet = new Set();
+          allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
+          const days = Array.from(daysSet).sort();
+          const todayStr = new Date().toISOString().split('T')[0];
+          if(!selectedDate || !days.includes(selectedDate)) {
+            selectedDate = days.includes(todayStr) ? todayStr : (days[0]||todayStr);
+          }
+          renderDaySelector(days);
+          setTimeout(loadLiveMatches, 60000);
+          return;
         }
-        renderDaySelector(days);
-        renderMatchesForDay(selectedDate);
-        setTimeout(loadLiveMatches, 60000);
-        return;
       }
     } catch(e) {}
 
