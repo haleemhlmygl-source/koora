@@ -376,8 +376,9 @@ async function loadLiveMatches() {
   container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>';
   try {
     const today = new Date();
-    const later = new Date(); later.setDate(today.getDate()+3);
-    const dateFrom = today.toISOString().split('T')[0];
+    const from = new Date(); from.setDate(today.getDate()-2);
+    const later = new Date(); later.setDate(today.getDate()+7);
+    const dateFrom = from.toISOString().split('T')[0];
     const dateTo = later.toISOString().split('T')[0];
 
     const [plRes, clRes, pdRes, blRes, saRes] = await Promise.allSettled([
