@@ -2,7 +2,6 @@ name: Deploy Worker
 on:
   push:
     branches: [main]
-    paths: [worker.js]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,6 +11,5 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          workerId: goalzone-api
-          scriptName: goalzone-api
+          accountId: ded3f7bd1b52909a22bf8e5
           command: deploy worker.js
