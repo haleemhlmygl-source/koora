@@ -12,7 +12,50 @@
     </script>
     <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoalZone - HALEEM HLMY</title>
+    <title>GoalZone - نتائج المباريات الحية | الدوري الإنجليزي والإسباني وأبطال أوروبا</title>
+    <meta name="description" content="GoalZone - تابع نتائج المباريات الحية لحظة بلحظة. الدوري الإنجليزي الممتاز، دوري أبطال أوروبا، الدوري الإسباني، الألماني، الإيطالي. مواعيد المباريات والترتيب.">
+    <meta name="keywords" content="نتائج مباريات, مباريات اليوم, الدوري الإنجليزي, دوري الأبطال, الدوري الإسباني, كرة القدم, GoalZone, نتائج حية">
+    <meta name="author" content="HALEEM HLMY">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Arabic">
+    <link rel="canonical" href="https://haleemhlmygl-source.github.io/koora">
+
+    <!-- Open Graph للمشاركة على فيسبوك وواتساب -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://haleemhlmygl-source.github.io/koora">
+    <meta property="og:title" content="GoalZone - نتائج المباريات الحية">
+    <meta property="og:description" content="تابع نتائج المباريات الحية لحظة بلحظة. الدوري الإنجليزي، أبطال أوروبا، الإسباني والمزيد.">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/532/532495.png">
+    <meta property="og:locale" content="ar_EG">
+    <meta property="og:site_name" content="GoalZone">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="GoalZone - نتائج المباريات الحية">
+    <meta name="twitter:description" content="تابع نتائج المباريات الحية لحظة بلحظة">
+    <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/532/532495.png">
+
+    <!-- Schema.org للـ Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "GoalZone",
+      "url": "https://haleemhlmygl-source.github.io/koora",
+      "description": "موقع نتائج المباريات الحية - الدوري الإنجليزي الممتاز ودوري أبطال أوروبا والدوريات الكبرى",
+      "inLanguage": "ar",
+      "author": {
+        "@type": "Person",
+        "name": "HALEEM HLMY"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://haleemhlmygl-source.github.io/koora?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -339,6 +382,42 @@
 // ============================================================
 const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 
+// ============================================================
+// 🇪🇬 الدوري المصري - عدّل هنا يدوياً كل جولة
+// status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
+// ============================================================
+const EGYPT_MATCHES = [
+  // ========= الجولة الحالية =========
+  {
+    date: '2026-04-14', // تاريخ المباراة YYYY-MM-DD
+    home: 'الأهلي',
+    away: 'الزمالك',
+    time: '21:00',     // التوقيت المحلي
+    status: 'upcoming', // upcoming | live | ft
+    score: '',         // مثال: '2-1' لو انتهت
+    channel: 'ON Sport 1'
+  },
+  {
+    date: '2026-04-14',
+    home: 'بيراميدز',
+    away: 'المصري',
+    time: '18:00',
+    status: 'upcoming',
+    score: '',
+    channel: 'ON Sport 2'
+  },
+  {
+    date: '2026-04-15',
+    home: 'سيراميكا',
+    away: 'فاركو',
+    time: '19:00',
+    status: 'ft',
+    score: '2-0',
+    channel: 'ON Sport 1'
+  },
+];
+// ============================================================
+
 const TEAM_NAMES_AR = {
   'Liverpool FC':'ليفربول','Arsenal FC':'أرسنال','Manchester City FC':'مان سيتي',
   'Chelsea FC':'تشيلسي','Tottenham Hotspur FC':'توتنهام','Manchester United FC':'مان يونايتد',
@@ -438,11 +517,13 @@ async function loadLiveMatches() {
 
     if(allMatchesData.length===0){ renderStaticMatches(); return; }
 
-    // Build days selector
+    // Build days selector - API + الدوري المصري
     const daysSet = new Set();
     allMatchesData.forEach(lg => lg.matches.forEach(m => {
       daysSet.add(m.utcDate.split('T')[0]);
     }));
+    // إضافة أيام الدوري المصري
+    EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
     const days = Array.from(daysSet).sort();
 
     // Default to today or nearest day
@@ -500,6 +581,29 @@ function renderMatchesForDay(day) {
     matches: lg.matches.filter(m => m.utcDate.split('T')[0] === day)
   })).filter(lg => lg.matches.length > 0);
 
+  // إضافة مباريات الدوري المصري لليوم المحدد
+  const egyptDay = EGYPT_MATCHES.filter(function(m){ return m.date === day; });
+  if(egyptDay.length > 0) {
+    let egyptCards = '';
+    egyptDay.forEach(function(m) {
+      let timeBadge = '';
+      if(m.status === 'live') {
+        timeBadge = '<span class="match-time live">🔴 ' + (m.score||'LIVE') + '</span>';
+      } else if(m.status === 'ft') {
+        timeBadge = '<span class="match-time ft">' + m.score + ' FT</span>';
+      } else {
+        timeBadge = '<span class="match-time">⏰ ' + m.time + '</span>';
+      }
+      const ytQ = encodeURIComponent('بث مباشر ' + m.home + ' ' + m.away + ' 2026');
+      const ytG = encodeURIComponent('اهداف ' + m.home + ' ' + m.away + ' 2026');
+      const liveBtn = m.status !== 'ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" style="background:#ff0000;color:#fff;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:900;text-decoration:none">📺 بث</a>' : '';
+      const goalsBtn = m.status === 'ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="yt-btn">▶ الأهداف</a>' : '';
+      const channelBadge = m.channel ? '<span style="background:rgba(255,255,255,0.06);color:var(--text2);padding:3px 10px;border-radius:6px;font-size:.72rem">📺 '+m.channel+'</span>' : '';
+      egyptCards += '<div class="match-card"><div style="width:100%"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span class="match-teams">'+m.home+'<span class="match-vs">vs</span>'+m.away+'</span>'+timeBadge+'</div><div style="display:flex;gap:6px;flex-wrap:wrap">'+channelBadge+liveBtn+goalsBtn+'</div></div></div>';
+    });
+    filtered.unshift({name:'الدوري المصري الممتاز', flag:'🇪🇬', matches:[], _egyptCards: egyptCards});
+  }
+
   if(filtered.length===0){
     listContainer.innerHTML = '<div class="no-matches">⚽ لا توجد مباريات هذا اليوم</div>';
     return;
@@ -507,6 +611,11 @@ function renderMatchesForDay(day) {
 
   let html = '';
   filtered.forEach(league => {
+    // الدوري المصري - عرض خاص
+    if(league._egyptCards) {
+      html += '<div class="league-section"><div class="league-header">'+league.flag+' '+league.name+'</div>'+league._egyptCards+'</div>';
+      return;
+    }
     let cards = '';
     league.matches.forEach(match => {
       const home = getTeamName(match.homeTeam.name);
