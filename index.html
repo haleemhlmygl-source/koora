@@ -433,23 +433,21 @@ async function loadLiveMatches() {
 function renderDaySelector(days) {
   const container = document.getElementById('matches-container');
   const todayStr = new Date().toISOString().split('T')[0];
-  const dayNames = {'ar':['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']};
-  
-  let selectorHtml = '<div id="day-selector" style="display:flex;gap:8px;overflow-x:auto;padding:12px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none">';
+  let selectorHtml = '<div id="day-selector" style="display:flex;gap:8px;overflow-x:auto;padding:12px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none">';
   days.forEach(function(day) {
-    const d = new Date(day);
-    const dayName = d.toLocaleDateString('ar-EG',{weekday:'short',timeZone:'Asia/Riyadh'});
-    const dayNum = d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',timeZone:'Asia/Riyadh'});
+    const d = new Date(day+'T12:00:00');
+    const dayName = d.toLocaleDateString('ar-EG',{weekday:'short'});
+    const dayNum = d.toLocaleDateString('ar-EG',{day:'numeric',month:'short'});
     const isToday = day === todayStr;
     const isSelected = day === selectedDate;
-    const bg = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.15)' : 'var(--card)');
+    const bg = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.12)' : 'var(--card)');
     const color = isSelected ? '#000' : (isToday ? 'var(--green)' : 'var(--text2)');
-    const border = isSelected ? 'var(--green)' : (isToday ? 'var(--green)' : 'var(--border)');
-    selectorHtml += '<div onclick="selectDay(\'\'\'\'+ day +\'\'\'\')' + ' style="flex-shrink:0;text-align:center;background:'+bg+';border:1px solid '+border+';border-radius:12px;padding:8px 14px;cursor:pointer;min-width:70px">';
+    const border = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.5)' : 'var(--border)');
+    selectorHtml += '<button onclick="selectDay(\''+day+'\')" style="flex-shrink:0;text-align:center;background:'+bg+';border:1px solid '+border+';border-radius:12px;padding:8px 14px;cursor:pointer;min-width:68px;font-family:Cairo,sans-serif">';
     selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+color+'">'+dayName+'</div>';
     selectorHtml += '<div style="font-size:.68rem;color:'+color+';opacity:.8">'+dayNum+'</div>';
-    if(isToday) selectorHtml += '<div style="font-size:.6rem;color:var(--green);font-weight:900">اليوم</div>';
-    selectorHtml += '</div>';
+    if(isToday) selectorHtml += '<div style="font-size:.58rem;color:var(--green);font-weight:900">اليوم</div>';
+    selectorHtml += '</button>';
   });
   selectorHtml += '</div><div id="matches-list"></div>';
   container.innerHTML = selectorHtml;
@@ -458,14 +456,8 @@ function renderDaySelector(days) {
 
 function selectDay(day) {
   selectedDate = day;
-  // Update selector UI
-  const todayStr = new Date().toISOString().split('T')[0];
-  document.querySelectorAll('#day-selector > div').forEach(function(el, i) {
-    const days = Array.from(document.querySelectorAll('#day-selector > div')).map(function(e){return e.getAttribute('onclick').match(/selectDay\('([^']+)'\)/)?.[1];});
-  });
-  // Re-render selector
   const daysSet = new Set();
-  allMatchesData.forEach(lg => lg.matches.forEach(m => daysSet.add(m.utcDate.split('T')[0])));
+  allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
   renderDaySelector(Array.from(daysSet).sort());
 }
 
