@@ -862,7 +862,39 @@ function filterGoals(league, el) {
 }
 function renderGoals() {
   const container = document.getElementById('goals-container');
-  container.innerHTML = '<div class="no-matches">🎬 أضف فيديوهات من يوتيوب في GOALS_DATA</div>';
+  const filtered = currentGoalsFilter === 'all'
+    ? GOALS_DATA
+    : GOALS_DATA.filter(function(g){ return g.league === currentGoalsFilter; });
+
+  if(filtered.length === 0) {
+    container.innerHTML = '<div class="no-matches">🎬 لا توجد فيديوهات حالياً</div>';
+    return;
+  }
+
+  let html = '';
+  filtered.forEach(function(goal) {
+    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden">';
+    html += '<div style="position:relative;cursor:pointer" onclick="playVideo(\''+goal.videoId+'\', this)">';
+    html += '<img src="https://img.youtube.com/vi/'+goal.videoId+'/mqdefault.jpg" style="width:100%;height:180px;object-fit:cover;display:block">';
+    html += '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center">';
+    html += '<div style="width:56px;height:56px;background:#ff0000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem">▶</div>';
+    html += '</div></div>';
+    html += '<div id="player-'+goal.videoId+'" style="display:none">';
+    html += '<iframe width="100%" height="200" src="https://www.youtube.com/embed/'+goal.videoId+'?rel=0" frameborder="0" allowfullscreen></iframe>';
+    html += '</div>';
+    html += '<div style="padding:12px">';
+    html += '<div style="font-size:.82rem;font-weight:900;color:var(--text);margin-bottom:4px">'+goal.title+'</div>';
+    html += '<div style="display:flex;justify-content:space-between"><span style="font-size:.7rem;color:var(--text2)">'+goal.flag+' '+goal.leagueName+'</span><span style="font-size:.7rem;color:var(--text2)">📅 '+goal.date+'</span></div>';
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function playVideo(videoId, thumbEl) {
+  thumbEl.style.display = 'none';
+  const player = document.getElementById('player-'+videoId);
+  if(player) player.style.display = 'block';
 }
 
 // Slider
