@@ -920,7 +920,7 @@
 <!-- TOP BAR -->
 <div class="top-bar">
     <span class="top-bar-label">⚡ عاجل</span>
-    <span class="top-bar-text">⚽ تشيلسي vs مانشستر سيتي اليوم 18:30 على beIN Sports .. 🏆 الترجي vs صن داونز - نصف نهائي أبطال أفريقيا 22:00 .. 🇩🇪 تاريخي: أول مدربة في البوندسليغا تتولى قيادة أونيون برلين .. ⭐ إياب ربع نهائي أبطال أوروبا الثلاثاء والأربعاء القادمين .. 🇪🇸 سيميوني: واثق من التأهل أمام برشلونة في الإياب .. 🇪🇬 بيراميدز يغرم الجهاز الفني بعد التعادل مع المصري .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
+    <span class="top-bar-text">⭐ الثلاثاء: ليفربول vs باريس وأتلتيكو vs برشلونة - إياب ربع نهائي أبطال أوروبا .. 🇸🇦 الهلال vs السد اليوم 20:00 - دوري أبطال آسيا .. 🇪🇸 برشلونة يجهز خطة الريمونتادا في قلب مدريد .. ⚽ إنتر ميلان ينتفض أمام كومو ويضع يده على لقب الدوري الإيطالي .. 🇸🇦 الاتحاد السعودي يفاوض 5 مدربين لخلافة رينارد .. 🏥 موقف صلاح من مواجهة باريس يوم الثلاثاء .. 🇪🇬 الدوري المصري: 4 مباريات الاثنين و2 الثلاثاء .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
 </div>
 
 <!-- HEADER -->
@@ -1166,6 +1166,16 @@
 const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 
 // ============================================================
+// 🇸🇦 دوري روشن السعودي - عدّل هنا يدوياً كل جولة
+const SAUDI_MATCHES = [
+  {date:'2026-04-14', home:'النصر',    away:'الاتفاق',   time:'19:00', status:'upcoming', score:'', channel:'SSC Sport 1'},
+  {date:'2026-04-14', home:'الهلال',   away:'الأهلي',    time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 2'},
+  {date:'2026-04-15', home:'الاتحاد',  away:'التعاون',   time:'19:00', status:'upcoming', score:'', channel:'SSC Sport 1'},
+  {date:'2026-04-15', home:'الشباب',   away:'الفيحاء',   time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 2'},
+];
+// ============================================================
+
+// ============================================================
 // 🇪🇬 الدوري المصري - عدّل هنا يدوياً كل جولة
 // status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
 // ============================================================
@@ -1254,6 +1264,7 @@ async function loadLiveMatches() {
         const daysSet = new Set();
         allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
         EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
+        SAUDI_MATCHES.forEach(function(m){ daysSet.add(m.date); });
         const days = Array.from(daysSet).sort();
         if(!selectedDate || !days.includes(selectedDate)) {
           selectedDate = days.includes(todayStr) ? todayStr : (days[0]||todayStr);
@@ -1265,7 +1276,7 @@ async function loadLiveMatches() {
     }
 
     // جلب من API بـ timeout
-    const fetchWithTimeout = (url, ms=20000) => {
+    const fetchWithTimeout = (url, ms=15000) => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), ms);
       return fetch(url, {signal: controller.signal}).finally(() => clearTimeout(timer));
@@ -1356,6 +1367,7 @@ function selectDay(day) {
   const daysSet = new Set();
   allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
   EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
+  SAUDI_MATCHES.forEach(function(m){ daysSet.add(m.date); });
   renderDaySelector(Array.from(daysSet).sort());
 }
 
@@ -1364,9 +1376,32 @@ function renderMatchesForDay(day) {
   if(!listContainer) return;
 
   const egyptDay = EGYPT_MATCHES.filter(function(m){ return m.date === day; });
+  const saudiDay = SAUDI_MATCHES.filter(function(m){ return m.date === day; });
   const filtered = allMatchesData.map(function(lg) {
     return {name:lg.name, flag:lg.flag, matches:lg.matches.filter(function(m){ return m.utcDate.split('T')[0] === day; })};
   }).filter(function(lg){ return lg.matches.length > 0; });
+
+  if(saudiDay.length > 0) {
+    let saudiCards = '';
+    saudiDay.forEach(function(m) {
+      let timeBadge = '';
+      if(m.status==='live') timeBadge = '<span class="match-time-badge time-live">🔴 '+(m.score||'LIVE')+'</span>';
+      else if(m.status==='ft') timeBadge = '<span class="match-time-badge time-ft">'+m.score+'</span>';
+      else timeBadge = '<span class="match-time-badge time-upcoming">'+m.time+'</span>';
+      const ytQ = encodeURIComponent('بث مباشر '+m.home+' '+m.away+' 2026');
+      const ytG = encodeURIComponent('اهداف '+m.home+' '+m.away+' 2026');
+      const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
+      const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
+      saudiCards += `<div class="match-card-new">
+        <div class="match-row">
+          <div class="match-team"><div class="match-team-placeholder">🇸🇦</div><div class="match-team-name">${m.home}</div></div>
+          <div class="match-center">${timeBadge}<div style="font-size:.62rem;color:var(--text3);margin-top:3px">${m.channel||''}</div><div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div></div>
+          <div class="match-team"><div class="match-team-placeholder">🇸🇦</div><div class="match-team-name">${m.away}</div></div>
+        </div>
+      </div>`;
+    });
+    filtered.unshift({name:'دوري روشن السعودي', flag:'🇸🇦', matches:[], _saudiCards: saudiCards});
+  }
 
   if(egyptDay.length > 0) {
     let egyptCards = '';
@@ -1388,7 +1423,8 @@ function renderMatchesForDay(day) {
           <div style="text-align:center;min-width:90px">
             ${timeBadge}
             <div style="font-size:.65rem;color:var(--text2);margin-top:3px">${m.channel||''}</div>
-            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
+            <div style="font-size:.62rem;color:var(--text3);margin-top:3px">📺 ${channel}</div>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
           </div>
           <div style="flex:1;text-align:center">
             <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
@@ -1407,6 +1443,10 @@ function renderMatchesForDay(day) {
 
   let html = '';
   filtered.forEach(function(league) {
+    if(league._saudiCards) {
+      html += '<div class="league-section"><div class="league-header">'+league.flag+' '+league.name+'</div>'+league._saudiCards+'</div>';
+      return;
+    }
     if(league._egyptCards) {
       html += '<div class="league-section"><div class="league-header">'+league.flag+' '+league.name+'</div>'+league._egyptCards+'</div>';
       return;
@@ -1432,6 +1472,10 @@ function renderMatchesForDay(day) {
       const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
       const homeCrest = match.homeTeam.crest || '';
       const awayCrest = match.awayTeam.crest || '';
+      // قناة beIN حسب الدوري
+      const beinChannels = {'PL':'beIN Sports HD1','CL':'beIN Sports HD1','PD':'beIN Sports HD2','BL1':'beIN Sports HD3','SA':'beIN Sports HD4','FL1':'beIN Sports HD5'};
+      const compCode = match.competition ? match.competition.code : '';
+      const channel = beinChannels[compCode] || 'beIN Sports';
       cards += `<div class="match-card-new">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
           <div style="flex:1;text-align:center">
@@ -1476,9 +1520,35 @@ function toggleNotif() {
   notifOn = !notifOn;
   const btn = document.getElementById('notifBtn');
   btn.classList.toggle('active',notifOn);
-  btn.textContent = notifOn?'🔔 مفعلة':'🔔 الاشعارات';
-  showToast(notifOn?'سيتم اشعارك قبل المباريات':'تم ايقاف الاشعارات');
-  if(notifOn && 'Notification' in window) Notification.requestPermission();
+  btn.textContent = notifOn?'🔔':'🔔';
+  showToast(notifOn?'✅ سيتم تنبيهك قبل المباريات بساعة':'🔕 تم إيقاف التنبيهات');
+  if(notifOn && 'Notification' in window) {
+    Notification.requestPermission().then(function(perm) {
+      if(perm === 'granted') {
+        scheduleMatchNotifications();
+      }
+    });
+  }
+}
+
+function scheduleMatchNotifications() {
+  const now = new Date();
+  const allMatches = [...EGYPT_MATCHES, ...SAUDI_MATCHES];
+  allMatches.forEach(function(match) {
+    const matchTime = new Date(match.date + 'T' + match.time + ':00');
+    const notifTime = new Date(matchTime.getTime() - 60 * 60 * 1000); // ساعة قبل
+    const diff = notifTime.getTime() - now.getTime();
+    if(diff > 0 && match.status === 'upcoming') {
+      setTimeout(function() {
+        if('Notification' in window && Notification.permission === 'granted') {
+          new Notification('⚽ GoalZone - تنبيه مباراة', {
+            body: 'بعد ساعة: ' + match.home + ' vs ' + match.away,
+            icon: 'https://cdn-icons-png.flaticon.com/512/532/532495.png'
+          });
+        }
+      }, diff);
+    }
+  });
 }
 
 function showToast(msg,dur) {
