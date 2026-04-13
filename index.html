@@ -375,19 +375,22 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 10px;
-            overflow: hidden;
+            overflow-x: auto;
             padding: 3px;
             gap: 2px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
+        .tabs::-webkit-scrollbar { display: none; }
         .tab-btn {
-            flex: 1;
-            padding: 9px 2px;
+            flex-shrink: 0;
+            padding: 9px 12px;
             background: transparent;
             border: none;
             color: var(--text2);
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
-            font-size: .72rem;
+            font-size: .76rem;
             font-weight: 700;
             border-radius: 8px;
             transition: all .2s;
@@ -1049,7 +1052,17 @@
             <script async="async" data-cfasync="false" src="https://pl28941775.profitablecpmratenetwork.com/f60b54d7922d62b97dde9065b726be7e/invoke.js"></script>
             <div id="container-f60b54d7922d62b97dde9065b726be7e"></div>
         </div>
-        <button class="share-btn" onclick="shareSite()">🔗 مشاركة الموقع مع أصدقائك</button>
+        <!-- أزرار المشاركة -->
+        <div style="margin-top:16px">
+            <div style="font-size:.78rem;color:var(--text3);text-align:center;margin-bottom:10px;font-weight:700">📢 شارك GoalZone مع أصدقائك</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <button onclick="shareWA()" style="background:#25d366;color:#fff;border:none;padding:12px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;font-size:.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">💬 واتساب</button>
+                <button onclick="shareFB()" style="background:#1877f2;color:#fff;border:none;padding:12px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;font-size:.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">📘 فيسبوك</button>
+                <button onclick="shareTW()" style="background:#000;color:#fff;border:none;padding:12px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;font-size:.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">𝕏 تويتر</button>
+                <button onclick="shareTG()" style="background:#0088cc;color:#fff;border:none;padding:12px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;font-size:.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">✈️ تيليجرام</button>
+            </div>
+            <button onclick="copyLink()" style="width:100%;margin-top:8px;background:var(--card);border:1px solid var(--border);color:var(--text2);padding:11px;border-radius:10px;font-family:Cairo,sans-serif;font-weight:900;font-size:.82rem;cursor:pointer">🔗 نسخ الرابط</button>
+        </div>
     </div>
 
     <!-- STANDINGS TAB -->
@@ -1101,15 +1114,23 @@
         </div>
 
         <!-- عداد تنازلي -->
-        <div id="wc-countdown" style="display:flex;justify-content:center;gap:10px;margin-bottom:14px"></div>
+        <div id="wc-countdown" style="display:flex;justify-content:center;gap:10px;margin-bottom:10px"></div>
+        
+        <!-- مشاركة المونديال -->
+        <div style="display:flex;gap:6px;margin-bottom:12px;justify-content:center">
+            <button onclick="shareWA('🏆 كأس العالم 2026 - تابع كل المجموعات والمباريات على GoalZone')" style="background:#25d366;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Cairo,sans-serif;font-size:.76rem;font-weight:900;cursor:pointer">💬 شارك</button>
+            <button onclick="shareFB()" style="background:#1877f2;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Cairo,sans-serif;font-size:.76rem;font-weight:900;cursor:pointer">📘 شارك</button>
+            <button onclick="shareTG('🏆 كأس العالم 2026 على GoalZone')" style="background:#0088cc;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:Cairo,sans-serif;font-size:.76rem;font-weight:900;cursor:pointer">✈️ شارك</button>
+            <button onclick="copyLink()" style="background:var(--card);border:1px solid var(--border);color:var(--text2);padding:8px 14px;border-radius:8px;font-family:Cairo,sans-serif;font-size:.76rem;font-weight:900;cursor:pointer">🔗 نسخ</button>
+        </div>
 
         <!-- تبويبات المونديال -->
-        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
-            <button class="league-tab active" onclick="wcTab('groups',this)">🏟️ المجموعات</button>
-            <button class="league-tab" onclick="wcTab('egypt',this)">🇪🇬 مصر</button>
-            <button class="league-tab" onclick="wcTab('saudi',this)">🇸🇦 السعودية</button>
-            <button class="league-tab" onclick="wcTab('scorers',this)">⚽ هدافون</button>
-            <button class="league-tab" onclick="wcTab('schedule',this)">📅 الجدول</button>
+        <div style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch">
+            <button class="league-tab active" style="flex-shrink:0" onclick="wcTab('groups',this)">🏟️ المجموعات</button>
+            <button class="league-tab" style="flex-shrink:0" onclick="wcTab('egypt',this)">🇪🇬 مصر</button>
+            <button class="league-tab" style="flex-shrink:0" onclick="wcTab('saudi',this)">🇸🇦 السعودية</button>
+            <button class="league-tab" style="flex-shrink:0" onclick="wcTab('scorers',this)">⚽ هدافون</button>
+            <button class="league-tab" style="flex-shrink:0" onclick="wcTab('schedule',this)">📅 الجدول</button>
         </div>
 
         <!-- المجموعات -->
@@ -1473,7 +1494,7 @@ function renderMatchesForDay(day) {
             ${timeBadge}
             <div style="font-size:.65rem;color:var(--text2);margin-top:3px">${m.channel||''}</div>
             <div style="font-size:.62rem;color:var(--text3);margin-top:3px">📺 ${channel}</div>
-            <div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}${shareBtn}</div>
           </div>
           <div style="flex:1;text-align:center">
             <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
@@ -1519,6 +1540,7 @@ function renderMatchesForDay(day) {
       const ytG = encodeURIComponent('اهداف '+home+' '+away+' 2026');
       const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
       const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
+      const shareBtn = '<button onclick="shareMatch(\''+home+'\',\''+away+'\')" style="background:transparent;border:1px solid var(--border);color:var(--text3);padding:5px 8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:Cairo,sans-serif">📤</button>';
       const homeCrest = match.homeTeam.crest || '';
       const awayCrest = match.awayTeam.crest || '';
       // قناة beIN حسب الدوري
@@ -1723,9 +1745,49 @@ function toggleArticle(id) {
   else{body.classList.add('open');arrow.textContent='▲';}
 }
 
-function shareSite() {
-  window.open('https://wa.me/?text='+encodeURIComponent('🏆 تابع نتائج المباريات على GoalZone:\n'+window.location.href));
+const SITE_URL = 'https://haleemhlmygl-source.github.io/koora';
+const SITE_TEXT = '⚽ GoalZone - تابع نتائج المباريات الحية والدوريات الكبرى وكأس العالم 2026';
+
+function shareWA(text, url) {
+  text = text || SITE_TEXT;
+  url = url || SITE_URL;
+  window.open('https://wa.me/?text='+encodeURIComponent(text+'\n'+url), '_blank');
 }
+
+function shareFB(url) {
+  url = url || SITE_URL;
+  window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url), '_blank');
+}
+
+function shareTW(text, url) {
+  text = text || SITE_TEXT;
+  url = url || SITE_URL;
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(url), '_blank');
+}
+
+function shareTG(text, url) {
+  text = text || SITE_TEXT;
+  url = url || SITE_URL;
+  window.open('https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text), '_blank');
+}
+
+function copyLink(url) {
+  url = url || SITE_URL;
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(function(){
+      showToast('✅ تم نسخ الرابط!');
+    });
+  } else {
+    showToast('🔗 '+url);
+  }
+}
+
+function shareMatch(home, away) {
+  const text = '⚽ مباراة '+home+' vs '+away+' | تابع النتيجة على GoalZone';
+  shareWA(text, SITE_URL);
+}
+
+function shareSite() { shareWA(); }
 
 // ============================================================
 // 🏆 كأس العالم 2026 - المجموعات
