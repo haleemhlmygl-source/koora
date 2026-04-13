@@ -951,6 +951,7 @@
             </div>
         </div>
         <div class="header-actions">
+            <button class="btn-icon" onclick="translateSite()" title="Translate">🌐</button>
             <button class="btn-icon" id="notifBtn" onclick="toggleNotif()">🔔</button>
             <button class="btn-icon" id="themeBtn" onclick="toggleTheme()">🌙</button>
         </div>
@@ -1922,6 +1923,16 @@ function shareMatch(home, away) {
 }
 
 function shareSite() { shareWA(); }
+
+function translateSite() {
+  const url = 'https://translate.google.com/translate?sl=ar&tl=en&u=' + encodeURIComponent(window.location.href);
+  window.open(url, '_blank');
+}
+
+function translateSite() {
+  const url = 'https://translate.google.com/translate?sl=ar&tl=en&u=' + encodeURIComponent(window.location.href);
+  window.open(url, '_blank');
+}
 
 // ============================================================
 // 🏆 كأس العالم 2026 - المجموعات
