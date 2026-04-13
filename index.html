@@ -1106,7 +1106,9 @@
         <!-- تبويبات المونديال -->
         <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
             <button class="league-tab active" onclick="wcTab('groups',this)">🏟️ المجموعات</button>
-            <button class="league-tab" onclick="wcTab('egypt',this)">🇪🇬 منتخب مصر</button>
+            <button class="league-tab" onclick="wcTab('egypt',this)">🇪🇬 مصر</button>
+            <button class="league-tab" onclick="wcTab('saudi',this)">🇸🇦 السعودية</button>
+            <button class="league-tab" onclick="wcTab('scorers',this)">⚽ هدافون</button>
             <button class="league-tab" onclick="wcTab('schedule',this)">📅 الجدول</button>
         </div>
 
@@ -1115,6 +1117,12 @@
 
         <!-- منتخب مصر -->
         <div id="wc-egypt-container" style="display:none"></div>
+
+        <!-- السعودية -->
+        <div id="wc-saudi-container" style="display:none"></div>
+
+        <!-- هدافون -->
+        <div id="wc-scorers-container" style="display:none"></div>
 
         <!-- الجدول -->
         <div id="wc-schedule-container" style="display:none"></div>
@@ -1845,10 +1853,14 @@ const WC_SCHEDULE = [
 function wcTab(tab, el) {
   document.querySelectorAll('#tab-worldcup .league-tab').forEach(function(b){b.classList.remove('active');});
   if(el) el.classList.add('active');
-  document.getElementById('wc-groups-container').style.display = tab==='groups' ? 'block' : 'none';
-  document.getElementById('wc-egypt-container').style.display = tab==='egypt' ? 'block' : 'none';
-  document.getElementById('wc-schedule-container').style.display = tab==='schedule' ? 'block' : 'none';
+  var tabs = ['groups','egypt','saudi','scorers','schedule'];
+  tabs.forEach(function(t){
+    var el2 = document.getElementById('wc-'+t+'-container');
+    if(el2) el2.style.display = tab===t ? 'block' : 'none';
+  });
   if(tab==='egypt') renderEgyptPage();
+  if(tab==='saudi') renderSaudiPage();
+  if(tab==='scorers') renderWCScorers();
   if(tab==='schedule') renderWCSchedule();
 }
 
@@ -1910,6 +1922,100 @@ function renderEgyptPage() {
       html += '<div style="font-size:.72rem;color:var(--text3)">'+p.club+'</div>';
       html += '</div>';
     });
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+// Saudi squad
+const SAUDI_SQUAD = {
+  coach: 'روبرتو مانشيني',
+  group: 'H',
+  groupTeams: ['إسبانيا 🇪🇸', 'أوروغواي 🇺🇾', 'السعودية 🇸🇦', 'الرأس الأخضر 🇨🇻'],
+  players: [
+    {pos:'حارس', name:'محمد العويس', club:'الهلال'},
+    {pos:'حارس', name:'ياسر الموساوي', club:'الاتحاد'},
+    {pos:'دفاع', name:'علي البليهي', club:'الهلال'},
+    {pos:'دفاع', name:'سلطان الغنام', club:'الهلال'},
+    {pos:'دفاع', name:'عبدالحميد الدوسري', club:'الاتحاد'},
+    {pos:'وسط', name:'محمد كانو', club:'الهلال'},
+    {pos:'وسط', name:'سامي الناصر', club:'الاتفاق'},
+    {pos:'وسط', name:'علي الحسن', club:'الهلال'},
+    {pos:'هجوم', name:'سالم الدوسري', club:'الهلال'},
+    {pos:'هجوم', name:'فراس البريكان', club:'الاتحاد'},
+    {pos:'هجوم', name:'عبدالرحمن غريب', club:'الأهلي السعودي'},
+  ],
+  matches: [
+    {date:'16 يونيو 2026', opponent:'الرأس الأخضر 🇨🇻', time:'18:00', venue:'لوس أنجلوس'},
+    {date:'20 يونيو 2026', opponent:'أوروغواي 🇺🇾', time:'21:00', venue:'هيوستن'},
+    {date:'24 يونيو 2026', opponent:'إسبانيا 🇪🇸', time:'21:00', venue:'ميامي'},
+  ]
+};
+
+// WC Top Scorers predictions
+const WC_SCORERS = [
+  {rank:1, name:'كيليان مبابي', flag:'🇫🇷', club:'ريال مدريد', goals:7},
+  {rank:2, name:'إيرلينج هالاند', flag:'🇳🇴', club:'مان سيتي', goals:6},
+  {rank:3, name:'ليونيل ميسي', flag:'🇦🇷', club:'إنتر ميامي', goals:5},
+  {rank:4, name:'نيمار', flag:'🇧🇷', club:'الهلال', goals:5},
+  {rank:5, name:'فينيسيوس جونيور', flag:'🇧🇷', club:'ريال مدريد', goals:4},
+  {rank:6, name:'محمد صلاح', flag:'🇪🇬', club:'ليفربول', goals:4},
+  {rank:7, name:'كريستيانو رونالدو', flag:'🇵🇹', club:'النصر', goals:3},
+  {rank:8, name:'عمر مرموش', flag:'🇪🇬', club:'مانشستر سيتي', goals:3},
+];
+
+function renderSaudiPage() {
+  const container = document.getElementById('wc-saudi-container');
+  if(!container) return;
+  let html = '';
+  html += '<div style="background:linear-gradient(135deg,#006400,#004d00);border-radius:12px;padding:16px;text-align:center;margin-bottom:14px">';
+  html += '<div style="font-size:3rem">🇸🇦</div>';
+  html += '<div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:#fff;letter-spacing:2px;margin:6px 0">المنتخب السعودي</div>';
+  html += '<div style="color:rgba(255,255,255,.7);font-size:.78rem">المجموعة H | المدرب: '+SAUDI_SQUAD.coach+'</div>';
+  html += '<div style="display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap">';
+  SAUDI_SQUAD.groupTeams.forEach(function(t){
+    const isSaudi = t.includes('السعودية');
+    html += '<span style="background:'+(isSaudi?'rgba(255,255,255,.3)':'rgba(0,0,0,.3)')+';color:#fff;padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:'+(isSaudi?'900':'600')+'">'+t+'</span>';
+  });
+  html += '</div></div>';
+
+  html += '<div class="section-title">مباريات السعودية في المونديال</div>';
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px">';
+  SAUDI_SQUAD.matches.forEach(function(m,i){
+    html += '<div style="padding:12px 14px;border-bottom:'+(i<SAUDI_SQUAD.matches.length-1?'1px solid var(--border)':'none')+';display:flex;align-items:center;justify-content:space-between">';
+    html += '<div><div style="font-size:.72rem;color:var(--text3)">📅 '+m.date+' | '+m.venue+'</div><div style="font-weight:900;font-size:.85rem;margin-top:2px">🇸🇦 السعودية vs '+m.opponent+'</div></div>';
+    html += '<span style="background:rgba(0,212,106,.12);color:var(--green);padding:4px 10px;border-radius:6px;font-size:.75rem;font-weight:900">'+m.time+'</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  html += '<div class="section-title">قائمة المنتخب</div>';
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">';
+  ['حارس','دفاع','وسط','هجوم'].forEach(function(pos){
+    const players = SAUDI_SQUAD.players.filter(function(p){return p.pos===pos;});
+    if(!players.length) return;
+    html += '<div style="background:var(--card2);padding:6px 12px;font-size:.72rem;color:var(--text3);font-weight:900;border-bottom:1px solid var(--border)">'+pos+'</div>';
+    players.forEach(function(p){
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--border)"><div style="font-weight:700;font-size:.84rem">'+p.name+'</div><div style="font-size:.72rem;color:var(--text3)">'+p.club+'</div></div>';
+    });
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderWCScorers() {
+  const container = document.getElementById('wc-scorers-container');
+  if(!container) return;
+  let html = '<div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.75rem;color:var(--text3)">⚡ توقعات هدافي كأس العالم 2026</div>';
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">';
+  WC_SCORERS.forEach(function(s,i){
+    const isArab = s.flag==='🇪🇬'||s.flag==='🇸🇦';
+    html += '<div style="display:flex;align-items:center;padding:11px 14px;border-bottom:'+(i<WC_SCORERS.length-1?'1px solid var(--border)':'none')+';'+(isArab?'border-right:3px solid var(--red)':'')+'">';
+    html += '<span style="font-family:Bebas Neue,sans-serif;font-size:1.1rem;color:var(--gold);min-width:28px">'+s.rank+'</span>';
+    html += '<span style="font-size:1.1rem;margin-left:8px">'+s.flag+'</span>';
+    html += '<div style="flex:1;margin-right:8px"><div style="font-weight:700;font-size:.85rem;color:'+(isArab?'var(--red)':'var(--text)')+'">'+s.name+'</div><div style="font-size:.7rem;color:var(--text3)">'+s.club+'</div></div>';
+    html += '<span style="background:rgba(232,0,28,.12);color:var(--red);padding:4px 10px;border-radius:6px;font-weight:900;font-size:.82rem">'+s.goals+' ⚽</span>';
+    html += '</div>';
   });
   html += '</div>';
   container.innerHTML = html;
