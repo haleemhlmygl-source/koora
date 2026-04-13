@@ -1,0 +1,86 @@
+        <!-- ════════════════════════════════════
+             خبر: تشكيل منطقة سوهاج للميني فوتبول
+             كاتب: عبد الحليم حلمي | أبريل 2026
+             ════════════════════════════════════ -->
+        <div class="article-card" onclick="toggleArticle('art_sohag')" style="border:2px solid rgba(0,200,83,.35)">
+            <div class="article-header" style="background:rgba(0,200,83,.05)">
+                <div>
+                    <div class="article-title">⚽ تشكيل منطقة سوهاج للميني فوتبول بسوهاج</div>
+                    <div class="article-meta">🗓️ أبريل 2026 &nbsp;|&nbsp; ✍️ عبد الحليم حلمي &nbsp;|&nbsp; 📍 سوهاج، مصر</div>
+                </div>
+                <span class="article-arrow" id="arrow-art_sohag">▼</span>
+            </div>
+            <div class="article-body" id="body-art_sohag">
+
+                <!-- صورة الخبر -->
+                <div style="border-radius:10px;overflow:hidden;margin-bottom:14px;position:relative">
+                    <img src="https://haleemhlmygl-source.github.io/koora/images/sohag-minifootball.jpg"
+                         alt="تشكيل منطقة سوهاج للميني فوتبول"
+                         style="width:100%;max-height:260px;object-fit:cover;object-position:center top;display:block;filter:brightness(.93)"
+                         onerror="this.style.display='none'">
+                    <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.6));padding:14px 12px 8px;font-size:.72rem;color:rgba(255,255,255,.8);text-align:center">
+                        تشكيل منطقة سوهاج للميني فوتبول بسوهاج
+                    </div>
+                </div>
+
+                <!-- نص الخبر -->
+                <p style="line-height:2;font-size:.85rem;margin-bottom:14px">
+                    اعتمد السيد <strong style="color:var(--text)">أحمد سمير سليمان</strong>، رئيس الاتحاد المصري للميني فوتبول ورئيس الاتحاد الأفريقي للميني فوتبول، التشكيلَ الرسمي لمنطقة <strong style="color:var(--text)">سوهاج</strong> للميني فوتبول.
+                </p>
+
+                <!-- بطاقة التشكيل -->
+                <div style="background:rgba(0,200,83,.05);border:1px solid rgba(0,200,83,.2);border-radius:10px;padding:14px;margin-bottom:12px">
+                    <div style="font-size:.75rem;font-weight:900;color:#00c853;margin-bottom:12px">🏅 تشكيل مجلس المنطقة</div>
+                    <div style="display:flex;flex-direction:column;gap:8px;font-size:.82rem">
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:linear-gradient(135deg,#00c853,#00a844);color:#000;padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">رئيس</span>
+                            <strong style="color:var(--text)">د. أشرف محمد مهران</strong>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:rgba(255,255,255,.07);color:var(--text2);padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">نائب رئيس أفريقي</span>
+                            <strong style="color:var(--text)">العربي</strong>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:rgba(255,255,255,.07);color:var(--text2);padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">نائب الرئيس</span>
+                            <strong style="color:var(--text)">د. محمد عثمان دردير</strong>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:rgba(255,255,255,.07);color:var(--text2);padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">أمين الصندوق</span>
+                            <strong style="color:var(--text)">عبد يوسف فهمي</strong>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:rgba(255,255,255,.07);color:var(--text2);padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">عضو</span>
+                            <strong style="color:var(--text)">محمد حسني عبد الحفيظ</strong>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:rgba(255,255,255,.07);color:var(--text2);padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">عضو</span>
+                            <strong style="color:var(--text)">محمد حامد رشوان</strong>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:6px">
+                            <span style="background:rgba(255,255,255,.07);color:var(--text2);padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:900;white-space:nowrap">عضو</span>
+                            <strong style="color:var(--text)">محمد أشرف شفيق</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تعليق -->
+                <div style="background:rgba(232,0,28,.05);border-right:3px solid var(--red);padding:10px 12px;border-radius:6px;margin-bottom:14px;font-size:.82rem;line-height:1.8">
+                    🙏 متمنين لهم مزيداً من الترقي والتقدم دائماً
+                </div>
+
+                <!-- أزرار المشاركة -->
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhaleemhlmygl-source.github.io%2Fkoora%2Fsohag-minifootball-news.html"
+                       target="_blank" rel="noopener"
+                       style="background:#1877f2;color:#fff;padding:8px 16px;border-radius:8px;font-size:.76rem;font-weight:900;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        شارك على فيسبوك
+                    </a>
+                    <button onclick="shareWA('⚽ تشكيل منطقة سوهاج للميني فوتبول بسوهاج | GoalZone 2026\nhttps://haleemhlmygl-source.github.io/koora/sohag-minifootball-news.html')"
+                       style="background:#25d366;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:.76rem;font-weight:900;cursor:pointer;font-family:Cairo,sans-serif">
+                        💬 واتساب
+                    </button>
+                </div>
+
+            </div>
+        </div>
