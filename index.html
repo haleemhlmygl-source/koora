@@ -969,15 +969,13 @@
     </div>
 </div>
 
-<!-- STARS BAR -->
-<div class="stars-bar" style="max-width:640px;margin:0 auto">
-    <div style="flex-shrink:0;font-size:.62rem;color:var(--text3);font-weight:900;white-space:nowrap;align-self:center">⭐ نجوم</div>
-    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#cc0000,#990000)">🏴</div><div class="star-name">صلاح</div><div class="star-club">ليفربول</div></div>
-    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#001689,#0a3aad)">🇫🇷</div><div class="star-name">مبابي</div><div class="star-club">ريال مدريد</div></div>
-    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#a50044,#c8102e)">🇪🇸</div><div class="star-name">يامال</div><div class="star-club">برشلونة</div></div>
-    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#6f2da8,#9b59b6)">🇳🇴</div><div class="star-name">هالاند</div><div class="star-club">مان سيتي</div></div>
-    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#001a57,#0033a0)">🇲🇦</div><div class="star-name">حكيمي</div><div class="star-club">باريس</div></div>
-    <div class="star-item"><div class="star-avatar" style="background:linear-gradient(135deg,#dc143c,#a50000)">🇧🇷</div><div class="star-name">فينيسيوس</div><div class="star-club">ريال مدريد</div></div>
+<!-- WC COUNTDOWN BIG -->
+<div style="background:linear-gradient(135deg,#0a0f18,#0f1a2e,#0a0f18);border-bottom:1px solid var(--border);padding:14px 16px;max-width:640px;margin:0 auto;width:100%">
+    <div style="text-align:center;margin-bottom:10px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);letter-spacing:3px">🏆 FIFA WORLD CUP 2026</div>
+        <div style="font-size:.68rem;color:var(--text3);margin-top:2px">🇺🇸 🇨🇦 🇲🇽 &nbsp;|&nbsp; 11 يونيو - 19 يوليو 2026</div>
+    </div>
+    <div id="main-countdown" style="display:flex;justify-content:center;gap:8px"></div>
 </div>
 
 <!-- NEWS SLIDER -->
@@ -2314,6 +2312,37 @@ function playVideo(videoId, thumbEl) {
   if(player) player.style.display = 'block';
 }
 
+// ============================================================
+// عداد كأس العالم الرئيسي
+// ============================================================
+function renderMainCountdown() {
+  const container = document.getElementById('main-countdown');
+  if(!container) return;
+  const target = new Date('2026-06-11T18:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if(diff <= 0) {
+    container.innerHTML = '<div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:var(--green);letter-spacing:2px">🏆 البطولة بدأت!</div>';
+    return;
+  }
+  const days = Math.floor(diff/(1000*60*60*24));
+  const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const mins = Math.floor((diff%(1000*60*60))/(1000*60));
+  const secs = Math.floor((diff%(1000*60))/1000);
+  const units = [
+    {v:days, l:'يوم', color:'var(--red)'},
+    {v:hours, l:'ساعة', color:'var(--gold)'},
+    {v:mins, l:'دقيقة', color:'#6699ff'},
+    {v:secs, l:'ثانية', color:'var(--green)'}
+  ];
+  container.innerHTML = units.map(function(u){
+    return '<div style="text-align:center;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;min-width:62px">' +
+      '<div style="font-family:Bebas Neue,sans-serif;font-size:1.8rem;color:'+u.color+';line-height:1">'+String(u.v).padStart(2,'0')+'</div>' +
+      '<div style="font-size:.6rem;color:var(--text3);margin-top:2px">'+u.l+'</div>' +
+      '</div>';
+  }).join('');
+}
+
 // Slider
 var currentSlide=0,slideTimer;
 function showSlide(n) {
@@ -2332,6 +2361,8 @@ window.onload = function() {
   slideTimer = setInterval(function(){showSlide(currentSlide+1);},4000);
   loadLiveMatches();
   loadLiveStandings('pl');
+  renderMainCountdown();
+  setInterval(renderMainCountdown, 1000);
 };
 </script
 
