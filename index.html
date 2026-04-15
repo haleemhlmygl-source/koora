@@ -937,7 +937,7 @@
 <!-- TOP BAR -->
 <div class="top-bar">
     <span class="top-bar-label">⚡ عاجل</span>
-    <span class="top-bar-text">⭐ الثلاثاء: ليفربول vs باريس وأتلتيكو vs برشلونة - إياب ربع نهائي أبطال أوروبا .. 🇸🇦 الهلال vs السد اليوم 20:00 - دوري أبطال آسيا .. 🇪🇸 برشلونة يجهز خطة الريمونتادا في قلب مدريد .. ⚽ إنتر ميلان ينتفض أمام كومو ويضع يده على لقب الدوري الإيطالي .. 🇸🇦 الاتحاد السعودي يفاوض 5 مدربين لخلافة رينارد .. 🏥 موقف صلاح من مواجهة باريس يوم الثلاثاء .. 🇪🇬 الدوري المصري: 4 مباريات الاثنين و2 الثلاثاء .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
+    <span class="top-bar-text">🔥 الليلة 22:00 | بايرن ميونخ vs ريال مدريد - إياب ربع نهائي أبطال أوروبا على beIN Sports HD1 .. ⚽ الليلة أيضاً | أرسنال vs سبورتينغ 22:00 على beIN Sports HD2 .. 🇸🇦 الليلة | النصر vs الاتفاق 22:00 على ثمانية .. 🔴 برشلونة يشكو للـ UEFA بعد البطاقة الحمراء لإيريك غارسيا أمام أتلتيكو .. 😢 سلوت بعد الخروج من أبطال أوروبا: لا أعتقد أنه مفاجئ .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
 </div>
 
 <!-- HEADER -->
@@ -1424,8 +1424,10 @@ const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 // ============================================================
 // 🇸🇦 دوري روشن السعودي - عدّل هنا يدوياً كل جولة
 const SAUDI_MATCHES = [
-  {date:'2026-04-14', home:'النصر',    away:'الاتفاق',   time:'19:00', status:'upcoming', score:'', channel:'SSC Sport 1'},
-  {date:'2026-04-14', home:'الهلال',   away:'الأهلي',    time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 2'},
+  // نتائج 14 أبريل
+  {date:'2026-04-14', home:'الهلال',   away:'الأهلي',    time:'21:00', status:'ft', score:'3-0', channel:'SSC Sport 2'},
+  // مباريات 15 أبريل
+  {date:'2026-04-15', home:'النصر',    away:'الاتفاق',   time:'22:00', status:'upcoming', score:'', channel:'ثمانية'},
   {date:'2026-04-15', home:'الاتحاد',  away:'التعاون',   time:'19:00', status:'upcoming', score:'', channel:'SSC Sport 1'},
   {date:'2026-04-15', home:'الشباب',   away:'الفيحاء',   time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 2'},
 ];
@@ -1436,14 +1438,17 @@ const SAUDI_MATCHES = [
 // status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
 // ============================================================
 const EGYPT_MATCHES = [
-  // ========= الإثنين 13 أبريل 2026 =========
-  {date:'2026-04-13', home:'غزل المحلة',   away:'وادي دجلة',        time:'18:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-04-13', home:'فاركو',         away:'حرس الحدود',       time:'18:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-04-13', home:'طلائع الجيش',  away:'بتروجت',           time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-04-13', home:'البنك الأهلي', away:'المقاولون العرب',  time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
-  // ========= الثلاثاء 14 أبريل 2026 =========
-  {date:'2026-04-14', home:'مودرن سبورت',  away:'الجونة',           time:'18:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-04-14', home:'الاتحاد السكندري', away:'زد',           time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  // نتائج 13 أبريل
+  {date:'2026-04-13', home:'غزل المحلة', away:'وادي دجلة', time:'18:00', status:'ft', score:'1-0', channel:'ON Sport'},
+  {date:'2026-04-13', home:'فاركو', away:'حرس الحدود', time:'18:00', status:'ft', score:'0-0', channel:'ON Sport'},
+  {date:'2026-04-13', home:'طلائع الجيش', away:'بتروجت', time:'21:00', status:'ft', score:'2-1', channel:'ON Sport'},
+  {date:'2026-04-13', home:'البنك الأهلي', away:'المقاولون العرب', time:'21:00', status:'ft', score:'1-1', channel:'ON Sport'},
+  // نتائج 14 أبريل
+  {date:'2026-04-14', home:'مودرن سبورت', away:'الجونة', time:'18:00', status:'ft', score:'0-1', channel:'ON Sport'},
+  {date:'2026-04-14', home:'الاتحاد السكندري', away:'زد', time:'21:00', status:'ft', score:'2-0', channel:'ON Sport'},
+  // مباريات 15 أبريل
+  {date:'2026-04-15', home:'الأهلي', away:'سيراميكا', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-15', home:'الزمالك', away:'بيراميدز', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
 ];
 // ============================================================
 
