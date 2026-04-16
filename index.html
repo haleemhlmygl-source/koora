@@ -1097,13 +1097,15 @@
     <div class="tab-page active" id="tab-matches">
         <div class="section-title">مواجهات اليوم</div>
         <div id="matches-container">
-            <div style="padding:8px 0">
-                <!-- Skeleton loader -->
-                <div style="background:var(--card2);border-radius:12px;height:44px;margin-bottom:8px;animation:skeleton 1.5s infinite"></div>
-                <div style="background:var(--card);border-radius:10px;overflow:hidden">
-                    <div style="height:70px;background:var(--card2);margin-bottom:1px;animation:skeleton 1.5s infinite 0.1s"></div>
-                    <div style="height:70px;background:var(--card2);margin-bottom:1px;animation:skeleton 1.5s infinite 0.2s"></div>
-                    <div style="height:70px;background:var(--card2);animation:skeleton 1.5s infinite 0.3s"></div>
+            <div id="day-selector" style="display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch"></div>
+            <div id="matches-list">
+                <div style="padding:8px 0">
+                    <div style="background:var(--card2);border-radius:12px;height:44px;margin-bottom:8px;animation:skeleton 1.5s infinite"></div>
+                    <div style="background:var(--card);border-radius:10px;overflow:hidden">
+                        <div style="height:70px;background:var(--card2);margin-bottom:1px;animation:skeleton 1.5s infinite 0.1s"></div>
+                        <div style="height:70px;background:var(--card2);margin-bottom:1px;animation:skeleton 1.5s infinite 0.2s"></div>
+                        <div style="height:70px;background:var(--card2);animation:skeleton 1.5s infinite 0.3s"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1599,28 +1601,24 @@ async function loadLiveMatches() {
 
 
 function renderDaySelector(days) {
-  const container = document.getElementById('matches-container');
+  const selectorEl = document.getElementById('day-selector');
+  if(!selectorEl) return;
   const todayStr = new Date().toISOString().split('T')[0];
-  let selectorHtml = '<div id="day-selector" style="display:flex;gap:8px;overflow-x:auto;padding:12px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none">';
+  let selectorHtml = '';
   days.forEach(function(day) {
-    const d = new Date(day+'T12:00:00');
-    const dayName = d.toLocaleDateString('ar-EG',{weekday:'short'});
-    const dayNum = d.toLocaleDateString('ar-EG',{day:'numeric',month:'short'});
     const isToday = day === todayStr;
     const isSelected = day === selectedDate;
-    const bg = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.12)' : 'var(--card)');
-    const color = isSelected ? '#000' : (isToday ? 'var(--green)' : 'var(--text2)');
-    const border = isSelected ? 'var(--green)' : (isToday ? 'rgba(0,230,118,0.5)' : 'var(--border)');
+    const d = new Date(day);
+    const dayNames = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+    const dayName = isToday ? 'اليوم' : dayNames[d.getDay()];
+    const dayNum = d.getDate() + '/' + (d.getMonth()+1);
     const btnClass = isSelected ? 'selected-btn' : (isToday ? 'today-btn' : '');
-    selectorHtml += '<button onclick="selectDay(\''+day+'\')" class="'+btnClass+'">';
-    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+(isSelected?'#fff':(isToday?'var(--red)':'var(--text2)'))+'">'+dayName+'</div>';
-    selectorHtml += '<div style="font-size:.68rem;color:'+(isSelected?'rgba(255,255,255,.8)':(isToday?'var(--red)':'var(--text3)'))+'">'+dayNum+'</div>';
-    if(isToday) selectorHtml += '<div style="font-size:.58rem;color:var(--green);font-weight:900">اليوم</div>';
+    selectorHtml += '<button onclick="selectDay(''+day+'')" class="'+btnClass+'">';
+    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+(isSelected?'#fff':(isToday?'var(--red)':'var(--text2)'))+'">' + dayName + '</div>';
+    selectorHtml += '<div style="font-size:.68rem;color:'+(isSelected?'rgba(255,255,255,.8)':(isToday?'var(--red)':'var(--text3)'))+'">' + dayNum + '</div>';
     selectorHtml += '</button>';
   });
-  selectorHtml += '</div><div id="matches-list"></div>';
-  container.innerHTML = selectorHtml;
-  renderMatchesForDay(selectedDate);
+  selectorEl.innerHTML = selectorHtml;
 }
 
 function selectDay(day) {
