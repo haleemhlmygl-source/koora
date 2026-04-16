@@ -1491,113 +1491,63 @@ var allMatchesData = [];
 var selectedDate = null;
 
 async function loadLiveMatches() {
-  const container = document.getElementById('matches-container');
-
-  // عرض الدوري المصري فوراً بدون انتظار
   const todayStr = new Date().toISOString().split('T')[0];
   allMatchesData = [];
-  const daysSetEgy = new Set();
-  EGYPT_MATCHES.forEach(function(m){ daysSetEgy.add(m.date); });
-  
-  if(daysSetEgy.size > 0) {
-    const egyDays = Array.from(daysSetEgy).sort();
-    selectedDate = egyDays.find(function(d){ return d >= todayStr; }) || egyDays[0];
-    renderDaySelector(egyDays);
-    renderMatchesForDay(selectedDate);
-  } else {
-    container.innerHTML = '<div class="loading"><div class="spinner"></div>جاري تحميل المباريات...</div>';
+
+  // تجميع كل الأيام
+  const daysSet = new Set();
+  EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
+  SAUDI_MATCHES.forEach(function(m){ daysSet.add(m.date); });
+
+  const days = Array.from(daysSet).sort();
+  if(!selectedDate || !days.includes(selectedDate)) {
+    selectedDate = days.find(function(d){ return d >= todayStr; }) || days[0];
   }
 
-  // Cache check
-  try {
-    const CACHE_VER = 'v3';
-    const today = new Date();
-    const from = new Date(); from.setDate(today.getDate()-2);
-    const later = new Date(); later.setDate(today.getDate()+7);
-    const dateFrom = from.toISOString().split('T')[0];
-    const dateTo = later.toISOString().split('T')[0];
-    const CACHE_KEY = 'gz_'+CACHE_VER+'_'+dateFrom+'_'+dateTo;
-    const CACHE_TIME = 5 * 60 * 1000;
-    const cached = sessionStorage.getItem(CACHE_KEY);
-    const cachedTime = sessionStorage.getItem(CACHE_KEY+'_t');
-    if(cached && cachedTime && (Date.now()-parseInt(cachedTime)) < CACHE_TIME) {
-      const parsed = JSON.parse(cached);
-      if(parsed && parsed.length > 0) {
-        allMatchesData = parsed;
-        const daysSet = new Set();
-        allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet.add(m.utcDate.split('T')[0]);});});
-        EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
-        SAUDI_MATCHES.forEach(function(m){ daysSet.add(m.date); });
-        const days = Array.from(daysSet).sort();
-        if(!selectedDate || !days.includes(selectedDate)) {
-          selectedDate = days.includes(todayStr) ? todayStr : (days[0]||todayStr);
-        }
-        renderDaySelector(days);
-        setTimeout(loadLiveMatches, 60000);
+  renderDaySelector(days);
+  renderMatchesForDay(selectedDate);
+
+  // جلب مباريات API
+  const WORKER = 'https://goalzone-api.haleemhlmygl.workers.dev';
+  const LEAGUES = ['PL','CL','PD','BL1','SA'];
+  const from = new Date(); from.setDate(from.getDate()-2);
+  const to = new Date(); to.setDate(to.getDate()+7);
+  const dateFrom = from.toISOString().split('T')[0];
+  const dateTo = to.toISOString().split('T')[0];
+
+  const cacheKey = 'gz_v3_'+dateFrom+'_'+dateTo;
+  const cached = sessionStorage.getItem(cacheKey);
+  if(cached) {
+    try {
+      const data = JSON.parse(cached);
+      if(data && data.length > 0) {
+        allMatchesData = data;
+        // تجديد الأيام بعد API
+        data.forEach(function(lg){
+          lg.matches.forEach(function(m){ daysSet.add(m.utcDate.split('T')[0]); });
+        });
+        renderDaySelector(Array.from(daysSet).sort());
+        renderMatchesForDay(selectedDate);
         return;
       }
-    }
-
-    // جلب من API بـ timeout
-    const fetchWithTimeout = (url, ms=15000) => {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), ms);
-      return fetch(url, {signal: controller.signal}).finally(() => clearTimeout(timer));
-    };
-
-    const today2 = new Date();
-    const from2 = new Date(); from2.setDate(today2.getDate()-2);
-    const later2 = new Date(); later2.setDate(today2.getDate()+7);
-    const df = from2.toISOString().split('T')[0];
-    const dt = later2.toISOString().split('T')[0];
-
-    const [plRes, clRes, pdRes, blRes, saRes] = await Promise.allSettled([
-      fetchWithTimeout(WORKER_URL+'/v4/competitions/PL/matches?dateFrom='+df+'&dateTo='+dt),
-      fetchWithTimeout(WORKER_URL+'/v4/competitions/CL/matches?dateFrom='+df+'&dateTo='+dt),
-      fetchWithTimeout(WORKER_URL+'/v4/competitions/PD/matches?dateFrom='+df+'&dateTo='+dt),
-      fetchWithTimeout(WORKER_URL+'/v4/competitions/BL1/matches?dateFrom='+df+'&dateTo='+dt),
-      fetchWithTimeout(WORKER_URL+'/v4/competitions/SA/matches?dateFrom='+df+'&dateTo='+dt),
-    ]);
-
-    allMatchesData = [];
-    const processLeague = async (result, name, flag) => {
-      if(result.status==='fulfilled' && result.value.ok) {
-        const data = await result.value.json();
-        if(data.matches && data.matches.length>0) allMatchesData.push({name,flag,matches:data.matches});
-      }
-    };
-    await processLeague(plRes,'الدوري الإنجليزي الممتاز','🏴');
-    await processLeague(clRes,'دوري أبطال أوروبا','⭐');
-    await processLeague(pdRes,'الدوري الإسباني','🇪🇸');
-    await processLeague(blRes,'الدوري الألماني','🇩🇪');
-    await processLeague(saRes,'الدوري الإيطالي','🇮🇹');
-
-    // حفظ في cache
-    if(allMatchesData.length > 0) {
-      try {
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(allMatchesData));
-        sessionStorage.setItem(CACHE_KEY+'_t', Date.now().toString());
-      } catch(e) {}
-    }
-
-    // تحديث العرض
-    const daysSet2 = new Set();
-    allMatchesData.forEach(function(lg){lg.matches.forEach(function(m){daysSet2.add(m.utcDate.split('T')[0]);});});
-    EGYPT_MATCHES.forEach(function(m){ daysSet2.add(m.date); });
-    const days2 = Array.from(daysSet2).sort();
-    if(!selectedDate || !days2.includes(selectedDate)) {
-      selectedDate = days2.includes(todayStr) ? todayStr : (days2[0]||todayStr);
-    }
-    if(days2.length > 0) renderDaySelector(days2);
-    setTimeout(loadLiveMatches, 60000);
-
-  } catch(err) {
-    console.warn('API Error:', err);
-    // الدوري المصري شغال حتى لو API فشل
-    if(daysSetEgy.size === 0) renderStaticMatches();
+    } catch(e){}
   }
-}
 
+  fetchWithTimeout(WORKER+'?competitions='+LEAGUES.join(',')+'&dateFrom='+dateFrom+'&dateTo='+dateTo)
+    .then(function(r){ return r.json(); })
+    .then(function(data) {
+      if(data && data.competitions) {
+        allMatchesData = data.competitions;
+        sessionStorage.setItem(cacheKey, JSON.stringify(allMatchesData));
+        allMatchesData.forEach(function(lg){
+          lg.matches.forEach(function(m){ daysSet.add(m.utcDate.split('T')[0]); });
+        });
+        renderDaySelector(Array.from(daysSet).sort());
+        renderMatchesForDay(selectedDate);
+      }
+    })
+    .catch(function(e){ console.log('API error:', e); });
+}
 
 
 function renderDaySelector(days) {
@@ -2509,3 +2459,6 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();def
 function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(r){if(r.outcome==='accepted')document.getElementById('pwa-install').style.display='none';deferredPrompt=null;});}}
 window.addEventListener('appinstalled',function(){document.getElementById('pwa-install').style.display='none';});
 </script>
+
+</body>
+</html>
