@@ -1575,13 +1575,20 @@ function renderDaySelector(days) {
     const dayName = isToday ? 'اليوم' : dayNames[d.getDay()];
     const dayNum = d.getDate() + '/' + (d.getMonth()+1);
     const btnClass = isSelected ? 'selected-btn' : (isToday ? 'today-btn' : '');
-    selectorHtml += '<button onclick="selectDay(''+day+'')" class="'+btnClass+'">';
-    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:'+(isSelected?'#fff':(isToday?'var(--red)':'var(--text2)'))+'">' + dayName + '</div>';
-    selectorHtml += '<div style="font-size:.68rem;color:'+(isSelected?'rgba(255,255,255,.8)':(isToday?'var(--red)':'var(--text3)'))+'">' + dayNum + '</div>';
+    const textColor = isSelected ? '#fff' : (isToday ? 'var(--red)' : 'var(--text2)');
+    const numColor = isSelected ? 'rgba(255,255,255,.8)' : (isToday ? 'var(--red)' : 'var(--text3)');
+    selectorHtml += '<button data-day="' + day + '" class="' + btnClass + '">';
+    selectorHtml += '<div style="font-size:.72rem;font-weight:900;color:' + textColor + '">' + dayName + '</div>';
+    selectorHtml += '<div style="font-size:.68rem;color:' + numColor + '">' + dayNum + '</div>';
     selectorHtml += '</button>';
   });
   selectorEl.innerHTML = selectorHtml;
+  // Add click handlers after rendering
+  selectorEl.querySelectorAll('button[data-day]').forEach(function(btn) {
+    btn.addEventListener('click', function() { selectDay(this.getAttribute('data-day')); });
+  });
 }
+
 
 function selectDay(day) {
   selectedDate = day;
@@ -1815,7 +1822,7 @@ const TEAMS = [
   {name:'Juventus',flag:'🇮🇹',league:'Serie A'},{name:'Napoli',flag:'🇮🇹',league:'Serie A'},
   {name:'Dortmund',flag:'🇩🇪',league:'Bundesliga'},
 ];
-function searchTeam() {
+async function searchTeam() {
   const q=document.getElementById('searchInput').value.toLowerCase().trim();
   const res=document.getElementById('searchResults');
   if(!q){res.style.display='none';return;}
@@ -1824,7 +1831,7 @@ function searchTeam() {
   res.style.display='block';
   res.innerHTML=found.map(function(t){return '<div class="search-result-item" onclick="selectTeam(\''+t.name+'\')"><span>'+t.flag+'</span><div><div style="font-weight:700">'+t.name+'</div><div style="font-size:.72rem;color:var(--text2)">'+t.league+'</div></div></div>';}).join('');
 }
-function selectTeam(name){
+async function selectTeam(name){
   document.getElementById('searchInput').value=name;
   document.getElementById('searchResults').style.display='none';
   showToast('البحث عن: '+name);
@@ -1867,7 +1874,7 @@ async function loadLiveStandings(league) {
   }
 }
 
-function showStandings(league,el) {
+async function showStandings(league,el) {
   document.querySelectorAll('.league-tab').forEach(function(t){t.classList.remove('active');});
   if(el) el.classList.add('active');
   loadLiveStandings(league);
@@ -1960,10 +1967,6 @@ function translateSite() {
   window.open(url, '_blank');
 }
 
-function translateSite() {
-  const url = 'https://translate.google.com/translate?sl=ar&tl=en&u=' + encodeURIComponent(window.location.href);
-  window.open(url, '_blank');
-}
 
 // ============================================================
 // 🏆 كأس العالم 2026 - المجموعات
