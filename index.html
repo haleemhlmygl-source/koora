@@ -1792,10 +1792,11 @@ function renderMatchesForDay(day) {
       const ytG = encodeURIComponent('اهداف '+m.home+' '+m.away+' 2026');
       const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
       const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
+      const lineupBtnSaudi = m.status==='upcoming' ? '<button onclick="showLineup(\''+m.home+'\',\''+m.away+'\')" style="background:rgba(245,197,24,.12);color:var(--gold);border:1px solid rgba(245,197,24,.3);padding:5px 8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:Cairo,sans-serif;font-weight:900">📋</button>' : '';
       saudiCards += `<div class="match-card-new">
         <div class="match-row">
           <div class="match-team"><div class="match-team-placeholder">🇸🇦</div><div class="match-team-name">${m.home}</div></div>
-          <div class="match-center">${timeBadge}<div style="font-size:.62rem;color:var(--text3);margin-top:3px">${m.channel||''}</div><div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}</div></div>
+          <div class="match-center">${timeBadge}<div style="font-size:.62rem;color:var(--text3);margin-top:3px">${m.channel||''}</div><div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}${lineupBtnSaudi}</div></div>
           <div class="match-team"><div class="match-team-placeholder">🇸🇦</div><div class="match-team-name">${m.away}</div></div>
         </div>
       </div>`;
