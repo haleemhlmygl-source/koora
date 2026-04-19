@@ -862,6 +862,175 @@
         .no-matches { text-align: center; padding: 28px; color: var(--text2); font-size: .86rem; }
         .no-matches a { color: var(--red); text-decoration: none; font-weight: 900; }
 
+        /* ===== LINEUP PITCH ===== */
+        .lineup-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.85);
+            z-index: 500;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .lineup-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+        .lineup-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+        }
+        .lineup-header {
+            background: var(--card2);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+        .lineup-title { font-weight: 900; font-size: .9rem; }
+        .lineup-close {
+            width: 30px; height: 30px;
+            background: var(--card3);
+            border: none;
+            border-radius: 50%;
+            color: var(--text2);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pitch-wrap {
+            padding: 12px;
+            background: var(--bg2);
+        }
+        .pitch {
+            background: linear-gradient(180deg,
+                #1a4a1a 0%, #1a4a1a 9%,
+                #1d521d 9%, #1d521d 18%,
+                #1a4a1a 18%, #1a4a1a 27%,
+                #1d521d 27%, #1d521d 36%,
+                #1a4a1a 36%, #1a4a1a 45%,
+                #1d521d 45%, #1d521d 54%,
+                #1a4a1a 54%, #1a4a1a 63%,
+                #1d521d 63%, #1d521d 72%,
+                #1a4a1a 72%, #1a4a1a 81%,
+                #1d521d 81%, #1d521d 90%,
+                #1a4a1a 90%, #1a4a1a 100%
+            );
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 8px;
+            position: relative;
+            padding: 8px 4px;
+            min-height: 500px;
+        }
+        .pitch::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: rgba(255,255,255,.3);
+            transform: translateY(-50%);
+        }
+        .pitch::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .team-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 4px 0;
+        }
+        .team-section.away { transform: rotate(180deg); }
+        .team-section.away .player-name { transform: rotate(180deg); }
+        .lineup-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2px 8px;
+        }
+        .player-circle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+        }
+        .player-dot {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 900;
+            box-shadow: 0 2px 8px rgba(0,0,0,.4);
+            border: 2px solid rgba(255,255,255,.4);
+        }
+        .player-dot.home-dot { background: var(--red); color: #fff; }
+        .player-dot.away-dot { background: #1a3a6a; color: #fff; }
+        .player-name {
+            font-size: .58rem;
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0,0,0,.8);
+            max-width: 50px;
+            line-height: 1.2;
+        }
+        .lineup-divider {
+            height: 1px;
+            background: rgba(255,255,255,.2);
+            margin: 4px 8px;
+        }
+        .lineup-subs {
+            padding: 10px 14px;
+            border-top: 1px solid var(--border);
+        }
+        .lineup-subs-title {
+            font-size: .72rem;
+            color: var(--text3);
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .sub-item {
+            background: var(--bg2);
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: .72rem;
+        }
+        .sub-num { color: var(--gold); font-weight: 900; margin-left: 4px; }
+        .formation-badge {
+            background: rgba(0,0,0,.4);
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
@@ -1409,6 +1578,17 @@
 
 </div>
 
+<!-- LINEUP MODAL -->
+<div class="lineup-modal" id="lineupModal" onclick="closeLineup(event)">
+    <div class="lineup-container" id="lineupContainer">
+        <div class="lineup-header">
+            <div class="lineup-title" id="lineupTitle">التشكيلة المتوقعة</div>
+            <button class="lineup-close" onclick="closeLineupModal()">✕</button>
+        </div>
+        <div id="lineupContent"></div>
+    </div>
+</div>
+
 <div class="footer">
     <img src="https://profile-counter.glitch.me/haleemhlmy/count.svg" alt="Visitors" style="margin-bottom:8px"><br>
     تطوير وبرمجة: <b>HALEEM HLMY</b> | سوهاج &copy; 2026
@@ -1634,6 +1814,7 @@ function renderMatchesForDay(day) {
       const ytG = encodeURIComponent('اهداف '+m.home+' '+m.away+' 2026');
       const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
       const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
+      const lineupBtn = m.status==='upcoming' ? '<button onclick="showLineup(\''+m.home+'\',\''+m.away+'\')" style="background:rgba(245,197,24,.12);color:var(--gold);border:1px solid rgba(245,197,24,.3);padding:5px 8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:Cairo,sans-serif;font-weight:900">📋 تشكيلة</button>' : '';
       egyptCards += `<div class="match-card-new">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
           <div style="flex:1;text-align:center">
@@ -1691,6 +1872,7 @@ function renderMatchesForDay(day) {
       const liveBtn = status!=='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
       const goalsBtn = status==='FINISHED' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
       const shareBtn = '<button onclick="shareMatch(\''+home+'\',\''+away+'\')" style="background:transparent;border:1px solid var(--border);color:var(--text3);padding:5px 8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:Cairo,sans-serif">📤</button>';
+      const lineupBtnAPI = status !== 'FINISHED' ? '<button onclick="showLineup(\''+home+'\',\''+away+'\')" style="background:rgba(245,197,24,.12);color:var(--gold);border:1px solid rgba(245,197,24,.3);padding:5px 8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:Cairo,sans-serif;font-weight:900">📋</button>' : '';
       const homeCrest = match.homeTeam.crest || '';
       const awayCrest = match.awayTeam.crest || '';
       // قناة beIN حسب الدوري
@@ -1717,7 +1899,7 @@ function renderMatchesForDay(day) {
           <!-- Center Score/Time -->
           <div style="text-align:center;min-width:100px;padding:0 4px">
             <div style="margin-bottom:6px">${timeBadge}</div>
-            <div style="display:flex;gap:3px;justify-content:center;flex-wrap:wrap">${liveBtn}${goalsBtn}${shareBtn}</div>
+            <div style="display:flex;gap:3px;justify-content:center;flex-wrap:wrap">${liveBtn}${goalsBtn}${lineupBtnAPI}${shareBtn}</div>
           </div>
           <!-- Away -->
           <div style="flex:1;text-align:center">
@@ -2445,6 +2627,155 @@ function showSlide(n) {
 }
 function changeSlide(dir){showSlide(currentSlide+dir);clearInterval(slideTimer);slideTimer=setInterval(function(){showSlide(currentSlide+1);},4000);}
 function goToSlide(n){showSlide(n);clearInterval(slideTimer);slideTimer=setInterval(function(){showSlide(currentSlide+1);},4000);}
+
+// ============================================================
+// ⚽ تشكيلات المباريات
+// ============================================================
+const LINEUPS = {
+  'مانشستر سيتي-أرسنال': {
+    home: {
+      name: 'مانشستر سيتي',
+      formation: '4-3-3',
+      color: '#6cb4e4',
+      gk: ['إيدرسون'],
+      def: ['ووكر','روبن دياز','أكي','غفاريو'],
+      mid: ['كوفاريشيتش','رودري','فيلبوس'],
+      fwd: ['دوكو','هالاند','فودن'],
+      subs: ['أورتيجا','ماتيوس','كالفين فيليبس','بيرناردو','مارموش']
+    },
+    away: {
+      name: 'أرسنال',
+      formation: '4-3-3',
+      color: '#ef0107',
+      gk: ['رايا'],
+      def: ['وايت','ماغالييس','سالييبا','زيمر'],
+      mid: ['رايس','أوديغارد','هافيرتز'],
+      fwd: ['ساكا','تروسار','مارتينيلي'],
+      subs: ['نوبل','كيفيور','طوماس','جورجينيو','نكيتيا']
+    }
+  },
+  'ليفربول-إيفرتون': {
+    home: {
+      name: 'ليفربول',
+      formation: '4-3-3',
+      color: '#cc0000',
+      gk: ['ألسون'],
+      def: ['ألكسندر-أرنولد','كوناتي','فان دايك','روبرتسون'],
+      mid: ['ماك ألستر','غرافنبرخ','فيرتز'],
+      fwd: ['صلاح','نونيز','لويس دياز'],
+      subs: ['كيليهر','ماتيب','تسيمكاس','إيليوت','بجورنال']
+    },
+    away: {
+      name: 'إيفرتون',
+      formation: '4-5-1',
+      color: '#003399',
+      gk: ['بيكفورد'],
+      def: ['كولمان','تاركوفسكي','براونهيل','مايلي'],
+      mid: ['ليندسترام','غيي','أونانا','دوكوري','هاريسون'],
+      fwd: ['دوكالي'],
+      subs: ['فيرغوسون','ماكنيل','بيريز','دافيز','يونغ']
+    }
+  },
+  'الأهلي-فاركو': {
+    home: {
+      name: 'الأهلي',
+      formation: '4-2-3-1',
+      color: '#cc0000',
+      gk: ['شوبير'],
+      def: ['أحمد فتحي','عبدالمنعم','ياسر إبراهيم','محمد هاني'],
+      mid: ['صلاح محسن','عمر قمر','مصطفى الشيبي'],
+      fwd: ['محمد شريف','مروان عطية','بنشرقي'],
+      subs: ['الشناوي','كريم فؤاد','دياباتي','عبدالله سعيد','علي معلول']
+    },
+    away: {
+      name: 'فاركو',
+      formation: '4-4-2',
+      color: '#003399',
+      gk: ['مصطفى أبوعزب'],
+      def: ['أحمد رمزي','أمر العزازي','أحمد الصاوي','وليد أزارو'],
+      mid: ['حمزة المثلوثي','محمد إبراهيم','محمد سلطان','علاء علي'],
+      fwd: ['كاظم','أيمن أشرف'],
+      subs: ['محمود منير','عبدالله مصطفى','أحمد عبدالعال','تاج الدين']
+    }
+  }
+};
+
+function showLineup(home, away) {
+  const key = home + '-' + away;
+  const lineup = LINEUPS[key];
+  if(!lineup) {
+    showToast('التشكيلة غير متاحة بعد');
+    return;
+  }
+  document.getElementById('lineupTitle').textContent = home + ' vs ' + away;
+  document.getElementById('lineupContent').innerHTML = renderLineupPitch(lineup);
+  document.getElementById('lineupModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLineupModal() {
+  document.getElementById('lineupModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeLineup(e) {
+  if(e.target === document.getElementById('lineupModal')) closeLineupModal();
+}
+
+function renderLineupPitch(lineup) {
+  function renderRow(players, dotClass) {
+    return '<div class="lineup-row">' +
+      players.map(function(p) {
+        const initials = p.split(' ').map(function(w){return w[0];}).join('').substr(0,2).toUpperCase();
+        return '<div class="player-circle"><div class="player-dot ' + dotClass + '">' + initials + '</div><div class="player-name">' + p.split(' ').slice(-1)[0] + '</div></div>';
+      }).join('') +
+    '</div>';
+  }
+
+  const h = lineup.home;
+  const a = lineup.away;
+
+  let html = '<div class="pitch-wrap"><div class="pitch">';
+
+  // Away team (top, rotated)
+  html += '<div class="team-section away">';
+  html += '<div class="formation-badge">' + a.name + ' | ' + a.formation + '</div>';
+  if(a.fwd) html += renderRow(a.fwd, 'away-dot');
+  if(a.mid) html += renderRow(a.mid, 'away-dot');
+  if(a.def) html += renderRow(a.def, 'away-dot');
+  html += renderRow(a.gk, 'away-dot');
+  html += '</div>';
+
+  html += '<div class="lineup-divider"></div>';
+
+  // Home team (bottom)
+  html += '<div class="team-section home">';
+  html += renderRow(h.gk, 'home-dot');
+  if(h.def) html += renderRow(h.def, 'home-dot');
+  if(h.mid) html += renderRow(h.mid, 'home-dot');
+  if(h.fwd) html += renderRow(h.fwd, 'home-dot');
+  html += '<div class="formation-badge">' + h.name + ' | ' + h.formation + '</div>';
+  html += '</div>';
+
+  html += '</div></div>'; // close pitch and pitch-wrap
+
+  // Subs
+  html += '<div class="lineup-subs">';
+  html += '<div class="lineup-subs-title">🔄 البدلاء</div>';
+  html += '<div class="subs-grid">';
+  const maxSubs = Math.max(h.subs ? h.subs.length : 0, a.subs ? a.subs.length : 0);
+  for(let i = 0; i < maxSubs; i++) {
+    if(h.subs && h.subs[i]) {
+      html += '<div class="sub-item"><span class="sub-num" style="color:var(--red)">●</span>' + h.subs[i] + '</div>';
+    }
+    if(a.subs && a.subs[i]) {
+      html += '<div class="sub-item"><span class="sub-num" style="color:#6cb4e4">●</span>' + a.subs[i] + '</div>';
+    }
+  }
+  html += '</div></div>';
+
+  return html;
+}
 
 window.onload = function() {
   slideTimer = setInterval(function(){showSlide(currentSlide+1);},4000);
