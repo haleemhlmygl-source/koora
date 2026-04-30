@@ -1106,7 +1106,7 @@
 <!-- TOP BAR -->
 <div class="top-bar">
     <span class="top-bar-label">⚡ عاجل</span>
-    <span class="top-bar-text">🔥 اليوم: مانشستر سيتي vs أرسنال - قمة نارية في البريميرليج! .. ⚽ ديربي ليفربول vs إيفرتون اليوم .. ⭐ نصف نهائي أبطال أوروبا 28-29 أبريل: بايرن vs باريس | أرسنال vs أتلتيكو .. 🇪🇸 مبابي يهاجم إدارة ريال مدريد بعد الخروج من أبطال أوروبا .. 🇪🇸 برشلونة يقترب من لقب الليغا بفارق 9 نقاط عن ريال .. ⚽ ميلان vs يوفنتوس في الدوري الإيطالي اليوم .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
+    <span class="top-bar-text">🔥 الليلة 22:00 | أرسنال vs أتلتيكو مدريد - ذهاب نصف نهائي أبطال أوروبا على beIN Sports HD1 .. ⭐ أمس: باريس 5-4 بايرن | ليلة تاريخية مجنونة .. 🇸🇦 الليلة: النصر vs الأهلي السعودي + الاتحاد vs التعاون - الجولة 30 .. 🇸🇦 النصر يقترب من اللقب برصيد 76 نقطة .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
 </div>
 
 <!-- HEADER -->
@@ -1606,15 +1606,10 @@ const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 // ============================================================
 // 🇸🇦 دوري روشن السعودي - عدّل هنا يدوياً كل جولة
 const SAUDI_MATCHES = [
-  // نتائج 18 أبريل
-  {date:'2026-04-18', home:'الهلال', away:'النصر', time:'21:00', status:'ft', score:'2-1', channel:'SSC Sport 1'},
-  {date:'2026-04-18', home:'الاتحاد', away:'الشباب', time:'19:00', status:'ft', score:'0-0', channel:'SSC Sport 2'},
-  // مباريات 19 أبريل
-  {date:'2026-04-19', home:'الاتفاق', away:'التعاون', time:'19:00', status:'upcoming', score:'', channel:'SSC Sport 1'},
-  {date:'2026-04-19', home:'الفيحاء', away:'القادسية', time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 2'},
-  // مباريات 21 أبريل
-  {date:'2026-04-21', home:'النصر', away:'الاتحاد', time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 1'},
-  {date:'2026-04-21', home:'الهلال', away:'الشباب', time:'19:00', status:'upcoming', score:'', channel:'SSC Sport 2'},
+  {date:'2026-04-29', home:'الاتحاد', away:'التعاون', time:'19:30', status:'upcoming', score:'', channel:'SSC Sport 1'},
+  {date:'2026-04-29', home:'النصر', away:'الأهلي السعودي', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 2'},
+  {date:'2026-04-30', home:'الهلال', away:'الشباب', time:'19:30', status:'upcoming', score:'', channel:'SSC Sport 1'},
+  {date:'2026-04-30', home:'الاتفاق', away:'الرياض', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 2'},
 ];
 // ============================================================
 
@@ -1623,18 +1618,13 @@ const SAUDI_MATCHES = [
 // status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
 // ============================================================
 const EGYPT_MATCHES = [
-  // نتائج 17 أبريل
-  {date:'2026-04-17', home:'بيراميدز', away:'الأهلي', time:'21:00', status:'ft', score:'1-2', channel:'ON Sport'},
-  {date:'2026-04-17', home:'المصري', away:'سيراميكا', time:'18:00', status:'ft', score:'0-0', channel:'ON Sport'},
-  // نتائج 18 أبريل
-  {date:'2026-04-18', home:'الزمالك', away:'المقاولون العرب', time:'19:00', status:'ft', score:'3-0', channel:'ON Sport'},
-  {date:'2026-04-18', home:'طلائع الجيش', away:'الاتحاد السكندري', time:'21:00', status:'ft', score:'1-1', channel:'ON Sport'},
-  // مباريات 19 أبريل
-  {date:'2026-04-19', home:'الأهلي', away:'فاركو', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-04-19', home:'بيراميدز', away:'وادي دجلة', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
-  // مباريات 20 أبريل
-  {date:'2026-04-20', home:'الزمالك', away:'غزل المحلة', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-04-20', home:'حرس الحدود', away:'بتروجت', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-26', home:'الأهلي', away:'الزمالك', time:'21:00', status:'ft', score:'2-1', channel:'ON Sport'},
+  {date:'2026-04-27', home:'بيراميدز', away:'المصري', time:'19:00', status:'ft', score:'1-0', channel:'ON Sport'},
+  {date:'2026-04-28', home:'سيراميكا', away:'فاركو', time:'19:00', status:'ft', score:'0-0', channel:'ON Sport'},
+  {date:'2026-04-30', home:'الأهلي', away:'المقاولون العرب', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-04-30', home:'الزمالك', away:'بتروجت', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-05-02', home:'بيراميدز', away:'طلائع الجيش', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
+  {date:'2026-05-02', home:'الاتحاد السكندري', away:'وادي دجلة', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
 ];
 // ============================================================
 
