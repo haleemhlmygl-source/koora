@@ -407,6 +407,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-h
         <button class="tab-btn" onclick="showTab('news',this)">📰 أخبار</button>
         <button class="tab-btn" onclick="showTab('articles',this)">✍️ مقالات</button>
         <button class="tab-btn" onclick="showTab('worldcup',this)">🏆 المونديال</button>
+        <button class="tab-btn" onclick="showTab('freq',this)">📡 ترددات</button>
     </div>
 </div>
 
@@ -752,6 +753,63 @@ body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-h
 
         <!-- الجدول -->
         <div id="wc-schedule-container" style="display:none"></div>
+    </div>
+
+    <!-- FREQUENCIES TAB -->
+    <div class="tab-page" id="tab-freq">
+        <div class="section-title">📡 ترددات القنوات الرياضية</div>
+
+        <!-- beIN Sports -->
+        <div style="background:var(--card);border:1px solid rgba(245,197,24,.3);border-radius:12px;overflow:hidden;margin-bottom:14px">
+            <div style="background:linear-gradient(135deg,#1a1400,#2a2000);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(245,197,24,.2)">
+                <div style="background:var(--gold);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.75rem;color:#000">beIN</div>
+                <div>
+                    <div style="font-weight:900;font-size:.88rem;color:var(--gold)">beIN Sports</div>
+                    <div style="font-size:.65rem;color:var(--text3)">الباقة الرياضية المشفرة</div>
+                </div>
+            </div>
+            <div id="bein-freqs"></div>
+        </div>
+
+        <!-- SSC -->
+        <div style="background:var(--card);border:1px solid rgba(0,100,255,.3);border-radius:12px;overflow:hidden;margin-bottom:14px">
+            <div style="background:linear-gradient(135deg,#000a1a,#001030);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,100,255,.2)">
+                <div style="background:#0055ff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.75rem;color:#fff">SSC</div>
+                <div>
+                    <div style="font-weight:900;font-size:.88rem;color:#4488ff">SSC Sport</div>
+                    <div style="font-size:.65rem;color:var(--text3)">قنوات الدوري السعودي</div>
+                </div>
+            </div>
+            <div id="ssc-freqs"></div>
+        </div>
+
+        <!-- ON Sport -->
+        <div style="background:var(--card);border:1px solid rgba(232,0,28,.3);border-radius:12px;overflow:hidden;margin-bottom:14px">
+            <div style="background:linear-gradient(135deg,#1a0005,#2a0008);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(232,0,28,.2)">
+                <div style="background:var(--red);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.72rem;color:#fff">ON</div>
+                <div>
+                    <div style="font-weight:900;font-size:.88rem;color:var(--red)">ON Sport</div>
+                    <div style="font-size:.65rem;color:var(--text3)">قنوات الدوري المصري</div>
+                </div>
+            </div>
+            <div id="on-freqs"></div>
+        </div>
+
+        <!-- Abu Dhabi Sport -->
+        <div style="background:var(--card);border:1px solid rgba(0,180,100,.3);border-radius:12px;overflow:hidden;margin-bottom:14px">
+            <div style="background:linear-gradient(135deg,#001a0a,#002a10);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,180,100,.2)">
+                <div style="background:#00aa55;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.6rem;color:#fff">AD</div>
+                <div>
+                    <div style="font-weight:900;font-size:.88rem;color:#00cc66">أبوظبي الرياضية</div>
+                    <div style="font-size:.65rem;color:var(--text3)">Abu Dhabi Sport</div>
+                </div>
+            </div>
+            <div id="ad-freqs"></div>
+        </div>
+
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:.75rem;color:var(--text3);line-height:2;margin-top:4px">
+            ⚠️ <b style="color:var(--text2)">ملاحظة:</b> الترددات قابلة للتغيير. تأكد دائماً من أحدث الترددات عبر الموقع الرسمي للقناة.
+        </div>
     </div>
 
 </div>
@@ -1183,6 +1241,7 @@ function showTab(name,el) {
   if(name==='news') fetchNews(0);
   if(name==='goals') renderGoals();
   if(name==='worldcup') { renderWorldCup(); renderCountdown(); if(!window.wcTimer) window.wcTimer=setInterval(renderCountdown,1000); }
+  if(name==='freq') renderFrequencies();
 }
 
 const TEAMS = [
@@ -1973,6 +2032,224 @@ function renderLineupPitch(lineup) {
   html += '</div></div>';
 
   return html;
+}
+
+// ============================================================
+// 📡 ترددات القنوات الرياضية
+// ============================================================
+const CHANNELS_FREQ = {
+  bein: {
+    name: 'beIN Sports',
+    channels: [
+      {
+        name: 'beIN Sports HD 1',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12341', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+          {sat: 'نايل سات (7° غرب)', freq: '11900', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+          {sat: 'هوت بيرد 13E (13° شرق)', freq: '10971', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+        ]
+      },
+      {
+        name: 'beIN Sports HD 2',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12341', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+          {sat: 'نايل سات (7° غرب)', freq: '11900', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+        ]
+      },
+      {
+        name: 'beIN Sports HD 3',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12341', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+          {sat: 'نايل سات (7° غرب)', freq: '11919', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+        ]
+      },
+      {
+        name: 'beIN Sports HD 4',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12380', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+          {sat: 'نايل سات (7° غرب)', freq: '11938', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+        ]
+      },
+      {
+        name: 'beIN Sports HD 5',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12380', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+          {sat: 'نايل سات (7° غرب)', freq: '11938', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'Irdeto'},
+        ]
+      },
+    ]
+  },
+  ssc: {
+    name: 'SSC Sport',
+    channels: [
+      {
+        name: 'SSC Sport 1',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12284', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+          {sat: 'نايل سات (7° غرب)', freq: '11823', pol: 'H', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'SSC Sport 2',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12284', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+          {sat: 'نايل سات (7° غرب)', freq: '11823', pol: 'H', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'SSC Sport 3',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12284', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'SSC Extra 1',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12303', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+          {sat: 'نايل سات (7° غرب)', freq: '11861', pol: 'V', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+        ]
+      },
+    ]
+  },
+  on: {
+    name: 'ON Sport',
+    channels: [
+      {
+        name: 'ON Sport 1',
+        satellites: [
+          {sat: 'نايل سات (7° غرب)', freq: '11727', pol: 'V', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+          {sat: 'عرب سات / بدر 7 (26° شرق)', freq: '12111', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'ON Sport 2',
+        satellites: [
+          {sat: 'نايل سات (7° غرب)', freq: '11727', pol: 'V', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+          {sat: 'عرب سات / بدر 7 (26° شرق)', freq: '12111', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'ON Time Sports 1',
+        satellites: [
+          {sat: 'نايل سات (7° غرب)', freq: '11785', pol: 'H', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+          {sat: 'عرب سات / بدر 7 (26° شرق)', freq: '12149', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+        ]
+      },
+    ]
+  },
+  ad: {
+    name: 'أبوظبي الرياضية',
+    channels: [
+      {
+        name: 'أبوظبي الرياضية 1',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12092', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+          {sat: 'نايل سات (7° غرب)', freq: '11862', pol: 'H', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'أبوظبي الرياضية 2',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12092', pol: 'V', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+          {sat: 'نايل سات (7° غرب)', freq: '11862', pol: 'H', sr: '27500', fec: '3/4', encrypt: 'مجاني'},
+        ]
+      },
+      {
+        name: 'أبوظبي الرياضية Premium',
+        satellites: [
+          {sat: 'عرب سات / بدر 4 (26° شرق)', freq: '12130', pol: 'H', sr: '27500', fec: '5/6', encrypt: 'مجاني'},
+        ]
+      },
+    ]
+  }
+};
+
+function renderFrequencies() {
+  // Wait for DOM
+  if(!document.getElementById('bein-freqs')) {
+    setTimeout(renderFrequencies, 100);
+    return;
+  }
+  var groups = [
+    {key:'bein', containerId:'bein-freqs'},
+    {key:'ssc', containerId:'ssc-freqs'},
+    {key:'on', containerId:'on-freqs'},
+    {key:'ad', containerId:'ad-freqs'},
+  ];
+  groups.forEach(function(g) {
+    var container = document.getElementById(g.containerId);
+    if(!container) return;
+    var data = CHANNELS_FREQ[g.key];
+    var html = '';
+    data.channels.forEach(function(ch, ci) {
+      html += '<div style="border-bottom:1px solid var(--border)">';
+      html += '<div style="padding:10px 14px;background:rgba(255,255,255,.02);cursor:pointer;display:flex;align-items:center;justify-content:space-between" onclick="toggleFreq(\'freq_'+g.key+'_'+ci+'\')">';
+      html += '<div style="font-weight:900;font-size:.84rem;color:var(--text)">📺 '+ch.name+'</div>';
+      html += '<span style="color:var(--text3);font-size:.8rem">▼</span>';
+      html += '</div>';
+      html += '<div id="freq_'+g.key+'_'+ci+'" style="display:none">';
+      ch.satellites.forEach(function(sat) {
+        var encColor = sat.encrypt === 'مجاني' ? 'var(--green)' : 'var(--gold)';
+        html += '<div style="padding:10px 14px;border-top:1px solid var(--border);background:var(--bg2)">';
+        html += '<div style="font-size:.72rem;color:var(--text2);font-weight:700;margin-bottom:6px">🛰️ '+sat.sat+'</div>';
+        html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
+        html += '<div style="background:var(--card);border-radius:6px;padding:6px 8px">';
+        html += '<div style="font-size:.58rem;color:var(--text3)">التردد</div>';
+        html += '<div style="font-family:monospace;font-size:.85rem;color:var(--gold);font-weight:900">'+sat.freq+' MHz</div>';
+        html += '</div>';
+        html += '<div style="background:var(--card);border-radius:6px;padding:6px 8px">';
+        html += '<div style="font-size:.58rem;color:var(--text3)">الاستقطاب</div>';
+        html += '<div style="font-family:monospace;font-size:.85rem;color:var(--text);font-weight:900">'+sat.pol+'</div>';
+        html += '</div>';
+        html += '<div style="background:var(--card);border-radius:6px;padding:6px 8px">';
+        html += '<div style="font-size:.58rem;color:var(--text3)">معدل الرمز</div>';
+        html += '<div style="font-family:monospace;font-size:.85rem;color:var(--text);font-weight:900">'+sat.sr+'</div>';
+        html += '</div>';
+        html += '<div style="background:var(--card);border-radius:6px;padding:6px 8px">';
+        html += '<div style="font-size:.58rem;color:var(--text3)">التشفير</div>';
+        html += '<div style="font-size:.8rem;font-weight:900" style="color:'+encColor+'">'+sat.encrypt+'</div>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div style="margin-top:6px;display:flex;gap:6px">';
+        html += '<span style="background:var(--card);padding:3px 8px;border-radius:5px;font-size:.7rem;color:var(--text2)">FEC: '+sat.fec+'</span>';
+        html += '<button onclick="copyFreqData(this)" data-freq="'+sat.freq+'" data-pol="'+sat.pol+'" data-sr="'+sat.sr+'" style="background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.3);border-radius:5px;padding:3px 8px;font-size:.7rem;color:var(--gold);cursor:pointer;font-family:Cairo,sans-serif">📋 نسخ</button>';
+        html += '</div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+    container.innerHTML = html;
+    // Open first channel by default
+    var firstFreq = document.getElementById('freq_'+g.key+'_0');
+    if(firstFreq) firstFreq.style.display = 'block';
+  });
+}
+
+function toggleFreq(id) {
+  var el = document.getElementById(id);
+  if(!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function copyFreqData(btn) {
+  var freq = btn.getAttribute('data-freq');
+  var pol = btn.getAttribute('data-pol');
+  var sr = btn.getAttribute('data-sr');
+  var text = 'التردد: '+freq+' MHz | الاستقطاب: '+pol+' | معدل الرمز: '+sr;
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function(){ showToast('✅ تم نسخ التردد!'); });
+  } else {
+    showToast(text);
+  }
+}
+
+function copyFreq(freq, pol, sr) {
+  var text = 'التردد: '+freq+' | الاستقطاب: '+pol+' | معدل الرمز: '+sr;
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function(){ showToast('✅ تم نسخ التردد!'); });
+  } else {
+    showToast(text);
+  }
 }
 
 window.onload = function() {
