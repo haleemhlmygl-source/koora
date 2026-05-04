@@ -289,7 +289,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-h
 <!-- TOP BAR -->
 <div class="top-bar">
     <span class="top-bar-label">⚡ عاجل</span>
-    <span class="top-bar-text">🔴 قمة دوري نايل: الأهلي vs الزمالك قريباً | تريزيجيه يغيب بإصابة .. 🏴 أرسنال 3-0 فولهام في الدوري الإنجليزي .. 🇸🇦 الهلال 2-0 الحزم | النصر يقترب من اللقب برصيد 76 نقطة .. ⭐ الثلاثاء: إياب أرسنال vs أتلتيكو 22:00 beIN HD1 .. 🇪🇸 برشلونة يعزز صدارة الليغا بعد فوز ريال مدريد أمام إسبانيول .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
+    <span class="top-bar-text">🇪🇬 اليوم: فاركو vs المقاولون 18:00 | الاتحاد السكندري vs بتروجت 21:00 | وادي دجلة vs كهرباء الإسماعيلية 21:00 .. 🇸🇦 الاتحاد vs الخلود 19:45 | الاتفاق vs النجمة 21:45 .. ⭐ الأربعاء 22:00: أرسنال vs أتلتيكو - إياب نصف النهائي .. 🏴 تشيلسي vs نوتنجهام 18:00 | إيفرتون vs مان سيتي 21:00 على beIN HD1 .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
 </div>
 
 <!-- HEADER -->
@@ -784,13 +784,15 @@ const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 // ============================================================
 // 🇸🇦 دوري روشن السعودي - عدّل هنا يدوياً كل جولة
 const SAUDI_MATCHES = [
-  // نتائج
-  {date:'2026-05-03', home:'الهلال', away:'الحزم', time:'20:00', status:'ft', score:'2-0', channel:'SSC Sport 1'},
-  // مباريات 5 مايو
-  {date:'2026-05-05', home:'النصر', away:'الاتحاد', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 1'},
-  {date:'2026-05-05', home:'الهلال', away:'الشباب', time:'19:30', status:'upcoming', score:'', channel:'SSC Sport 2'},
-  {date:'2026-05-06', home:'الاتفاق', away:'التعاون', time:'19:30', status:'upcoming', score:'', channel:'ثمانية'},
-  {date:'2026-05-06', home:'الاتحاد', away:'الأهلي السعودي', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 1'},
+  // ========= الإثنين 4 مايو 2026 - الجولة 31 =========
+  {date:'2026-05-04', home:'الاتحاد', away:'الخلود', time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 2', commentator:'عصام الشوالي', logo_home:'https://upload.wikimedia.org/wikipedia/ar/thumb/c/c7/Ittihad_FC_%28Saudi_Arabia%29_crest.svg/150px-Ittihad_FC_%28Saudi_Arabia%29_crest.svg.png', logo_away:''},
+  {date:'2026-05-04', home:'الاتفاق', away:'النجمة', time:'21:00', status:'upcoming', score:'', channel:'SSC Sport 1', commentator:'', logo_home:'', logo_away:''},
+  {date:'2026-05-04', home:'الفيحاء', away:'الرياض', time:'19:10', status:'upcoming', score:'', channel:'ثمانية', commentator:'', logo_home:'', logo_away:''},
+  // ========= الثلاثاء 5 مايو 2026 =========
+  {date:'2026-05-05', home:'النصر', away:'الشباب', time:'19:45', status:'upcoming', score:'', channel:'SSC Sport 1', commentator:'', logo_home:'https://upload.wikimedia.org/wikipedia/ar/thumb/b/b2/Al-Nassr_FC_Logo.svg/150px-Al-Nassr_FC_Logo.svg.png', logo_away:'https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Al-Shabab_FC_%28Saudi_Arabia%29_crest.svg/150px-Al-Shabab_FC_%28Saudi_Arabia%29_crest.svg.png'},
+  {date:'2026-05-05', home:'الهلال', away:'ضمك', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 2', commentator:'', logo_home:'https://upload.wikimedia.org/wikipedia/ar/thumb/4/43/Al-Hilal-Logo.svg/150px-Al-Hilal-Logo.svg.png', logo_away:''},
+  // ========= الأربعاء 6 مايو - نصف نهائي أبطال أوروبا =========
+  {date:'2026-05-06', home:'أرسنال', away:'أتلتيكو مدريد', time:'22:00', status:'upcoming', score:'', channel:'beIN Sports HD1', commentator:'عصام الشوالي', logo_home:'https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/150px-Arsenal_FC.svg.png', logo_away:'https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Atletico_Madrid_2017_logo.svg/150px-Atletico_Madrid_2017_logo.svg.png'},
 ];
 // ============================================================
 
@@ -799,17 +801,15 @@ const SAUDI_MATCHES = [
 // status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
 // ============================================================
 const EGYPT_MATCHES = [
-  // نتائج الجولة 5 - مرحلة المنافسة
-  {date:'2026-05-02', home:'أرسنال', away:'فولهام', time:'17:30', status:'ft', score:'3-0', channel:'beIN Sports HD1'},
-  {date:'2026-05-03', home:'مان يونايتد', away:'ليفربول', time:'18:00', status:'ft', score:'3-2', channel:'beIN Sports HD1'},
-  // مباريات اليوم 4 مايو
-  {date:'2026-05-04', home:'الأهلي', away:'إنبي', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-05-04', home:'الزمالك', away:'المصري', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
-  // قمة دوري نايل
-  {date:'2026-05-07', home:'الأهلي', away:'الزمالك', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
-  // مباريات 5 مايو
-  {date:'2026-05-05', home:'بيراميدز', away:'سيراميكا', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
-  {date:'2026-05-05', home:'طلائع الجيش', away:'البنك الأهلي', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  // ========= الإثنين 4 مايو 2026 - الجولة 8 مجموعة الهبوط =========
+  {date:'2026-05-04', home:'فاركو', away:'المقاولون العرب', time:'17:00', status:'upcoming', score:'', channel:'ON Sport 1', commentator:'', logo_home:'', logo_away:''},
+  {date:'2026-05-04', home:'وادي دجلة', away:'كهرباء الإسماعيلية', time:'20:00', status:'upcoming', score:'', channel:'ON Sport 2', commentator:'', logo_home:'', logo_away:''},
+  {date:'2026-05-04', home:'الاتحاد السكندري', away:'بتروجت', time:'20:00', status:'upcoming', score:'', channel:'ON Sport 1', commentator:'', logo_home:'', logo_away:''},
+  // ========= الثلاثاء 5 مايو 2026 - مجموعة التتويج =========
+  {date:'2026-05-05', home:'بيراميدز', away:'سيراميكا', time:'19:00', status:'upcoming', score:'', channel:'ON Sport 1', commentator:'', logo_home:'https://upload.wikimedia.org/wikipedia/ar/thumb/7/73/Pyramids_FC_logo.png/150px-Pyramids_FC_logo.png', logo_away:''},
+  {date:'2026-05-05', home:'إنبي', away:'الأهلي', time:'21:00', status:'upcoming', score:'', channel:'ON Sport 2', commentator:'', logo_home:'', logo_away:'https://upload.wikimedia.org/wikipedia/ar/thumb/8/8c/Al_Ahly_SC_logo.svg/150px-Al_Ahly_SC_logo.svg.png'},
+  // ========= الأربعاء 6 مايو 2026 =========
+  {date:'2026-05-06', home:'الزمالك', away:'سيراميكا', time:'19:00', status:'upcoming', score:'', channel:'ON Sport 1', commentator:'', logo_home:'https://upload.wikimedia.org/wikipedia/ar/thumb/b/b4/Zamalek_SC_logo.svg/150px-Zamalek_SC_logo.svg.png', logo_away:''},
 ];
 // ============================================================
 
@@ -968,11 +968,31 @@ function renderMatchesForDay(day) {
       const liveBtn = m.status!=='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytQ+'" target="_blank" class="btn-watch">📺 بث</a>' : '';
       const goalsBtn = m.status==='ft' ? '<a href="https://www.youtube.com/results?search_query='+ytG+'" target="_blank" class="btn-goals">▶ الأهداف</a>' : '';
       const lineupBtnSaudi = m.status==='upcoming' ? '<button onclick="showLineup(\''+m.home+'\',\''+m.away+'\')" style="background:rgba(245,197,24,.12);color:var(--gold);border:1px solid rgba(245,197,24,.3);padding:5px 8px;border-radius:6px;font-size:.7rem;cursor:pointer;font-family:Cairo,sans-serif;font-weight:900">📋</button>' : '';
-      saudiCards += `<div class="match-card-new">
-        <div class="match-row">
-          <div class="match-team"><div class="match-team-placeholder">🇸🇦</div><div class="match-team-name">${m.home}</div></div>
-          <div class="match-center">${timeBadge}<div style="font-size:.62rem;color:var(--text3);margin-top:3px">${m.channel||''}</div><div style="display:flex;gap:4px;justify-content:center;margin-top:5px;flex-wrap:wrap">${liveBtn}${goalsBtn}${lineupBtnSaudi}</div></div>
-          <div class="match-team"><div class="match-team-placeholder">🇸🇦</div><div class="match-team-name">${m.away}</div></div>
+      saudiCards += `<div class="match-card-new" style="padding:0">
+        <div style="padding:5px 12px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:.6rem;color:var(--text3);font-weight:700">📺 ${m.channel||'SSC'}</span>
+            ${m.commentator ? '<span style="font-size:.58rem;color:var(--gold)">🎙️ '+m.commentator+'</span>' : ''}
+          </div>
+          <span style="font-size:.6rem;font-weight:900;padding:2px 8px;border-radius:10px" class="${m.status==='ft'?'time-ft':(m.status==='live'?'time-live':'time-upcoming')}">${m.status==='ft'?'انتهت ✓':(m.status==='live'?'🔴 مباشر':'⏳ قادمة')}</span>
+        </div>
+        <div style="display:flex;align-items:center;padding:10px 8px">
+          <div style="flex:1;text-align:center">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 5px;overflow:hidden">
+              ${m.logo_home ? '<img src="'+m.logo_home+'" onerror="this.parentElement.innerHTML=\'🇸🇦\'" style="width:32px;height:32px;object-fit:contain">' : '🇸🇦'}
+            </div>
+            <div style="font-size:.76rem;font-weight:900;color:var(--text)">${m.home}</div>
+          </div>
+          <div style="text-align:center;min-width:90px;padding:0 4px">
+            <div style="margin-bottom:5px">${timeBadge}</div>
+            <div style="display:flex;gap:3px;justify-content:center;flex-wrap:wrap">${liveBtn}${goalsBtn}${lineupBtnSaudi}</div>
+          </div>
+          <div style="flex:1;text-align:center">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 5px;overflow:hidden">
+              ${m.logo_away ? '<img src="'+m.logo_away+'" onerror="this.parentElement.innerHTML=\'🇸🇦\'" style="width:32px;height:32px;object-fit:contain">' : '🇸🇦'}
+            </div>
+            <div style="font-size:.76rem;font-weight:900;color:var(--text)">${m.away}</div>
+          </div>
         </div>
       </div>`;
     });
@@ -994,7 +1014,9 @@ function renderMatchesForDay(day) {
       egyptCards += `<div class="match-card-new">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
           <div style="flex:1;text-align:center">
-            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:1.2rem">🇪🇬</div>
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;margin:0 auto 4px;overflow:hidden">
+              ${m.logo_home ? '<img src="'+m.logo_home+'" onerror="this.parentElement.innerHTML=\'🇪🇬\'" style="width:32px;height:32px;object-fit:contain">' : '🇪🇬'}
+            </div>
             <div style="font-size:.78rem;font-weight:900;color:var(--text)">${m.home}</div>
           </div>
           <div style="text-align:center;min-width:90px">
