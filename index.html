@@ -944,6 +944,7 @@ function selectDay(day) {
   EGYPT_MATCHES.forEach(function(m){ daysSet.add(m.date); });
   SAUDI_MATCHES.forEach(function(m){ daysSet.add(m.date); });
   renderDaySelector(Array.from(daysSet).sort());
+  renderMatchesForDay(day);
 }
 
 function renderMatchesForDay(day) {
