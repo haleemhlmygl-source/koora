@@ -289,7 +289,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-h
 <!-- TOP BAR -->
 <div class="top-bar">
     <span class="top-bar-label">⚡ عاجل</span>
-    <span class="top-bar-text">⭐ الثلاثاء: إياب نصف نهائي أبطال أوروبا - أرسنال vs أتلتيكو 22:00 beIN HD1 .. 🏴 مان يونايتد 3-2 ليفربول | الشياطين يعودون لأبطال أوروبا .. 🇪🇸 برشلونة يقترب من لقب الليغا بفارق 9 نقاط .. 🇪🇬 الأهلي vs إنبي اليوم 19:00 | الزمالك vs المصري 21:00 .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
+    <span class="top-bar-text">🔴 قمة دوري نايل: الأهلي vs الزمالك قريباً | تريزيجيه يغيب بإصابة .. 🏴 أرسنال 3-0 فولهام في الدوري الإنجليزي .. 🇸🇦 الهلال 2-0 الحزم | النصر يقترب من اللقب برصيد 76 نقطة .. ⭐ الثلاثاء: إياب أرسنال vs أتلتيكو 22:00 beIN HD1 .. 🇪🇸 برشلونة يعزز صدارة الليغا بعد فوز ريال مدريد أمام إسبانيول .. ⚽ GoalZone - نتائج · مباريات · أخبار</span>
 </div>
 
 <!-- HEADER -->
@@ -435,7 +435,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;min-h
         <!-- VOTE SECTION -->
         <div class="section-title">🗳️ استفتاء المباراة</div>
         <div class="vote-card" id="voteSection">
-            <div class="vote-question">من تتوقع يفوز؟ أرسنال vs أتلتيكو مدريد</div>
+            <div class="vote-question">⭐ من يتأهل؟ أرسنال vs أتلتيكو | إياب نصف نهائي أبطال أوروبا الثلاثاء</div>
             <div class="vote-options">
                 <button class="vote-btn" onclick="castVote(this,'arsenal')">
                     🔴 أرسنال
@@ -784,13 +784,13 @@ const WORKER_URL = 'https://goalzone-api.haleemhlmygl.workers.dev';
 // ============================================================
 // 🇸🇦 دوري روشن السعودي - عدّل هنا يدوياً كل جولة
 const SAUDI_MATCHES = [
-  // نتائج أبريل-مايو
-  {date:'2026-04-30', home:'النصر', away:'الأهلي السعودي', time:'21:45', status:'ft', score:'2-0', channel:'SSC Sport 2'},
-  {date:'2026-05-02', home:'الهلال', away:'الحزم', time:'20:00', status:'ft', score:'3-0', channel:'SSC Sport 1'},
-  // مباريات 5-6 مايو
+  // نتائج
+  {date:'2026-05-03', home:'الهلال', away:'الحزم', time:'20:00', status:'ft', score:'2-0', channel:'SSC Sport 1'},
+  // مباريات 5 مايو
   {date:'2026-05-05', home:'النصر', away:'الاتحاد', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 1'},
   {date:'2026-05-05', home:'الهلال', away:'الشباب', time:'19:30', status:'upcoming', score:'', channel:'SSC Sport 2'},
   {date:'2026-05-06', home:'الاتفاق', away:'التعاون', time:'19:30', status:'upcoming', score:'', channel:'ثمانية'},
+  {date:'2026-05-06', home:'الاتحاد', away:'الأهلي السعودي', time:'21:45', status:'upcoming', score:'', channel:'SSC Sport 1'},
 ];
 // ============================================================
 
@@ -799,17 +799,17 @@ const SAUDI_MATCHES = [
 // status: "upcoming" = قادمة | "live" = جارية | "ft" = انتهت
 // ============================================================
 const EGYPT_MATCHES = [
-  // نتائج مايو
-  {date:'2026-05-02', home:'أرسنال', away:'فولهام', time:'17:30', status:'ft', score:'2-0', channel:'beIN Sports HD1'},
+  // نتائج الجولة 5 - مرحلة المنافسة
+  {date:'2026-05-02', home:'أرسنال', away:'فولهام', time:'17:30', status:'ft', score:'3-0', channel:'beIN Sports HD1'},
   {date:'2026-05-03', home:'مان يونايتد', away:'ليفربول', time:'18:00', status:'ft', score:'3-2', channel:'beIN Sports HD1'},
   // مباريات اليوم 4 مايو
   {date:'2026-05-04', home:'الأهلي', away:'إنبي', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
   {date:'2026-05-04', home:'الزمالك', away:'المصري', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
+  // قمة دوري نايل
+  {date:'2026-05-07', home:'الأهلي', away:'الزمالك', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
   // مباريات 5 مايو
   {date:'2026-05-05', home:'بيراميدز', away:'سيراميكا', time:'19:00', status:'upcoming', score:'', channel:'ON Sport'},
   {date:'2026-05-05', home:'طلائع الجيش', away:'البنك الأهلي', time:'21:00', status:'upcoming', score:'', channel:'ON Sport'},
-  // مباريات 6 مايو - إياب نصف نهائي
-  {date:'2026-05-06', home:'أرسنال', away:'أتلتيكو مدريد', time:'22:00', status:'upcoming', score:'', channel:'beIN Sports HD1'},
 ];
 // ============================================================
 
@@ -2010,4 +2010,13 @@ window.addEventListener('appinstalled',function(){document.getElementById('pwa-i
 
 
 </body>
-</html>
+</html<!-- سلايد 1: قمة الأهلي الزمالك -->
+    <div class="slide active" onclick="window.open('https://haleemhlmygl-source.github.io/koora','_blank')">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#cc0000,#1a0000,#1a1a1a);height:190px;display:flex;align-items:center;justify-content:center;font-size:5rem">🔴⚽⬛</div>
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <span class="slide-badge badge-egy">🇪🇬 قمة دوري نايل</span>
+            <div class="slide-title">🔥 الأهلي vs الزمالك قريباً | تريزيجيه يغيب بإصابة وصراع اللقب يشتعل</div>
+        </div>
+    </div>
+    >
