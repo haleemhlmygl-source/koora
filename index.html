@@ -7,8 +7,8 @@
 <meta name="monetag" content="92e56f384e0b171e578bd23c116943b4">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>GoalZone جول زون | نتائج المباريات الحية - الدوري الإنجليزي والسعودي والمصري وكأس العالم 2026</title>
-<meta name="description" content="GoalZone جول زون - تابع نتائج المباريات الحية لحظة بلحظة. مباريات اليوم في الدوري الإنجليزي، دوري الأبطال، الدوري السعودي، الدوري المصري، وكأس العالم 2026. ترتيب الدوريات، أهداف، وأخبار كرة القدم.">
-<meta name="keywords" content="نتائج مباريات,مباريات اليوم,الدوري الإنجليزي,دوري الأبطال,كأس العالم 2026,GoalZone,جول زون,الدوري السعودي,الدوري المصري,ترتيب الدوريات,أهداف اليوم,نتائج حية,كرة القدم,بث مباشر">
+<meta name="description" content="GoalZone جول زون - تابع نتائج المباريات الحية لحظة بلحظة. مباريات اليوم في الدوري الإنجليزي، دوري الأبطال، الدوري السعودي، الدوري المصري، وكأس العالم 2026.">
+<meta name="keywords" content="نتائج مباريات,مباريات اليوم,الدوري الإنجليزي,دوري الأبطال,كأس العالم 2026,GoalZone,جول زون,الدوري السعودي,الدوري المصري">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="author" content="Haleem Hlmy - GoalZone">
 <meta name="language" content="Arabic">
@@ -34,9 +34,358 @@
 <meta name="apple-mobile-web-app-title" content="GoalZone">
 <meta name="theme-color" content="#e8001c">
 <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/532/532495.png">
-<link rel="dns-prefetch" href="https://goalzone-api.haleemhlmygl.workers.dev">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<script>(function(){var d=document.createElement('script');d.src='https://3nbf4.com/act/files/tag.min.js?z=10757479';d.async=true;document.head.appendChild(d);})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c10;
+    --panel:#12151a;
+    --panel-2:#181c22;
+    --line:#232830;
+    --text:#eef1f5;
+    --muted:#8b93a1;
+    --accent:#e8001c;
+    --accent-2:#ffb800;
+    --live:#22c55e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Cairo',sans-serif;
+    min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,12,16,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;
+  }
+  .logo{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:28px;letter-spacing:1px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo span{color:var(--accent);}
+  .status-pill{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;color:var(--muted);
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:20px;padding:6px 12px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--live);}
+
+  /* League tabs */
+  nav.leagues{
+    max-width:1100px;margin:0 auto;
+    display:flex;gap:8px;overflow-x:auto;
+    padding:12px 18px 0;
+    scrollbar-width:none;
+  }
+  nav.leagues::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:none;
+    font-size:13px;font-weight:600;
+    color:var(--muted);
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:9px 16px;
+    white-space:nowrap;
+    cursor:pointer;
+    transition:.15s;
+  }
+  .tab.active{
+    color:#fff;background:var(--accent);border-color:var(--accent);
+  }
+
+  main{max-width:1100px;margin:0 auto;padding:20px 18px 60px;}
+
+  h2.section-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:22px;letter-spacing:.5px;
+    margin:26px 0 12px;
+    display:flex;align-items:center;gap:8px;
+  }
+  h2.section-title::before{
+    content:"";width:4px;height:18px;background:var(--accent);border-radius:2px;
+  }
+
+  /* Match cards */
+  .matches{display:flex;flex-direction:column;gap:10px;}
+  .match-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:10px;
+  }
+  .team{
+    display:flex;align-items:center;gap:10px;
+    flex:1;min-width:0;
+  }
+  .team.away{flex-direction:row-reverse;text-align:left;}
+  .team img{width:26px;height:26px;object-fit:contain;flex:none;}
+  .team-name{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .score-block{
+    flex:none;
+    display:flex;flex-direction:column;align-items:center;
+    gap:2px;min-width:64px;
+  }
+  .score{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:24px;letter-spacing:1px;
+  }
+  .match-meta{font-size:11px;color:var(--muted);}
+  .live-badge{
+    color:var(--live);font-weight:700;font-size:11px;
+    display:flex;align-items:center;gap:4px;
+  }
+  .live-badge .dot{background:var(--live);}
+
+  .empty-state{
+    background:var(--panel);border:1px dashed var(--line);
+    border-radius:14px;padding:30px 16px;text-align:center;color:var(--muted);
+    font-size:14px;line-height:1.8;
+  }
+
+  /* Standings */
+  .standings{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{
+    background:var(--panel-2);
+    color:var(--muted);
+    font-weight:600;font-size:11px;
+    padding:10px 8px;text-align:center;
+  }
+  thead th:first-child{text-align:right;padding-right:14px;}
+  tbody td{
+    padding:10px 8px;text-align:center;
+    border-top:1px solid var(--line);
+  }
+  tbody td:first-child{
+    text-align:right;padding-right:14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  tbody td:first-child img{width:18px;height:18px;object-fit:contain;}
+  tbody tr:nth-child(-n+4) td:first-child{border-right:3px solid var(--live);}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:24px 18px;text-align:center;
+    color:var(--muted);font-size:12px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Goal<span>Zone</span></div>
+    <div class="status-pill"><span class="dot" id="statusDot"></span><span id="statusText">جاري التحميل...</span></div>
+  </div>
+  <nav class="leagues" id="leagueTabs"></nav>
+</header>
+
+<main>
+  <h2 class="section-title">مباريات اليوم</h2>
+  <div class="matches" id="matchesList">
+    <div class="empty-state">جاري تحميل المباريات...</div>
+  </div>
+
+  <h2 class="section-title">ترتيب الدوري</h2>
+  <div class="standings">
+    <table>
+      <thead>
+        <tr>
+          <th>الفريق</th><th>لعب</th><th>فرق</th><th>نقاط</th>
+        </tr>
+      </thead>
+      <tbody id="standingsBody">
+        <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">جاري تحميل الترتيب...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  GoalZone جول زون © 2026 — نتائج المباريات الحية
+</footer>
+
+<script>
+/* =========================================================
+   إعدادات الربط بالـ API
+   ضع هنا رابط الـ proxy الخاص بك (Vercel أو Cloudflare Worker)
+   اللي بيوصلك بـ football-data.org
+   ========================================================= */
+const API_BASE = "https://koora-tan.vercel.app/api"; // عدّل الرابط ده لو تغيّر الـ proxy بتاعك
+
+const LEAGUES = [
+  { id: "PL",  name: "الإنجليزي" },
+  { id: "PD",  name: "الإسباني" },
+  { id: "SA",  name: "الإيطالي" },
+  { id: "CL",  name: "أبطال أوروبا" },
+  { id: "WC",  name: "كأس العالم" }
+];
+
+let activeLeague = LEAGUES[0].id;
+
+function setStatus(text, ok){
+  document.getElementById("statusText").textContent = text;
+  document.getElementById("statusDot").style.background = ok ? "var(--live)" : "#e8001c";
+}
+
+function renderTabs(){
+  const wrap = document.getElementById("leagueTabs");
+  wrap.innerHTML = "";
+  LEAGUES.forEach(function(lg){
+    const btn = document.createElement("div");
+    btn.className = "tab" + (lg.id === activeLeague ? " active" : "");
+    btn.textContent = lg.name;
+    btn.onclick = function(){
+      activeLeague = lg.id;
+      renderTabs();
+      loadMatches();
+      loadStandings();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+async function fetchJSON(path){
+  const res = await fetch(API_BASE + path);
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.json();
+}
+
+async function loadMatches(){
+  const list = document.getElementById("matchesList");
+  list.innerHTML = '<div class="empty-state">جاري تحميل المباريات...</div>';
+  try{
+    const data = await fetchJSON("/matches?competition=" + activeLeague);
+    const matches = (data && data.matches) ? data.matches : [];
+    if (!matches.length){
+      list.innerHTML = '<div class="empty-state">لا توجد مباريات لهذا الدوري اليوم.</div>';
+      setStatus("لا توجد مباريات حالياً", true);
+      return;
+    }
+    list.innerHTML = "";
+    matches.forEach(function(m){
+      list.appendChild(renderMatchCard(m));
+    });
+    setStatus("البيانات محدّثة", true);
+  }catch(err){
+    list.innerHTML = '<div class="empty-state">تعذّر تحميل المباريات حالياً.<br>تأكد من رابط الـ API في أعلى ملف الجافاسكريبت.</div>';
+    setStatus("تعذّر الاتصال بالخادم", false);
+    console.error("loadMatches error:", err);
+  }
+}
+
+function renderMatchCard(m){
+  const card = document.createElement("div");
+  card.className = "match-card";
+
+  const home = (m.homeTeam && m.homeTeam.name) || "—";
+  const away = (m.awayTeam && m.awayTeam.name) || "—";
+  const homeCrest = (m.homeTeam && m.homeTeam.crest) || "";
+  const awayCrest = (m.awayTeam && m.awayTeam.crest) || "";
+  const status = m.status || "SCHEDULED";
+  const homeScore = m.score && m.score.fullTime && m.score.fullTime.home;
+  const awayScore = m.score && m.score.fullTime && m.score.fullTime.away;
+  const isLive = status === "IN_PLAY" || status === "PAUSED";
+  const isFinished = status === "FINISHED";
+
+  let scoreHTML;
+  if (isLive || isFinished){
+    scoreHTML = '<div class="score">' + (homeScore ?? 0) + ' - ' + (awayScore ?? 0) + '</div>';
+  } else {
+    const time = m.utcDate ? new Date(m.utcDate).toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}) : '--:--';
+    scoreHTML = '<div class="score" style="font-size:16px;">' + time + '</div>';
+  }
+
+  let metaHTML;
+  if (isLive){
+    metaHTML = '<div class="live-badge"><span class="dot"></span>مباشر</div>';
+  } else if (isFinished){
+    metaHTML = '<div class="match-meta">انتهت</div>';
+  } else {
+    metaHTML = '<div class="match-meta">لم تبدأ</div>';
+  }
+
+  card.innerHTML =
+    '<div class="team home">' +
+      (homeCrest ? '<img src="' + homeCrest + '" alt="">' : '') +
+      '<span class="team-name">' + home + '</span>' +
+    '</div>' +
+    '<div class="score-block">' + scoreHTML + metaHTML + '</div>' +
+    '<div class="team away">' +
+      (awayCrest ? '<img src="' + awayCrest + '" alt="">' : '') +
+      '<span class="team-name">' + away + '</span>' +
+    '</div>';
+
+  return card;
+}
+
+async function loadStandings(){
+  const body = document.getElementById("standingsBody");
+  body.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">جاري تحميل الترتيب...</td></tr>';
+  try{
+    const data = await fetchJSON("/standings?competition=" + activeLeague);
+    const table = (data && data.standings && data.standings[0] && data.standings[0].table) || [];
+    if (!table.length){
+      body.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">لا يوجد ترتيب متاح لهذا الدوري.</td></tr>';
+      return;
+    }
+    body.innerHTML = "";
+    table.forEach(function(row){
+      const tr = document.createElement("tr");
+      const crest = (row.team && row.team.crest) || "";
+      const name = (row.team && row.team.name) || "—";
+      tr.innerHTML =
+        '<td>' + (crest ? '<img src="' + crest + '" alt="">' : '') + name + '</td>' +
+        '<td>' + row.playedGames + '</td>' +
+        '<td>' + row.goalDifference + '</td>' +
+        '<td><strong>' + row.points + '</strong></td>';
+      body.appendChild(tr);
+    });
+  }catch(err){
+    body.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">تعذّر تحميل الترتيب حالياً.</td></tr>';
+    console.error("loadStandings error:", err);
+  }
+}
+
+// تسجيل Service Worker (اختياري - PWA)
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(e){
+      console.warn('sw.js registration failed:', e);
+    });
+  });
+}
+
+renderTabs();
+loadMatches();
+loadStandings();
+</script>
+</body>
+</html>
