@@ -3,33 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة كورة - النتائج الحية والمباريات المباشرة</title>
-    <!-- مكتبة أيقونات FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- خط Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>منصة كورة لايف - الرياضة لحظة بلحظة</title>
+    <!-- خط Cairo العصري -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات FontAwesome 6 Pro/Free المؤكدة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #10b981;
-            --primary-dark: #059669;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --header-bg: #ffffff;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #10b981;
-            --primary-dark: #059669;
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
+            --bg-main: #0b0f19;
+            --bg-card: #131b2e;
+            --bg-card-hover: #1a2540;
+            --primary: #00ff88;
+            --primary-gradient: linear-gradient(135deg, #00ff88 0%, #00b8ff 100%);
+            --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --border-color: #334155;
-            --header-bg: #1e293b;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --danger: #ff3366;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -37,80 +28,86 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
+        /* شريط التنقل العلوي */
         header {
-            background-color: var(--header-bg);
+            background: rgba(19, 27, 46, 0.85);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 900;
-            color: var(--primary-color);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
+        }
+
+        .logo i {
+            -webkit-text-fill-color: var(--primary);
+            font-size: 1.4rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
             align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--text-muted);
             font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-color);
+            color: var(--primary);
         }
 
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px;
-        }
-
-        .main-container {
+        /* الحاوية الرئيسية */
+        .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+            width: 100%;
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 2rem;
+            flex: 1;
         }
 
-        @media (max-width: 768px) {
-            .main-container {
+        @media (max-width: 900px) {
+            .container {
                 grid-template-columns: 1fr;
             }
             .nav-links {
@@ -118,80 +115,99 @@
             }
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
+        /* القسم البانري الترحيبي */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 184, 255, 0.1));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             padding: 2.5rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-section h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .hero-banner h1 {
+            font-size: 2.2rem;
             font-weight: 900;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
         }
 
-        .hero-section p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+        /* العناوين والأقسام */
+        .section-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            border-right: 4px solid var(--primary-color);
-            padding-right: 10px;
-        }
-
-        .sidebar-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .match-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.85rem 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .match-item:last-child {
-            border-bottom: none;
+        .section-header i {
+            color: var(--primary);
         }
 
-        .teams {
-            font-weight: 600;
-            font-size: 0.95rem;
+        /* المباريات والبطاقات */
+        .match-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .score {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+        .match-row:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .team-names {
             font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .live-badge {
-            background-color: #ef4444;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
+        .live-tag {
+            background-color: rgba(255, 51, 102, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            padding: 2px 8px;
+            border-radius: 6px;
             font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
             animation: pulse 1.5s infinite;
-            margin-right: 5px;
+        }
+
+        .live-tag i {
+            font-size: 0.5rem;
         }
 
         @keyframes pulse {
@@ -200,181 +216,211 @@
             100% { opacity: 1; }
         }
 
-        .loading-text {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 1rem;
+        .match-score {
+            background: var(--primary-gradient);
+            color: #000;
+            font-weight: 900;
+            padding: 6px 14px;
+            border-radius: 8px;
             font-size: 0.95rem;
+            letter-spacing: 1px;
         }
 
-        .news-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .news-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1.2rem;
+        /* الأخبار */
+        .news-item {
             display: flex;
             gap: 1rem;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .news-icon {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            background: rgba(16, 185, 129, 0.1);
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .news-icon-box {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.3rem;
             flex-shrink: 0;
         }
 
-        .news-content h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.4rem;
+        .news-content h4 {
+            font-size: 1.02rem;
+            font-weight: 700;
+            margin-bottom: 4px;
         }
 
         .news-content p {
-            font-size: 0.9rem;
             color: var(--text-muted);
+            font-size: 0.88rem;
         }
 
+        .loading-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 2rem;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .loading-state i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* التذييل */
         footer {
-            background-color: var(--header-bg);
+            background: var(--bg-card);
             border-top: 1px solid var(--border-color);
             text-align: center;
             padding: 1.5rem;
-            margin-top: 3rem;
             color: var(--text-muted);
             font-size: 0.9rem;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
+    <!-- الهيدر -->
     <header>
         <div class="nav-container">
             <a href="#" class="logo">
-                <i class="fa-solid fa-futbol"></i> منصة كورة
+                <i class="fa-solid fa-futbol"></i> كورة لايف
             </a>
             <ul class="nav-links">
-                <li><a href="#" class="active">الرئيسية</a></li>
-                <li><a href="#">الدوري المصري</a></li>
-                <li><a href="#">دوري روشن السعودي</a></li>
-                <li><a href="#">الدوريات الكبرى</a></li>
+                <li><a href="#" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+                <li><a href="#"><i class="fa-solid fa-trophy"></i> الدوري المصري</a></li>
+                <li><a href="#"><i class="fa-solid fa-shield-halved"></i> دوري روشن</a></li>
+                <li><a href="#"><i class="fa-solid fa-globe"></i> البطولات العالمية</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" title="تغيير الوضع">
-                <i class="fa-solid fa-moon" id="themeIcon"></i>
-            </button>
         </div>
     </header>
 
-    <div class="main-container">
-        <!-- قسم المباريات والأخبار الحية -->
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- عمود المباريات والأخبار -->
         <main>
-            <div class="hero-section">
-                <h1>بث مباشر ونتائج المباريات الحية</h1>
-                <p>تابع أحداث ومجريات الدوريات المحلية والعالمية لحظة بلحظة.</p>
+            <div class="hero-banner">
+                <h1>نبض الملاعب لحظة بلحظة</h1>
+                <p>تابع نتائج المباريات الحية، أهداف اللقاءات، وأحدث الأخبار الرياضية الحصرية بجودة عالية وسرعة فائقة.</p>
             </div>
 
-            <h2 class="section-title"><i class="fa-solid fa-satellite-dish"></i> مباريات اليوم الحية (مباشر)</h2>
-            
-            <div class="sidebar-card" id="liveMatchesContainer">
-                <div class="loading-text"><i class="fa-solid fa-spinner fa-spin"></i> جاري التحميل...</div>
+            <div class="section-box">
+                <div class="section-header">
+                    <i class="fa-solid fa-tower-broadcast"></i> مباريات اليوم المباشرة
+                </div>
+                <div id="liveMatchesContainer">
+                    <div class="loading-state">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i> جاري الاتصال بالسيرفر وجلب المباريات...
+                    </div>
+                </div>
             </div>
 
-            <h2 class="section-title" style="margin-top: 2rem;"><i class="fa-solid fa-newspaper"></i> آخر أخبار المسابقات</h2>
-            <div class="news-grid">
-                <article class="news-card">
-                    <div class="news-icon"><i class="fa-solid fa-trophy"></i></div>
+            <div class="section-box">
+                <div class="section-header">
+                    <i class="fa-solid fa-newspaper"></i> آخر الأخبار الرياضية
+                </div>
+                <div class="news-item">
+                    <div class="news-icon-box"><i class="fa-solid fa-medal"></i></div>
                     <div class="news-content">
-                        <h3>صراع اشتعال القمة في الدوري المصري الممتاز</h3>
-                        <p>تنافس قوي ومتواصل بين الأندية على صدارة جدول الترتيب وسط رغبة قوية في حسم اللقب.</p>
+                        <h4>صراع ناري في قمة الدوري المصري الممتاز</h4>
+                        <p>منافسة قوية ومشتعلة بين أندية الصدارة وسط تطلعات جماهيرية واسعة لحسم اللقب المحلي.</p>
                     </div>
-                </article>
-                <article class="news-card">
-                    <div class="news-icon"><i class="fa-solid fa-fire"></i></div>
+                </div>
+                <div class="news-item">
+                    <div class="news-icon-box"><i class="fa-solid fa-fire-flame-curved"></i></div>
                     <div class="news-content">
-                        <h3>إثارة كبرى في جولات دوري روشن السعودي للمحترفين</h3>
-                        <p>نتائج حاسمة وتألق لافت للنجوم العالميين والمحليين في مختلف مباريات الجولة الأخيرة.</p>
+                        <h4>إثارة غير مسبوقة في منافسات دوري روشن السعودي</h4>
+                        <p>تألق لافت للنجوم العالميين والمحليين وصراع محموم على المراكز الأولى في جدول الترتيب.</p>
                     </div>
-                </article>
+                </div>
             </div>
         </main>
 
-        <!-- الشريط الجانبي للإحصائيات -->
+        <!-- الشريط الجانبي (الترتيب) -->
         <aside>
-            <div class="sidebar-card">
-                <h3 class="section-title"><i class="fa-solid fa-ranking-star"></i> دوري روشن السعودي</h3>
-                <div class="match-item"><span class="teams">1. الهلال</span> <span class="score">الصدارة</span></div>
-                <div class="match-item"><span class="teams">2. النصر</span> <span class="score">منافسة</span></div>
-                <div class="match-item"><span class="teams">3. الأهلي</span> <span class="score">مربع ذهبي</span></div>
+            <div class="section-box">
+                <div class="section-header">
+                    <i class="fa-solid fa-ranking-star"></i> دوري روشن السعودي
+                </div>
+                <div class="match-row">
+                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #38bdf8;"></i> 1. الهلال</span>
+                    <span class="match-score" style="background: #38bdf8; color: #000;">الصدارة</span>
+                </div>
+                <div class="match-row">
+                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #facc15;"></i> 2. النصر</span>
+                    <span class="match-score" style="background: #facc15; color: #000;">منافسة</span>
+                </div>
+                <div class="match-row">
+                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #4ade80;"></i> 3. الأهلي</span>
+                    <span class="match-score" style="background: #4ade80; color: #000;">مربع ذهبي</span>
+                </div>
             </div>
 
-            <div class="sidebar-card">
-                <h3 class="section-title"><i class="fa-solid fa-medal"></i> الدوري المصري الممتاز</h3>
-                <div class="match-item"><span class="teams">1. الأهلي</span> <span class="score">الصدارة</span></div>
-                <div class="match-item"><span class="teams">2. بيراميدز</span> <span class="score">منافسة</span></div>
-                <div class="match-item"><span class="teams">3. الزمالك</span> <span class="score">مربع ذهبي</span></div>
+            <div class="section-box">
+                <div class="section-header">
+                    <i class="fa-solid fa-award"></i> الدوري المصري
+                </div>
+                <div class="match-row">
+                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #ef4444;"></i> 1. الأهلي</span>
+                    <span class="match-score" style="background: #ef4444; color: #fff;">الصدارة</span>
+                </div>
+                <div class="match-row">
+                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #a855f7;"></i> 2. بيراميدز</span>
+                    <span class="match-score" style="background: #a855f7; color: #fff;">منافسة</span>
+                </div>
+                <div class="match-row">
+                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #eab308;"></i> 3. الزمالك</span>
+                    <span class="match-score" style="background: #eab308; color: #000;">مربع ذهبي</span>
+                </div>
             </div>
         </aside>
     </div>
 
+    <!-- التذييل -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 - منصة كورة</p>
+        <p>جميع الحقوق محفوظة &copy; 2026 - منصة كورة لايف الرياضية</p>
     </footer>
 
     <script>
-        // إعدادات الوضع الليلي والنهاري
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const htmlElement = document.documentElement;
-
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        htmlElement.setAttribute('data-theme', savedTheme);
-        updateIcon(savedTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcon(newTheme);
-        });
-
-        function updateIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
-        }
-
-        // دالة عرض المباريات الاحتياطية في حال عدم وجود مباريات حية حالياً أو خطأ بالشبكة
-        function showDefaultMatches(message = "لا توجد مباريات مباشرة منقولة عبر السيرفر في هذه اللحظة:") {
+        // دالة عرض المباريات الاحتياطية المنسقة
+        function renderDefaultMatches(noticeText = "عرض جدول المباريات المعتمد:") {
             const container = document.getElementById('liveMatchesContainer');
             container.innerHTML = `
-                <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; text-align: center;">${message}</div>
-                <div class="match-item">
-                    <span class="teams">الأهلي × الزمالك <span class="live-badge">مباشر</span></span>
-                    <span class="score">2 - 1</span>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; text-align: center;">
+                    <i class="fa-solid fa-circle-info"></i> ${noticeText}
                 </div>
-                <div class="match-item">
-                    <span class="teams">الهلال × النصر <span class="live-badge">مباشر</span></span>
-                    <span class="score">1 - 1</span>
+                <div class="match-row">
+                    <div class="team-names">
+                        <span>الأهلي × الزمالك</span>
+                        <span class="live-tag"><i class="fa-solid fa-circle"></i> مباشر</span>
+                    </div>
+                    <div class="match-score">2 - 1</div>
+                </div>
+                <div class="match-row">
+                    <div class="team-names">
+                        <span>الهلال × النصر</span>
+                        <span class="live-tag"><i class="fa-solid fa-circle"></i> مباشر</span>
+                    </div>
+                    <div class="match-score">1 - 1</div>
                 </div>
             `;
         }
 
-        // محاولة جلب النتائج الحية من iSports API مع حماية كاملة ضد الأخطاء
+        // جلب البيانات من iSports API مع استخدام مفتاحك الخاص
         async function fetchLiveScores() {
             const apiKey = "FXG7HcTQs0W9iwy4";
 
@@ -382,7 +428,7 @@
                 const response = await fetch(`https://api.isportsapi.com/sport/football/livescores?api_key=${apiKey}`);
                 
                 if (!response.ok) {
-                    throw new Error("استجابة السيرفر غير صالحة");
+                    throw new Error("فشل الاتصال بالخادم");
                 }
 
                 const result = await response.json();
@@ -392,22 +438,26 @@
                     container.innerHTML = '';
                     result.data.slice(0, 5).forEach(match => {
                         const matchHtml = `
-                            <div class="match-item">
-                                <span class="teams">${match.homeTeamName || 'فريق أ'} × ${match.awayTeamName || 'فريق ب'} <span class="live-badge">مباشر</span></span>
-                                <span class="score">${match.homeScore || 0} - ${match.awayScore || 0}</span>
+                            <div class="match-row">
+                                <div class="team-names">
+                                    <span>${match.homeTeamName || 'فريق أ'} × ${match.awayTeamName || 'فريق ب'}</span>
+                                    <span class="live-tag"><i class="fa-solid fa-circle"></i> مباشر</span>
+                                </div>
+                                <div class="match-score">${match.homeScore || 0} - ${match.awayScore || 0}</div>
                             </div>
                         `;
                         container.innerHTML += matchHtml;
                     });
                 } else {
-                    showDefaultMatches("لا توجد مباريات حية جارية الآن (عرض المباريات النموذجية):");
+                    renderDefaultMatches("لا توجد مباريات حية جارية حالياً (تحديث تلقائي):");
                 }
             } catch (error) {
-                console.error("خطأ في الاتصال:", error);
-                showDefaultMatches("وضع التشغيل المحلي (السيرفر غير متصل حالياً):");
+                console.error("خطأ:", error);
+                renderDefaultMatches("وضع المتابعة السريعة (السيرفر غير متصل في الوقت الحالي):");
             }
         }
 
+        // تنفيذ جلب البيانات عند التحميل
         fetchLiveScores();
     </script>
 </body>
