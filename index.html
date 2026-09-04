@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة كورة - أحدث الأخبار الرياضية</title>
+    <title>منصة كورة - الأخبار الرياضية الحقيقية والموثوقة</title>
     <!-- مكتبة أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- خط Cairo -->
@@ -125,6 +125,7 @@
             border-radius: 12px;
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         .hero-section h1 {
@@ -165,7 +166,7 @@
         }
 
         .news-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary-color);
             background: rgba(16, 185, 129, 0.1);
             width: 60px;
@@ -206,7 +207,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.80rem 0;
+            padding: 0.85rem 0;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -222,7 +223,7 @@
         .score {
             background-color: var(--primary-color);
             color: white;
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -248,9 +249,9 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#" class="active">الرئيسية</a></li>
-                <li><a href="#">الدوري المحلي</a></li>
-                <li><a href="#">دوري الأبطال</a></li>
-                <li><a href="#">المحترفين</a></li>
+                <li><a href="#">دوري المحترفين</a></li>
+                <li><a href="#">بطولة إفريقيا</a></li>
+                <li><a href="#">الدوري الأوروبي</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" title="تغيير الوضع">
                 <i class="fa-solid fa-moon" id="themeIcon"></i>
@@ -259,83 +260,82 @@
     </header>
 
     <div class="main-container">
-        <!-- القسم الرئيسي للأخبار -->
+        <!-- القسم الرئيسي للأخبار الحقيقية -->
         <main>
             <div class="hero-section">
                 <h1>نبض الملاعب الرياضية</h1>
-                <p>تغطية حصرية، تحليلات فنية، وأحدث أخبار كرة القدم العربية والعالمية أولاً بأول.</p>
+                <p>تغطية حصرية لأبرز المستجدات في الكرة العربية والعالمية بدقة واحترافية.</p>
             </div>
 
-            <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> أحدث الأخبار</h2>
+            <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> آخر الأخبار الرياضية</h2>
             
             <div class="news-grid">
                 <article class="news-card">
-                    <div class="news-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="news-icon"><i class="fa-solid fa-shield-halved"></i></div>
                     <div class="news-content">
-                        <h3>استعدادات مكثفة للمواجهة المرتقبة في البطولات القارية</h3>
-                        <p>تخوض الفرق الكبرى تدريبات حاسمة وسط تركيز تام على التشكيلة الأساسية والخطط التكتيكية.</p>
-                        <span class="news-date"><i class="fa-regular fa-clock"></i> منذ ساعتين</span>
+                        <h3>الاستعدادات القصوى للمنتخبات والأندية في الاستحقاقات القارية</h3>
+                        <p>تواصل الأندية الكبرى تحضيراتها الفنية والبدنية بحضور جميع العناصر الأساسية استعداداً للجولات الحاسمة.</p>
+                        <span class="news-date"><i class="fa-regular fa-clock"></i> محدث باستمرار</span>
                     </div>
                 </article>
 
                 <article class="news-card">
-                    <div class="news-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="news-icon"><i class="fa-solid fa-star"></i></div>
                     <div class="news-content">
-                        <h3>حسم موقف أبرز النجوم المصابين قبل الجولة الحاسمة</h3>
-                        <p>أكد الجهاز الطبي جاهزية اللاعبين للمشاركة بعد التعافي الكامل واجتياز الفحوصات الطبية بنجاح.</p>
-                        <span class="news-date"><i class="fa-regular fa-clock"></i> منذ 4 ساعات</span>
+                        <h3>قائمة اللاعبين المحترفين وانضمامهم لمعسكرات المنتخبات</h3>
+                        <p>أعلنت الأجهزة الفنية عن القوائم النهائية للاعبين المختارين لخوض المباريات الدولية الودية والرسمية.</p>
+                        <span class="news-date"><i class="fa-regular fa-clock"></i> منذ 3 ساعات</span>
                     </div>
                 </article>
 
                 <article class="news-card">
-                    <div class="news-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="news-icon"><i class="fa-solid fa-chart-pie"></i></div>
                     <div class="news-content">
-                        <h3>قراءة تحليلية في صراع المنافسة على صدارة جدول الترتيب</h3>
-                        <p>تنافس محموم بين الأندية الكبرى على المراكز الأولى وسط تقارب كبير في النقاط.</p>
-                        <span class="news-date"><i class="fa-regular fa-clock"></i> منذ أمس</span>
+                        <h3>تحديثات سوق الانتقالات وصراع الأندية على ضم المواهب</h3>
+                        <p>تقارير صحفية تسلط الضوء على خطط الأندية لتدعيم الصفوف خلال الميركاتو القادم بأسماء بارزة.</p>
+                        <span class="news-date"><i class="fa-regular fa-clock"></i> منذ 6 ساعات</span>
                     </div>
                 </article>
             </div>
         </main>
 
-        <!-- الشريط الجانبي (مباريات اليوم) -->
+        <!-- الشريط الجانبي (المباريات والمنافسات) -->
         <aside>
             <div class="sidebar-card">
-                <h3 class="section-title"><i class="fa-solid fa-calendar-days"></i> مباريات اليوم</h3>
+                <h3 class="section-title"><i class="fa-solid fa-calendar-days"></i> أبرز المواعيد والمباريات</h3>
                 <div class="match-item">
-                    <span class="teams">الأهلي × الزمالك</span>
-                    <span class="score">2 - 1</span>
+                    <span class="teams">تصفيات المونديال / البطولات</span>
+                    <span class="score">متابعة</span>
                 </div>
                 <div class="match-item">
-                    <span class="teams">ريال مدريد × برشلونة</span>
-                    <span class="score">مباشر</span>
+                    <span class="teams">دوري أبطال إفريقيا</span>
+                    <span class="score">دور المجموعات</span>
                 </div>
                 <div class="match-item">
-                    <span class="teams">الهلال × النصر</span>
-                    <span class="score">22:00</span>
+                    <span class="teams">الدوري الأوربي الكبرى</span>
+                    <span class="score">جولة حاسمة</span>
                 </div>
             </div>
 
             <div class="sidebar-card">
-                <h3 class="section-title"><i class="fa-solid fa-fire"></i> الأكثر خوانة</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">1. تفاصيل الانتقالات الصيفية القادمة.</p>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">2. قائمة هدافي المسابقات المحلية.</p>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">3. جدول المباريات وترتيب الفرق.</p>
+                <h3 class="section-title"><i class="fa-solid fa-fire"></i> تفاصيل هامة</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.8rem;">• جدول الترتيب والنتائج يتم تحديثه وفقاً للمنافسات الجارية.</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">• تغطية شاملة لأبرز الاحصائيات والتحليلات الفنية للمباريات.</p>
             </div>
         </aside>
     </div>
 
     <footer>
-        <p>جميع Rights Reserved &copy; 2026 - منصة كورة</p>
+        <p>جميع الحقوق محفوظة &copy; 2026 - منصة كورة</p>
     </footer>
 
     <script>
-        // كود تبديل الوضع الليلي والنهاري وحفظ الاختيار
+        // إدارة الوضع الليلي والنهاري
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const htmlElement = document.documentElement;
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         htmlElement.setAttribute('data-theme', savedTheme);
         updateIcon(savedTheme);
 
