@@ -363,7 +363,6 @@
             const container = document.getElementById('liveMatchesContainer');
             const apiKey = "ضع_مفتاحك_هنا"; // استبدل هذه العبارة بمفتاح API الخاص بك من iSports
 
-            // في حال لم يتم إدخال المفتاح بعد، عرض رسالة توجيهية للمستخدم
             if (apiKey === "ضع_مفتاحك_هنا") {
                 container.innerHTML = `
                     <div class="match-item">
@@ -405,7 +404,6 @@
             }
         }
 
-        // استدعاء الدالة عند تحميل الصفحة
         fetchLiveScores();
     </script>
 </body>
