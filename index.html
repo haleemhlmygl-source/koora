@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة كورة لايف - الرياضة لحظة بلحظة</title>
-    <!-- خط Cairo العصري -->
+    <title>GoalZone جول زون | نتائج المباريات الحية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- مكتبة الأيقونات FontAwesome 6 Pro/Free المؤكدة -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+
     <style>
         :root {
             --bg-main: #0b0f19;
@@ -39,7 +37,6 @@
             overflow-x: hidden;
         }
 
-        /* شريط التنقل العلوي */
         header {
             background: rgba(19, 27, 46, 0.85);
             backdrop-filter: blur(12px);
@@ -94,7 +91,6 @@
             color: var(--primary);
         }
 
-        /* الحاوية الرئيسية */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
@@ -115,7 +111,6 @@
             }
         }
 
-        /* القسم البانري الترحيبي */
         .hero-banner {
             background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 184, 255, 0.1));
             border: 1px solid var(--border-color);
@@ -123,15 +118,12 @@
             padding: 2.5rem;
             text-align: center;
             margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
         }
 
         .hero-banner h1 {
             font-size: 2.2rem;
             font-weight: 900;
             margin-bottom: 0.8rem;
-            color: var(--text-main);
         }
 
         .hero-banner p {
@@ -141,7 +133,6 @@
             margin: 0 auto;
         }
 
-        /* العناوين والأقسام */
         .section-box {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -166,7 +157,6 @@
             color: var(--primary);
         }
 
-        /* المباريات والبطاقات */
         .match-row {
             display: flex;
             justify-content: space-between;
@@ -186,10 +176,16 @@
 
         .team-names {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .competition-tag {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
         }
 
         .live-tag {
@@ -198,17 +194,24 @@
             border: 1px solid rgba(255, 51, 102, 0.3);
             padding: 2px 8px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 5px;
             animation: pulse 1.5s infinite;
+            width: fit-content;
+            margin-top: 4px;
         }
 
-        .live-tag i {
-            font-size: 0.5rem;
+        .status-tag {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 4px;
         }
+
+        .live-tag i { font-size: 0.5rem; }
 
         @keyframes pulse {
             0% { opacity: 1; }
@@ -224,44 +227,7 @@
             border-radius: 8px;
             font-size: 0.95rem;
             letter-spacing: 1px;
-        }
-
-        /* الأخبار */
-        .news-item {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .news-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .news-icon-box {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .news-content h4 {
-            font-size: 1.02rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .news-content p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
+            white-space: nowrap;
         }
 
         .loading-state {
@@ -280,7 +246,6 @@
             font-size: 1.5rem;
         }
 
-        /* التذييل */
         footer {
             background: var(--bg-card);
             border-top: 1px solid var(--border-color);
@@ -294,11 +259,10 @@
 </head>
 <body>
 
-    <!-- الهيدر -->
     <header>
         <div class="nav-container">
             <a href="#" class="logo">
-                <i class="fa-solid fa-futbol"></i> كورة لايف
+                <i class="fa-solid fa-futbol"></i> GoalZone
             </a>
             <ul class="nav-links">
                 <li><a href="#" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
@@ -309,18 +273,16 @@
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي -->
     <div class="container">
-        <!-- عمود المباريات والأخبار -->
         <main>
             <div class="hero-banner">
                 <h1>نبض الملاعب لحظة بلحظة</h1>
-                <p>تابع نتائج المباريات الحية، أهداف اللقاءات، وأحدث الأخبار الرياضية الحصرية بجودة عالية وسرعة فائقة.</p>
+                <p>تابع نتائج المباريات الحية وأحدث الأخبار الرياضية بجودة عالية وسرعة فائقة.</p>
             </div>
 
             <div class="section-box">
                 <div class="section-header">
-                    <i class="fa-solid fa-tower-broadcast"></i> مباريات اليوم المباشرة
+                    <i class="fa-solid fa-tower-broadcast"></i> مباريات اليوم
                 </div>
                 <div id="liveMatchesContainer">
                     <div class="loading-state">
@@ -328,137 +290,109 @@
                     </div>
                 </div>
             </div>
-
-            <div class="section-box">
-                <div class="section-header">
-                    <i class="fa-solid fa-newspaper"></i> آخر الأخبار الرياضية
-                </div>
-                <div class="news-item">
-                    <div class="news-icon-box"><i class="fa-solid fa-medal"></i></div>
-                    <div class="news-content">
-                        <h4>صراع ناري في قمة الدوري المصري الممتاز</h4>
-                        <p>منافسة قوية ومشتعلة بين أندية الصدارة وسط تطلعات جماهيرية واسعة لحسم اللقب المحلي.</p>
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="news-icon-box"><i class="fa-solid fa-fire-flame-curved"></i></div>
-                    <div class="news-content">
-                        <h4>إثارة غير مسبوقة في منافسات دوري روشن السعودي</h4>
-                        <p>تألق لافت للنجوم العالميين والمحليين وصراع محموم على المراكز الأولى في جدول الترتيب.</p>
-                    </div>
-                </div>
-            </div>
         </main>
 
-        <!-- الشريط الجانبي (الترتيب) -->
         <aside>
             <div class="section-box">
                 <div class="section-header">
-                    <i class="fa-solid fa-ranking-star"></i> دوري روشن السعودي
+                    <i class="fa-solid fa-circle-info"></i> عن GoalZone
                 </div>
-                <div class="match-row">
-                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #38bdf8;"></i> 1. الهلال</span>
-                    <span class="match-score" style="background: #38bdf8; color: #000;">الصدارة</span>
-                </div>
-                <div class="match-row">
-                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #facc15;"></i> 2. النصر</span>
-                    <span class="match-score" style="background: #facc15; color: #000;">منافسة</span>
-                </div>
-                <div class="match-row">
-                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #4ade80;"></i> 3. الأهلي</span>
-                    <span class="match-score" style="background: #4ade80; color: #000;">مربع ذهبي</span>
-                </div>
-            </div>
-
-            <div class="section-box">
-                <div class="section-header">
-                    <i class="fa-solid fa-award"></i> الدوري المصري
-                </div>
-                <div class="match-row">
-                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #ef4444;"></i> 1. الأهلي</span>
-                    <span class="match-score" style="background: #ef4444; color: #fff;">الصدارة</span>
-                </div>
-                <div class="match-row">
-                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #a855f7;"></i> 2. بيراميدز</span>
-                    <span class="match-score" style="background: #a855f7; color: #fff;">منافسة</span>
-                </div>
-                <div class="match-row">
-                    <span class="team-names"><i class="fa-solid fa-shield" style="color: #eab308;"></i> 3. الزمالك</span>
-                    <span class="match-score" style="background: #eab308; color: #000;">مربع ذهبي</span>
-                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.8;">
+                    منصة عربية لمتابعة نتائج أهم الدوريات العالمية لحظة بلحظة، بتصميم بسيط وسريع.
+                </p>
             </div>
         </aside>
     </div>
 
-    <!-- التذييل -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 - منصة كورة لايف الرياضية</p>
+        <p>جميع الحقوق محفوظة &copy; 2026 — GoalZone جول زون</p>
     </footer>
 
     <script>
-        // دالة عرض المباريات الاحتياطية المنسقة
-        function renderDefaultMatches(noticeText = "عرض جدول المباريات المعتمد:") {
-            const container = document.getElementById('liveMatchesContainer');
-            container.innerHTML = `
-                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; text-align: center;">
-                    <i class="fa-solid fa-circle-info"></i> ${noticeText}
-                </div>
-                <div class="match-row">
-                    <div class="team-names">
-                        <span>الأهلي × الزمالك</span>
-                        <span class="live-tag"><i class="fa-solid fa-circle"></i> مباشر</span>
-                    </div>
-                    <div class="match-score">2 - 1</div>
-                </div>
-                <div class="match-row">
-                    <div class="team-names">
-                        <span>الهلال × النصر</span>
-                        <span class="live-tag"><i class="fa-solid fa-circle"></i> مباشر</span>
-                    </div>
-                    <div class="match-score">1 - 1</div>
-                </div>
-            `;
+        // رابط الـ Cloudflare Worker الحقيقي (proxy آمن لـ football-data.org)
+        const API_BASE = "https://goalzone-api.haleemhlmygl.workers.dev";
+
+        function statusLabel(status) {
+            const map = {
+                "IN_PLAY": "مباشر الآن",
+                "PAUSED": "استراحة",
+                "SCHEDULED": "لم تبدأ بعد",
+                "TIMED": "لم تبدأ بعد",
+                "FINISHED": "انتهت",
+                "POSTPONED": "مؤجلة",
+                "SUSPENDED": "متوقفة",
+                "CANCELLED": "ملغاة"
+            };
+            return map[status] || status;
         }
 
-        // جلب البيانات من iSports API مع استخدام مفتاحك الخاص
-        async function fetchLiveScores() {
-            const apiKey = "FXG7HcTQs0W9iwy4";
+        function renderMatches(matches) {
+            const container = document.getElementById('liveMatchesContainer');
 
+            if (!matches || matches.length === 0) {
+                container.innerHTML = `
+                    <div class="loading-state">
+                        <i class="fa-solid fa-circle-info"></i> لا توجد مباريات مجدولة اليوم
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            matches.slice(0, 15).forEach(match => {
+                const home = match.homeTeam?.shortName || match.homeTeam?.name || 'فريق أ';
+                const away = match.awayTeam?.shortName || match.awayTeam?.name || 'فريق ب';
+                const comp = match.competition?.name || '';
+                const status = match.status;
+                const isLive = status === 'IN_PLAY' || status === 'PAUSED';
+
+                let scoreText = '- : -';
+                if (match.score?.fullTime?.home !== null && match.score?.fullTime?.home !== undefined) {
+                    scoreText = `${match.score.fullTime.home} - ${match.score.fullTime.away}`;
+                }
+
+                const matchHtml = `
+                    <div class="match-row">
+                        <div class="team-names">
+                            <span class="competition-tag">${comp}</span>
+                            <span>${home} × ${away}</span>
+                            ${isLive
+                                ? `<span class="live-tag"><i class="fa-solid fa-circle"></i> ${statusLabel(status)}</span>`
+                                : `<span class="status-tag">${statusLabel(status)}</span>`
+                            }
+                        </div>
+                        <div class="match-score">${scoreText}</div>
+                    </div>
+                `;
+                container.innerHTML += matchHtml;
+            });
+        }
+
+        async function fetchLiveScores() {
             try {
-                const response = await fetch(`https://api.isportsapi.com/sport/football/livescores?api_key=${apiKey}`);
-                
+                const response = await fetch(`${API_BASE}/v4/matches`);
+
                 if (!response.ok) {
-                    throw new Error("فشل الاتصال بالخادم");
+                    throw new Error("فشل الاتصال بالخادم: " + response.status);
                 }
 
                 const result = await response.json();
+                renderMatches(result.matches);
 
-                if (result && result.data && result.data.length > 0) {
-                    const container = document.getElementById('liveMatchesContainer');
-                    container.innerHTML = '';
-                    result.data.slice(0, 5).forEach(match => {
-                        const matchHtml = `
-                            <div class="match-row">
-                                <div class="team-names">
-                                    <span>${match.homeTeamName || 'فريق أ'} × ${match.awayTeamName || 'فريق ب'}</span>
-                                    <span class="live-tag"><i class="fa-solid fa-circle"></i> مباشر</span>
-                                </div>
-                                <div class="match-score">${match.homeScore || 0} - ${match.awayScore || 0}</div>
-                            </div>
-                        `;
-                        container.innerHTML += matchHtml;
-                    });
-                } else {
-                    renderDefaultMatches("لا توجد مباريات حية جارية حالياً (تحديث تلقائي):");
-                }
             } catch (error) {
-                console.error("خطأ:", error);
-                renderDefaultMatches("وضع المتابعة السريعة (السيرفر غير متصل في الوقت الحالي):");
+                console.error("خطأ في جلب المباريات:", error);
+                const container = document.getElementById('liveMatchesContainer');
+                container.innerHTML = `
+                    <div class="loading-state">
+                        <i class="fa-solid fa-triangle-exclamation"></i> تعذر جلب المباريات الآن، حاول تحديث الصفحة
+                    </div>
+                `;
             }
         }
 
-        // تنفيذ جلب البيانات عند التحميل
         fetchLiveScores();
+        // تحديث تلقائي كل دقيقتين
+        setInterval(fetchLiveScores, 120000);
     </script>
 </body>
 </html>
