@@ -309,7 +309,7 @@ async function checkFollowedGoals(){
   }catch(e){ console.error(e); }
 }
 
-const routes = { home: renderHome, matches: renderMatches, standings: renderStandings, team: renderTeam, following: renderFollowing };
+const routes = { home: renderHome, matches: renderMatches, standings: renderStandings, team: renderTeam, following: renderFollowing, frequencies: renderFrequencies };
 
 function parseHash(){
   const h = location.hash.replace(/^#\/?/, '');
@@ -346,6 +346,13 @@ async function renderHome(){
         <a href="#/standings/PD" style="font-size:.75rem;color:var(--navy);font-weight:700;text-decoration:none;">عرض الكل ←</a>
       </div>
       <div id="standingsPreview"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h2>ترددات القنوات الرياضية</h2>
+        <a href="#/frequencies" style="font-size:.75rem;color:var(--navy);font-weight:700;text-decoration:none;">عرض الكل ←</a>
+      </div>
+      ${frequenciesTableHtml(3)}
     </div>
     <div class="panel">
       <div class="panel-head"><h2>آخر الأخبار</h2></div>
@@ -432,6 +439,39 @@ function standingsTableHtml(table){
   </tbody></table>`;
 }
 
+/* ===== Satellite channel frequencies =====
+   القيم فاضية عمداً لحد ما تتأكد منها من مصدر موثوق (الترددات بتتغير بمرور الوقت).
+   عدّل المصفوفة دي وحط الأرقام الصح، كل صف = قناة. */
+const CHANNELS = [
+  { name:"beIN Sports 1 HD",  sat:"Eutelsat 7W (نايل سات)", freq:"—", pol:"—", sr:"—" },
+  { name:"beIN Sports 2 HD",  sat:"Eutelsat 7W (نايل سات)", freq:"—", pol:"—", sr:"—" },
+  { name:"beIN Sports MAX 1", sat:"Eutelsat 7W (نايل سات)", freq:"—", pol:"—", sr:"—" },
+  { name:"ON Time Sport",     sat:"نايل سات",               freq:"—", pol:"—", sr:"—" },
+  { name:"SSC 1 HD",          sat:"عرب سات",                freq:"—", pol:"—", sr:"—" },
+];
+function frequenciesTableHtml(limit){
+  const rows = limit ? CHANNELS.slice(0, limit) : CHANNELS;
+  return `
+    <table>
+      <thead><tr><th>القناة</th><th>القمر</th><th class="c">التردد</th><th class="c">الاستقطاب</th><th class="c">الترميز</th></tr></thead>
+      <tbody>
+        ${rows.map(c=>`
+          <tr>
+            <td style="font-weight:700;">${c.name}</td>
+            <td style="font-size:.78rem;color:var(--text-dim);">${c.sat}</td>
+            <td class="c">${c.freq}</td>
+            <td class="c">${c.pol}</td>
+            <td class="c">${c.sr}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <p style="font-size:.72rem;color:var(--text-dim);margin-top:.7rem;line-height:1.7;">
+      ⚠️ الترددات تتغير من وقت لآخر حسب تحديثات الأقمار الصناعية. تأكد منها من مصدر رسمي قبل الاعتماد عليها في ضبط الرسيفر.
+    </p>
+  `;
+}
+
 async function renderStandings(code = 'PD'){
   app.innerHTML = `
     <div class="panel">
@@ -505,6 +545,15 @@ async function renderTeam(id){
   }catch(e){
     app.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i> تعذر تحميل بيانات الفريق</div>`;
   }
+}
+
+async function renderFrequencies(){
+  app.innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><h2>ترددات القنوات الرياضية</h2></div>
+      ${frequenciesTableHtml()}
+    </div>
+  `;
 }
 
 async function renderFollowing(){
