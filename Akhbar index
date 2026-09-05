@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أخبار كرة القدم | GoalZone</title>
+<meta name="description" content="آخر أخبار وتحليلات كرة القدم العربية والعالمية - الدوري المصري، دوري روشن السعودي، والدوريات الأوروبية.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12100e; --bg-raised:#1b1815;
+    --line:rgba(255,255,255,0.08);
+    --gold:#f2b039; --ink:#f4efe8; --ink-dim:#a89e90;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--ink);font-family:'Cairo',sans-serif;padding:1.5rem 1.1rem;max-width:800px;margin:0 auto;}
+  a{color:inherit;text-decoration:none;}
+  .back{color:var(--gold);font-weight:700;font-size:.9rem;display:inline-block;margin-bottom:1.5rem;}
+  h1{font-size:1.5rem;font-weight:900;margin-bottom:1.5rem;}
+  .article-card{
+    background:var(--bg-raised);border:1px solid var(--line);border-radius:14px;
+    padding:1.2rem;margin-bottom:1rem;display:block;
+  }
+  .article-card h2{font-size:1.05rem;font-weight:800;margin-bottom:.5rem;}
+  .article-card p{color:var(--ink-dim);font-size:.85rem;line-height:1.7;}
+  .article-card .date{color:var(--gold);font-size:.75rem;font-weight:700;margin-bottom:.6rem;display:block;}
+</style>
+</head>
+<body>
+  <a href="../index.html" class="back">← الرئيسية</a>
+  <h1>أخبار كرة القدم</h1>
+
+  <a href="tarteeb-dawry-masry-2026.html" class="article-card">
+    <span class="date">آخر تحديث</span>
+    <h2>ترتيب الدوري المصري الممتاز 2026 كامل</h2>
+    <p>جدول ترتيب فرق الدوري المصري الممتاز محدث أولاً بأول، مع تحليل صراع الصدارة بين الأهلي وبيراميدز والزمالك.</p>
+  </a>
+
+  <a href="natayej-kaas-alaalam-2026.html" class="article-card">
+    <span class="date">آخر تحديث</span>
+    <h2>نتائج كأس العالم 2026 الكاملة</h2>
+    <p>ملخص شامل لنتائج ومباريات كأس العالم 2026، من الدور الأول وحتى النهائي، وأبرز الأرقام والمفاجآت.</p>
+  </a>
+
+</body>
+</html>
