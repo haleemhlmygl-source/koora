@@ -98,6 +98,9 @@
   .match-teams{display:flex;flex-direction:column;gap:5px;font-size:.85rem;font-weight:700;}
   .match-comp{font-size:.68rem;color:var(--ink-dim);font-weight:600;}
   .match-score{font-family:'Oswald',sans-serif;font-size:1.1rem;color:var(--gold);}
+  .match-extra{font-size:.68rem;color:var(--ink-dim);display:flex;align-items:center;gap:6px;margin-top:2px;}
+  .match-extra i{color:var(--gold);font-size:.65rem;}
+  .tv-note{font-size:.65rem;color:var(--ink-dim);text-align:center;margin-top:.6rem;opacity:.7;}
 
   .news-item{display:flex;gap:.9rem;padding:.9rem 0;border-bottom:1px solid var(--line);}
   .news-item:last-child{border:none;padding-bottom:0;}
@@ -190,6 +193,28 @@ let allMatchesCache = [];
 function scoreOf(m){
   const h = m.score?.fullTime?.home, a = m.score?.fullTime?.away;
   return (h===null||h===undefined) ? "- : -" : `${h} : ${a}`;
+}
+
+// وقت المباراة بتوقيت الرياض (UTC+3)
+function matchTime(m){
+  if(!m.utcDate) return '';
+  try{
+    return new Date(m.utcDate).toLocaleTimeString('ar-EG', {
+      hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh'
+    });
+  }catch(e){ return ''; }
+}
+
+// القناة المتوقعة حسب البطولة (تقريبية، قد تختلف الحقوق الفعلية حسب الدولة والموسم)
+const BROADCASTERS = {
+  PD: 'beIN Sports', PL: 'beIN Sports', SA: 'beIN Sports',
+  BL1: 'beIN Sports', FL1: 'beIN Sports', CL: 'beIN Sports'
+};
+function broadcasterOf(m){
+  return BROADCASTERS[m.competition?.code] || 'القنوات المحلية';
+}
+function matchExtraHtml(m){
+  return `<div class="match-extra"><i class="fa-solid fa-clock"></i> ${matchTime(m)} (توقيت الرياض) · <i class="fa-solid fa-tv"></i> ${broadcasterOf(m)}</div>`;
 }
 
 async function apiGet(path){
@@ -322,6 +347,7 @@ async function loadFeaturedAndTicker(){
         </div>
       </div>
       <div class="fcomp">${featured.competition?.name||''}</div>
+      <div class="tv-note"><i class="fa-solid fa-clock"></i> ${matchTime(featured)} بتوقيت الرياض · <i class="fa-solid fa-tv"></i> ${broadcasterOf(featured)}</div>
     `;
     const rest = matches.filter(m=>m!==featured);
     const tbox = document.getElementById('tickerBox');
@@ -330,6 +356,7 @@ async function loadFeaturedAndTicker(){
         <div class="tick-comp">${m.competition?.name||''}</div>
         <div class="tick-row"><span>${m.homeTeam.shortName||m.homeTeam.name}</span><span class="tick-score">${scoreOf(m).split(' : ')[0]}</span></div>
         <div class="tick-row"><span>${m.awayTeam.shortName||m.awayTeam.name}</span><span class="tick-score">${scoreOf(m).split(' : ')[1]}</span></div>
+        ${matchExtraHtml(m)}
       </div>
     `).join('') : `<div class="empty" style="width:100%"><i class="fa-solid fa-mug-hot"></i> لا توجد مباريات إضافية</div>`;
   }catch(e){
@@ -404,6 +431,7 @@ async function renderMatches(){
           <span class="match-comp">${m.competition?.name||''}</span>
           <span onclick="location.hash='#/team/${m.homeTeam.id}'" style="cursor:pointer;">${m.homeTeam.shortName||m.homeTeam.name}</span>
           <span onclick="location.hash='#/team/${m.awayTeam.id}'" style="cursor:pointer;">${m.awayTeam.shortName||m.awayTeam.name}</span>
+          ${matchExtraHtml(m)}
         </div>
         <div style="text-align:left;">
           <div class="match-score">${scoreOf(m)}</div>
@@ -453,6 +481,7 @@ async function renderTeam(id){
           <div class="match-teams">
             <span class="match-comp">${m.competition?.name||''}</span>
             <span>${m.homeTeam.shortName||m.homeTeam.name} × ${m.awayTeam.shortName||m.awayTeam.name}</span>
+            ${matchExtraHtml(m)}
           </div>
           <div style="text-align:left;">
             <div class="match-score">${scoreOf(m)}</div>
