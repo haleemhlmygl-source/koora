@@ -20,6 +20,13 @@
     --border:#e6e9f0; --green:#1fa855; --red:#e5484d;
     --shadow:0 2px 10px rgba(30,42,82,0.06);
   }
+  [data-theme="dark"]{
+    --bg:#11141d; --card:#1a1f2e;
+    --navy:#151a2c; --navy-2:#1f2740;
+    --text:#f0f2f8; --text-dim:#8d95ab;
+    --border:#2a3145;
+    --shadow:0 2px 10px rgba(0,0,0,0.35);
+  }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;padding-bottom:76px;}
   a{color:inherit;}
@@ -36,7 +43,10 @@
   .search-box input{background:none;border:none;outline:none;color:#fff;font-family:'Cairo',sans-serif;font-size:.82rem;width:100%;}
   .search-box input::placeholder{color:rgba(255,255,255,0.6);}
   .search-box i{color:rgba(255,255,255,0.7);font-size:.8rem;}
-  @media(max-width:640px){ .search-box{max-width:130px;} }
+  @media(max-width:640px){ .search-box{max-width:110px;} }
+  .header-icons{display:flex;gap:.4rem;flex-shrink:0;}
+  .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;flex-shrink:0;}
+  .icon-btn.active{background:var(--gold);color:var(--navy);}
 
   /* ===== Bottom tab bar ===== */
   .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding:.5rem .4rem calc(.5rem + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
@@ -162,6 +172,10 @@
         <input type="text" id="searchInput" placeholder="دور على فريق...">
       </div>
       <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="header-icons">
+      <button class="icon-btn" id="notifBtn" title="تفعيل الإشعارات"><i class="fa-solid fa-bell"></i></button>
+      <button class="icon-btn" id="themeBtn" title="الوضع الداكن"><i class="fa-solid fa-moon"></i></button>
     </div>
   </div>
 </header>
@@ -562,6 +576,45 @@ document.getElementById('installClose').addEventListener('click', ()=>{
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=> navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
+
+/* ===== Header notification button ===== */
+const notifBtn = document.getElementById('notifBtn');
+function refreshNotifBtn(){
+  if('Notification' in window && Notification.permission === 'granted'){
+    notifBtn.classList.add('active');
+    notifBtn.title = 'الإشعارات مفعّلة';
+  }
+}
+notifBtn.addEventListener('click', async ()=>{
+  if(!('Notification' in window)){ return; }
+  if(Notification.permission === 'granted'){
+    alert('الإشعارات مفعّلة بالفعل. تابع فرقك من صفحة "متابعاتي" عشان توصلك تنبيهات أهدافها.');
+    return;
+  }
+  const perm = await Notification.requestPermission();
+  if(perm === 'granted') refreshNotifBtn();
+});
+refreshNotifBtn();
+
+/* ===== Dark mode toggle ===== */
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(theme){
+  if(theme === 'dark'){
+    document.documentElement.dataset.theme = 'dark';
+    themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+  }else{
+    delete document.documentElement.dataset.theme;
+    themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+  }
+}
+const savedTheme = localStorage.getItem('gz_theme') || 'light';
+applyTheme(savedTheme);
+themeBtn.addEventListener('click', ()=>{
+  const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('gz_theme', next);
+  applyTheme(next);
+});
 
 router();
 setInterval(()=>{ if(parseHash().route==='home') loadFeaturedAndTicker(); }, 90000);
