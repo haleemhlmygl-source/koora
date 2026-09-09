@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقة لاعب | GoalZone</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f1c3f;
+    --navy-2:#16234d;
+    --gold:#f5b60d;
+    --pitch:#1b5e3a;
+    --paper:#f7f5ef;
+    --ink:#1c2233;
+    --muted:#7b839a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    font-family:'Cairo',sans-serif;
+    padding:2rem 1rem;
+    display:flex;
+    justify-content:center;
+  }
+
+  /* ===== بطاقة اللاعب ===== */
+  .player-card{
+    width:100%;
+    max-width:420px;
+    background:var(--navy);
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 20px 40px rgba(15,28,63,0.25);
+  }
+
+  /* شريط علوي بشعار الموقع */
+  .card-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:.9rem 1.2rem;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .brand{
+    color:var(--gold);
+    font-weight:900;
+    font-size:.95rem;
+    letter-spacing:.02em;
+  }
+  .tag{
+    color:rgba(255,255,255,0.5);
+    font-size:.7rem;
+    font-weight:600;
+  }
+
+  /* رقم القميص كعنصر خلفية تايبوجرافي */
+  .card-body{
+    position:relative;
+    padding:1.6rem 1.2rem 1.2rem;
+    overflow:hidden;
+  }
+  .squad-number{
+    position:absolute;
+    top:-1.2rem;
+    left:-.6rem;
+    font-size:9rem;
+    font-weight:900;
+    color:rgba(255,255,255,0.06);
+    line-height:1;
+    user-select:none;
+  }
+
+  .top-row{
+    display:flex;
+    align-items:flex-end;
+    gap:1rem;
+    position:relative;
+    z-index:1;
+  }
+  .photo-frame{
+    width:108px;
+    height:108px;
+    border-radius:14px;
+    overflow:hidden;
+    border:3px solid var(--gold);
+    flex-shrink:0;
+    background:var(--navy-2);
+  }
+  .photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .name-block{padding-bottom:.3rem;}
+  .player-name{
+    color:#fff;
+    font-size:1.5rem;
+    font-weight:800;
+    line-height:1.2;
+  }
+  .player-meta{
+    color:var(--gold);
+    font-size:.85rem;
+    font-weight:700;
+    margin-top:.3rem;
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+  }
+  .player-meta .dot{color:rgba(255,255,255,0.3);}
+  .player-meta .club{color:rgba(255,255,255,0.75);font-weight:600;}
+
+  /* خط تقطيع زي تذكرة الماتش */
+  .perforation{
+    height:1px;
+    margin:1.4rem 0 1.2rem;
+    background-image:repeating-linear-gradient(to left, rgba(255,255,255,0.25) 0 6px, transparent 6px 12px);
+    position:relative;
+    z-index:1;
+  }
+
+  /* صف الإحصائيات زي كارت التشكيلة */
+  .stat-row{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    z-index:1;
+    margin-bottom:1.3rem;
+  }
+  .stat{
+    text-align:center;
+    flex:1;
+  }
+  .stat-value{
+    color:var(--gold);
+    font-size:1.3rem;
+    font-weight:900;
+  }
+  .stat-label{
+    color:rgba(255,255,255,0.55);
+    font-size:.68rem;
+    font-weight:600;
+    margin-top:.2rem;
+  }
+  .stat + .stat{border-right:1px solid rgba(255,255,255,0.1);}
+
+  /* بنود السيرة زي "أحداث المباراة" */
+  .timeline{
+    position:relative;
+    z-index:1;
+  }
+  .event{
+    display:flex;
+    gap:.7rem;
+    padding:.6rem 0;
+  }
+  .event:not(:last-child){border-bottom:1px dashed rgba(255,255,255,0.08);}
+  .event-mark{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--pitch);
+    margin-top:.55rem;
+    flex-shrink:0;
+    box-shadow:0 0 0 3px rgba(27,94,58,0.25);
+  }
+  .event p{
+    color:rgba(255,255,255,0.85);
+    font-size:.82rem;
+    line-height:1.7;
+  }
+
+  /* شريط سفلي - شعار النادي */
+  .card-footer{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+    padding:1rem 1.2rem;
+    background:var(--navy-2);
+  }
+  .club-badge{
+    width:26px;
+    height:26px;
+    border-radius:6px;
+    background:var(--pitch);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold);
+    font-weight:900;
+    font-size:.7rem;
+  }
+  .card-footer span{
+    color:rgba(255,255,255,0.6);
+    font-size:.75rem;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+
+<div class="player-card">
+  <div class="card-header">
+    <span class="brand">GoalZone</span>
+    <span class="tag">بطاقة لاعب</span>
+  </div>
+
+  <div class="card-body">
+    <div class="squad-number">17</div>
+
+    <div class="top-row">
+      <div class="photo-frame">
+        <img src="https://placehold.co/216x216/16234d/f5b60d?text=%D8%B9%D9%84%D9%8A" alt="علي محمود">
+      </div>
+      <div class="name-block">
+        <div class="player-name">علي محمود</div>
+        <div class="player-meta">
+          23 سنة <span class="dot">•</span> <span class="club">الأهلي</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="perforation"></div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-value">50</div>
+        <div class="stat-label">مباراة مع إنبي</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">4</div>
+        <div class="stat-label">أهداف</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">وسط</div>
+        <div class="stat-label">المركز</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="event">
+        <div class="event-mark"></div>
+        <p>بدأ مسيرته مع الأهلي وقضى ست سنوات في قطاع الناشئين قبل رحيله عام 2015 إلى إنبي وهو في عمر 12 عامًا.</p>
+      </div>
+      <div class="event">
+        <div class="event-mark"></div>
+        <p>خرج على سبيل الإعارة إلى المصري بالسلوم ثم بايونيرز، قبل أن يعود إلى إنبي عام 2024 ويُصعَّد للفريق الأول.</p>
+      </div>
+      <div class="event">
+        <div class="event-mark"></div>
+        <p>انتقل إلى الأهلي في صفقة شهدت مفاوضات شاقة حتى إتمامها بنجاح، بعد أن كان أحد أبرز صناع الألعاب مع إنبي.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <div class="club-badge">NA</div>
+    <span>النادي الأهلي المصري</span>
+  </div>
+</div>
+
+</body>
+</html>
