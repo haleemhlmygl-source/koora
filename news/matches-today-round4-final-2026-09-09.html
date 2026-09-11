@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>نتائج مباريات اليوم: تعادل الأهلي وفوز بيراميدز يتصدر به الدوري المصري | GoalZone</title>
 <meta name="description" content="تعادل الأهلي 1-1 مع المقاولون العرب، وفوز بيراميدز 1-0 على الجونة ليتصدر الدوري المصري الممتاز برصيد 12 نقطة بعد ختام الجولة الرابعة.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0d1117;
@@ -17,7 +18,7 @@
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:'Tajawal','Segoe UI',sans-serif;
+    font-family:'Cairo','Segoe UI',sans-serif;
     margin:0;
     padding:0 16px 40px;
     line-height:1.8;
@@ -67,6 +68,48 @@
   }
   th{background:#1c2128;color:var(--accent);}
   p{margin:10px 0;}
+
+  /* ===== زرار المشاركة ===== */
+  .gz-share{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    margin:1.2rem 0;
+    flex-wrap:wrap;
+    font-family:'Cairo',sans-serif;
+  }
+  .gz-share-btn{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+    background:#f5b60d;
+    color:#1e2a52;
+    border:none;
+    border-radius:999px;
+    padding:.55rem 1.1rem;
+    font-family:inherit;
+    font-weight:800;
+    font-size:.85rem;
+    cursor:pointer;
+  }
+  .gz-share-fallback{display:flex;gap:.5rem;}
+  .gz-icon{
+    width:36px;height:36px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;border:none;cursor:pointer;
+  }
+  .gz-wa{background:#25D366;}
+  .gz-fb{background:#1877F2;}
+  .gz-copy{background:#7b839a;}
+  .gz-copied{
+    font-size:.78rem;
+    color:#3ddc84;
+    font-weight:700;
+    opacity:0;
+    transition:opacity .2s;
+  }
+  .gz-copied.show{opacity:1;}
 </style>
 </head>
 <body>
@@ -110,9 +153,55 @@
 
 <p>يستأنف بيراميدز مبارياته الأربعاء المقبل 12 سبتمبر أمام جور ماهيا الكيني في إياب الدور التمهيدي لدوري أبطال أفريقيا، بينما يترقب جمهور الأهلي رد فعل الفريق في الجولة الخامسة بعد أول تعثر له هذا الموسم.</p>
 
+<!-- ===== زرار المشاركة ===== -->
+<div class="gz-share">
+  <button class="gz-share-btn" onclick="gzShare()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/>
+    </svg>
+    مشاركة
+  </button>
+  <div class="gz-share-fallback" id="gzFallback" style="display:none;">
+    <a id="gzWhatsapp" target="_blank" class="gz-icon gz-wa" title="واتساب">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 15 3.8 13.5 3.8 12c0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.7 8.2-8.2 8.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.4 3.8 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3z"/></svg>
+    </a>
+    <a id="gzFacebook" target="_blank" class="gz-icon gz-fb" title="فيسبوك">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg>
+    </a>
+    <button class="gz-icon gz-copy" onclick="gzCopyLink()" title="نسخ الرابط">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+    </button>
+  </div>
+  <span id="gzCopied" class="gz-copied">تم نسخ الرابط ✓</span>
+</div>
+
 <hr style="border-color:var(--border);margin:32px 0;">
 <p class="meta">تابعوا GoalZone لمزيد من التغطية الفورية لنتائج الدوري المصري الممتاز.</p>
 
 </div>
+
+<script>
+  function gzShare(){
+    const url = window.location.href;
+    const title = document.title;
+    if(navigator.share){
+      navigator.share({title:title, url:url}).catch(()=>{});
+    } else {
+      document.getElementById('gzWhatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(title + ' ' + url);
+      document.getElementById('gzFacebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+      document.getElementById('gzFallback').style.display = 'flex';
+    }
+  }
+  function gzCopyLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>{
+      const el = document.getElementById('gzCopied');
+      el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'), 2000);
+    });
+  }
+</script>
 </body>
 </html>
