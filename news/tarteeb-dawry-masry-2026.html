@@ -3,69 +3,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ترتيب الدوري المصري الممتاز 2026 كامل | GoalZone</title>
-<meta name="description" content="جدول ترتيب الدوري المصري الممتاز موسم 2026 محدث، تحليل صراع الصدارة بين الأهلي وبيراميدز والزمالك، وأبرز مرشحي الهبوط.">
-<meta property="og:title" content="ترتيب الدوري المصري الممتاز 2026">
-<meta property="og:type" content="article">
+<title>نتائج مباريات اليوم: تعادل الأهلي وفوز بيراميدز يتصدر به الدوري المصري | GoalZone</title>
+<meta name="description" content="تعادل الأهلي 1-1 مع المقاولون العرب، وفوز بيراميدز 1-0 على الجونة ليتصدر الدوري المصري الممتاز برصيد 12 نقطة بعد ختام الجولة الرابعة.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#12100e; --bg-raised:#1b1815;
-    --line:rgba(255,255,255,0.08);
-    --gold:#f2b039; --ink:#f4efe8; --ink-dim:#a89e90;
+    --bg:#0d1117;
+    --card:#161b22;
+    --accent:#00c853;
+    --text:#e6edf3;
+    --muted:#8b949e;
+    --border:#21262d;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--bg);color:var(--ink);font-family:'Cairo',sans-serif;padding:1.5rem 1.1rem;max-width:750px;margin:0 auto;line-height:1.9;}
-  a{color:var(--gold);text-decoration:none;}
-  .back{font-weight:700;font-size:.9rem;display:inline-block;margin-bottom:1.5rem;}
-  h1{font-size:1.4rem;font-weight:900;margin-bottom:.6rem;}
-  .meta{color:var(--ink-dim);font-size:.8rem;margin-bottom:1.5rem;}
-  h2{font-size:1.1rem;font-weight:800;margin:1.6rem 0 .7rem;color:var(--gold);}
-  p{color:#ded7ca;font-size:.95rem;margin-bottom:1rem;}
-  table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
-  th{background:var(--bg-raised);padding:.6rem;text-align:right;font-weight:700;border-bottom:2px solid var(--gold);}
-  td{padding:.6rem;border-bottom:1px solid var(--line);}
-  .related{background:var(--bg-raised);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-top:2rem;}
-  .related a{display:block;font-weight:700;margin-top:.5rem;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Cairo','Segoe UI',sans-serif;
+    margin:0;
+    padding:0 16px 40px;
+    line-height:1.8;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  h1{
+    font-size:1.45rem;
+    margin-top:24px;
+    border-right:4px solid var(--accent);
+    padding-right:12px;
+  }
+  h2{
+    color:var(--accent);
+    font-size:1.1rem;
+    margin-top:32px;
+  }
+  .meta{color:var(--muted);font-size:.85rem;margin-bottom:4px;}
+  .byline{color:var(--muted);font-size:.8rem;margin-bottom:20px;}
+  .byline strong{color:var(--accent);}
+  .score-card{
+    background:var(--card);
+    border-radius:10px;
+    padding:16px;
+    margin:16px 0;
+    border:1px solid var(--border);
+  }
+  .score-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:1.15rem;
+    font-weight:bold;
+  }
+  .score{color:var(--accent);}
+  .detail{color:var(--muted);font-size:.85rem;margin-top:8px;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:16px 0;
+    background:var(--card);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  td,th{
+    padding:10px 12px;
+    border-bottom:1px solid var(--border);
+    text-align:center;
+    font-size:.9rem;
+  }
+  th{background:#1c2128;color:var(--accent);}
+  p{margin:10px 0;}
+
+  /* ===== زرار المشاركة ===== */
+  .gz-share{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    margin:1.2rem 0;
+    flex-wrap:wrap;
+    font-family:'Cairo',sans-serif;
+  }
+  .gz-share-btn{
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+    background:#f5b60d;
+    color:#1e2a52;
+    border:none;
+    border-radius:999px;
+    padding:.55rem 1.1rem;
+    font-family:inherit;
+    font-weight:800;
+    font-size:.85rem;
+    cursor:pointer;
+  }
+  .gz-share-fallback{display:flex;gap:.5rem;}
+  .gz-icon{
+    width:36px;height:36px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;border:none;cursor:pointer;
+  }
+  .gz-wa{background:#25D366;}
+  .gz-fb{background:#1877F2;}
+  .gz-copy{background:#7b839a;}
+  .gz-copied{
+    font-size:.78rem;
+    color:#3ddc84;
+    font-weight:700;
+    opacity:0;
+    transition:opacity .2s;
+  }
+  .gz-copied.show{opacity:1;}
+
+  /* ===== الفوتر ===== */
+  .gz-footer{
+    max-width:760px;
+    margin:2.5rem auto 0;
+    padding:1.2rem 1rem;
+    border-top:1px solid var(--border);
+    text-align:center;
+    font-size:.78rem;
+    color:var(--muted);
+    line-height:1.9;
+  }
+  .gz-footer strong{color:#f5b60d;}
 </style>
 </head>
 <body>
-  <a href="index.html" class="back">← أخبار كرة القدم</a>
-  <h1>ترتيب الدوري المصري الممتاز 2026 كامل</h1>
-  <p class="meta">آخر تحديث: يتم تحديثه بعد كل جولة</p>
+<div class="wrap">
 
-  <p>
-    يشهد الدوري المصري الممتاز موسم 2026 منافسة قوية على الصدارة بين الأندية الكبرى،
-    وسط تطلعات جماهيرية واسعة لحسم اللقب المحلي قبل نهاية الموسم. في هذا التقرير نرصد
-    آخر تحديث لجدول الترتيب وأبرز المرشحين للفوز باللقب، بالإضافة إلى فرق الهبوط المتوقعة.
-  </p>
+<h1>نتائج مباريات اليوم: تعادل الأهلي وفوز بيراميدز يتصدر به الدوري المصري</h1>
+<p class="meta">9 سبتمبر 2026 | الجولة الرابعة من الدوري المصري الممتاز</p>
+<p class="byline">بقلم: <strong>عبد الحليم حلمي</strong> — رئيس تحرير GoalZone</p>
 
-  <h2>جدول الترتيب المحدث</h2>
-  <p>
-    يمكنك متابعة جدول الترتيب الحي ومباريات اليوم لحظة بلحظة من
-    <a href="../index.html#/standings/PD">صفحة الترتيب المباشر</a> على GoalZone.
-  </p>
+<p>اختتمت الجولة الرابعة من الدوري المصري الممتاز مساء اليوم الأربعاء بمباراتين مثيرتين على ملعبي عثمان أحمد عثمان والدفاع الجوي، غيّرتا ملامح صدارة الترتيب.</p>
 
-  <h2>صراع الصدارة</h2>
-  <p>
-    يتنافس الأهلي وبيراميدز والزمالك تقليدياً على مقاعد الصدارة كل موسم، مع بروز فرق
-    منافسة قوية مثل الاتحاد السكندري ومصر المقاصة في بعض المواسم. الفارق في النقاط
-    بين الفرق الثلاثة الأولى غالباً ما يكون ضئيلاً، مما يجعل كل جولة حاسمة في تحديد
-    شكل الترتيب النهائي.
-  </p>
-
-  <h2>مرشحو الهبوط</h2>
-  <p>
-    كل موسم تشهد المنطقة الحمراء من الجدول صراعاً مختلفاً بين الفرق الصغيرة والناشئة
-    حديثاً في الدوري، حيث يحتاج عدد من الأندية لنقاط حاسمة في الجولات الأخيرة لضمان
-    البقاء في دوري المحترفين للموسم التالي.
-  </p>
-
-  <div class="related">
-    <strong>مواضيع ذات صلة</strong>
-    <a href="natayej-kaas-alaalam-2026.html">نتائج كأس العالم 2026 الكاملة</a>
-    <a href="../index.html#/matches">مباريات اليوم مباشر</a>
+<h2>الأهلي 1 - 1 المقاولون العرب</h2>
+<div class="score-card">
+  <div class="score-line">
+    <span>الأهلي</span>
+    <span class="score">1 - 1</span>
+    <span>المقاولون العرب</span>
   </div>
+  <p class="detail">تقدم المقاولون العرب قبل نهاية الشوط الأول، قبل أن يدرك أحمد سيد زيزو التعادل للأهلي من ركلة جزاء في الدقيقة 56. حاول الفريقان حسم اللقاء في الدقائق الأخيرة، وأقرب فرصة كانت تسديدة إمام عاشور في الدقيقة 90 التي مرت أعلى العارضة.</p>
+</div>
+<p>بهذا التعادل يفقد الأهلي أول نقطتين له هذا الموسم بعد بداية مثالية بثلاثة انتصارات متتالية، ليصل رصيده إلى 10 نقاط في المركز الثالث.</p>
 
+<h2>بيراميدز 1 - 0 الجونة</h2>
+<div class="score-card">
+  <div class="score-line">
+    <span>بيراميدز</span>
+    <span class="score">1 - 0</span>
+    <span>الجونة</span>
+  </div>
+  <p class="detail">انتهى الشوط الأول بالتعادل السلبي رغم سيطرة بيراميدز الهجومية. جاء هدف اللقاء الوحيد في الدقيقة 56 بعد كرة عرضية من ناصر ماهر حاول خالد صديق إبعادها فسكنت مرمى فريقه خطأً. أضاع بيراميدز ركلة جزاء في الدقيقة 72 عبر ناصر ماهر، وألغى الحكم هدفاً ثانياً للفريق في الدقيقة 89 بداعي التسلل.</p>
+</div>
+<p>يحقق بيراميدز بهذا الفوز انتصاره الرابع تواليًا هذا الموسم، ليتصدر جدول الترتيب منفردًا برصيد 12 نقطة كاملة من أربع مباريات.</p>
+
+<h2>الترتيب بعد ختام الجولة الرابعة</h2>
+<table>
+<tr><th>الترتيب</th><th>الفريق</th><th>النقاط</th></tr>
+<tr><td>1</td><td>بيراميدز</td><td>12</td></tr>
+<tr><td>2</td><td>الزمالك</td><td>10</td></tr>
+<tr><td>3</td><td>الأهلي</td><td>10</td></tr>
+<tr><td>4</td><td>سيراميكا كليوباترا</td><td>9</td></tr>
+</table>
+
+<p>يستأنف بيراميدز مبارياته الأربعاء المقبل 12 سبتمبر أمام جور ماهيا الكيني في إياب الدور التمهيدي لدوري أبطال أفريقيا، بينما يترقب جمهور الأهلي رد فعل الفريق في الجولة الخامسة بعد أول تعثر له هذا الموسم.</p>
+
+<!-- ===== زرار المشاركة ===== -->
+<div class="gz-share">
+  <button class="gz-share-btn" onclick="gzShare()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/>
+    </svg>
+    مشاركة
+  </button>
+  <div class="gz-share-fallback" id="gzFallback" style="display:none;">
+    <a id="gzWhatsapp" target="_blank" class="gz-icon gz-wa" title="واتساب">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 15 3.8 13.5 3.8 12c0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.7 8.2-8.2 8.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.4 3.8 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3z"/></svg>
+    </a>
+    <a id="gzFacebook" target="_blank" class="gz-icon gz-fb" title="فيسبوك">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg>
+    </a>
+    <button class="gz-icon gz-copy" onclick="gzCopyLink()" title="نسخ الرابط">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+    </button>
+  </div>
+  <span id="gzCopied" class="gz-copied">تم نسخ الرابط ✓</span>
+</div>
+
+<hr style="border-color:var(--border);margin:32px 0;">
+<p class="meta">تابعوا GoalZone لمزيد من التغطية الفورية لنتائج الدوري المصري الممتاز.</p>
+
+</div>
+
+<!-- ===== الفوتر ===== -->
+<footer class="gz-footer">
+  <p>جميع الحقوق محفوظة © GoalZone 2026</p>
+  <p>رئيس التحرير: <strong>عبد الحليم حلمي</strong></p>
+</footer>
+
+<script>
+  function gzShare(){
+    const url = window.location.href;
+    const title = document.title;
+    if(navigator.share){
+      navigator.share({title:title, url:url}).catch(()=>{});
+    } else {
+      document.getElementById('gzWhatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(title + ' ' + url);
+      document.getElementById('gzFacebook').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+      document.getElementById('gzFallback').style.display = 'flex';
+    }
+  }
+  function gzCopyLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>{
+      const el = document.getElementById('gzCopied');
+      el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'), 2000);
+    });
+  }
+</script>
 </body>
 </html>
