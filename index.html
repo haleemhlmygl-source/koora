@@ -49,11 +49,11 @@
   .icon-btn.active{background:var(--gold);color:var(--navy);}
 
   /* ===== Bottom tab bar ===== */
-  .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding:.5rem .4rem calc(.5rem + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
-  .tab-link{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-dim);text-decoration:none;font-size:.66rem;font-weight:700;padding:.2rem .5rem;}
-  .tab-link i{font-size:1.05rem;}
+  .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;padding:.5rem .3rem calc(.5rem + env(safe-area-inset-bottom));box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
+  .tab-link{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-dim);text-decoration:none;font-size:.62rem;font-weight:700;padding:.2rem .35rem;}
+  .tab-link i{font-size:1.02rem;}
   .tab-link.active{color:var(--navy);}
-  .tab-cta{background:var(--gold);color:var(--navy)!important;border-radius:18px;padding:.5rem 1rem!important;font-weight:800!important;}
+  .tab-cta{background:var(--gold);color:var(--navy)!important;border-radius:18px;padding:.5rem .85rem!important;font-weight:800!important;}
 
   .wrap{max-width:1100px;margin:0 auto;padding:1.1rem 1.1rem 2rem;}
 
@@ -147,6 +147,13 @@
   .install-banner button{background:var(--navy);color:var(--gold);border:none;padding:5px 12px;border-radius:16px;font-weight:700;font-size:.74rem;cursor:pointer;}
   .install-close{background:none!important;color:var(--navy)!important;font-size:1rem;padding:0!important;}
 
+  /* ===== Players page ===== */
+  .player-search-box{background:var(--bg);border:1px solid var(--border);margin-bottom:.9rem;border-radius:20px;padding:.5rem 1rem;display:flex;align-items:center;gap:.5rem;}
+  .player-search-box i{color:var(--text-dim);font-size:.85rem;}
+  .player-search-box input{background:none;border:none;outline:none;color:var(--text);font-family:'Cairo',sans-serif;font-size:.85rem;width:100%;}
+  .player-avatar{width:60px;height:60px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:1.6rem;flex-shrink:0;}
+  .back-link{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--navy);text-decoration:none;margin-bottom:.7rem;}
+
   footer{text-align:center;padding:1.3rem;color:var(--text-dim);font-size:.78rem;}
 </style>
 </head>
@@ -189,6 +196,7 @@
 <nav class="tabbar">
   <a href="#/following" class="tab-link" data-route="following"><i class="fa-solid fa-bell"></i> متابعاتي</a>
   <a href="#/standings/PD" class="tab-link" data-route="standings"><i class="fa-solid fa-ranking-star"></i> الترتيب</a>
+  <a href="#/players/PD" class="tab-link" data-route="players"><i class="fa-solid fa-user"></i> لاعبون</a>
   <a href="#/matches" class="tab-link tab-cta" data-route="matches"><i class="fa-solid fa-futbol"></i> المباريات</a>
   <a href="#/" class="tab-link" data-route="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
 </nav>
@@ -309,7 +317,11 @@ async function checkFollowedGoals(){
   }catch(e){ console.error(e); }
 }
 
-const routes = { home: renderHome, matches: renderMatches, standings: renderStandings, team: renderTeam, following: renderFollowing, frequencies: renderFrequencies };
+const routes = {
+  home: renderHome, matches: renderMatches, standings: renderStandings, team: renderTeam,
+  following: renderFollowing, frequencies: renderFrequencies,
+  players: renderPlayers, player: renderPlayerProfile
+};
 
 function parseHash(){
   const h = location.hash.replace(/^#\/?/, '');
@@ -320,7 +332,11 @@ function parseHash(){
 async function router(){
   const { route, params } = parseHash();
   document.querySelectorAll('.tab-link').forEach(a=>{
-    a.classList.toggle('active', a.dataset.route === route || (route==='team' && a.dataset.route==='home'));
+    a.classList.toggle('active',
+      a.dataset.route === route ||
+      (route==='team' && a.dataset.route==='home') ||
+      (route==='player' && a.dataset.route==='players')
+    );
   });
   app.innerHTML = `<div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحميل</div>`;
   window.scrollTo(0,0);
@@ -547,6 +563,125 @@ async function renderTeam(id){
     }
   }catch(e){
     app.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i> تعذر تحميل بيانات الفريق</div>`;
+  }
+}
+
+/* ===== Players (لاعبون) ===== */
+const squadCache = {};
+
+function squadRowHtml(p){
+  return `
+    <div class="match-row" style="cursor:pointer;" onclick="location.hash='#/player/${p.id}'">
+      <div class="side home"><span style="font-weight:800;">${p.name}</span></div>
+      <div class="mid"><span style="font-size:.68rem;color:var(--text-dim);">${p.position||'—'}</span></div>
+      <div class="side away" style="justify-content:flex-end;"><span style="font-size:.76rem;color:var(--text-dim);">${p.nationality||''}</span></div>
+    </div>
+  `;
+}
+
+async function renderPlayers(code = 'PD', teamId){
+  app.innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h2>لاعبون</h2>
+        <div class="tabs">
+          ${COMPETITIONS.map(c=>`<button class="tab-btn ${c.code===code?'active':''}" onclick="location.hash='#/players/${c.code}'">${c.name}</button>`).join('')}
+        </div>
+      </div>
+      <div id="playersBox"><div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحميل</div></div>
+    </div>
+  `;
+  const box = document.getElementById('playersBox');
+
+  if(teamId){
+    await renderSquad(code, teamId, box);
+    return;
+  }
+
+  try{
+    const data = await apiGet(`/v4/competitions/${code}/teams`);
+    const teams = data.teams || [];
+    if(!teams.length){
+      box.innerHTML = `<div class="empty"><i class="fa-solid fa-lock"></i> غير متاح في الباقة المجانية حالياً</div>`;
+      return;
+    }
+    box.innerHTML = teams.map(t=>`
+      <div class="match-row" style="cursor:pointer;" onclick="location.hash='#/players/${code}/${t.id}'">
+        <div class="side home">
+          <img src="${t.crest||''}" onerror="this.style.visibility='hidden'">
+          <span>${t.shortName||t.name}</span>
+        </div>
+        <i class="fa-solid fa-chevron-left" style="color:var(--text-dim);"></i>
+      </div>
+    `).join('');
+  }catch(e){
+    box.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i> تعذر تحميل قائمة الفرق</div>`;
+  }
+}
+
+async function renderSquad(code, teamId, box){
+  box.innerHTML = `
+    <a href="#/players/${code}" class="back-link"><i class="fa-solid fa-arrow-right"></i> رجوع لكل الفرق</a>
+    <div class="player-search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="playerSearchInput" placeholder="دور على لاعب...">
+    </div>
+    <div id="squadList"><div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحميل</div></div>
+  `;
+  const listBox = document.getElementById('squadList');
+  try{
+    let squad = squadCache[teamId];
+    if(!squad){
+      const team = await apiGet(`/v4/teams/${teamId}`);
+      squad = team.squad || [];
+      squadCache[teamId] = squad;
+    }
+    if(!squad.length){
+      listBox.innerHTML = `<div class="empty"><i class="fa-solid fa-lock"></i> بيانات اللاعبين غير متاحة لهذا الفريق حالياً</div>`;
+      return;
+    }
+    const renderList = (list) => {
+      listBox.innerHTML = list.length ? list.map(squadRowHtml).join('') : `<div class="empty"><i class="fa-solid fa-magnifying-glass"></i> مفيش لاعب بالاسم ده</div>`;
+    };
+    renderList(squad);
+    document.getElementById('playerSearchInput').addEventListener('input', (e)=>{
+      const q = e.target.value.trim().toLowerCase();
+      renderList(q ? squad.filter(p=>p.name.toLowerCase().includes(q)) : squad);
+    });
+  }catch(e){
+    listBox.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i> تعذر تحميل قائمة اللاعبين</div>`;
+  }
+}
+
+async function renderPlayerProfile(id){
+  if(!id){ location.hash='#/players'; return; }
+  app.innerHTML = `<div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحميل</div>`;
+  try{
+    const person = await apiGet(`/v4/persons/${id}`);
+    app.innerHTML = `
+      <a href="#/players" class="back-link"><i class="fa-solid fa-arrow-right"></i> رجوع للاعبين</a>
+      <div class="team-hero">
+        <div class="player-avatar"><i class="fa-solid fa-user"></i></div>
+        <div>
+          <h1>${person.name||''}</h1>
+          <p>${person.position||''} ${person.nationality? '· '+person.nationality : ''}</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>آخر المباريات</h2></div>
+        <div id="playerMatches"><div class="empty"><i class="fa-solid fa-circle-notch fa-spin"></i> جاري التحميل</div></div>
+      </div>
+    `;
+    const mbox = document.getElementById('playerMatches');
+    try{
+      const mdata = await apiGet(`/v4/persons/${id}/matches?limit=5`);
+      const matches = mdata.matches || [];
+      mbox.innerHTML = matches.length ? matches.slice(0,5).map(matchRowHtml).join('') : `<div class="empty"><i class="fa-solid fa-calendar-xmark"></i> لا توجد مباريات حديثة</div>`;
+    }catch(e){
+      mbox.innerHTML = `<div class="empty"><i class="fa-solid fa-lock"></i> بيانات المباريات غير متاحة لهذا اللاعب حالياً</div>`;
+    }
+  }catch(e){
+    app.innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i> تعذر تحميل بيانات اللاعب</div>`;
   }
 }
 
