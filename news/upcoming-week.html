@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1e2a52">
+<title>مباريات الأسبوع القادمة — الدوريات الخمسة الكبرى | GoalZone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+  :root{
+    --bg:#eef1f6; --card:#ffffff;
+    --navy:#1e2a52; --navy-2:#2c3968;
+    --gold:#f5b60d; --gold-deep:#d99c00;
+    --text:#1c2233; --text-dim:#7b839a;
+    --border:#e6e9f0; --green:#1fa855; --red:#e5484d;
+    --shadow:0 2px 10px rgba(30,42,82,0.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Cairo',sans-serif;padding-bottom:2rem;}
+  a{color:inherit;text-decoration:none;}
+
+  header{background:linear-gradient(135deg,var(--navy),var(--navy-2));position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .nav{max-width:900px;margin:0 auto;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.5rem;}
+  .brand-mark{width:32px;height:32px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--navy);font-size:1rem;}
+  .brand-name{font-weight:900;font-size:1.1rem;color:#fff;}
+  .brand-name span{color:var(--gold);}
+  .back-link{margin-inline-start:auto;color:#fff;font-size:.8rem;font-weight:700;display:flex;align-items:center;gap:6px;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:1.3rem 1.1rem 2rem;}
+
+  .article-head{margin-bottom:1.3rem;}
+  .article-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:800;padding:4px 12px;border-radius:16px;margin-bottom:.7rem;}
+  h1{font-size:1.3rem;font-weight:900;color:var(--navy);line-height:1.5;margin-bottom:.5rem;}
+  .article-meta{font-size:.76rem;color:var(--text-dim);}
+
+  .highlights{background:linear-gradient(160deg,var(--navy),var(--navy-2));border-radius:16px;padding:1.2rem;margin-bottom:1.4rem;box-shadow:var(--shadow);}
+  .highlights h2{color:var(--gold);font-size:.9rem;font-weight:800;margin-bottom:.7rem;display:flex;align-items:center;gap:8px;}
+  .highlights ul{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+  .highlights li{color:#fff;font-size:.85rem;line-height:1.6;display:flex;gap:8px;}
+  .highlights li i{color:var(--gold);margin-top:3px;flex-shrink:0;}
+
+  .league-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);margin-bottom:1rem;overflow:hidden;}
+  .league-head{display:flex;align-items:center;gap:8px;padding:.9rem 1rem;border-bottom:1px solid var(--border);font-weight:800;font-size:.92rem;color:var(--navy);}
+  .league-head .flag{font-size:1.1rem;}
+
+  .day-label{padding:.5rem 1rem .3rem;font-size:.68rem;font-weight:800;color:var(--gold-deep);background:var(--bg);}
+
+  .match-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.75rem 1rem;border-bottom:1px solid var(--border);font-size:.83rem;}
+  .match-row:last-of-type{border-bottom:none;}
+  .side{flex:1;font-weight:700;}
+  .side.away{text-align:left;}
+  .time-block{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:64px;}
+  .time-block .time{font-weight:900;color:var(--navy);font-size:.86rem;}
+  .time-block .channel{font-size:.62rem;color:var(--text-dim);white-space:nowrap;}
+
+  .standings-note{padding:.9rem 1rem;font-size:.8rem;color:var(--text-dim);line-height:1.7;border-top:1px dashed var(--border);background:var(--bg);}
+  .standings-note b{color:var(--navy);}
+
+  .footnote{background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:1rem;font-size:.78rem;color:var(--text-dim);line-height:1.8;margin-top:1.2rem;display:flex;gap:10px;}
+  .footnote i{color:var(--gold-deep);flex-shrink:0;margin-top:2px;}
+
+  footer{text-align:center;padding:1.5rem 1rem;color:var(--text-dim);font-size:.76rem;}
+
+  /* ===== Share button ===== */
+  .gz-share-btn{position:fixed;bottom:20px;left:16px;width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--navy);border:none;box-shadow:0 4px 14px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:70;transition:background .2s, transform .15s;}
+  .gz-share-btn:active{transform:scale(0.92);}
+  .gz-share-btn.copied{background:var(--green);color:#fff;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <span class="brand-mark"><i class="fa-solid fa-futbol"></i></span>
+    <span class="brand-name">Goal<span>Zone</span></span>
+    <a href="../index.html" class="back-link"><i class="fa-solid fa-house"></i> الرئيسية</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="article-head">
+    <span class="article-tag"><i class="fa-solid fa-calendar-week"></i> جدول قادم</span>
+    <h1>مباريات الأسبوع القادمة — الدوريات الخمسة الكبرى (18-21 سبتمبر 2026)</h1>
+    <div class="article-meta">GoalZone · تحديث 18 سبتمبر 2026</div>
+  </div>
+
+  <div class="highlights">
+    <h2><i class="fa-solid fa-star"></i> أبرز مواجهات الأسبوع</h2>
+    <ul>
+      <li><i class="fa-solid fa-circle-check"></i> ديربي مدريد الناري: أتلتيكو مدريد × ريال مدريد الأحد في الليجا</li>
+      <li><i class="fa-solid fa-circle-check"></i> إشبيلية × برشلونة في قمة أندلسية كاتالونية السبت</li>
+      <li><i class="fa-solid fa-circle-check"></i> قمة روما × إنتر ميلان على القمة في الدوري الإيطالي</li>
+      <li><i class="fa-solid fa-circle-check"></i> كلاسيكو فرنسي: أولمبيك مارسيليا × باريس سان جيرمان الأحد</li>
+      <li><i class="fa-solid fa-circle-check"></i> شتوتجارت × بوروسيا دورتموند وآينتراخت فرانكفورت × فرايبورج المتصدر في البوندسليجا</li>
+    </ul>
+  </div>
+
+  <!-- الدوري الإسباني -->
+  <div class="league-card">
+    <div class="league-head"><span class="flag">🇪🇸</span> الدوري الإسباني — الجولة السابعة</div>
+    <div class="day-label">الجمعة 18 سبتمبر</div>
+    <div class="match-row"><span class="side">إسبانيول</span><div class="time-block"><span class="time">9:00 م</span></div><span class="side away">إلتشي</span></div>
+    <div class="day-label">السبت 19 سبتمبر</div>
+    <div class="match-row"><span class="side">أوساسونا</span><div class="time-block"><span class="time">2:00 ظ</span></div><span class="side away">رايو فاييكانو</span></div>
+    <div class="match-row"><span class="side">أتلتيك بلباو</span><div class="time-block"><span class="time">4:15 م</span></div><span class="side away">ديبورتيفو ألافيس</span></div>
+    <div class="match-row"><span class="side">سيلتا فيجو</span><div class="time-block"><span class="time">6:30 م</span></div><span class="side away">راسينج سانتاندير</span></div>
+    <div class="match-row"><span class="side">إشبيلية</span><div class="time-block"><span class="time">9:00 م</span></div><span class="side away">برشلونة</span></div>
+    <div class="day-label">الأحد 20 سبتمبر</div>
+    <div class="match-row"><span class="side">خيتافي</span><div class="time-block"><span class="time">2:00 ظ</span></div><span class="side away">مالاجا</span></div>
+    <div class="match-row"><span class="side">أتلتيكو مدريد</span><div class="time-block"><span class="time">4:15 م</span></div><span class="side away">ريال مدريد</span></div>
+    <div class="match-row"><span class="side">ديبورتيفو لاكورونيا</span><div class="time-block"><span class="time">6:30 م</span></div><span class="side away">ريال بيتيس</span></div>
+    <div class="match-row"><span class="side">فياريال</span><div class="time-block"><span class="time">6:30 م</span></div><span class="side away">ليفانتي</span></div>
+    <div class="match-row"><span class="side">فالنسيا</span><div class="time-block"><span class="time">9:00 م</span></div><span class="side away">ريال سوسيداد</span></div>
+    <div class="standings-note">🥇 <b>الصدارة الحالية:</b> برشلونة يتصدر بفوز كامل (18 نقطة)، يليه ريال مدريد بـ15 نقطة</div>
+  </div>
+
+  <!-- الدوري الإنجليزي -->
+  <div class="league-card">
+    <div class="league-head"><span class="flag">🏴</span> الدوري الإنجليزي — الجولة الخامسة</div>
+    <div class="day-label">الجمعة 18 سبتمبر</div>
+    <div class="match-row"><span class="side">برينتفورد</span><div class="time-block"><span class="time">10:00 م</span></div><span class="side away">تشيلسي</span></div>
+    <div class="day-label">السبت 19 سبتمبر</div>
+    <div class="match-row"><span class="side">توتنهام هوتسبير</span><div class="time-block"><span class="time">2:30 م</span></div><span class="side away">أستون فيلا</span></div>
+    <div class="match-row"><span class="side">برايتون</span><div class="time-block"><span class="time">5:00 م</span></div><span class="side away">أرسنال</span></div>
+    <div class="match-row"><span class="side">إيفرتون</span><div class="time-block"><span class="time">5:00 م</span></div><span class="side away">إيبسويتش تاون</span></div>
+    <div class="match-row"><span class="side">نيوكاسل يونايتد</span><div class="time-block"><span class="time">5:00 م</span></div><span class="side away">هال سيتي</span></div>
+    <div class="match-row"><span class="side">نوتينجهام فورست</span><div class="time-block"><span class="time">7:30 م</span></div><span class="side away">كوفنتري سيتي</span></div>
+    <div class="day-label">الأحد 20 سبتمبر</div>
+    <div class="match-row"><span class="side">بورنموث</span><div class="time-block"><span class="time">4:00 م</span></div><span class="side away">ليفربول</span></div>
+    <div class="match-row"><span class="side">ليدز يونايتد</span><div class="time-block"><span class="time">4:00 م</span></div><span class="side away">كريستال بالاس</span></div>
+    <div class="match-row"><span class="side">مانشستر سيتي</span><div class="time-block"><span class="time">4:00 م</span></div><span class="side away">سندرلاند</span></div>
+    <div class="match-row"><span class="side">فولهام</span><div class="time-block"><span class="time">6:30 م</span></div><span class="side away">مانشستر يونايتد</span></div>
+    <div class="standings-note">🥇 <b>الصدارة الحالية:</b> أرسنال ومانشستر سيتي متعادلان بـ12 نقطة (فوز كامل في 4 مباريات)</div>
+  </div>
+
+  <!-- الدوري الإيطالي -->
+  <div class="league-card">
+    <div class="league-head"><span class="flag">🇮🇹</span> الدوري الإيطالي — الجولة الخامسة</div>
+    <div class="day-label">الجمعة 18 سبتمبر</div>
+    <div class="match-row"><span class="side">مونزا</span><div class="time-block"><span class="time">9:45 م</span></div><span class="side away">ساسولو</span></div>
+    <div class="day-label">السبت 19 سبتمبر</div>
+    <div class="match-row"><span class="side">روما</span><div class="time-block"><span class="time">—</span></div><span class="side away">إنتر ميلان</span></div>
+    <div class="day-label">الأحد 20 سبتمبر</div>
+    <div class="match-row"><span class="side">يوفنتوس</span><div class="time-block"><span class="time">—</span></div><span class="side away">أتالانتا</span></div>
+    <div class="match-row"><span class="side">ميلان</span><div class="time-block"><span class="time">—</span></div><span class="side away">ليتشي</span></div>
+    <div class="standings-note">🥇 <b>الصدارة الحالية:</b> روما وإنتر ميلان متصدران معًا برصيد 12 نقطة (فوز كامل في 4 مباريات)، ويلتقيان وجهًا لوجه هذا الأسبوع</div>
+  </div>
+
+  <!-- الدوري الألماني -->
+  <div class="league-card">
+    <div class="league-head"><span class="flag">🇩🇪</span> الدوري الألماني — الجولة الرابعة</div>
+    <div class="day-label">الجمعة 18 سبتمبر</div>
+    <div class="match-row"><span class="side">بايرن ميونيخ</span><div class="time-block"><span class="time">9:30 م</span></div><span class="side away">يونيون برلين</span></div>
+    <div class="day-label">السبت 19 سبتمبر</div>
+    <div class="match-row"><span class="side">آينتراخت فرانكفورت</span><div class="time-block"><span class="time">—</span></div><span class="side away">فرايبورج</span></div>
+    <div class="match-row"><span class="side">شتوتجارت</span><div class="time-block"><span class="time">—</span></div><span class="side away">بروسيا دورتموند</span></div>
+    <div class="day-label">الأحد 20 سبتمبر</div>
+    <div class="match-row"><span class="side">باير ليفركوزن</span><div class="time-block"><span class="time">—</span></div><span class="side away">لايبزيج</span></div>
+    <div class="match-row"><span class="side">شالكه</span><div class="time-block"><span class="time">—</span></div><span class="side away">إلفيرسبيرج</span></div>
+    <div class="standings-note">🥇 <b>الصدارة الحالية:</b> فرايبورج ودورتموند بـ9 نقاط لكل منهما، ويواجهان خصمين مباشرين من أصحاب المراكز العليا</div>
+  </div>
+
+  <!-- الدوري الفرنسي -->
+  <div class="league-card">
+    <div class="league-head"><span class="flag">🇫🇷</span> الدوري الفرنسي — الجولة الخامسة</div>
+    <div class="day-label">الجمعة 18 سبتمبر</div>
+    <div class="match-row"><span class="side">موناكو</span><div class="time-block"><span class="time">9:45 م</span></div><span class="side away">لانس</span></div>
+    <div class="day-label">السبت 19 سبتمبر</div>
+    <div class="match-row"><span class="side">باريس إف سي</span><div class="time-block"><span class="time">3:15 م</span></div><span class="side away">ستراسبورج</span></div>
+    <div class="match-row"><span class="side">تولوز</span><div class="time-block"><span class="time">6:45 م</span></div><span class="side away">لوهافر</span></div>
+    <div class="match-row"><span class="side">ليون</span><div class="time-block"><span class="time">6:45 م</span></div><span class="side away">رين</span></div>
+    <div class="match-row"><span class="side">لو مان</span><div class="time-block"><span class="time">6:45 م</span></div><span class="side away">لوريان</span></div>
+    <div class="day-label">الأحد 20 سبتمبر</div>
+    <div class="match-row"><span class="side">أوكسير</span><div class="time-block"><span class="time">1:00 م</span></div><span class="side away">بريست</span></div>
+    <div class="match-row"><span class="side">نيس</span><div class="time-block"><span class="time">3:15 م</span></div><span class="side away">ليل</span></div>
+    <div class="match-row"><span class="side">أولمبيك مارسيليا</span><div class="time-block"><span class="time">8:45 م</span><span class="channel">Ligue 1+</span></div><span class="side away">باريس سان جيرمان</span></div>
+    <div class="standings-note">🥇 <b>الصدارة الحالية:</b> ليل يتصدر بـ10 نقاط — مارسيليا في موقف صعب بعد 3 هزائم متتالية قبل استضافة PSG</div>
+  </div>
+
+  <div class="footnote">
+    <i class="fa-solid fa-circle-info"></i>
+    <span>كل المواعيد بتوقيت القاهرة والرياض وقابلة للتعديل حسب تحديثات القنوات الناقلة. تابع صفحة "المباريات" على GoalZone لآخر تحديث لحظة بلحظة، وهنرجع بتقرير نتائج بعد ما تنتهي الجولة.</span>
+  </div>
+
+</div>
+
+<footer>© 2026 GoalZone — جميع الحقوق محفوظة</footer>
+
+<button class="gz-share-btn" id="gzShareBtn" title="مشاركة" aria-label="مشاركة">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L7.04 9.81C6.5 9.31 5.79 9 5 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+</button>
+<script>
+  const gzShareBtn = document.getElementById('gzShareBtn');
+  gzShareBtn.addEventListener('click', async ()=>{
+    const shareData = { title: document.title, text: 'مواعيد مباريات الأسبوع القادمة على GoalZone ⚽', url: location.href };
+    if(navigator.share){
+      try{ await navigator.share(shareData); }catch(e){}
+    }else{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        gzShareBtn.classList.add('copied');
+        setTimeout(()=>gzShareBtn.classList.remove('copied'), 1500);
+      }catch(e){
+        prompt('انسخ الرابط ده وشاركه:', location.href);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
