@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1e2a52">
 <title>تقرير مباريات الأسبوع — الدوريات الخمسة الكبرى | GoalZone</title>
+<meta property="og:type" content="article">
+<meta property="og:title" content="تقرير مباريات الأسبوع — الدوريات الخمسة الكبرى">
+<meta property="og:description" content="ملخص شامل لنتائج الأسبوع في الليجا والبريميرليج والسيريا آ والبوندسليجا والدوري الفرنسي">
+<meta property="og:image" content="https://haleemhlmygl-source.github.io/koora/og-image.png">
+<meta property="og:url" content="https://haleemhlmygl-source.github.io/koora/news/weekly-report.html">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://haleemhlmygl-source.github.io/koora/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -60,6 +68,11 @@
   .footnote i{color:var(--gold-deep);flex-shrink:0;margin-top:2px;}
 
   footer{text-align:center;padding:1.5rem 1rem;color:var(--text-dim);font-size:.76rem;}
+
+  /* ===== Share button ===== */
+  .gz-share-btn{position:fixed;bottom:20px;left:16px;width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--navy);border:none;box-shadow:0 4px 14px rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:70;transition:background .2s, transform .15s;}
+  .gz-share-btn:active{transform:scale(0.92);}
+  .gz-share-btn.copied{background:var(--green);color:#fff;}
 </style>
 </head>
 <body>
@@ -177,6 +190,27 @@
 </div>
 
 <footer>© 2026 GoalZone — جميع الحقوق محفوظة</footer>
+
+<button class="gz-share-btn" id="gzShareBtn" title="مشاركة" aria-label="مشاركة">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L7.04 9.81C6.5 9.31 5.79 9 5 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+</button>
+<script>
+  const gzShareBtn = document.getElementById('gzShareBtn');
+  gzShareBtn.addEventListener('click', async ()=>{
+    const shareData = { title: document.title, text: 'شوف ده على GoalZone ⚽', url: location.href };
+    if(navigator.share){
+      try{ await navigator.share(shareData); }catch(e){}
+    }else{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        gzShareBtn.classList.add('copied');
+        setTimeout(()=>gzShareBtn.classList.remove('copied'), 1500);
+      }catch(e){
+        prompt('انسخ الرابط ده وشاركه:', location.href);
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
