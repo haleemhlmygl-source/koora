@@ -1,4 +1,5 @@
-const CACHE_NAME = 'goalzone-v1';
+const CACHE_VERSION = 'v2';
+const CACHE_NAME = `goalzone-${CACHE_VERSION}`;
 const SHELL_FILES = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (event) => {
@@ -18,10 +19,31 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // لا نخزن طلبات الـ API — دايماً نجيبها لايف من السيرفر
-  if (event.request.url.includes('workers.dev')) return;
+  const req = event.request;
 
+  // لا نتدخل في طلبات الـ API — دايماً لايف من السيرفر
+  if (req.url.includes('workers.dev')) return;
+
+  // الصفحات (HTML): نجيبها لايف من السيرفر أولاً عشان أي تحديث يظهر فورًا.
+  // لو مفيش نت (أوفلاين)، نرجع لآخر نسخة متخزنة كحل احتياطي فقط.
+  const isHTML = req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html');
+  if (isHTML) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          const resClone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+          return res;
+        })
+        .catch(() =>
+          caches.match(req).then((cached) => cached || caches.match('./index.html'))
+        )
+    );
+    return;
+  }
+
+  // باقي الملفات (صور، خطوط، JS خارجي..): كاش أولاً، وأسرع في التحميل
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    caches.match(req).then((cached) => cached || fetch(req))
   );
 });
